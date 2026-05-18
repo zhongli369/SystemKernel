@@ -1,0 +1,32 @@
+{
+  "name": "react",
+  "display_name": "React 生态系统包",
+  "display_name_en": "React Ecosystem Pack",
+  "description": "React 及 React Native 开发：最佳实践、组件组合模式、视图过渡、Web 设计规范",
+  "version": "1.0.0",
+  "installable": true,
+  "tags": ["react", "frontend", "web", "mobile", "design"],
+  "dependencies": [],
+  "skills": [
+    "react-best-practices",
+    "composition-patterns",
+    "react-view-transitions",
+    "react-native-skills",
+    "web-design-guidelines"
+  ],
+  "auto_match_keywords": [
+    "react",
+    "jsx",
+    "component",
+    "frontend",
+    "web design",
+    "mobile",
+    "native",
+    "composition",
+    "pattern",
+    "view transition",
+    "css",
+    "responsive",
+    "design system"
+  ]
+}

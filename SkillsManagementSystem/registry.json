@@ -1,7 +1,7 @@
 {
   "$schema": "claude-code-skill-registry/v1",
-  "version": "2.0.0",
-  "last_updated": "2026-05-16T08:39:02Z",
+  "version": "2.1.0",
+  "last_updated": "2026-05-18T14:00:00Z",
   "description": "Central registry. Three categories: packages (installable), sources (discovery-only), indexes (search-only).",
   "shared": {
     "office-scripts": {
@@ -87,6 +87,44 @@
         "webapp-testing"
       ]
     },
+    "react": {
+      "display_name": "React 生态系统包",
+      "display_name_en": "React Ecosystem Pack",
+      "description": "React 及 React Native 开发：最佳实践、组件组合模式、视图过渡、Web 设计规范",
+      "version": "1.0.0",
+      "installable": true,
+      "install_command": "install react",
+      "skills": [
+        "react-best-practices",
+        "composition-patterns",
+        "react-view-transitions",
+        "react-native-skills",
+        "web-design-guidelines"
+      ]
+    },
+    "vercel": {
+      "display_name": "Vercel 部署包",
+      "display_name_en": "Vercel Deployment Pack",
+      "description": "Vercel 平台部署与 CLI 管理：项目部署、环境配置、Token 管理",
+      "version": "1.0.0",
+      "installable": true,
+      "install_command": "install vercel",
+      "skills": [
+        "deploy-to-vercel",
+        "vercel-cli-with-tokens"
+      ]
+    },
+    "skill-tools": {
+      "display_name": "技能开发工具包",
+      "display_name_en": "Skill Development Tools",
+      "description": "技能创建与开发工具：技能模板、Skill Creator 辅助",
+      "version": "1.0.0",
+      "installable": true,
+      "install_command": "install skill-tools",
+      "skills": [
+        "template"
+      ]
+    },
     "vercel-agent-skills": {
       "display_name": "Vercel Agent Skills",
       "display_name_en": "Vercel Agent Skills",
@@ -96,14 +134,11 @@
       "install_command": "npx skills add vercel-labs/agent-skills",
       "external": true,
       "skills": [
-        "react-best-practices",
-        "web-design-guidelines",
-        "composition-patterns",
         "next-best-practices",
         "next-cache-components",
-        "next-upgrade",
-        "react-native-skills"
-      ]
+        "next-upgrade"
+      ],
+      "note": "React/Vercel skills 已集成到本地 react 和 vercel 包中，无需通过 npx 安装"
     },
     "find-skill": {
       "display_name": "技能发现工具",
@@ -324,22 +359,25 @@
     "react-best-practices": {
       "version": "1.5.5",
       "description": "React patterns and best practices from Vercel",
-      "package": "vercel-agent-skills",
-      "external": true,
+      "package": "react",
       "shared_dependencies": []
     },
     "web-design-guidelines": {
       "version": "1.5.5",
       "description": "Web design standards and guidelines from Vercel",
-      "package": "vercel-agent-skills",
-      "external": true,
+      "package": "react",
       "shared_dependencies": []
     },
     "composition-patterns": {
       "version": "1.5.5",
       "description": "React component composition patterns from Vercel",
-      "package": "vercel-agent-skills",
-      "external": true,
+      "package": "react",
+      "shared_dependencies": []
+    },
+    "react-view-transitions": {
+      "version": "1.5.5",
+      "description": "React View Transitions API patterns and usage",
+      "package": "react",
       "shared_dependencies": []
     },
     "next-best-practices": {
@@ -366,8 +404,25 @@
     "react-native-skills": {
       "version": "1.5.5",
       "description": "React Native best practices and patterns",
-      "package": "vercel-agent-skills",
-      "external": true,
+      "package": "react",
+      "shared_dependencies": []
+    },
+    "deploy-to-vercel": {
+      "version": "1.5.5",
+      "description": "Deploy applications to Vercel with environment and domain configuration",
+      "package": "vercel",
+      "shared_dependencies": []
+    },
+    "vercel-cli-with-tokens": {
+      "version": "1.5.5",
+      "description": "Manage Vercel CLI authentication tokens and team/project context",
+      "package": "vercel",
+      "shared_dependencies": []
+    },
+    "template": {
+      "version": "1.0.0",
+      "description": "Skill template for creating new Claude Code skills",
+      "package": "skill-tools",
       "shared_dependencies": []
     },
     "find-skills": {

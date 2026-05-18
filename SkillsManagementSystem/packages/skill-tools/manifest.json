@@ -1,0 +1,21 @@
+{
+  "name": "skill-tools",
+  "display_name": "技能开发工具包",
+  "display_name_en": "Skill Development Tools",
+  "description": "技能创建与开发工具：技能模板、Skill Creator 辅助",
+  "version": "1.0.0",
+  "installable": true,
+  "tags": ["meta", "skill-creation", "template", "development"],
+  "dependencies": [],
+  "skills": [
+    "template"
+  ],
+  "auto_match_keywords": [
+    "template",
+    "skill",
+    "create skill",
+    "new skill",
+    "scaffold",
+    "boilerplate"
+  ]
+}

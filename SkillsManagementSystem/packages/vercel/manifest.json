@@ -1,0 +1,27 @@
+{
+  "name": "vercel",
+  "display_name": "Vercel 部署包",
+  "display_name_en": "Vercel Deployment Pack",
+  "description": "Vercel 平台部署与 CLI 管理：项目部署、环境配置、Token 管理",
+  "version": "1.0.0",
+  "installable": true,
+  "tags": ["vercel", "deploy", "cloud", "ci-cd", "hosting"],
+  "dependencies": [],
+  "skills": [
+    "deploy-to-vercel",
+    "vercel-cli-with-tokens"
+  ],
+  "auto_match_keywords": [
+    "vercel",
+    "deploy",
+    "deployment",
+    "hosting",
+    "cloud",
+    "preview",
+    "production",
+    "token",
+    "environment",
+    "domain",
+    "serverless"
+  ]
+}

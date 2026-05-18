@@ -1,0 +1,195 @@
+{
+  "repo_path": "F:\\Claude\\SystemKernel\\SkillsManagementSystem",
+  "installed_packages": {
+    "base": {
+      "version": "1.0.0",
+      "installed_at": "2026-05-18T06:05:17Z"
+    },
+    "dev": {
+      "version": "1.0.0",
+      "installed_at": "2026-05-18T06:05:23Z"
+    },
+    "office": {
+      "version": "1.0.0",
+      "installed_at": "2026-05-18T06:05:24Z"
+    },
+    "dsa": {
+      "version": "1.0.0",
+      "installed_at": "2026-05-18T06:05:24Z"
+    },
+    "react": {
+      "version": "1.0.0",
+      "installed_at": "2026-05-18T08:31:40Z"
+    },
+    "vercel": {
+      "version": "1.0.0",
+      "installed_at": "2026-05-18T08:31:40Z"
+    },
+    "skill-tools": {
+      "version": "1.0.0",
+      "installed_at": "2026-05-18T08:31:40Z"
+    }
+  },
+  "installed_skills": {
+    "code-review": {
+      "package": "base",
+      "version": "1.0.0",
+      "installed_at": "2026-05-18T06:05:17Z"
+    },
+    "debugger": {
+      "package": "base",
+      "version": "1.0.0",
+      "installed_at": "2026-05-18T06:05:17Z"
+    },
+    "repo-analyzer": {
+      "package": "base",
+      "version": "1.0.0",
+      "installed_at": "2026-05-18T06:05:17Z"
+    },
+    "reflective-reasoning": {
+      "package": "base",
+      "version": "1.0.0",
+      "installed_at": "2026-05-18T06:05:17Z"
+    },
+    "researcher": {
+      "package": "base",
+      "version": "1.0.0",
+      "installed_at": "2026-05-18T06:05:17Z"
+    },
+    "skill-creator": {
+      "package": "base",
+      "version": "1.0.0",
+      "installed_at": "2026-05-18T08:31:40Z"
+    },
+    "markdown-analyzer": {
+      "package": "base",
+      "version": "1.0.0",
+      "installed_at": "2026-05-18T06:05:17Z"
+    },
+    "claude-api": {
+      "package": "dev",
+      "version": "1.0.0",
+      "installed_at": "2026-05-18T08:31:40Z"
+    },
+    "algorithmic-art": {
+      "package": "dev",
+      "version": "1.0.0",
+      "installed_at": "2026-05-18T08:31:40Z"
+    },
+    "brand-guidelines": {
+      "package": "dev",
+      "version": "1.0.0",
+      "installed_at": "2026-05-18T08:31:40Z"
+    },
+    "canvas-design": {
+      "package": "dev",
+      "version": "1.0.0",
+      "installed_at": "2026-05-18T08:31:40Z"
+    },
+    "doc-coauthoring": {
+      "package": "dev",
+      "version": "1.0.0",
+      "installed_at": "2026-05-18T08:31:40Z"
+    },
+    "frontend-design": {
+      "package": "dev",
+      "version": "1.0.0",
+      "installed_at": "2026-05-18T08:31:40Z"
+    },
+    "internal-comms": {
+      "package": "dev",
+      "version": "1.0.0",
+      "installed_at": "2026-05-18T08:31:40Z"
+    },
+    "mcp-builder": {
+      "package": "dev",
+      "version": "1.0.0",
+      "installed_at": "2026-05-18T08:31:40Z"
+    },
+    "slack-gif-creator": {
+      "package": "dev",
+      "version": "1.0.0",
+      "installed_at": "2026-05-18T08:31:40Z"
+    },
+    "theme-factory": {
+      "package": "dev",
+      "version": "1.0.0",
+      "installed_at": "2026-05-18T08:31:40Z"
+    },
+    "web-artifacts-builder": {
+      "package": "dev",
+      "version": "1.0.0",
+      "installed_at": "2026-05-18T08:31:40Z"
+    },
+    "webapp-testing": {
+      "package": "dev",
+      "version": "1.0.0",
+      "installed_at": "2026-05-18T08:31:40Z"
+    },
+    "docx": {
+      "package": "office",
+      "version": "1.0.0",
+      "installed_at": "2026-05-18T08:31:40Z"
+    },
+    "xlsx": {
+      "package": "office",
+      "version": "1.0.0",
+      "installed_at": "2026-05-18T08:31:40Z"
+    },
+    "pptx": {
+      "package": "office",
+      "version": "1.0.0",
+      "installed_at": "2026-05-18T08:31:40Z"
+    },
+    "pdf": {
+      "package": "office",
+      "version": "1.0.0",
+      "installed_at": "2026-05-18T08:31:40Z"
+    },
+    "algorithm-explainer": {
+      "package": "dsa",
+      "version": "1.0.0",
+      "installed_at": "2026-05-18T06:05:24Z"
+    },
+    "template": {
+      "package": "skill-tools",
+      "version": "1.0.0",
+      "installed_at": "2026-05-18T08:31:40Z"
+    },
+    "composition-patterns": {
+      "package": "react",
+      "version": "1.0.0",
+      "installed_at": "2026-05-18T08:31:40Z"
+    },
+    "deploy-to-vercel": {
+      "package": "vercel",
+      "version": "1.0.0",
+      "installed_at": "2026-05-18T08:31:40Z"
+    },
+    "react-best-practices": {
+      "package": "react",
+      "version": "1.0.0",
+      "installed_at": "2026-05-18T08:31:40Z"
+    },
+    "react-native-skills": {
+      "package": "react",
+      "version": "1.0.0",
+      "installed_at": "2026-05-18T08:31:40Z"
+    },
+    "react-view-transitions": {
+      "package": "react",
+      "version": "1.0.0",
+      "installed_at": "2026-05-18T08:31:40Z"
+    },
+    "vercel-cli-with-tokens": {
+      "package": "vercel",
+      "version": "1.0.0",
+      "installed_at": "2026-05-18T08:31:40Z"
+    },
+    "web-design-guidelines": {
+      "package": "react",
+      "version": "1.0.0",
+      "installed_at": "2026-05-18T08:31:40Z"
+    }
+  }
+}
