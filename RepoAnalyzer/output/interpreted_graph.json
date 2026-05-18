@@ -1,0 +1,1389 @@
+{
+  "schema_version": "repoanalyzer.v1",
+  "repo_id": "RepoAnalyzer",
+  "phase": "interpret",
+  "generated_at": "2026-05-17T16:03:09Z",
+  "data": {
+    "nodes": [
+      {
+        "id": "cli.py",
+        "role": "entrypoint",
+        "importance_score": 1.0,
+        "is_entrypoint": true,
+        "criticality_score": 0.9,
+        "system_role": "system_entry",
+        "impact_level": "high"
+      },
+      {
+        "id": "core/__init__.py",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "criticality_score": 0.0,
+        "system_role": "leaf_module",
+        "impact_level": "low"
+      },
+      {
+        "id": "core/architecture_layering.py",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "criticality_score": 0.46,
+        "system_role": "business_core",
+        "impact_level": "medium"
+      },
+      {
+        "id": "core/architecture_task_mapper.py",
+        "role": "service",
+        "importance_score": 0.9500000000000001,
+        "is_entrypoint": false,
+        "criticality_score": 0.491,
+        "system_role": "business_core",
+        "impact_level": "medium"
+      },
+      {
+        "id": "core/bottleneck_detector.py",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "criticality_score": 0.46,
+        "system_role": "business_core",
+        "impact_level": "medium"
+      },
+      {
+        "id": "core/bottleneck_task_generator.py",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "criticality_score": 0.478,
+        "system_role": "business_core",
+        "impact_level": "medium"
+      },
+      {
+        "id": "core/coupling_analyzer.py",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "criticality_score": 0.46,
+        "system_role": "business_core",
+        "impact_level": "medium"
+      },
+      {
+        "id": "core/coupling_task_builder.py",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "criticality_score": 0.478,
+        "system_role": "business_core",
+        "impact_level": "medium"
+      },
+      {
+        "id": "core/criticality_scorer.py",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "criticality_score": 0.46,
+        "system_role": "business_core",
+        "impact_level": "medium"
+      },
+      {
+        "id": "core/dependency_builder.py",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "criticality_score": 0.497,
+        "system_role": "business_core",
+        "impact_level": "medium"
+      },
+      {
+        "id": "core/dependency_meaning_inferer.py",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "criticality_score": 0.441,
+        "system_role": "leaf_module",
+        "impact_level": "medium"
+      },
+      {
+        "id": "core/dependency_pipeline.py",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "criticality_score": 0.478,
+        "system_role": "business_core",
+        "impact_level": "medium"
+      },
+      {
+        "id": "core/enrich_pipeline.py",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "criticality_score": 0.553,
+        "system_role": "orchestrator",
+        "impact_level": "medium"
+      },
+      {
+        "id": "core/entrypoint_detector.py",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "criticality_score": 0.441,
+        "system_role": "leaf_module",
+        "impact_level": "medium"
+      },
+      {
+        "id": "core/global_task_id.py",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "criticality_score": 0.472,
+        "system_role": "business_core",
+        "impact_level": "medium"
+      },
+      {
+        "id": "core/graph_analyzer.py",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "criticality_score": 0.497,
+        "system_role": "business_core",
+        "impact_level": "medium"
+      },
+      {
+        "id": "core/graph_builder.py",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "criticality_score": 0.494,
+        "system_role": "business_core",
+        "impact_level": "medium"
+      },
+      {
+        "id": "core/graph_indexer.py",
+        "role": "service",
+        "importance_score": 0.9500000000000001,
+        "is_entrypoint": false,
+        "criticality_score": 0.472,
+        "system_role": "business_core",
+        "impact_level": "medium"
+      },
+      {
+        "id": "core/graph_pipeline.py",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "criticality_score": 0.516,
+        "system_role": "orchestrator",
+        "impact_level": "medium"
+      },
+      {
+        "id": "core/impact_analyzer.py",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "criticality_score": 0.441,
+        "system_role": "leaf_module",
+        "impact_level": "medium"
+      },
+      {
+        "id": "core/impact_task_analyzer.py",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "criticality_score": 0.441,
+        "system_role": "leaf_module",
+        "impact_level": "medium"
+      },
+      {
+        "id": "core/import_extractor.py",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "criticality_score": 0.441,
+        "system_role": "leaf_module",
+        "impact_level": "medium"
+      },
+      {
+        "id": "core/importance_scorer.py",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "criticality_score": 0.441,
+        "system_role": "leaf_module",
+        "impact_level": "medium"
+      },
+      {
+        "id": "core/interpretation_pipeline.py",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "criticality_score": 0.553,
+        "system_role": "orchestrator",
+        "impact_level": "medium"
+      },
+      {
+        "id": "core/model.py",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "criticality_score": 0.725,
+        "system_role": "shared_core",
+        "impact_level": "high"
+      },
+      {
+        "id": "core/output_contract.py",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "criticality_score": 0.605,
+        "system_role": "shared_core",
+        "impact_level": "medium"
+      },
+      {
+        "id": "core/parser.py",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "criticality_score": 0.478,
+        "system_role": "business_core",
+        "impact_level": "medium"
+      },
+      {
+        "id": "core/path_resolver.py",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "criticality_score": 0.441,
+        "system_role": "leaf_module",
+        "impact_level": "medium"
+      },
+      {
+        "id": "core/role_classifier.py",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "criticality_score": 0.441,
+        "system_role": "leaf_module",
+        "impact_level": "medium"
+      },
+      {
+        "id": "core/scanner.py",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "criticality_score": 0.441,
+        "system_role": "leaf_module",
+        "impact_level": "medium"
+      },
+      {
+        "id": "core/skill_suggestion_mapper.py",
+        "role": "service",
+        "importance_score": 0.9500000000000001,
+        "is_entrypoint": false,
+        "criticality_score": 0.453,
+        "system_role": "leaf_module",
+        "impact_level": "medium"
+      },
+      {
+        "id": "core/system_health_reporter.py",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "criticality_score": 0.46,
+        "system_role": "business_core",
+        "impact_level": "medium"
+      },
+      {
+        "id": "core/system_insights_pipeline.py",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "criticality_score": 0.553,
+        "system_role": "orchestrator",
+        "impact_level": "medium"
+      },
+      {
+        "id": "core/system_role_classifier.py",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "criticality_score": 0.46,
+        "system_role": "business_core",
+        "impact_level": "medium"
+      },
+      {
+        "id": "core/tag_generator.py",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "criticality_score": 0.441,
+        "system_role": "leaf_module",
+        "impact_level": "medium"
+      },
+      {
+        "id": "core/task_planning_pipeline.py",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "criticality_score": 0.572,
+        "system_role": "orchestrator",
+        "impact_level": "medium"
+      },
+      {
+        "id": "core/time_utils.py",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "criticality_score": 0.441,
+        "system_role": "leaf_module",
+        "impact_level": "medium"
+      },
+      {
+        "id": "output/dependency_edges.json",
+        "role": "utility",
+        "importance_score": 0.5,
+        "is_entrypoint": false,
+        "criticality_score": 0.0,
+        "system_role": "leaf_module",
+        "impact_level": "low"
+      },
+      {
+        "id": "output/dependency_graph.json",
+        "role": "utility",
+        "importance_score": 0.5,
+        "is_entrypoint": false,
+        "criticality_score": 0.0,
+        "system_role": "leaf_module",
+        "impact_level": "low"
+      },
+      {
+        "id": "output/interpreted_graph.json",
+        "role": "utility",
+        "importance_score": 0.5,
+        "is_entrypoint": false,
+        "criticality_score": 0.0,
+        "system_role": "leaf_module",
+        "impact_level": "low"
+      },
+      {
+        "id": "output/repo_map.json",
+        "role": "utility",
+        "importance_score": 0.5,
+        "is_entrypoint": false,
+        "criticality_score": 0.0,
+        "system_role": "leaf_module",
+        "impact_level": "low"
+      },
+      {
+        "id": "output/repo_map_enriched.json",
+        "role": "utility",
+        "importance_score": 0.5,
+        "is_entrypoint": false,
+        "criticality_score": 0.0,
+        "system_role": "leaf_module",
+        "impact_level": "low"
+      },
+      {
+        "id": "output/system_insights.json",
+        "role": "utility",
+        "importance_score": 0.5,
+        "is_entrypoint": false,
+        "criticality_score": 0.0,
+        "system_role": "leaf_module",
+        "impact_level": "low"
+      },
+      {
+        "id": "output/task_plan.json",
+        "role": "utility",
+        "importance_score": 0.5,
+        "is_entrypoint": false,
+        "criticality_score": 0.0,
+        "system_role": "leaf_module",
+        "impact_level": "low"
+      }
+    ],
+    "edges": [
+      {
+        "from": "cli.py",
+        "to": "core/parser.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "orchestration_dependency"
+      },
+      {
+        "from": "cli.py",
+        "to": "core/enrich_pipeline.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "orchestration_dependency"
+      },
+      {
+        "from": "cli.py",
+        "to": "core/dependency_pipeline.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "orchestration_dependency"
+      },
+      {
+        "from": "cli.py",
+        "to": "core/graph_pipeline.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "orchestration_dependency"
+      },
+      {
+        "from": "cli.py",
+        "to": "core/interpretation_pipeline.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "orchestration_dependency"
+      },
+      {
+        "from": "cli.py",
+        "to": "core/system_insights_pipeline.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "orchestration_dependency"
+      },
+      {
+        "from": "cli.py",
+        "to": "core/task_planning_pipeline.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "orchestration_dependency"
+      },
+      {
+        "from": "cli.py",
+        "to": "core/output_contract.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "orchestration_dependency"
+      },
+      {
+        "from": "core/architecture_layering.py",
+        "to": "core/model.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "control_flow_dependency"
+      },
+      {
+        "from": "core/architecture_task_mapper.py",
+        "to": "core/model.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "control_flow_dependency"
+      },
+      {
+        "from": "core/architecture_task_mapper.py",
+        "to": "core/global_task_id.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "control_flow_dependency"
+      },
+      {
+        "from": "core/bottleneck_detector.py",
+        "to": "core/model.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "control_flow_dependency"
+      },
+      {
+        "from": "core/bottleneck_task_generator.py",
+        "to": "core/model.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "control_flow_dependency"
+      },
+      {
+        "from": "core/bottleneck_task_generator.py",
+        "to": "core/global_task_id.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "control_flow_dependency"
+      },
+      {
+        "from": "core/coupling_analyzer.py",
+        "to": "core/model.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "control_flow_dependency"
+      },
+      {
+        "from": "core/coupling_task_builder.py",
+        "to": "core/model.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "control_flow_dependency"
+      },
+      {
+        "from": "core/coupling_task_builder.py",
+        "to": "core/global_task_id.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "control_flow_dependency"
+      },
+      {
+        "from": "core/criticality_scorer.py",
+        "to": "core/model.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "control_flow_dependency"
+      },
+      {
+        "from": "core/dependency_builder.py",
+        "to": "core/model.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "control_flow_dependency"
+      },
+      {
+        "from": "core/dependency_builder.py",
+        "to": "core/import_extractor.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "control_flow_dependency"
+      },
+      {
+        "from": "core/dependency_builder.py",
+        "to": "core/path_resolver.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "control_flow_dependency"
+      },
+      {
+        "from": "core/dependency_pipeline.py",
+        "to": "core/dependency_builder.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "control_flow_dependency"
+      },
+      {
+        "from": "core/dependency_pipeline.py",
+        "to": "core/output_contract.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "control_flow_dependency"
+      },
+      {
+        "from": "core/enrich_pipeline.py",
+        "to": "core/model.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "core_dependency"
+      },
+      {
+        "from": "core/enrich_pipeline.py",
+        "to": "core/role_classifier.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "generic_dependency"
+      },
+      {
+        "from": "core/enrich_pipeline.py",
+        "to": "core/entrypoint_detector.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "generic_dependency"
+      },
+      {
+        "from": "core/enrich_pipeline.py",
+        "to": "core/importance_scorer.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "generic_dependency"
+      },
+      {
+        "from": "core/enrich_pipeline.py",
+        "to": "core/tag_generator.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "generic_dependency"
+      },
+      {
+        "from": "core/enrich_pipeline.py",
+        "to": "core/output_contract.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "core_dependency"
+      },
+      {
+        "from": "core/graph_analyzer.py",
+        "to": "core/model.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "control_flow_dependency"
+      },
+      {
+        "from": "core/graph_analyzer.py",
+        "to": "core/graph_builder.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "control_flow_dependency"
+      },
+      {
+        "from": "core/graph_analyzer.py",
+        "to": "core/graph_indexer.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "control_flow_dependency"
+      },
+      {
+        "from": "core/graph_builder.py",
+        "to": "core/model.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "control_flow_dependency"
+      },
+      {
+        "from": "core/graph_builder.py",
+        "to": "core/output_contract.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "control_flow_dependency"
+      },
+      {
+        "from": "core/graph_indexer.py",
+        "to": "core/model.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "control_flow_dependency"
+      },
+      {
+        "from": "core/graph_pipeline.py",
+        "to": "core/model.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "core_dependency"
+      },
+      {
+        "from": "core/graph_pipeline.py",
+        "to": "core/graph_builder.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "core_dependency"
+      },
+      {
+        "from": "core/graph_pipeline.py",
+        "to": "core/graph_analyzer.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "core_dependency"
+      },
+      {
+        "from": "core/graph_pipeline.py",
+        "to": "core/output_contract.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "core_dependency"
+      },
+      {
+        "from": "core/interpretation_pipeline.py",
+        "to": "core/model.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "core_dependency"
+      },
+      {
+        "from": "core/interpretation_pipeline.py",
+        "to": "core/criticality_scorer.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "core_dependency"
+      },
+      {
+        "from": "core/interpretation_pipeline.py",
+        "to": "core/system_role_classifier.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "core_dependency"
+      },
+      {
+        "from": "core/interpretation_pipeline.py",
+        "to": "core/dependency_meaning_inferer.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "generic_dependency"
+      },
+      {
+        "from": "core/interpretation_pipeline.py",
+        "to": "core/impact_analyzer.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "generic_dependency"
+      },
+      {
+        "from": "core/interpretation_pipeline.py",
+        "to": "core/output_contract.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "core_dependency"
+      },
+      {
+        "from": "core/output_contract.py",
+        "to": "core/output_contract.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "core_dependency"
+      },
+      {
+        "from": "core/output_contract.py",
+        "to": "core/time_utils.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "generic_dependency"
+      },
+      {
+        "from": "core/parser.py",
+        "to": "core/model.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "control_flow_dependency"
+      },
+      {
+        "from": "core/parser.py",
+        "to": "core/scanner.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "control_flow_dependency"
+      },
+      {
+        "from": "core/system_health_reporter.py",
+        "to": "core/model.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "control_flow_dependency"
+      },
+      {
+        "from": "core/system_insights_pipeline.py",
+        "to": "core/model.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "core_dependency"
+      },
+      {
+        "from": "core/system_insights_pipeline.py",
+        "to": "core/bottleneck_detector.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "core_dependency"
+      },
+      {
+        "from": "core/system_insights_pipeline.py",
+        "to": "core/architecture_layering.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "core_dependency"
+      },
+      {
+        "from": "core/system_insights_pipeline.py",
+        "to": "core/coupling_analyzer.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "core_dependency"
+      },
+      {
+        "from": "core/system_insights_pipeline.py",
+        "to": "core/system_health_reporter.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "core_dependency"
+      },
+      {
+        "from": "core/system_insights_pipeline.py",
+        "to": "core/output_contract.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "core_dependency"
+      },
+      {
+        "from": "core/system_role_classifier.py",
+        "to": "core/model.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "control_flow_dependency"
+      },
+      {
+        "from": "core/task_planning_pipeline.py",
+        "to": "core/model.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "core_dependency"
+      },
+      {
+        "from": "core/task_planning_pipeline.py",
+        "to": "core/bottleneck_task_generator.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "core_dependency"
+      },
+      {
+        "from": "core/task_planning_pipeline.py",
+        "to": "core/coupling_task_builder.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "core_dependency"
+      },
+      {
+        "from": "core/task_planning_pipeline.py",
+        "to": "core/architecture_task_mapper.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "core_dependency"
+      },
+      {
+        "from": "core/task_planning_pipeline.py",
+        "to": "core/impact_task_analyzer.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "generic_dependency"
+      },
+      {
+        "from": "core/task_planning_pipeline.py",
+        "to": "core/skill_suggestion_mapper.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "generic_dependency"
+      },
+      {
+        "from": "core/task_planning_pipeline.py",
+        "to": "core/output_contract.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0,
+        "dependency_type": "core_dependency"
+      }
+    ],
+    "adjacency_list": {
+      "cli.py": [
+        "core/dependency_pipeline.py",
+        "core/enrich_pipeline.py",
+        "core/graph_pipeline.py",
+        "core/interpretation_pipeline.py",
+        "core/output_contract.py",
+        "core/parser.py",
+        "core/system_insights_pipeline.py",
+        "core/task_planning_pipeline.py"
+      ],
+      "core/parser.py": [
+        "core/model.py",
+        "core/scanner.py"
+      ],
+      "core/enrich_pipeline.py": [
+        "core/entrypoint_detector.py",
+        "core/importance_scorer.py",
+        "core/model.py",
+        "core/output_contract.py",
+        "core/role_classifier.py",
+        "core/tag_generator.py"
+      ],
+      "core/dependency_pipeline.py": [
+        "core/dependency_builder.py",
+        "core/output_contract.py"
+      ],
+      "core/graph_pipeline.py": [
+        "core/graph_analyzer.py",
+        "core/graph_builder.py",
+        "core/model.py",
+        "core/output_contract.py"
+      ],
+      "core/interpretation_pipeline.py": [
+        "core/criticality_scorer.py",
+        "core/dependency_meaning_inferer.py",
+        "core/impact_analyzer.py",
+        "core/model.py",
+        "core/output_contract.py",
+        "core/system_role_classifier.py"
+      ],
+      "core/system_insights_pipeline.py": [
+        "core/architecture_layering.py",
+        "core/bottleneck_detector.py",
+        "core/coupling_analyzer.py",
+        "core/model.py",
+        "core/output_contract.py",
+        "core/system_health_reporter.py"
+      ],
+      "core/task_planning_pipeline.py": [
+        "core/architecture_task_mapper.py",
+        "core/bottleneck_task_generator.py",
+        "core/coupling_task_builder.py",
+        "core/impact_task_analyzer.py",
+        "core/model.py",
+        "core/output_contract.py",
+        "core/skill_suggestion_mapper.py"
+      ],
+      "core/output_contract.py": [
+        "core/output_contract.py",
+        "core/time_utils.py"
+      ],
+      "core/architecture_layering.py": [
+        "core/model.py"
+      ],
+      "core/model.py": [],
+      "core/architecture_task_mapper.py": [
+        "core/global_task_id.py",
+        "core/model.py"
+      ],
+      "core/global_task_id.py": [],
+      "core/bottleneck_detector.py": [
+        "core/model.py"
+      ],
+      "core/bottleneck_task_generator.py": [
+        "core/global_task_id.py",
+        "core/model.py"
+      ],
+      "core/coupling_analyzer.py": [
+        "core/model.py"
+      ],
+      "core/coupling_task_builder.py": [
+        "core/global_task_id.py",
+        "core/model.py"
+      ],
+      "core/criticality_scorer.py": [
+        "core/model.py"
+      ],
+      "core/dependency_builder.py": [
+        "core/import_extractor.py",
+        "core/model.py",
+        "core/path_resolver.py"
+      ],
+      "core/import_extractor.py": [],
+      "core/path_resolver.py": [],
+      "core/role_classifier.py": [],
+      "core/entrypoint_detector.py": [],
+      "core/importance_scorer.py": [],
+      "core/tag_generator.py": [],
+      "core/graph_analyzer.py": [
+        "core/graph_builder.py",
+        "core/graph_indexer.py",
+        "core/model.py"
+      ],
+      "core/graph_builder.py": [
+        "core/model.py",
+        "core/output_contract.py"
+      ],
+      "core/graph_indexer.py": [
+        "core/model.py"
+      ],
+      "core/system_role_classifier.py": [
+        "core/model.py"
+      ],
+      "core/dependency_meaning_inferer.py": [],
+      "core/impact_analyzer.py": [],
+      "core/time_utils.py": [],
+      "core/scanner.py": [],
+      "core/system_health_reporter.py": [
+        "core/model.py"
+      ],
+      "core/impact_task_analyzer.py": [],
+      "core/skill_suggestion_mapper.py": []
+    },
+    "reverse_adjacency_list": {
+      "core/parser.py": [
+        "cli.py"
+      ],
+      "cli.py": [],
+      "core/enrich_pipeline.py": [
+        "cli.py"
+      ],
+      "core/dependency_pipeline.py": [
+        "cli.py"
+      ],
+      "core/graph_pipeline.py": [
+        "cli.py"
+      ],
+      "core/interpretation_pipeline.py": [
+        "cli.py"
+      ],
+      "core/system_insights_pipeline.py": [
+        "cli.py"
+      ],
+      "core/task_planning_pipeline.py": [
+        "cli.py"
+      ],
+      "core/output_contract.py": [
+        "cli.py",
+        "core/dependency_pipeline.py",
+        "core/enrich_pipeline.py",
+        "core/graph_builder.py",
+        "core/graph_pipeline.py",
+        "core/interpretation_pipeline.py",
+        "core/output_contract.py",
+        "core/system_insights_pipeline.py",
+        "core/task_planning_pipeline.py"
+      ],
+      "core/model.py": [
+        "core/architecture_layering.py",
+        "core/architecture_task_mapper.py",
+        "core/bottleneck_detector.py",
+        "core/bottleneck_task_generator.py",
+        "core/coupling_analyzer.py",
+        "core/coupling_task_builder.py",
+        "core/criticality_scorer.py",
+        "core/dependency_builder.py",
+        "core/enrich_pipeline.py",
+        "core/graph_analyzer.py",
+        "core/graph_builder.py",
+        "core/graph_indexer.py",
+        "core/graph_pipeline.py",
+        "core/interpretation_pipeline.py",
+        "core/parser.py",
+        "core/system_health_reporter.py",
+        "core/system_insights_pipeline.py",
+        "core/system_role_classifier.py",
+        "core/task_planning_pipeline.py"
+      ],
+      "core/architecture_layering.py": [
+        "core/system_insights_pipeline.py"
+      ],
+      "core/architecture_task_mapper.py": [
+        "core/task_planning_pipeline.py"
+      ],
+      "core/global_task_id.py": [
+        "core/architecture_task_mapper.py",
+        "core/bottleneck_task_generator.py",
+        "core/coupling_task_builder.py"
+      ],
+      "core/bottleneck_detector.py": [
+        "core/system_insights_pipeline.py"
+      ],
+      "core/bottleneck_task_generator.py": [
+        "core/task_planning_pipeline.py"
+      ],
+      "core/coupling_analyzer.py": [
+        "core/system_insights_pipeline.py"
+      ],
+      "core/coupling_task_builder.py": [
+        "core/task_planning_pipeline.py"
+      ],
+      "core/criticality_scorer.py": [
+        "core/interpretation_pipeline.py"
+      ],
+      "core/dependency_builder.py": [
+        "core/dependency_pipeline.py"
+      ],
+      "core/import_extractor.py": [
+        "core/dependency_builder.py"
+      ],
+      "core/path_resolver.py": [
+        "core/dependency_builder.py"
+      ],
+      "core/role_classifier.py": [
+        "core/enrich_pipeline.py"
+      ],
+      "core/entrypoint_detector.py": [
+        "core/enrich_pipeline.py"
+      ],
+      "core/importance_scorer.py": [
+        "core/enrich_pipeline.py"
+      ],
+      "core/tag_generator.py": [
+        "core/enrich_pipeline.py"
+      ],
+      "core/graph_analyzer.py": [
+        "core/graph_pipeline.py"
+      ],
+      "core/graph_builder.py": [
+        "core/graph_analyzer.py",
+        "core/graph_pipeline.py"
+      ],
+      "core/graph_indexer.py": [
+        "core/graph_analyzer.py"
+      ],
+      "core/system_role_classifier.py": [
+        "core/interpretation_pipeline.py"
+      ],
+      "core/dependency_meaning_inferer.py": [
+        "core/interpretation_pipeline.py"
+      ],
+      "core/impact_analyzer.py": [
+        "core/interpretation_pipeline.py"
+      ],
+      "core/time_utils.py": [
+        "core/output_contract.py"
+      ],
+      "core/scanner.py": [
+        "core/parser.py"
+      ],
+      "core/system_health_reporter.py": [
+        "core/system_insights_pipeline.py"
+      ],
+      "core/impact_task_analyzer.py": [
+        "core/task_planning_pipeline.py"
+      ],
+      "core/skill_suggestion_mapper.py": [
+        "core/task_planning_pipeline.py"
+      ]
+    },
+    "stats": {
+      "total_nodes": 44,
+      "total_edges": 64,
+      "criticality_distribution": {
+        "high": 2,
+        "medium": 34,
+        "low": 8
+      },
+      "system_role_distribution": {
+        "system_entry": 1,
+        "leaf_module": 20,
+        "business_core": 16,
+        "orchestrator": 5,
+        "shared_core": 2
+      },
+      "dependency_type_distribution": {
+        "orchestration_dependency": 8,
+        "control_flow_dependency": 25,
+        "core_dependency": 22,
+        "generic_dependency": 9
+      },
+      "isolated_nodes": [],
+      "entrypoint_reachability": {
+        "cli.py": [
+          "core/architecture_layering.py",
+          "core/architecture_task_mapper.py",
+          "core/bottleneck_detector.py",
+          "core/bottleneck_task_generator.py",
+          "core/coupling_analyzer.py",
+          "core/coupling_task_builder.py",
+          "core/criticality_scorer.py",
+          "core/dependency_builder.py",
+          "core/dependency_meaning_inferer.py",
+          "core/dependency_pipeline.py",
+          "core/enrich_pipeline.py",
+          "core/entrypoint_detector.py",
+          "core/global_task_id.py",
+          "core/graph_analyzer.py",
+          "core/graph_builder.py",
+          "core/graph_indexer.py",
+          "core/graph_pipeline.py",
+          "core/impact_analyzer.py",
+          "core/impact_task_analyzer.py",
+          "core/import_extractor.py",
+          "core/importance_scorer.py",
+          "core/interpretation_pipeline.py",
+          "core/model.py",
+          "core/output_contract.py",
+          "core/parser.py",
+          "core/path_resolver.py",
+          "core/role_classifier.py",
+          "core/scanner.py",
+          "core/skill_suggestion_mapper.py",
+          "core/system_health_reporter.py",
+          "core/system_insights_pipeline.py",
+          "core/system_role_classifier.py",
+          "core/tag_generator.py",
+          "core/task_planning_pipeline.py",
+          "core/time_utils.py"
+        ]
+      },
+      "fan_stats": {
+        "cli.py": {
+          "fan_in": 0,
+          "fan_out": 8
+        },
+        "core/architecture_layering.py": {
+          "fan_in": 1,
+          "fan_out": 1
+        },
+        "core/architecture_task_mapper.py": {
+          "fan_in": 1,
+          "fan_out": 2
+        },
+        "core/bottleneck_detector.py": {
+          "fan_in": 1,
+          "fan_out": 1
+        },
+        "core/bottleneck_task_generator.py": {
+          "fan_in": 1,
+          "fan_out": 2
+        },
+        "core/coupling_analyzer.py": {
+          "fan_in": 1,
+          "fan_out": 1
+        },
+        "core/coupling_task_builder.py": {
+          "fan_in": 1,
+          "fan_out": 2
+        },
+        "core/criticality_scorer.py": {
+          "fan_in": 1,
+          "fan_out": 1
+        },
+        "core/dependency_builder.py": {
+          "fan_in": 1,
+          "fan_out": 3
+        },
+        "core/dependency_meaning_inferer.py": {
+          "fan_in": 1,
+          "fan_out": 0
+        },
+        "core/dependency_pipeline.py": {
+          "fan_in": 1,
+          "fan_out": 2
+        },
+        "core/enrich_pipeline.py": {
+          "fan_in": 1,
+          "fan_out": 6
+        },
+        "core/entrypoint_detector.py": {
+          "fan_in": 1,
+          "fan_out": 0
+        },
+        "core/global_task_id.py": {
+          "fan_in": 3,
+          "fan_out": 0
+        },
+        "core/graph_analyzer.py": {
+          "fan_in": 1,
+          "fan_out": 3
+        },
+        "core/graph_builder.py": {
+          "fan_in": 2,
+          "fan_out": 2
+        },
+        "core/graph_indexer.py": {
+          "fan_in": 1,
+          "fan_out": 1
+        },
+        "core/graph_pipeline.py": {
+          "fan_in": 1,
+          "fan_out": 4
+        },
+        "core/impact_analyzer.py": {
+          "fan_in": 1,
+          "fan_out": 0
+        },
+        "core/impact_task_analyzer.py": {
+          "fan_in": 1,
+          "fan_out": 0
+        },
+        "core/import_extractor.py": {
+          "fan_in": 1,
+          "fan_out": 0
+        },
+        "core/importance_scorer.py": {
+          "fan_in": 1,
+          "fan_out": 0
+        },
+        "core/interpretation_pipeline.py": {
+          "fan_in": 1,
+          "fan_out": 6
+        },
+        "core/model.py": {
+          "fan_in": 19,
+          "fan_out": 0
+        },
+        "core/output_contract.py": {
+          "fan_in": 9,
+          "fan_out": 2
+        },
+        "core/parser.py": {
+          "fan_in": 1,
+          "fan_out": 2
+        },
+        "core/path_resolver.py": {
+          "fan_in": 1,
+          "fan_out": 0
+        },
+        "core/role_classifier.py": {
+          "fan_in": 1,
+          "fan_out": 0
+        },
+        "core/scanner.py": {
+          "fan_in": 1,
+          "fan_out": 0
+        },
+        "core/skill_suggestion_mapper.py": {
+          "fan_in": 1,
+          "fan_out": 0
+        },
+        "core/system_health_reporter.py": {
+          "fan_in": 1,
+          "fan_out": 1
+        },
+        "core/system_insights_pipeline.py": {
+          "fan_in": 1,
+          "fan_out": 6
+        },
+        "core/system_role_classifier.py": {
+          "fan_in": 1,
+          "fan_out": 1
+        },
+        "core/tag_generator.py": {
+          "fan_in": 1,
+          "fan_out": 0
+        },
+        "core/task_planning_pipeline.py": {
+          "fan_in": 1,
+          "fan_out": 7
+        },
+        "core/time_utils.py": {
+          "fan_in": 1,
+          "fan_out": 0
+        }
+      }
+    }
+  }
+}

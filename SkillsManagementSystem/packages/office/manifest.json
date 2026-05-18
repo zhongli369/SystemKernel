@@ -1,0 +1,33 @@
+{
+  "name": "office",
+  "display_name": "办公软件包",
+  "display_name_en": "Office Skills Pack",
+  "description": "办公文档处理：Word(docx)、Excel(xlsx)、PowerPoint(pptx)、PDF",
+  "version": "1.0.0",
+  "installable": true,
+  "tags": ["office", "document", "pdf", "word", "excel", "powerpoint"],
+  "dependencies": ["shared/office-scripts"],
+  "skills": [
+    "docx",
+    "xlsx",
+    "pptx",
+    "pdf"
+  ],
+  "auto_match_keywords": [
+    "pdf",
+    "docx",
+    "pptx",
+    "xlsx",
+    "office",
+    "spreadsheet",
+    "document",
+    "word",
+    "excel",
+    "powerpoint",
+    "presentation",
+    "slide",
+    "form",
+    "CSV",
+    "TSV"
+  ]
+}

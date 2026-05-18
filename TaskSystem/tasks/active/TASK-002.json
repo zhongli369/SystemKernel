@@ -1,0 +1,26 @@
+{
+  "id": "TASK-002",
+  "title": "fix login bug",
+  "status": "active",
+  "created_at": "2026-05-16T10:14:37Z",
+  "steps": [
+    {
+      "id": 1,
+      "content": "find root cause of login error",
+      "status": "todo",
+      "suggested_skills": [
+        "debugger",
+        "researcher"
+      ],
+      "selected_skill": "debugger"
+    }
+  ],
+  "notes": "",
+  "context_log": [],
+  "current_focus": "",
+  "tags": [
+    "frontend",
+    "bug"
+  ],
+  "priority": "P0"
+}

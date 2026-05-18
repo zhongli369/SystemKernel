@@ -1,0 +1,387 @@
+{
+  "$schema": "claude-code-skill-registry/v1",
+  "version": "2.0.0",
+  "last_updated": "2026-05-16T08:39:02Z",
+  "description": "Central registry. Three categories: packages (installable), sources (discovery-only), indexes (search-only).",
+  "shared": {
+    "office-scripts": {
+      "version": "1.0.0",
+      "path": "shared/office-scripts",
+      "description": "Shared OOXML pack/unpack/validate scripts for docx, pptx, xlsx"
+    }
+  },
+  "packages": {
+    "base": {
+      "display_name": "基础技能包",
+      "display_name_en": "Base Skills Pack",
+      "description": "通用底层能力：代码审查、调试、仓库分析、逻辑推理、学术研究、Skill创建",
+      "version": "1.0.0",
+      "installable": true,
+      "install_command": "install base",
+      "skills": [
+        "code-review",
+        "debugger",
+        "repo-analyzer",
+        "reflective-reasoning",
+        "researcher",
+        "skill-creator",
+        "markdown-analyzer"
+      ]
+    },
+    "dsa": {
+      "display_name": "数据结构与算法包",
+      "display_name_en": "DSA Skills Pack",
+      "description": "算法设计与可视化：伪代码、UML图、Mermaid类图/时序图",
+      "version": "1.0.0",
+      "installable": true,
+      "install_command": "install dsa",
+      "skills": [
+        "algorithm-explainer"
+      ]
+    },
+    "office": {
+      "display_name": "办公软件包",
+      "display_name_en": "Office Skills Pack",
+      "description": "办公文档处理：Word(docx)、Excel(xlsx)、PowerPoint(pptx)、PDF",
+      "version": "1.0.0",
+      "installable": true,
+      "install_command": "install office",
+      "skills": [
+        "docx",
+        "xlsx",
+        "pptx",
+        "pdf"
+      ],
+      "shared_dependencies": [
+        "shared/office-scripts"
+      ]
+    },
+    "finance": {
+      "display_name": "金融炒股包",
+      "display_name_en": "Finance Skills Pack",
+      "description": "金融分析与股票交易工具（待开发）",
+      "version": "0.1.0",
+      "installable": true,
+      "install_command": "install finance",
+      "skills": []
+    },
+    "dev": {
+      "display_name": "项目开发包",
+      "display_name_en": "Developer Skills Pack",
+      "description": "项目开发相关：Claude API开发、前端设计、品牌设计、MCP构建、文档协作等",
+      "version": "1.0.0",
+      "installable": true,
+      "install_command": "install dev",
+      "skills": [
+        "claude-api",
+        "algorithmic-art",
+        "brand-guidelines",
+        "canvas-design",
+        "doc-coauthoring",
+        "frontend-design",
+        "internal-comms",
+        "mcp-builder",
+        "slack-gif-creator",
+        "theme-factory",
+        "web-artifacts-builder",
+        "webapp-testing"
+      ]
+    },
+    "vercel-agent-skills": {
+      "display_name": "Vercel Agent Skills",
+      "display_name_en": "Vercel Agent Skills",
+      "description": "Vercel 官方 skill 包。通过 npx skills CLI 安装",
+      "version": "1.5.5",
+      "installable": true,
+      "install_command": "npx skills add vercel-labs/agent-skills",
+      "external": true,
+      "skills": [
+        "react-best-practices",
+        "web-design-guidelines",
+        "composition-patterns",
+        "next-best-practices",
+        "next-cache-components",
+        "next-upgrade",
+        "react-native-skills"
+      ]
+    },
+    "find-skill": {
+      "display_name": "技能发现工具",
+      "display_name_en": "Find Skill",
+      "description": "通过 npx skills CLI 搜索 skills.sh 生态系统中的 agent skills",
+      "version": "1.0.0",
+      "installable": true,
+      "install_command": "install find-skill",
+      "external": true,
+      "skills": [
+        "find-skills"
+      ]
+    }
+  },
+  "sources": {
+    "anthropics-skills": {
+      "name": "Anthropic Official Skills",
+      "url": "https://github.com/anthropics/skills",
+      "category": "source",
+      "type": "git-repo",
+      "installable": false,
+      "description": "Anthropic 官方 Claude Code skills 仓库。本系统 office 包已基于此构建",
+      "note": "已集成到本系统。查看源仓库获取最新更新"
+    },
+    "vercel-agent-skills-source": {
+      "name": "Vercel Agent Skills (Source)",
+      "url": "https://github.com/vercel-labs/agent-skills",
+      "category": "source",
+      "type": "git-repo",
+      "installable": false,
+      "description": "Vercel 官方 skill 源仓库。通过 vercel-agent-skills 包安装",
+      "note": "使用 'install vercel-agent-skills' 通过 npx skills 安装"
+    },
+    "vercel-labs-skills-cli": {
+      "name": "Vercel Skills CLI",
+      "url": "https://github.com/vercel-labs/skills",
+      "category": "source",
+      "type": "npm-package",
+      "installable": false,
+      "description": "npx skills CLI 工具源码。npm 包名: skills",
+      "note": "运行 'npx skills' 使用 CLI，或 'install vercel-agent-skills' 安装其技能包"
+    }
+  },
+  "indexes": {
+    "awesome-agent-skills": {
+      "name": "Awesome Agent Skills",
+      "url": "https://github.com/VoltAgent/awesome-agent-skills",
+      "category": "index",
+      "type": "awesome-list",
+      "installable": false,
+      "description": "社区精选 agent skills 目录，涵盖各领域各代理的 skill 索引。发现新 skill 的首选源",
+      "search_method": "browse_github"
+    },
+    "antigravity-awesome-skills": {
+      "name": "Antigravity Awesome Skills",
+      "url": "https://github.com/sickn33/antigravity-awesome-skills",
+      "category": "index",
+      "type": "awesome-list",
+      "installable": false,
+      "description": "社区维护的 skills 精选列表，包含大量 Claude Code 可用 skills",
+      "search_method": "browse_github"
+    },
+    "findskills": {
+      "name": "FindSkills.org",
+      "url": "https://www.findskills.org",
+      "category": "index",
+      "type": "website",
+      "installable": false,
+      "description": "Skills 搜索引擎/目录网站，可在线搜索各种 agent skills",
+      "search_method": "web"
+    }
+  },
+  "skills": {
+    "code-review": {
+      "version": "1.0.0",
+      "description": "Review code changes for correctness, security, performance, and maintainability",
+      "package": "base",
+      "shared_dependencies": []
+    },
+    "debugger": {
+      "version": "1.0.0",
+      "description": "Debug code with structured error analysis, targeted fixes, and retry logic",
+      "package": "base",
+      "shared_dependencies": []
+    },
+    "repo-analyzer": {
+      "version": "1.0.0",
+      "description": "Explore and analyze code repositories with architecture review and dependency mapping",
+      "package": "base",
+      "shared_dependencies": []
+    },
+    "reflective-reasoning": {
+      "version": "1.0.0",
+      "description": "Formal mathematical and logical reasoning with proofs and systematic analysis",
+      "package": "base",
+      "shared_dependencies": []
+    },
+    "researcher": {
+      "version": "1.0.0",
+      "description": "Six-phase systematic literature review with structured notes and synthesized reports",
+      "package": "base",
+      "shared_dependencies": []
+    },
+    "skill-creator": {
+      "version": "1.0.0",
+      "description": "Create new skills, modify existing skills, and measure skill performance",
+      "package": "base",
+      "shared_dependencies": []
+    },
+    "algorithm-explainer": {
+      "version": "1.0.0",
+      "description": "Design and explain algorithms with pseudocode, UML, and Mermaid diagrams",
+      "package": "dsa",
+      "shared_dependencies": []
+    },
+    "docx": {
+      "version": "1.0.0",
+      "description": "Create, read, edit, and manipulate Word documents (.docx files)",
+      "package": "office",
+      "shared_dependencies": [
+        "shared/office-scripts"
+      ]
+    },
+    "xlsx": {
+      "version": "1.0.0",
+      "description": "Create, edit, and analyze Excel spreadsheets (.xlsx, .xlsm, .csv, .tsv)",
+      "package": "office",
+      "shared_dependencies": [
+        "shared/office-scripts"
+      ]
+    },
+    "pptx": {
+      "version": "1.0.0",
+      "description": "Create, edit, and analyze PowerPoint presentations (.pptx files)",
+      "package": "office",
+      "shared_dependencies": [
+        "shared/office-scripts"
+      ]
+    },
+    "pdf": {
+      "version": "1.0.0",
+      "description": "Read, create, merge, split, and manipulate PDF files with forms support",
+      "package": "office",
+      "shared_dependencies": []
+    },
+    "claude-api": {
+      "version": "1.0.0",
+      "description": "Build, debug, and optimize Claude API / Anthropic SDK applications",
+      "package": "dev",
+      "shared_dependencies": []
+    },
+    "algorithmic-art": {
+      "version": "1.0.0",
+      "description": "Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration",
+      "package": "dev",
+      "shared_dependencies": []
+    },
+    "brand-guidelines": {
+      "version": "1.0.0",
+      "description": "Applies Anthropic's official brand colors and typography to artifacts",
+      "package": "dev",
+      "shared_dependencies": []
+    },
+    "canvas-design": {
+      "version": "1.0.0",
+      "description": "Create beautiful visual art in .png and .pdf documents using design philosophy",
+      "package": "dev",
+      "shared_dependencies": []
+    },
+    "doc-coauthoring": {
+      "version": "1.0.0",
+      "description": "Guide users through a structured workflow for co-authoring documentation",
+      "package": "dev",
+      "shared_dependencies": []
+    },
+    "frontend-design": {
+      "version": "1.0.0",
+      "description": "Create distinctive, production-grade frontend interfaces with high design quality",
+      "package": "dev",
+      "shared_dependencies": []
+    },
+    "internal-comms": {
+      "version": "1.0.0",
+      "description": "Resources to help write internal communications",
+      "package": "dev",
+      "shared_dependencies": []
+    },
+    "mcp-builder": {
+      "version": "1.0.0",
+      "description": "Guide for creating MCP (Model Context Protocol) servers",
+      "package": "dev",
+      "shared_dependencies": []
+    },
+    "slack-gif-creator": {
+      "version": "1.0.0",
+      "description": "Creating animated GIFs optimized for Slack",
+      "package": "dev",
+      "shared_dependencies": []
+    },
+    "theme-factory": {
+      "version": "1.0.0",
+      "description": "Toolkit for styling artifacts with a theme",
+      "package": "dev",
+      "shared_dependencies": []
+    },
+    "web-artifacts-builder": {
+      "version": "1.0.0",
+      "description": "Suite of tools for creating multi-component claude.ai HTML artifacts",
+      "package": "dev",
+      "shared_dependencies": []
+    },
+    "webapp-testing": {
+      "version": "1.0.0",
+      "description": "Toolkit for testing local web applications with Playwright",
+      "package": "dev",
+      "shared_dependencies": []
+    },
+    "react-best-practices": {
+      "version": "1.5.5",
+      "description": "React patterns and best practices from Vercel",
+      "package": "vercel-agent-skills",
+      "external": true,
+      "shared_dependencies": []
+    },
+    "web-design-guidelines": {
+      "version": "1.5.5",
+      "description": "Web design standards and guidelines from Vercel",
+      "package": "vercel-agent-skills",
+      "external": true,
+      "shared_dependencies": []
+    },
+    "composition-patterns": {
+      "version": "1.5.5",
+      "description": "React component composition patterns from Vercel",
+      "package": "vercel-agent-skills",
+      "external": true,
+      "shared_dependencies": []
+    },
+    "next-best-practices": {
+      "version": "1.5.5",
+      "description": "Next.js recommended patterns and best practices",
+      "package": "vercel-agent-skills",
+      "external": true,
+      "shared_dependencies": []
+    },
+    "next-cache-components": {
+      "version": "1.5.5",
+      "description": "Caching strategies for Next.js applications",
+      "package": "vercel-agent-skills",
+      "external": true,
+      "shared_dependencies": []
+    },
+    "next-upgrade": {
+      "version": "1.5.5",
+      "description": "Upgrade Next.js projects to latest version",
+      "package": "vercel-agent-skills",
+      "external": true,
+      "shared_dependencies": []
+    },
+    "react-native-skills": {
+      "version": "1.5.5",
+      "description": "React Native best practices and patterns",
+      "package": "vercel-agent-skills",
+      "external": true,
+      "shared_dependencies": []
+    },
+    "find-skills": {
+      "version": "1.0.0",
+      "description": "Helps users discover and install agent skills from the open agent skills ecosystem",
+      "package": "find-skill",
+      "external": true,
+      "shared_dependencies": []
+    },
+    "markdown-analyzer": {
+      "version": "1.0.0",
+      "description": "Parse markdown structure, analyze via RepoAnalyzer, and record actionable items into TaskSystem",
+      "package": "base",
+      "shared_dependencies": []
+    }
+  }
+}

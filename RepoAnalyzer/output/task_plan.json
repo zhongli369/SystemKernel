@@ -1,0 +1,2861 @@
+{
+  "schema_version": "repoanalyzer.v1",
+  "repo_id": "RepoAnalyzer",
+  "phase": "plan",
+  "generated_at": "2026-05-17T16:57:17Z",
+  "data": {
+    "tasks": [
+      {
+        "task_id": "TASK-B001",
+        "global_task_id": "RA::RepoAnalyzer::TASK-B001",
+        "title": "[PRIMARY] Refactor bottleneck: core/model.py",
+        "type": "refactor",
+        "priority": "P0",
+        "target_nodes": [
+          "core/model.py"
+        ],
+        "impact_score": 0.54,
+        "risk_level": "critical",
+        "reason": "Shared core with 19 dependents; failure impacts many modules",
+        "steps": [
+          {
+            "step_id": 1,
+            "description": "Audit all dependents for tight coupling to this node",
+            "suggested_skills": [
+              "repo-analyzer",
+              "code-review",
+              "algorithm-explainer",
+              "debugger",
+              "markdown-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/model.py"
+            ]
+          },
+          {
+            "step_id": 2,
+            "description": "Design interface/abstraction layer to reduce direct dependency",
+            "suggested_skills": [
+              "reflective-reasoning",
+              "code-review",
+              "algorithm-explainer",
+              "debugger",
+              "markdown-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/model.py"
+            ]
+          },
+          {
+            "step_id": 3,
+            "description": "Incrementally migrate dependents to new interface",
+            "suggested_skills": [
+              "code-review",
+              "algorithm-explainer",
+              "debugger",
+              "markdown-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/model.py"
+            ]
+          }
+        ],
+        "depends_on": [
+          "TASK-A007"
+        ],
+        "skill_id": "code-review",
+        "skill_input": {
+          "task_id": "TASK-B001",
+          "global_task_id": "RA::RepoAnalyzer::TASK-B001",
+          "title": "[PRIMARY] Refactor bottleneck: core/model.py",
+          "type": "refactor",
+          "priority": "P0",
+          "target_nodes": [
+            "core/model.py"
+          ],
+          "reason": "Shared core with 19 dependents; failure impacts many modules",
+          "steps": [
+            {
+              "step_id": 1,
+              "description": "Audit all dependents for tight coupling to this node",
+              "dependency_nodes": [
+                "core/model.py"
+              ]
+            },
+            {
+              "step_id": 2,
+              "description": "Design interface/abstraction layer to reduce direct dependency",
+              "dependency_nodes": [
+                "core/model.py"
+              ]
+            },
+            {
+              "step_id": 3,
+              "description": "Incrementally migrate dependents to new interface",
+              "dependency_nodes": [
+                "core/model.py"
+              ]
+            }
+          ]
+        },
+        "skill_output": {
+          "binding_status": "resolved",
+          "skill_id": "code-review",
+          "method": "skill_resolver_fallback_chain"
+        }
+      },
+      {
+        "task_id": "TASK-B002",
+        "global_task_id": "RA::RepoAnalyzer::TASK-B002",
+        "title": "[SYSTEM_CRITICAL] Refactor bottleneck: cli.py",
+        "type": "stabilize",
+        "priority": "P1",
+        "target_nodes": [
+          "cli.py"
+        ],
+        "impact_score": 0.63,
+        "risk_level": "high",
+        "reason": "System entry point with 8 direct dependencies; failure blocks entire system",
+        "steps": [
+          {
+            "step_id": 1,
+            "description": "Add error handling and fallback at entry point",
+            "suggested_skills": [
+              "debugger",
+              "code-review",
+              "theme-factory"
+            ],
+            "dependency_nodes": [
+              "cli.py"
+            ]
+          },
+          {
+            "step_id": 2,
+            "description": "Reduce direct dependency count via facade pattern",
+            "suggested_skills": [
+              "reflective-reasoning",
+              "debugger",
+              "theme-factory"
+            ],
+            "dependency_nodes": [
+              "cli.py"
+            ]
+          },
+          {
+            "step_id": 3,
+            "description": "Add integration tests for critical path",
+            "suggested_skills": [
+              "code-review",
+              "debugger",
+              "theme-factory"
+            ],
+            "dependency_nodes": [
+              "cli.py"
+            ]
+          }
+        ],
+        "depends_on": [
+          "TASK-A001"
+        ],
+        "skill_id": "debugger",
+        "skill_input": {
+          "task_id": "TASK-B002",
+          "global_task_id": "RA::RepoAnalyzer::TASK-B002",
+          "title": "[SYSTEM_CRITICAL] Refactor bottleneck: cli.py",
+          "type": "stabilize",
+          "priority": "P1",
+          "target_nodes": [
+            "cli.py"
+          ],
+          "reason": "System entry point with 8 direct dependencies; failure blocks entire system",
+          "steps": [
+            {
+              "step_id": 1,
+              "description": "Add error handling and fallback at entry point",
+              "dependency_nodes": [
+                "cli.py"
+              ]
+            },
+            {
+              "step_id": 2,
+              "description": "Reduce direct dependency count via facade pattern",
+              "dependency_nodes": [
+                "cli.py"
+              ]
+            },
+            {
+              "step_id": 3,
+              "description": "Add integration tests for critical path",
+              "dependency_nodes": [
+                "cli.py"
+              ]
+            }
+          ]
+        },
+        "skill_output": {
+          "binding_status": "resolved",
+          "skill_id": "debugger",
+          "method": "skill_resolver_fallback_chain"
+        }
+      },
+      {
+        "task_id": "TASK-B003",
+        "global_task_id": "RA::RepoAnalyzer::TASK-B003",
+        "title": "[ORCHESTRATION] Refactor bottleneck: core/enrich_pipeline.py",
+        "type": "decouple",
+        "priority": "P1",
+        "target_nodes": [
+          "core/enrich_pipeline.py"
+        ],
+        "impact_score": 0.427,
+        "risk_level": "high",
+        "reason": "Orchestrator depends on 6 modules; high coupling risk",
+        "steps": [
+          {
+            "step_id": 1,
+            "description": "Map orchestration flow and identify redundant dependencies",
+            "suggested_skills": [
+              "repo-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/enrich_pipeline.py"
+            ]
+          },
+          {
+            "step_id": 2,
+            "description": "Consolidate or split orchestrator to reduce fan-out",
+            "suggested_skills": [
+              "reflective-reasoning",
+              "repo-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/enrich_pipeline.py"
+            ]
+          },
+          {
+            "step_id": 3,
+            "description": "Simplify pipeline steps where possible",
+            "suggested_skills": [
+              "code-review",
+              "repo-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/enrich_pipeline.py"
+            ]
+          }
+        ],
+        "depends_on": [
+          "TASK-A003"
+        ],
+        "skill_id": "repo-analyzer",
+        "skill_input": {
+          "task_id": "TASK-B003",
+          "global_task_id": "RA::RepoAnalyzer::TASK-B003",
+          "title": "[ORCHESTRATION] Refactor bottleneck: core/enrich_pipeline.py",
+          "type": "decouple",
+          "priority": "P1",
+          "target_nodes": [
+            "core/enrich_pipeline.py"
+          ],
+          "reason": "Orchestrator depends on 6 modules; high coupling risk",
+          "steps": [
+            {
+              "step_id": 1,
+              "description": "Map orchestration flow and identify redundant dependencies",
+              "dependency_nodes": [
+                "core/enrich_pipeline.py"
+              ]
+            },
+            {
+              "step_id": 2,
+              "description": "Consolidate or split orchestrator to reduce fan-out",
+              "dependency_nodes": [
+                "core/enrich_pipeline.py"
+              ]
+            },
+            {
+              "step_id": 3,
+              "description": "Simplify pipeline steps where possible",
+              "dependency_nodes": [
+                "core/enrich_pipeline.py"
+              ]
+            }
+          ]
+        },
+        "skill_output": {
+          "binding_status": "resolved",
+          "skill_id": "repo-analyzer",
+          "method": "skill_resolver_fallback_chain"
+        }
+      },
+      {
+        "task_id": "TASK-B004",
+        "global_task_id": "RA::RepoAnalyzer::TASK-B004",
+        "title": "[ORCHESTRATION] Refactor bottleneck: core/graph_pipeline.py",
+        "type": "decouple",
+        "priority": "P1",
+        "target_nodes": [
+          "core/graph_pipeline.py"
+        ],
+        "impact_score": 0.375,
+        "risk_level": "high",
+        "reason": "Orchestrator depends on 4 modules; high coupling risk",
+        "steps": [
+          {
+            "step_id": 1,
+            "description": "Map orchestration flow and identify redundant dependencies",
+            "suggested_skills": [
+              "repo-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/graph_pipeline.py"
+            ]
+          },
+          {
+            "step_id": 2,
+            "description": "Consolidate or split orchestrator to reduce fan-out",
+            "suggested_skills": [
+              "reflective-reasoning",
+              "repo-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/graph_pipeline.py"
+            ]
+          },
+          {
+            "step_id": 3,
+            "description": "Simplify pipeline steps where possible",
+            "suggested_skills": [
+              "code-review",
+              "repo-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/graph_pipeline.py"
+            ]
+          }
+        ],
+        "depends_on": [
+          "TASK-A006"
+        ],
+        "skill_id": "repo-analyzer",
+        "skill_input": {
+          "task_id": "TASK-B004",
+          "global_task_id": "RA::RepoAnalyzer::TASK-B004",
+          "title": "[ORCHESTRATION] Refactor bottleneck: core/graph_pipeline.py",
+          "type": "decouple",
+          "priority": "P1",
+          "target_nodes": [
+            "core/graph_pipeline.py"
+          ],
+          "reason": "Orchestrator depends on 4 modules; high coupling risk",
+          "steps": [
+            {
+              "step_id": 1,
+              "description": "Map orchestration flow and identify redundant dependencies",
+              "dependency_nodes": [
+                "core/graph_pipeline.py"
+              ]
+            },
+            {
+              "step_id": 2,
+              "description": "Consolidate or split orchestrator to reduce fan-out",
+              "dependency_nodes": [
+                "core/graph_pipeline.py"
+              ]
+            },
+            {
+              "step_id": 3,
+              "description": "Simplify pipeline steps where possible",
+              "dependency_nodes": [
+                "core/graph_pipeline.py"
+              ]
+            }
+          ]
+        },
+        "skill_output": {
+          "binding_status": "resolved",
+          "skill_id": "repo-analyzer",
+          "method": "skill_resolver_fallback_chain"
+        }
+      },
+      {
+        "task_id": "TASK-B005",
+        "global_task_id": "RA::RepoAnalyzer::TASK-B005",
+        "title": "[ORCHESTRATION] Refactor bottleneck: core/interpretation_pipeline.py",
+        "type": "decouple",
+        "priority": "P1",
+        "target_nodes": [
+          "core/interpretation_pipeline.py"
+        ],
+        "impact_score": 0.427,
+        "risk_level": "high",
+        "reason": "Orchestrator depends on 6 modules; high coupling risk",
+        "steps": [
+          {
+            "step_id": 1,
+            "description": "Map orchestration flow and identify redundant dependencies",
+            "suggested_skills": [
+              "repo-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/interpretation_pipeline.py"
+            ]
+          },
+          {
+            "step_id": 2,
+            "description": "Consolidate or split orchestrator to reduce fan-out",
+            "suggested_skills": [
+              "reflective-reasoning",
+              "repo-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/interpretation_pipeline.py"
+            ]
+          },
+          {
+            "step_id": 3,
+            "description": "Simplify pipeline steps where possible",
+            "suggested_skills": [
+              "code-review",
+              "repo-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/interpretation_pipeline.py"
+            ]
+          }
+        ],
+        "depends_on": [
+          "TASK-A004"
+        ],
+        "skill_id": "repo-analyzer",
+        "skill_input": {
+          "task_id": "TASK-B005",
+          "global_task_id": "RA::RepoAnalyzer::TASK-B005",
+          "title": "[ORCHESTRATION] Refactor bottleneck: core/interpretation_pipeline.py",
+          "type": "decouple",
+          "priority": "P1",
+          "target_nodes": [
+            "core/interpretation_pipeline.py"
+          ],
+          "reason": "Orchestrator depends on 6 modules; high coupling risk",
+          "steps": [
+            {
+              "step_id": 1,
+              "description": "Map orchestration flow and identify redundant dependencies",
+              "dependency_nodes": [
+                "core/interpretation_pipeline.py"
+              ]
+            },
+            {
+              "step_id": 2,
+              "description": "Consolidate or split orchestrator to reduce fan-out",
+              "dependency_nodes": [
+                "core/interpretation_pipeline.py"
+              ]
+            },
+            {
+              "step_id": 3,
+              "description": "Simplify pipeline steps where possible",
+              "dependency_nodes": [
+                "core/interpretation_pipeline.py"
+              ]
+            }
+          ]
+        },
+        "skill_output": {
+          "binding_status": "resolved",
+          "skill_id": "repo-analyzer",
+          "method": "skill_resolver_fallback_chain"
+        }
+      },
+      {
+        "task_id": "TASK-B006",
+        "global_task_id": "RA::RepoAnalyzer::TASK-B006",
+        "title": "[PRIMARY] Refactor bottleneck: core/output_contract.py",
+        "type": "refactor",
+        "priority": "P1",
+        "target_nodes": [
+          "core/output_contract.py"
+        ],
+        "impact_score": 0.438,
+        "risk_level": "high",
+        "reason": "Shared core with 9 dependents; failure impacts many modules",
+        "steps": [
+          {
+            "step_id": 1,
+            "description": "Audit all dependents for tight coupling to this node",
+            "suggested_skills": [
+              "repo-analyzer",
+              "code-review",
+              "algorithm-explainer",
+              "debugger",
+              "markdown-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/output_contract.py"
+            ]
+          },
+          {
+            "step_id": 2,
+            "description": "Design interface/abstraction layer to reduce direct dependency",
+            "suggested_skills": [
+              "reflective-reasoning",
+              "code-review",
+              "algorithm-explainer",
+              "debugger",
+              "markdown-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/output_contract.py"
+            ]
+          },
+          {
+            "step_id": 3,
+            "description": "Incrementally migrate dependents to new interface",
+            "suggested_skills": [
+              "code-review",
+              "algorithm-explainer",
+              "debugger",
+              "markdown-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/output_contract.py"
+            ]
+          }
+        ],
+        "depends_on": [
+          "TASK-A007"
+        ],
+        "skill_id": "code-review",
+        "skill_input": {
+          "task_id": "TASK-B006",
+          "global_task_id": "RA::RepoAnalyzer::TASK-B006",
+          "title": "[PRIMARY] Refactor bottleneck: core/output_contract.py",
+          "type": "refactor",
+          "priority": "P1",
+          "target_nodes": [
+            "core/output_contract.py"
+          ],
+          "reason": "Shared core with 9 dependents; failure impacts many modules",
+          "steps": [
+            {
+              "step_id": 1,
+              "description": "Audit all dependents for tight coupling to this node",
+              "dependency_nodes": [
+                "core/output_contract.py"
+              ]
+            },
+            {
+              "step_id": 2,
+              "description": "Design interface/abstraction layer to reduce direct dependency",
+              "dependency_nodes": [
+                "core/output_contract.py"
+              ]
+            },
+            {
+              "step_id": 3,
+              "description": "Incrementally migrate dependents to new interface",
+              "dependency_nodes": [
+                "core/output_contract.py"
+              ]
+            }
+          ]
+        },
+        "skill_output": {
+          "binding_status": "resolved",
+          "skill_id": "code-review",
+          "method": "skill_resolver_fallback_chain"
+        }
+      },
+      {
+        "task_id": "TASK-B007",
+        "global_task_id": "RA::RepoAnalyzer::TASK-B007",
+        "title": "[ORCHESTRATION] Refactor bottleneck: core/system_insights_pipeline.py",
+        "type": "decouple",
+        "priority": "P1",
+        "target_nodes": [
+          "core/system_insights_pipeline.py"
+        ],
+        "impact_score": 0.427,
+        "risk_level": "high",
+        "reason": "Orchestrator depends on 6 modules; high coupling risk",
+        "steps": [
+          {
+            "step_id": 1,
+            "description": "Map orchestration flow and identify redundant dependencies",
+            "suggested_skills": [
+              "repo-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/system_insights_pipeline.py"
+            ]
+          },
+          {
+            "step_id": 2,
+            "description": "Consolidate or split orchestrator to reduce fan-out",
+            "suggested_skills": [
+              "reflective-reasoning",
+              "repo-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/system_insights_pipeline.py"
+            ]
+          },
+          {
+            "step_id": 3,
+            "description": "Simplify pipeline steps where possible",
+            "suggested_skills": [
+              "code-review",
+              "repo-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/system_insights_pipeline.py"
+            ]
+          }
+        ],
+        "depends_on": [
+          "TASK-A005"
+        ],
+        "skill_id": "repo-analyzer",
+        "skill_input": {
+          "task_id": "TASK-B007",
+          "global_task_id": "RA::RepoAnalyzer::TASK-B007",
+          "title": "[ORCHESTRATION] Refactor bottleneck: core/system_insights_pipeline.py",
+          "type": "decouple",
+          "priority": "P1",
+          "target_nodes": [
+            "core/system_insights_pipeline.py"
+          ],
+          "reason": "Orchestrator depends on 6 modules; high coupling risk",
+          "steps": [
+            {
+              "step_id": 1,
+              "description": "Map orchestration flow and identify redundant dependencies",
+              "dependency_nodes": [
+                "core/system_insights_pipeline.py"
+              ]
+            },
+            {
+              "step_id": 2,
+              "description": "Consolidate or split orchestrator to reduce fan-out",
+              "dependency_nodes": [
+                "core/system_insights_pipeline.py"
+              ]
+            },
+            {
+              "step_id": 3,
+              "description": "Simplify pipeline steps where possible",
+              "dependency_nodes": [
+                "core/system_insights_pipeline.py"
+              ]
+            }
+          ]
+        },
+        "skill_output": {
+          "binding_status": "resolved",
+          "skill_id": "repo-analyzer",
+          "method": "skill_resolver_fallback_chain"
+        }
+      },
+      {
+        "task_id": "TASK-B008",
+        "global_task_id": "RA::RepoAnalyzer::TASK-B008",
+        "title": "[ORCHESTRATION] Refactor bottleneck: core/task_planning_pipeline.py",
+        "type": "decouple",
+        "priority": "P1",
+        "target_nodes": [
+          "core/task_planning_pipeline.py"
+        ],
+        "impact_score": 0.453,
+        "risk_level": "high",
+        "reason": "Orchestrator depends on 7 modules; high coupling risk",
+        "steps": [
+          {
+            "step_id": 1,
+            "description": "Map orchestration flow and identify redundant dependencies",
+            "suggested_skills": [
+              "repo-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/task_planning_pipeline.py"
+            ]
+          },
+          {
+            "step_id": 2,
+            "description": "Consolidate or split orchestrator to reduce fan-out",
+            "suggested_skills": [
+              "reflective-reasoning",
+              "repo-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/task_planning_pipeline.py"
+            ]
+          },
+          {
+            "step_id": 3,
+            "description": "Simplify pipeline steps where possible",
+            "suggested_skills": [
+              "code-review",
+              "repo-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/task_planning_pipeline.py"
+            ]
+          }
+        ],
+        "depends_on": [
+          "TASK-A002"
+        ],
+        "skill_id": "repo-analyzer",
+        "skill_input": {
+          "task_id": "TASK-B008",
+          "global_task_id": "RA::RepoAnalyzer::TASK-B008",
+          "title": "[ORCHESTRATION] Refactor bottleneck: core/task_planning_pipeline.py",
+          "type": "decouple",
+          "priority": "P1",
+          "target_nodes": [
+            "core/task_planning_pipeline.py"
+          ],
+          "reason": "Orchestrator depends on 7 modules; high coupling risk",
+          "steps": [
+            {
+              "step_id": 1,
+              "description": "Map orchestration flow and identify redundant dependencies",
+              "dependency_nodes": [
+                "core/task_planning_pipeline.py"
+              ]
+            },
+            {
+              "step_id": 2,
+              "description": "Consolidate or split orchestrator to reduce fan-out",
+              "dependency_nodes": [
+                "core/task_planning_pipeline.py"
+              ]
+            },
+            {
+              "step_id": 3,
+              "description": "Simplify pipeline steps where possible",
+              "dependency_nodes": [
+                "core/task_planning_pipeline.py"
+              ]
+            }
+          ]
+        },
+        "skill_output": {
+          "binding_status": "resolved",
+          "skill_id": "repo-analyzer",
+          "method": "skill_resolver_fallback_chain"
+        }
+      },
+      {
+        "task_id": "TASK-C001",
+        "global_task_id": "RA::RepoAnalyzer::TASK-C001",
+        "title": "[DECOUPLE] Reduce coupling in: cli.py",
+        "type": "decouple",
+        "priority": "P1",
+        "target_nodes": [
+          "cli.py"
+        ],
+        "impact_score": 0.63,
+        "risk_level": "medium",
+        "reason": "High coupling node with fan-out=8; depends on too many modules",
+        "steps": [
+          {
+            "step_id": 1,
+            "description": "Analyze 8 direct dependencies for necessity",
+            "suggested_skills": [
+              "repo-analyzer",
+              "theme-factory"
+            ],
+            "dependency_nodes": [
+              "cli.py"
+            ]
+          },
+          {
+            "step_id": 2,
+            "description": "Extract intermediate abstraction to reduce direct fan-out",
+            "suggested_skills": [
+              "reflective-reasoning",
+              "repo-analyzer",
+              "theme-factory"
+            ],
+            "dependency_nodes": [
+              "cli.py"
+            ]
+          },
+          {
+            "step_id": 3,
+            "description": "Refactor dependents to use new abstraction",
+            "suggested_skills": [
+              "code-review",
+              "repo-analyzer",
+              "theme-factory"
+            ],
+            "dependency_nodes": [
+              "cli.py"
+            ]
+          }
+        ],
+        "depends_on": [
+          "TASK-B002",
+          "TASK-A001"
+        ],
+        "skill_id": "repo-analyzer",
+        "skill_input": {
+          "task_id": "TASK-C001",
+          "global_task_id": "RA::RepoAnalyzer::TASK-C001",
+          "title": "[DECOUPLE] Reduce coupling in: cli.py",
+          "type": "decouple",
+          "priority": "P1",
+          "target_nodes": [
+            "cli.py"
+          ],
+          "reason": "High coupling node with fan-out=8; depends on too many modules",
+          "steps": [
+            {
+              "step_id": 1,
+              "description": "Analyze 8 direct dependencies for necessity",
+              "dependency_nodes": [
+                "cli.py"
+              ]
+            },
+            {
+              "step_id": 2,
+              "description": "Extract intermediate abstraction to reduce direct fan-out",
+              "dependency_nodes": [
+                "cli.py"
+              ]
+            },
+            {
+              "step_id": 3,
+              "description": "Refactor dependents to use new abstraction",
+              "dependency_nodes": [
+                "cli.py"
+              ]
+            }
+          ]
+        },
+        "skill_output": {
+          "binding_status": "resolved",
+          "skill_id": "repo-analyzer",
+          "method": "skill_resolver_fallback_chain"
+        }
+      },
+      {
+        "task_id": "TASK-C002",
+        "global_task_id": "RA::RepoAnalyzer::TASK-C002",
+        "title": "[DECOUPLE] Reduce coupling in: core/enrich_pipeline.py",
+        "type": "decouple",
+        "priority": "P1",
+        "target_nodes": [
+          "core/enrich_pipeline.py"
+        ],
+        "impact_score": 0.427,
+        "risk_level": "medium",
+        "reason": "High coupling node with fan-out=6; depends on too many modules",
+        "steps": [
+          {
+            "step_id": 1,
+            "description": "Analyze 6 direct dependencies for necessity",
+            "suggested_skills": [
+              "repo-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/enrich_pipeline.py"
+            ]
+          },
+          {
+            "step_id": 2,
+            "description": "Extract intermediate abstraction to reduce direct fan-out",
+            "suggested_skills": [
+              "reflective-reasoning",
+              "repo-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/enrich_pipeline.py"
+            ]
+          },
+          {
+            "step_id": 3,
+            "description": "Refactor dependents to use new abstraction",
+            "suggested_skills": [
+              "code-review",
+              "repo-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/enrich_pipeline.py"
+            ]
+          }
+        ],
+        "depends_on": [
+          "TASK-B003",
+          "TASK-A003"
+        ],
+        "skill_id": "repo-analyzer",
+        "skill_input": {
+          "task_id": "TASK-C002",
+          "global_task_id": "RA::RepoAnalyzer::TASK-C002",
+          "title": "[DECOUPLE] Reduce coupling in: core/enrich_pipeline.py",
+          "type": "decouple",
+          "priority": "P1",
+          "target_nodes": [
+            "core/enrich_pipeline.py"
+          ],
+          "reason": "High coupling node with fan-out=6; depends on too many modules",
+          "steps": [
+            {
+              "step_id": 1,
+              "description": "Analyze 6 direct dependencies for necessity",
+              "dependency_nodes": [
+                "core/enrich_pipeline.py"
+              ]
+            },
+            {
+              "step_id": 2,
+              "description": "Extract intermediate abstraction to reduce direct fan-out",
+              "dependency_nodes": [
+                "core/enrich_pipeline.py"
+              ]
+            },
+            {
+              "step_id": 3,
+              "description": "Refactor dependents to use new abstraction",
+              "dependency_nodes": [
+                "core/enrich_pipeline.py"
+              ]
+            }
+          ]
+        },
+        "skill_output": {
+          "binding_status": "resolved",
+          "skill_id": "repo-analyzer",
+          "method": "skill_resolver_fallback_chain"
+        }
+      },
+      {
+        "task_id": "TASK-C003",
+        "global_task_id": "RA::RepoAnalyzer::TASK-C003",
+        "title": "[DECOUPLE] Reduce coupling in: core/interpretation_pipeline.py",
+        "type": "decouple",
+        "priority": "P1",
+        "target_nodes": [
+          "core/interpretation_pipeline.py"
+        ],
+        "impact_score": 0.427,
+        "risk_level": "medium",
+        "reason": "High coupling node with fan-out=6; depends on too many modules",
+        "steps": [
+          {
+            "step_id": 1,
+            "description": "Analyze 6 direct dependencies for necessity",
+            "suggested_skills": [
+              "repo-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/interpretation_pipeline.py"
+            ]
+          },
+          {
+            "step_id": 2,
+            "description": "Extract intermediate abstraction to reduce direct fan-out",
+            "suggested_skills": [
+              "reflective-reasoning",
+              "repo-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/interpretation_pipeline.py"
+            ]
+          },
+          {
+            "step_id": 3,
+            "description": "Refactor dependents to use new abstraction",
+            "suggested_skills": [
+              "code-review",
+              "repo-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/interpretation_pipeline.py"
+            ]
+          }
+        ],
+        "depends_on": [
+          "TASK-B005",
+          "TASK-A004"
+        ],
+        "skill_id": "repo-analyzer",
+        "skill_input": {
+          "task_id": "TASK-C003",
+          "global_task_id": "RA::RepoAnalyzer::TASK-C003",
+          "title": "[DECOUPLE] Reduce coupling in: core/interpretation_pipeline.py",
+          "type": "decouple",
+          "priority": "P1",
+          "target_nodes": [
+            "core/interpretation_pipeline.py"
+          ],
+          "reason": "High coupling node with fan-out=6; depends on too many modules",
+          "steps": [
+            {
+              "step_id": 1,
+              "description": "Analyze 6 direct dependencies for necessity",
+              "dependency_nodes": [
+                "core/interpretation_pipeline.py"
+              ]
+            },
+            {
+              "step_id": 2,
+              "description": "Extract intermediate abstraction to reduce direct fan-out",
+              "dependency_nodes": [
+                "core/interpretation_pipeline.py"
+              ]
+            },
+            {
+              "step_id": 3,
+              "description": "Refactor dependents to use new abstraction",
+              "dependency_nodes": [
+                "core/interpretation_pipeline.py"
+              ]
+            }
+          ]
+        },
+        "skill_output": {
+          "binding_status": "resolved",
+          "skill_id": "repo-analyzer",
+          "method": "skill_resolver_fallback_chain"
+        }
+      },
+      {
+        "task_id": "TASK-C004",
+        "global_task_id": "RA::RepoAnalyzer::TASK-C004",
+        "title": "[DECOUPLE] Reduce coupling in: core/system_insights_pipeline.py",
+        "type": "decouple",
+        "priority": "P1",
+        "target_nodes": [
+          "core/system_insights_pipeline.py"
+        ],
+        "impact_score": 0.427,
+        "risk_level": "medium",
+        "reason": "High coupling node with fan-out=6; depends on too many modules",
+        "steps": [
+          {
+            "step_id": 1,
+            "description": "Analyze 6 direct dependencies for necessity",
+            "suggested_skills": [
+              "repo-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/system_insights_pipeline.py"
+            ]
+          },
+          {
+            "step_id": 2,
+            "description": "Extract intermediate abstraction to reduce direct fan-out",
+            "suggested_skills": [
+              "reflective-reasoning",
+              "repo-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/system_insights_pipeline.py"
+            ]
+          },
+          {
+            "step_id": 3,
+            "description": "Refactor dependents to use new abstraction",
+            "suggested_skills": [
+              "code-review",
+              "repo-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/system_insights_pipeline.py"
+            ]
+          }
+        ],
+        "depends_on": [
+          "TASK-B007",
+          "TASK-A005"
+        ],
+        "skill_id": "repo-analyzer",
+        "skill_input": {
+          "task_id": "TASK-C004",
+          "global_task_id": "RA::RepoAnalyzer::TASK-C004",
+          "title": "[DECOUPLE] Reduce coupling in: core/system_insights_pipeline.py",
+          "type": "decouple",
+          "priority": "P1",
+          "target_nodes": [
+            "core/system_insights_pipeline.py"
+          ],
+          "reason": "High coupling node with fan-out=6; depends on too many modules",
+          "steps": [
+            {
+              "step_id": 1,
+              "description": "Analyze 6 direct dependencies for necessity",
+              "dependency_nodes": [
+                "core/system_insights_pipeline.py"
+              ]
+            },
+            {
+              "step_id": 2,
+              "description": "Extract intermediate abstraction to reduce direct fan-out",
+              "dependency_nodes": [
+                "core/system_insights_pipeline.py"
+              ]
+            },
+            {
+              "step_id": 3,
+              "description": "Refactor dependents to use new abstraction",
+              "dependency_nodes": [
+                "core/system_insights_pipeline.py"
+              ]
+            }
+          ]
+        },
+        "skill_output": {
+          "binding_status": "resolved",
+          "skill_id": "repo-analyzer",
+          "method": "skill_resolver_fallback_chain"
+        }
+      },
+      {
+        "task_id": "TASK-C005",
+        "global_task_id": "RA::RepoAnalyzer::TASK-C005",
+        "title": "[DECOUPLE] Reduce coupling in: core/task_planning_pipeline.py",
+        "type": "decouple",
+        "priority": "P1",
+        "target_nodes": [
+          "core/task_planning_pipeline.py"
+        ],
+        "impact_score": 0.453,
+        "risk_level": "medium",
+        "reason": "High coupling node with fan-out=7; depends on too many modules",
+        "steps": [
+          {
+            "step_id": 1,
+            "description": "Analyze 7 direct dependencies for necessity",
+            "suggested_skills": [
+              "repo-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/task_planning_pipeline.py"
+            ]
+          },
+          {
+            "step_id": 2,
+            "description": "Extract intermediate abstraction to reduce direct fan-out",
+            "suggested_skills": [
+              "reflective-reasoning",
+              "repo-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/task_planning_pipeline.py"
+            ]
+          },
+          {
+            "step_id": 3,
+            "description": "Refactor dependents to use new abstraction",
+            "suggested_skills": [
+              "code-review",
+              "repo-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/task_planning_pipeline.py"
+            ]
+          }
+        ],
+        "depends_on": [
+          "TASK-B008",
+          "TASK-A002"
+        ],
+        "skill_id": "repo-analyzer",
+        "skill_input": {
+          "task_id": "TASK-C005",
+          "global_task_id": "RA::RepoAnalyzer::TASK-C005",
+          "title": "[DECOUPLE] Reduce coupling in: core/task_planning_pipeline.py",
+          "type": "decouple",
+          "priority": "P1",
+          "target_nodes": [
+            "core/task_planning_pipeline.py"
+          ],
+          "reason": "High coupling node with fan-out=7; depends on too many modules",
+          "steps": [
+            {
+              "step_id": 1,
+              "description": "Analyze 7 direct dependencies for necessity",
+              "dependency_nodes": [
+                "core/task_planning_pipeline.py"
+              ]
+            },
+            {
+              "step_id": 2,
+              "description": "Extract intermediate abstraction to reduce direct fan-out",
+              "dependency_nodes": [
+                "core/task_planning_pipeline.py"
+              ]
+            },
+            {
+              "step_id": 3,
+              "description": "Refactor dependents to use new abstraction",
+              "dependency_nodes": [
+                "core/task_planning_pipeline.py"
+              ]
+            }
+          ]
+        },
+        "skill_output": {
+          "binding_status": "resolved",
+          "skill_id": "repo-analyzer",
+          "method": "skill_resolver_fallback_chain"
+        }
+      },
+      {
+        "task_id": "TASK-A001",
+        "global_task_id": "RA::RepoAnalyzer::TASK-A001",
+        "title": "[STABILIZE] entry_layer: cli.py",
+        "type": "stabilize",
+        "priority": "P0",
+        "target_nodes": [
+          "cli.py"
+        ],
+        "impact_score": 0.63,
+        "risk_level": "medium",
+        "reason": "Entry point 'cli.py': stabilize with error handling, logging, and tests",
+        "steps": [
+          {
+            "step_id": 1,
+            "description": "Add comprehensive error handling at entry point",
+            "suggested_skills": [
+              "debugger",
+              "code-review",
+              "theme-factory"
+            ],
+            "dependency_nodes": [
+              "cli.py"
+            ]
+          },
+          {
+            "step_id": 2,
+            "description": "Add structured logging for observability",
+            "suggested_skills": [
+              "code-review",
+              "debugger",
+              "theme-factory"
+            ],
+            "dependency_nodes": [
+              "cli.py"
+            ]
+          },
+          {
+            "step_id": 3,
+            "description": "Add smoke/integration tests for critical paths",
+            "suggested_skills": [
+              "code-review",
+              "debugger",
+              "theme-factory"
+            ],
+            "dependency_nodes": [
+              "cli.py"
+            ]
+          }
+        ],
+        "depends_on": [],
+        "skill_id": "debugger",
+        "skill_input": {
+          "task_id": "TASK-A001",
+          "global_task_id": "RA::RepoAnalyzer::TASK-A001",
+          "title": "[STABILIZE] entry_layer: cli.py",
+          "type": "stabilize",
+          "priority": "P0",
+          "target_nodes": [
+            "cli.py"
+          ],
+          "reason": "Entry point 'cli.py': stabilize with error handling, logging, and tests",
+          "steps": [
+            {
+              "step_id": 1,
+              "description": "Add comprehensive error handling at entry point",
+              "dependency_nodes": [
+                "cli.py"
+              ]
+            },
+            {
+              "step_id": 2,
+              "description": "Add structured logging for observability",
+              "dependency_nodes": [
+                "cli.py"
+              ]
+            },
+            {
+              "step_id": 3,
+              "description": "Add smoke/integration tests for critical paths",
+              "dependency_nodes": [
+                "cli.py"
+              ]
+            }
+          ]
+        },
+        "skill_output": {
+          "binding_status": "resolved",
+          "skill_id": "debugger",
+          "method": "skill_resolver_fallback_chain"
+        }
+      },
+      {
+        "task_id": "TASK-A002",
+        "global_task_id": "RA::RepoAnalyzer::TASK-A002",
+        "title": "[OPTIMIZE] orchestration_layer: core/task_planning_pipeline.py",
+        "type": "optimize",
+        "priority": "P1",
+        "target_nodes": [
+          "core/task_planning_pipeline.py"
+        ],
+        "impact_score": 0.453,
+        "risk_level": "medium",
+        "reason": "Orchestrator 'core/task_planning_pipeline.py': simplify pipeline, reduce dependency count",
+        "steps": [
+          {
+            "step_id": 1,
+            "description": "Audit orchestration flow for redundant steps",
+            "suggested_skills": [
+              "repo-analyzer",
+              "react-best-practices",
+              "code-review",
+              "next-best-practices",
+              "next-cache-components"
+            ],
+            "dependency_nodes": [
+              "core/task_planning_pipeline.py"
+            ]
+          },
+          {
+            "step_id": 2,
+            "description": "Consolidate pipeline stages where possible",
+            "suggested_skills": [
+              "reflective-reasoning",
+              "react-best-practices",
+              "code-review",
+              "next-best-practices",
+              "next-cache-components"
+            ],
+            "dependency_nodes": [
+              "core/task_planning_pipeline.py"
+            ]
+          },
+          {
+            "step_id": 3,
+            "description": "Add pipeline monitoring and failure recovery",
+            "suggested_skills": [
+              "debugger",
+              "react-best-practices",
+              "code-review",
+              "next-best-practices",
+              "next-cache-components"
+            ],
+            "dependency_nodes": [
+              "core/task_planning_pipeline.py"
+            ]
+          }
+        ],
+        "depends_on": [],
+        "skill_id": "repo-analyzer",
+        "skill_input": {
+          "task_id": "TASK-A002",
+          "global_task_id": "RA::RepoAnalyzer::TASK-A002",
+          "title": "[OPTIMIZE] orchestration_layer: core/task_planning_pipeline.py",
+          "type": "optimize",
+          "priority": "P1",
+          "target_nodes": [
+            "core/task_planning_pipeline.py"
+          ],
+          "reason": "Orchestrator 'core/task_planning_pipeline.py': simplify pipeline, reduce dependency count",
+          "steps": [
+            {
+              "step_id": 1,
+              "description": "Audit orchestration flow for redundant steps",
+              "dependency_nodes": [
+                "core/task_planning_pipeline.py"
+              ]
+            },
+            {
+              "step_id": 2,
+              "description": "Consolidate pipeline stages where possible",
+              "dependency_nodes": [
+                "core/task_planning_pipeline.py"
+              ]
+            },
+            {
+              "step_id": 3,
+              "description": "Add pipeline monitoring and failure recovery",
+              "dependency_nodes": [
+                "core/task_planning_pipeline.py"
+              ]
+            }
+          ]
+        },
+        "skill_output": {
+          "binding_status": "resolved",
+          "skill_id": "repo-analyzer",
+          "method": "skill_resolver_fallback_chain"
+        }
+      },
+      {
+        "task_id": "TASK-A003",
+        "global_task_id": "RA::RepoAnalyzer::TASK-A003",
+        "title": "[OPTIMIZE] orchestration_layer: core/enrich_pipeline.py",
+        "type": "optimize",
+        "priority": "P1",
+        "target_nodes": [
+          "core/enrich_pipeline.py"
+        ],
+        "impact_score": 0.427,
+        "risk_level": "medium",
+        "reason": "Orchestrator 'core/enrich_pipeline.py': simplify pipeline, reduce dependency count",
+        "steps": [
+          {
+            "step_id": 1,
+            "description": "Audit orchestration flow for redundant steps",
+            "suggested_skills": [
+              "repo-analyzer",
+              "react-best-practices",
+              "code-review",
+              "next-best-practices",
+              "next-cache-components"
+            ],
+            "dependency_nodes": [
+              "core/enrich_pipeline.py"
+            ]
+          },
+          {
+            "step_id": 2,
+            "description": "Consolidate pipeline stages where possible",
+            "suggested_skills": [
+              "reflective-reasoning",
+              "react-best-practices",
+              "code-review",
+              "next-best-practices",
+              "next-cache-components"
+            ],
+            "dependency_nodes": [
+              "core/enrich_pipeline.py"
+            ]
+          },
+          {
+            "step_id": 3,
+            "description": "Add pipeline monitoring and failure recovery",
+            "suggested_skills": [
+              "debugger",
+              "react-best-practices",
+              "code-review",
+              "next-best-practices",
+              "next-cache-components"
+            ],
+            "dependency_nodes": [
+              "core/enrich_pipeline.py"
+            ]
+          }
+        ],
+        "depends_on": [],
+        "skill_id": "repo-analyzer",
+        "skill_input": {
+          "task_id": "TASK-A003",
+          "global_task_id": "RA::RepoAnalyzer::TASK-A003",
+          "title": "[OPTIMIZE] orchestration_layer: core/enrich_pipeline.py",
+          "type": "optimize",
+          "priority": "P1",
+          "target_nodes": [
+            "core/enrich_pipeline.py"
+          ],
+          "reason": "Orchestrator 'core/enrich_pipeline.py': simplify pipeline, reduce dependency count",
+          "steps": [
+            {
+              "step_id": 1,
+              "description": "Audit orchestration flow for redundant steps",
+              "dependency_nodes": [
+                "core/enrich_pipeline.py"
+              ]
+            },
+            {
+              "step_id": 2,
+              "description": "Consolidate pipeline stages where possible",
+              "dependency_nodes": [
+                "core/enrich_pipeline.py"
+              ]
+            },
+            {
+              "step_id": 3,
+              "description": "Add pipeline monitoring and failure recovery",
+              "dependency_nodes": [
+                "core/enrich_pipeline.py"
+              ]
+            }
+          ]
+        },
+        "skill_output": {
+          "binding_status": "resolved",
+          "skill_id": "repo-analyzer",
+          "method": "skill_resolver_fallback_chain"
+        }
+      },
+      {
+        "task_id": "TASK-A004",
+        "global_task_id": "RA::RepoAnalyzer::TASK-A004",
+        "title": "[OPTIMIZE] orchestration_layer: core/interpretation_pipeline.py",
+        "type": "optimize",
+        "priority": "P1",
+        "target_nodes": [
+          "core/interpretation_pipeline.py"
+        ],
+        "impact_score": 0.427,
+        "risk_level": "medium",
+        "reason": "Orchestrator 'core/interpretation_pipeline.py': simplify pipeline, reduce dependency count",
+        "steps": [
+          {
+            "step_id": 1,
+            "description": "Audit orchestration flow for redundant steps",
+            "suggested_skills": [
+              "repo-analyzer",
+              "react-best-practices",
+              "code-review",
+              "next-best-practices",
+              "next-cache-components"
+            ],
+            "dependency_nodes": [
+              "core/interpretation_pipeline.py"
+            ]
+          },
+          {
+            "step_id": 2,
+            "description": "Consolidate pipeline stages where possible",
+            "suggested_skills": [
+              "reflective-reasoning",
+              "react-best-practices",
+              "code-review",
+              "next-best-practices",
+              "next-cache-components"
+            ],
+            "dependency_nodes": [
+              "core/interpretation_pipeline.py"
+            ]
+          },
+          {
+            "step_id": 3,
+            "description": "Add pipeline monitoring and failure recovery",
+            "suggested_skills": [
+              "debugger",
+              "react-best-practices",
+              "code-review",
+              "next-best-practices",
+              "next-cache-components"
+            ],
+            "dependency_nodes": [
+              "core/interpretation_pipeline.py"
+            ]
+          }
+        ],
+        "depends_on": [],
+        "skill_id": "repo-analyzer",
+        "skill_input": {
+          "task_id": "TASK-A004",
+          "global_task_id": "RA::RepoAnalyzer::TASK-A004",
+          "title": "[OPTIMIZE] orchestration_layer: core/interpretation_pipeline.py",
+          "type": "optimize",
+          "priority": "P1",
+          "target_nodes": [
+            "core/interpretation_pipeline.py"
+          ],
+          "reason": "Orchestrator 'core/interpretation_pipeline.py': simplify pipeline, reduce dependency count",
+          "steps": [
+            {
+              "step_id": 1,
+              "description": "Audit orchestration flow for redundant steps",
+              "dependency_nodes": [
+                "core/interpretation_pipeline.py"
+              ]
+            },
+            {
+              "step_id": 2,
+              "description": "Consolidate pipeline stages where possible",
+              "dependency_nodes": [
+                "core/interpretation_pipeline.py"
+              ]
+            },
+            {
+              "step_id": 3,
+              "description": "Add pipeline monitoring and failure recovery",
+              "dependency_nodes": [
+                "core/interpretation_pipeline.py"
+              ]
+            }
+          ]
+        },
+        "skill_output": {
+          "binding_status": "resolved",
+          "skill_id": "repo-analyzer",
+          "method": "skill_resolver_fallback_chain"
+        }
+      },
+      {
+        "task_id": "TASK-A005",
+        "global_task_id": "RA::RepoAnalyzer::TASK-A005",
+        "title": "[OPTIMIZE] orchestration_layer: core/system_insights_pipeline.py",
+        "type": "optimize",
+        "priority": "P1",
+        "target_nodes": [
+          "core/system_insights_pipeline.py"
+        ],
+        "impact_score": 0.427,
+        "risk_level": "medium",
+        "reason": "Orchestrator 'core/system_insights_pipeline.py': simplify pipeline, reduce dependency count",
+        "steps": [
+          {
+            "step_id": 1,
+            "description": "Audit orchestration flow for redundant steps",
+            "suggested_skills": [
+              "repo-analyzer",
+              "react-best-practices",
+              "code-review",
+              "next-best-practices",
+              "next-cache-components"
+            ],
+            "dependency_nodes": [
+              "core/system_insights_pipeline.py"
+            ]
+          },
+          {
+            "step_id": 2,
+            "description": "Consolidate pipeline stages where possible",
+            "suggested_skills": [
+              "reflective-reasoning",
+              "react-best-practices",
+              "code-review",
+              "next-best-practices",
+              "next-cache-components"
+            ],
+            "dependency_nodes": [
+              "core/system_insights_pipeline.py"
+            ]
+          },
+          {
+            "step_id": 3,
+            "description": "Add pipeline monitoring and failure recovery",
+            "suggested_skills": [
+              "debugger",
+              "react-best-practices",
+              "code-review",
+              "next-best-practices",
+              "next-cache-components"
+            ],
+            "dependency_nodes": [
+              "core/system_insights_pipeline.py"
+            ]
+          }
+        ],
+        "depends_on": [],
+        "skill_id": "repo-analyzer",
+        "skill_input": {
+          "task_id": "TASK-A005",
+          "global_task_id": "RA::RepoAnalyzer::TASK-A005",
+          "title": "[OPTIMIZE] orchestration_layer: core/system_insights_pipeline.py",
+          "type": "optimize",
+          "priority": "P1",
+          "target_nodes": [
+            "core/system_insights_pipeline.py"
+          ],
+          "reason": "Orchestrator 'core/system_insights_pipeline.py': simplify pipeline, reduce dependency count",
+          "steps": [
+            {
+              "step_id": 1,
+              "description": "Audit orchestration flow for redundant steps",
+              "dependency_nodes": [
+                "core/system_insights_pipeline.py"
+              ]
+            },
+            {
+              "step_id": 2,
+              "description": "Consolidate pipeline stages where possible",
+              "dependency_nodes": [
+                "core/system_insights_pipeline.py"
+              ]
+            },
+            {
+              "step_id": 3,
+              "description": "Add pipeline monitoring and failure recovery",
+              "dependency_nodes": [
+                "core/system_insights_pipeline.py"
+              ]
+            }
+          ]
+        },
+        "skill_output": {
+          "binding_status": "resolved",
+          "skill_id": "repo-analyzer",
+          "method": "skill_resolver_fallback_chain"
+        }
+      },
+      {
+        "task_id": "TASK-A006",
+        "global_task_id": "RA::RepoAnalyzer::TASK-A006",
+        "title": "[OPTIMIZE] orchestration_layer: core/graph_pipeline.py",
+        "type": "optimize",
+        "priority": "P1",
+        "target_nodes": [
+          "core/graph_pipeline.py"
+        ],
+        "impact_score": 0.375,
+        "risk_level": "medium",
+        "reason": "Orchestrator 'core/graph_pipeline.py': simplify pipeline, reduce dependency count",
+        "steps": [
+          {
+            "step_id": 1,
+            "description": "Audit orchestration flow for redundant steps",
+            "suggested_skills": [
+              "repo-analyzer",
+              "react-best-practices",
+              "code-review",
+              "next-best-practices",
+              "next-cache-components"
+            ],
+            "dependency_nodes": [
+              "core/graph_pipeline.py"
+            ]
+          },
+          {
+            "step_id": 2,
+            "description": "Consolidate pipeline stages where possible",
+            "suggested_skills": [
+              "reflective-reasoning",
+              "react-best-practices",
+              "code-review",
+              "next-best-practices",
+              "next-cache-components"
+            ],
+            "dependency_nodes": [
+              "core/graph_pipeline.py"
+            ]
+          },
+          {
+            "step_id": 3,
+            "description": "Add pipeline monitoring and failure recovery",
+            "suggested_skills": [
+              "debugger",
+              "react-best-practices",
+              "code-review",
+              "next-best-practices",
+              "next-cache-components"
+            ],
+            "dependency_nodes": [
+              "core/graph_pipeline.py"
+            ]
+          }
+        ],
+        "depends_on": [],
+        "skill_id": "repo-analyzer",
+        "skill_input": {
+          "task_id": "TASK-A006",
+          "global_task_id": "RA::RepoAnalyzer::TASK-A006",
+          "title": "[OPTIMIZE] orchestration_layer: core/graph_pipeline.py",
+          "type": "optimize",
+          "priority": "P1",
+          "target_nodes": [
+            "core/graph_pipeline.py"
+          ],
+          "reason": "Orchestrator 'core/graph_pipeline.py': simplify pipeline, reduce dependency count",
+          "steps": [
+            {
+              "step_id": 1,
+              "description": "Audit orchestration flow for redundant steps",
+              "dependency_nodes": [
+                "core/graph_pipeline.py"
+              ]
+            },
+            {
+              "step_id": 2,
+              "description": "Consolidate pipeline stages where possible",
+              "dependency_nodes": [
+                "core/graph_pipeline.py"
+              ]
+            },
+            {
+              "step_id": 3,
+              "description": "Add pipeline monitoring and failure recovery",
+              "dependency_nodes": [
+                "core/graph_pipeline.py"
+              ]
+            }
+          ]
+        },
+        "skill_output": {
+          "binding_status": "resolved",
+          "skill_id": "repo-analyzer",
+          "method": "skill_resolver_fallback_chain"
+        }
+      },
+      {
+        "task_id": "TASK-A007",
+        "global_task_id": "RA::RepoAnalyzer::TASK-A007",
+        "title": "[REFACTOR] core_layer: core/model.py +2",
+        "type": "refactor",
+        "priority": "P1",
+        "target_nodes": [
+          "core/model.py",
+          "core/output_contract.py",
+          "core/dependency_builder.py"
+        ],
+        "impact_score": 0.429,
+        "risk_level": "low",
+        "reason": "Core module 'core/model.py': ensure clear interfaces, reduce coupling",
+        "steps": [
+          {
+            "step_id": 1,
+            "description": "Define explicit public interface for this module",
+            "suggested_skills": [
+              "reflective-reasoning",
+              "code-review",
+              "internal-comms",
+              "algorithm-explainer",
+              "debugger",
+              "markdown-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/model.py",
+              "core/output_contract.py",
+              "core/dependency_builder.py"
+            ]
+          },
+          {
+            "step_id": 2,
+            "description": "Add type annotations and docstrings",
+            "suggested_skills": [
+              "code-review",
+              "internal-comms",
+              "algorithm-explainer",
+              "debugger",
+              "markdown-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/model.py",
+              "core/output_contract.py",
+              "core/dependency_builder.py"
+            ]
+          },
+          {
+            "step_id": 3,
+            "description": "Review and reduce cross-module imports",
+            "suggested_skills": [
+              "repo-analyzer",
+              "code-review",
+              "internal-comms",
+              "algorithm-explainer",
+              "debugger",
+              "markdown-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/model.py",
+              "core/output_contract.py",
+              "core/dependency_builder.py"
+            ]
+          }
+        ],
+        "depends_on": [],
+        "skill_id": "code-review",
+        "skill_input": {
+          "task_id": "TASK-A007",
+          "global_task_id": "RA::RepoAnalyzer::TASK-A007",
+          "title": "[REFACTOR] core_layer: core/model.py +2",
+          "type": "refactor",
+          "priority": "P1",
+          "target_nodes": [
+            "core/model.py",
+            "core/output_contract.py",
+            "core/dependency_builder.py"
+          ],
+          "reason": "Core module 'core/model.py': ensure clear interfaces, reduce coupling",
+          "steps": [
+            {
+              "step_id": 1,
+              "description": "Define explicit public interface for this module",
+              "dependency_nodes": [
+                "core/model.py",
+                "core/output_contract.py",
+                "core/dependency_builder.py"
+              ]
+            },
+            {
+              "step_id": 2,
+              "description": "Add type annotations and docstrings",
+              "dependency_nodes": [
+                "core/model.py",
+                "core/output_contract.py",
+                "core/dependency_builder.py"
+              ]
+            },
+            {
+              "step_id": 3,
+              "description": "Review and reduce cross-module imports",
+              "dependency_nodes": [
+                "core/model.py",
+                "core/output_contract.py",
+                "core/dependency_builder.py"
+              ]
+            }
+          ]
+        },
+        "skill_output": {
+          "binding_status": "resolved",
+          "skill_id": "code-review",
+          "method": "skill_resolver_fallback_chain"
+        }
+      },
+      {
+        "task_id": "TASK-A008",
+        "global_task_id": "RA::RepoAnalyzer::TASK-A008",
+        "title": "[REFACTOR] core_layer: core/graph_analyzer.py +2",
+        "type": "refactor",
+        "priority": "P1",
+        "target_nodes": [
+          "core/graph_analyzer.py",
+          "core/graph_builder.py",
+          "core/architecture_task_mapper.py"
+        ],
+        "impact_score": 0.339,
+        "risk_level": "low",
+        "reason": "Core module 'core/graph_analyzer.py': ensure clear interfaces, reduce coupling",
+        "steps": [
+          {
+            "step_id": 1,
+            "description": "Define explicit public interface for this module",
+            "suggested_skills": [
+              "reflective-reasoning",
+              "code-review",
+              "internal-comms",
+              "algorithm-explainer",
+              "debugger",
+              "markdown-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/graph_analyzer.py",
+              "core/graph_builder.py",
+              "core/architecture_task_mapper.py"
+            ]
+          },
+          {
+            "step_id": 2,
+            "description": "Add type annotations and docstrings",
+            "suggested_skills": [
+              "code-review",
+              "internal-comms",
+              "algorithm-explainer",
+              "debugger",
+              "markdown-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/graph_analyzer.py",
+              "core/graph_builder.py",
+              "core/architecture_task_mapper.py"
+            ]
+          },
+          {
+            "step_id": 3,
+            "description": "Review and reduce cross-module imports",
+            "suggested_skills": [
+              "repo-analyzer",
+              "code-review",
+              "internal-comms",
+              "algorithm-explainer",
+              "debugger",
+              "markdown-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/graph_analyzer.py",
+              "core/graph_builder.py",
+              "core/architecture_task_mapper.py"
+            ]
+          }
+        ],
+        "depends_on": [],
+        "skill_id": "code-review",
+        "skill_input": {
+          "task_id": "TASK-A008",
+          "global_task_id": "RA::RepoAnalyzer::TASK-A008",
+          "title": "[REFACTOR] core_layer: core/graph_analyzer.py +2",
+          "type": "refactor",
+          "priority": "P1",
+          "target_nodes": [
+            "core/graph_analyzer.py",
+            "core/graph_builder.py",
+            "core/architecture_task_mapper.py"
+          ],
+          "reason": "Core module 'core/graph_analyzer.py': ensure clear interfaces, reduce coupling",
+          "steps": [
+            {
+              "step_id": 1,
+              "description": "Define explicit public interface for this module",
+              "dependency_nodes": [
+                "core/graph_analyzer.py",
+                "core/graph_builder.py",
+                "core/architecture_task_mapper.py"
+              ]
+            },
+            {
+              "step_id": 2,
+              "description": "Add type annotations and docstrings",
+              "dependency_nodes": [
+                "core/graph_analyzer.py",
+                "core/graph_builder.py",
+                "core/architecture_task_mapper.py"
+              ]
+            },
+            {
+              "step_id": 3,
+              "description": "Review and reduce cross-module imports",
+              "dependency_nodes": [
+                "core/graph_analyzer.py",
+                "core/graph_builder.py",
+                "core/architecture_task_mapper.py"
+              ]
+            }
+          ]
+        },
+        "skill_output": {
+          "binding_status": "resolved",
+          "skill_id": "code-review",
+          "method": "skill_resolver_fallback_chain"
+        }
+      },
+      {
+        "task_id": "TASK-A009",
+        "global_task_id": "RA::RepoAnalyzer::TASK-A009",
+        "title": "[REFACTOR] core_layer: core/bottleneck_task_generator.py +2",
+        "type": "refactor",
+        "priority": "P1",
+        "target_nodes": [
+          "core/bottleneck_task_generator.py",
+          "core/coupling_task_builder.py",
+          "core/dependency_pipeline.py"
+        ],
+        "impact_score": 0.295,
+        "risk_level": "low",
+        "reason": "Core module 'core/bottleneck_task_generator.py': ensure clear interfaces, reduce coupling",
+        "steps": [
+          {
+            "step_id": 1,
+            "description": "Define explicit public interface for this module",
+            "suggested_skills": [
+              "reflective-reasoning",
+              "code-review",
+              "internal-comms",
+              "algorithm-explainer",
+              "debugger",
+              "markdown-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/bottleneck_task_generator.py",
+              "core/coupling_task_builder.py",
+              "core/dependency_pipeline.py"
+            ]
+          },
+          {
+            "step_id": 2,
+            "description": "Add type annotations and docstrings",
+            "suggested_skills": [
+              "code-review",
+              "internal-comms",
+              "algorithm-explainer",
+              "debugger",
+              "markdown-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/bottleneck_task_generator.py",
+              "core/coupling_task_builder.py",
+              "core/dependency_pipeline.py"
+            ]
+          },
+          {
+            "step_id": 3,
+            "description": "Review and reduce cross-module imports",
+            "suggested_skills": [
+              "repo-analyzer",
+              "code-review",
+              "internal-comms",
+              "algorithm-explainer",
+              "debugger",
+              "markdown-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/bottleneck_task_generator.py",
+              "core/coupling_task_builder.py",
+              "core/dependency_pipeline.py"
+            ]
+          }
+        ],
+        "depends_on": [],
+        "skill_id": "code-review",
+        "skill_input": {
+          "task_id": "TASK-A009",
+          "global_task_id": "RA::RepoAnalyzer::TASK-A009",
+          "title": "[REFACTOR] core_layer: core/bottleneck_task_generator.py +2",
+          "type": "refactor",
+          "priority": "P1",
+          "target_nodes": [
+            "core/bottleneck_task_generator.py",
+            "core/coupling_task_builder.py",
+            "core/dependency_pipeline.py"
+          ],
+          "reason": "Core module 'core/bottleneck_task_generator.py': ensure clear interfaces, reduce coupling",
+          "steps": [
+            {
+              "step_id": 1,
+              "description": "Define explicit public interface for this module",
+              "dependency_nodes": [
+                "core/bottleneck_task_generator.py",
+                "core/coupling_task_builder.py",
+                "core/dependency_pipeline.py"
+              ]
+            },
+            {
+              "step_id": 2,
+              "description": "Add type annotations and docstrings",
+              "dependency_nodes": [
+                "core/bottleneck_task_generator.py",
+                "core/coupling_task_builder.py",
+                "core/dependency_pipeline.py"
+              ]
+            },
+            {
+              "step_id": 3,
+              "description": "Review and reduce cross-module imports",
+              "dependency_nodes": [
+                "core/bottleneck_task_generator.py",
+                "core/coupling_task_builder.py",
+                "core/dependency_pipeline.py"
+              ]
+            }
+          ]
+        },
+        "skill_output": {
+          "binding_status": "resolved",
+          "skill_id": "code-review",
+          "method": "skill_resolver_fallback_chain"
+        }
+      },
+      {
+        "task_id": "TASK-A010",
+        "global_task_id": "RA::RepoAnalyzer::TASK-A010",
+        "title": "[REFACTOR] core_layer: core/parser.py +2",
+        "type": "refactor",
+        "priority": "P1",
+        "target_nodes": [
+          "core/parser.py",
+          "core/global_task_id.py",
+          "core/graph_indexer.py"
+        ],
+        "impact_score": 0.257,
+        "risk_level": "low",
+        "reason": "Core module 'core/parser.py': ensure clear interfaces, reduce coupling",
+        "steps": [
+          {
+            "step_id": 1,
+            "description": "Define explicit public interface for this module",
+            "suggested_skills": [
+              "reflective-reasoning",
+              "code-review",
+              "internal-comms",
+              "algorithm-explainer",
+              "debugger",
+              "markdown-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/parser.py",
+              "core/global_task_id.py",
+              "core/graph_indexer.py"
+            ]
+          },
+          {
+            "step_id": 2,
+            "description": "Add type annotations and docstrings",
+            "suggested_skills": [
+              "code-review",
+              "internal-comms",
+              "algorithm-explainer",
+              "debugger",
+              "markdown-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/parser.py",
+              "core/global_task_id.py",
+              "core/graph_indexer.py"
+            ]
+          },
+          {
+            "step_id": 3,
+            "description": "Review and reduce cross-module imports",
+            "suggested_skills": [
+              "repo-analyzer",
+              "code-review",
+              "internal-comms",
+              "algorithm-explainer",
+              "debugger",
+              "markdown-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/parser.py",
+              "core/global_task_id.py",
+              "core/graph_indexer.py"
+            ]
+          }
+        ],
+        "depends_on": [],
+        "skill_id": "code-review",
+        "skill_input": {
+          "task_id": "TASK-A010",
+          "global_task_id": "RA::RepoAnalyzer::TASK-A010",
+          "title": "[REFACTOR] core_layer: core/parser.py +2",
+          "type": "refactor",
+          "priority": "P1",
+          "target_nodes": [
+            "core/parser.py",
+            "core/global_task_id.py",
+            "core/graph_indexer.py"
+          ],
+          "reason": "Core module 'core/parser.py': ensure clear interfaces, reduce coupling",
+          "steps": [
+            {
+              "step_id": 1,
+              "description": "Define explicit public interface for this module",
+              "dependency_nodes": [
+                "core/parser.py",
+                "core/global_task_id.py",
+                "core/graph_indexer.py"
+              ]
+            },
+            {
+              "step_id": 2,
+              "description": "Add type annotations and docstrings",
+              "dependency_nodes": [
+                "core/parser.py",
+                "core/global_task_id.py",
+                "core/graph_indexer.py"
+              ]
+            },
+            {
+              "step_id": 3,
+              "description": "Review and reduce cross-module imports",
+              "dependency_nodes": [
+                "core/parser.py",
+                "core/global_task_id.py",
+                "core/graph_indexer.py"
+              ]
+            }
+          ]
+        },
+        "skill_output": {
+          "binding_status": "resolved",
+          "skill_id": "code-review",
+          "method": "skill_resolver_fallback_chain"
+        }
+      },
+      {
+        "task_id": "TASK-A011",
+        "global_task_id": "RA::RepoAnalyzer::TASK-A011",
+        "title": "[REFACTOR] core_layer: core/architecture_layering.py +2",
+        "type": "refactor",
+        "priority": "P1",
+        "target_nodes": [
+          "core/architecture_layering.py",
+          "core/bottleneck_detector.py",
+          "core/coupling_analyzer.py"
+        ],
+        "impact_score": 0.256,
+        "risk_level": "low",
+        "reason": "Core module 'core/architecture_layering.py': ensure clear interfaces, reduce coupling",
+        "steps": [
+          {
+            "step_id": 1,
+            "description": "Define explicit public interface for this module",
+            "suggested_skills": [
+              "reflective-reasoning",
+              "code-review",
+              "internal-comms",
+              "algorithm-explainer",
+              "debugger",
+              "markdown-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/architecture_layering.py",
+              "core/bottleneck_detector.py",
+              "core/coupling_analyzer.py"
+            ]
+          },
+          {
+            "step_id": 2,
+            "description": "Add type annotations and docstrings",
+            "suggested_skills": [
+              "code-review",
+              "internal-comms",
+              "algorithm-explainer",
+              "debugger",
+              "markdown-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/architecture_layering.py",
+              "core/bottleneck_detector.py",
+              "core/coupling_analyzer.py"
+            ]
+          },
+          {
+            "step_id": 3,
+            "description": "Review and reduce cross-module imports",
+            "suggested_skills": [
+              "repo-analyzer",
+              "code-review",
+              "internal-comms",
+              "algorithm-explainer",
+              "debugger",
+              "markdown-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/architecture_layering.py",
+              "core/bottleneck_detector.py",
+              "core/coupling_analyzer.py"
+            ]
+          }
+        ],
+        "depends_on": [],
+        "skill_id": "code-review",
+        "skill_input": {
+          "task_id": "TASK-A011",
+          "global_task_id": "RA::RepoAnalyzer::TASK-A011",
+          "title": "[REFACTOR] core_layer: core/architecture_layering.py +2",
+          "type": "refactor",
+          "priority": "P1",
+          "target_nodes": [
+            "core/architecture_layering.py",
+            "core/bottleneck_detector.py",
+            "core/coupling_analyzer.py"
+          ],
+          "reason": "Core module 'core/architecture_layering.py': ensure clear interfaces, reduce coupling",
+          "steps": [
+            {
+              "step_id": 1,
+              "description": "Define explicit public interface for this module",
+              "dependency_nodes": [
+                "core/architecture_layering.py",
+                "core/bottleneck_detector.py",
+                "core/coupling_analyzer.py"
+              ]
+            },
+            {
+              "step_id": 2,
+              "description": "Add type annotations and docstrings",
+              "dependency_nodes": [
+                "core/architecture_layering.py",
+                "core/bottleneck_detector.py",
+                "core/coupling_analyzer.py"
+              ]
+            },
+            {
+              "step_id": 3,
+              "description": "Review and reduce cross-module imports",
+              "dependency_nodes": [
+                "core/architecture_layering.py",
+                "core/bottleneck_detector.py",
+                "core/coupling_analyzer.py"
+              ]
+            }
+          ]
+        },
+        "skill_output": {
+          "binding_status": "resolved",
+          "skill_id": "code-review",
+          "method": "skill_resolver_fallback_chain"
+        }
+      },
+      {
+        "task_id": "TASK-A012",
+        "global_task_id": "RA::RepoAnalyzer::TASK-A012",
+        "title": "[REFACTOR] core_layer: core/criticality_scorer.py +2",
+        "type": "refactor",
+        "priority": "P1",
+        "target_nodes": [
+          "core/criticality_scorer.py",
+          "core/system_health_reporter.py",
+          "core/system_role_classifier.py"
+        ],
+        "impact_score": 0.256,
+        "risk_level": "low",
+        "reason": "Core module 'core/criticality_scorer.py': ensure clear interfaces, reduce coupling",
+        "steps": [
+          {
+            "step_id": 1,
+            "description": "Define explicit public interface for this module",
+            "suggested_skills": [
+              "reflective-reasoning",
+              "code-review",
+              "internal-comms",
+              "algorithm-explainer",
+              "debugger",
+              "markdown-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/criticality_scorer.py",
+              "core/system_health_reporter.py",
+              "core/system_role_classifier.py"
+            ]
+          },
+          {
+            "step_id": 2,
+            "description": "Add type annotations and docstrings",
+            "suggested_skills": [
+              "code-review",
+              "internal-comms",
+              "algorithm-explainer",
+              "debugger",
+              "markdown-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/criticality_scorer.py",
+              "core/system_health_reporter.py",
+              "core/system_role_classifier.py"
+            ]
+          },
+          {
+            "step_id": 3,
+            "description": "Review and reduce cross-module imports",
+            "suggested_skills": [
+              "repo-analyzer",
+              "code-review",
+              "internal-comms",
+              "algorithm-explainer",
+              "debugger",
+              "markdown-analyzer"
+            ],
+            "dependency_nodes": [
+              "core/criticality_scorer.py",
+              "core/system_health_reporter.py",
+              "core/system_role_classifier.py"
+            ]
+          }
+        ],
+        "depends_on": [],
+        "skill_id": "code-review",
+        "skill_input": {
+          "task_id": "TASK-A012",
+          "global_task_id": "RA::RepoAnalyzer::TASK-A012",
+          "title": "[REFACTOR] core_layer: core/criticality_scorer.py +2",
+          "type": "refactor",
+          "priority": "P1",
+          "target_nodes": [
+            "core/criticality_scorer.py",
+            "core/system_health_reporter.py",
+            "core/system_role_classifier.py"
+          ],
+          "reason": "Core module 'core/criticality_scorer.py': ensure clear interfaces, reduce coupling",
+          "steps": [
+            {
+              "step_id": 1,
+              "description": "Define explicit public interface for this module",
+              "dependency_nodes": [
+                "core/criticality_scorer.py",
+                "core/system_health_reporter.py",
+                "core/system_role_classifier.py"
+              ]
+            },
+            {
+              "step_id": 2,
+              "description": "Add type annotations and docstrings",
+              "dependency_nodes": [
+                "core/criticality_scorer.py",
+                "core/system_health_reporter.py",
+                "core/system_role_classifier.py"
+              ]
+            },
+            {
+              "step_id": 3,
+              "description": "Review and reduce cross-module imports",
+              "dependency_nodes": [
+                "core/criticality_scorer.py",
+                "core/system_health_reporter.py",
+                "core/system_role_classifier.py"
+              ]
+            }
+          ]
+        },
+        "skill_output": {
+          "binding_status": "resolved",
+          "skill_id": "code-review",
+          "method": "skill_resolver_fallback_chain"
+        }
+      },
+      {
+        "task_id": "TASK-A013",
+        "global_task_id": "RA::RepoAnalyzer::TASK-A013",
+        "title": "[CLEANUP] leaf_layer: core/skill_suggestion_mapper.py +2",
+        "type": "cleanup",
+        "priority": "P2",
+        "target_nodes": [
+          "core/skill_suggestion_mapper.py",
+          "core/dependency_meaning_inferer.py",
+          "core/entrypoint_detector.py"
+        ],
+        "impact_score": 0.191,
+        "risk_level": "low",
+        "reason": "Leaf module 'core/skill_suggestion_mapper.py': verify it belongs, consider consolidation",
+        "steps": [
+          {
+            "step_id": 1,
+            "description": "Verify module is still needed",
+            "suggested_skills": [
+              "repo-analyzer",
+              "code-review"
+            ],
+            "dependency_nodes": [
+              "core/skill_suggestion_mapper.py",
+              "core/dependency_meaning_inferer.py",
+              "core/entrypoint_detector.py"
+            ]
+          },
+          {
+            "step_id": 2,
+            "description": "Consider consolidating with related modules",
+            "suggested_skills": [
+              "reflective-reasoning",
+              "code-review"
+            ],
+            "dependency_nodes": [
+              "core/skill_suggestion_mapper.py",
+              "core/dependency_meaning_inferer.py",
+              "core/entrypoint_detector.py"
+            ]
+          }
+        ],
+        "depends_on": [],
+        "skill_id": "code-review",
+        "skill_input": {
+          "task_id": "TASK-A013",
+          "global_task_id": "RA::RepoAnalyzer::TASK-A013",
+          "title": "[CLEANUP] leaf_layer: core/skill_suggestion_mapper.py +2",
+          "type": "cleanup",
+          "priority": "P2",
+          "target_nodes": [
+            "core/skill_suggestion_mapper.py",
+            "core/dependency_meaning_inferer.py",
+            "core/entrypoint_detector.py"
+          ],
+          "reason": "Leaf module 'core/skill_suggestion_mapper.py': verify it belongs, consider consolidation",
+          "steps": [
+            {
+              "step_id": 1,
+              "description": "Verify module is still needed",
+              "dependency_nodes": [
+                "core/skill_suggestion_mapper.py",
+                "core/dependency_meaning_inferer.py",
+                "core/entrypoint_detector.py"
+              ]
+            },
+            {
+              "step_id": 2,
+              "description": "Consider consolidating with related modules",
+              "dependency_nodes": [
+                "core/skill_suggestion_mapper.py",
+                "core/dependency_meaning_inferer.py",
+                "core/entrypoint_detector.py"
+              ]
+            }
+          ]
+        },
+        "skill_output": {
+          "binding_status": "resolved",
+          "skill_id": "code-review",
+          "method": "skill_resolver_fallback_chain"
+        }
+      },
+      {
+        "task_id": "TASK-A014",
+        "global_task_id": "RA::RepoAnalyzer::TASK-A014",
+        "title": "[CLEANUP] leaf_layer: core/impact_analyzer.py +2",
+        "type": "cleanup",
+        "priority": "P2",
+        "target_nodes": [
+          "core/impact_analyzer.py",
+          "core/impact_task_analyzer.py",
+          "core/import_extractor.py"
+        ],
+        "impact_score": 0.19,
+        "risk_level": "low",
+        "reason": "Leaf module 'core/impact_analyzer.py': verify it belongs, consider consolidation",
+        "steps": [
+          {
+            "step_id": 1,
+            "description": "Verify module is still needed",
+            "suggested_skills": [
+              "repo-analyzer",
+              "code-review"
+            ],
+            "dependency_nodes": [
+              "core/impact_analyzer.py",
+              "core/impact_task_analyzer.py",
+              "core/import_extractor.py"
+            ]
+          },
+          {
+            "step_id": 2,
+            "description": "Consider consolidating with related modules",
+            "suggested_skills": [
+              "reflective-reasoning",
+              "code-review"
+            ],
+            "dependency_nodes": [
+              "core/impact_analyzer.py",
+              "core/impact_task_analyzer.py",
+              "core/import_extractor.py"
+            ]
+          }
+        ],
+        "depends_on": [],
+        "skill_id": "code-review",
+        "skill_input": {
+          "task_id": "TASK-A014",
+          "global_task_id": "RA::RepoAnalyzer::TASK-A014",
+          "title": "[CLEANUP] leaf_layer: core/impact_analyzer.py +2",
+          "type": "cleanup",
+          "priority": "P2",
+          "target_nodes": [
+            "core/impact_analyzer.py",
+            "core/impact_task_analyzer.py",
+            "core/import_extractor.py"
+          ],
+          "reason": "Leaf module 'core/impact_analyzer.py': verify it belongs, consider consolidation",
+          "steps": [
+            {
+              "step_id": 1,
+              "description": "Verify module is still needed",
+              "dependency_nodes": [
+                "core/impact_analyzer.py",
+                "core/impact_task_analyzer.py",
+                "core/import_extractor.py"
+              ]
+            },
+            {
+              "step_id": 2,
+              "description": "Consider consolidating with related modules",
+              "dependency_nodes": [
+                "core/impact_analyzer.py",
+                "core/impact_task_analyzer.py",
+                "core/import_extractor.py"
+              ]
+            }
+          ]
+        },
+        "skill_output": {
+          "binding_status": "resolved",
+          "skill_id": "code-review",
+          "method": "skill_resolver_fallback_chain"
+        }
+      },
+      {
+        "task_id": "TASK-A015",
+        "global_task_id": "RA::RepoAnalyzer::TASK-A015",
+        "title": "[CLEANUP] leaf_layer: core/importance_scorer.py +2",
+        "type": "cleanup",
+        "priority": "P2",
+        "target_nodes": [
+          "core/importance_scorer.py",
+          "core/path_resolver.py",
+          "core/role_classifier.py"
+        ],
+        "impact_score": 0.19,
+        "risk_level": "low",
+        "reason": "Leaf module 'core/importance_scorer.py': verify it belongs, consider consolidation",
+        "steps": [
+          {
+            "step_id": 1,
+            "description": "Verify module is still needed",
+            "suggested_skills": [
+              "repo-analyzer",
+              "code-review"
+            ],
+            "dependency_nodes": [
+              "core/importance_scorer.py",
+              "core/path_resolver.py",
+              "core/role_classifier.py"
+            ]
+          },
+          {
+            "step_id": 2,
+            "description": "Consider consolidating with related modules",
+            "suggested_skills": [
+              "reflective-reasoning",
+              "code-review"
+            ],
+            "dependency_nodes": [
+              "core/importance_scorer.py",
+              "core/path_resolver.py",
+              "core/role_classifier.py"
+            ]
+          }
+        ],
+        "depends_on": [],
+        "skill_id": "code-review",
+        "skill_input": {
+          "task_id": "TASK-A015",
+          "global_task_id": "RA::RepoAnalyzer::TASK-A015",
+          "title": "[CLEANUP] leaf_layer: core/importance_scorer.py +2",
+          "type": "cleanup",
+          "priority": "P2",
+          "target_nodes": [
+            "core/importance_scorer.py",
+            "core/path_resolver.py",
+            "core/role_classifier.py"
+          ],
+          "reason": "Leaf module 'core/importance_scorer.py': verify it belongs, consider consolidation",
+          "steps": [
+            {
+              "step_id": 1,
+              "description": "Verify module is still needed",
+              "dependency_nodes": [
+                "core/importance_scorer.py",
+                "core/path_resolver.py",
+                "core/role_classifier.py"
+              ]
+            },
+            {
+              "step_id": 2,
+              "description": "Consider consolidating with related modules",
+              "dependency_nodes": [
+                "core/importance_scorer.py",
+                "core/path_resolver.py",
+                "core/role_classifier.py"
+              ]
+            }
+          ]
+        },
+        "skill_output": {
+          "binding_status": "resolved",
+          "skill_id": "code-review",
+          "method": "skill_resolver_fallback_chain"
+        }
+      },
+      {
+        "task_id": "TASK-A016",
+        "global_task_id": "RA::RepoAnalyzer::TASK-A016",
+        "title": "[CLEANUP] leaf_layer: core/scanner.py +2",
+        "type": "cleanup",
+        "priority": "P2",
+        "target_nodes": [
+          "core/scanner.py",
+          "core/tag_generator.py",
+          "core/time_utils.py"
+        ],
+        "impact_score": 0.19,
+        "risk_level": "low",
+        "reason": "Leaf module 'core/scanner.py': verify it belongs, consider consolidation",
+        "steps": [
+          {
+            "step_id": 1,
+            "description": "Verify module is still needed",
+            "suggested_skills": [
+              "repo-analyzer",
+              "code-review"
+            ],
+            "dependency_nodes": [
+              "core/scanner.py",
+              "core/tag_generator.py",
+              "core/time_utils.py"
+            ]
+          },
+          {
+            "step_id": 2,
+            "description": "Consider consolidating with related modules",
+            "suggested_skills": [
+              "reflective-reasoning",
+              "code-review"
+            ],
+            "dependency_nodes": [
+              "core/scanner.py",
+              "core/tag_generator.py",
+              "core/time_utils.py"
+            ]
+          }
+        ],
+        "depends_on": [],
+        "skill_id": "code-review",
+        "skill_input": {
+          "task_id": "TASK-A016",
+          "global_task_id": "RA::RepoAnalyzer::TASK-A016",
+          "title": "[CLEANUP] leaf_layer: core/scanner.py +2",
+          "type": "cleanup",
+          "priority": "P2",
+          "target_nodes": [
+            "core/scanner.py",
+            "core/tag_generator.py",
+            "core/time_utils.py"
+          ],
+          "reason": "Leaf module 'core/scanner.py': verify it belongs, consider consolidation",
+          "steps": [
+            {
+              "step_id": 1,
+              "description": "Verify module is still needed",
+              "dependency_nodes": [
+                "core/scanner.py",
+                "core/tag_generator.py",
+                "core/time_utils.py"
+              ]
+            },
+            {
+              "step_id": 2,
+              "description": "Consider consolidating with related modules",
+              "dependency_nodes": [
+                "core/scanner.py",
+                "core/tag_generator.py",
+                "core/time_utils.py"
+              ]
+            }
+          ]
+        },
+        "skill_output": {
+          "binding_status": "resolved",
+          "skill_id": "code-review",
+          "method": "skill_resolver_fallback_chain"
+        }
+      }
+    ],
+    "execution_order": [
+      "TASK-A001",
+      "TASK-B001",
+      "TASK-B002",
+      "TASK-C001",
+      "TASK-B008",
+      "TASK-C005",
+      "TASK-A002",
+      "TASK-B006",
+      "TASK-A007",
+      "TASK-B003",
+      "TASK-B005",
+      "TASK-B007",
+      "TASK-C002",
+      "TASK-C003",
+      "TASK-C004",
+      "TASK-A003",
+      "TASK-A004",
+      "TASK-A005",
+      "TASK-B004",
+      "TASK-A006",
+      "TASK-A008",
+      "TASK-A009",
+      "TASK-A010",
+      "TASK-A011",
+      "TASK-A012",
+      "TASK-A013",
+      "TASK-A014",
+      "TASK-A015",
+      "TASK-A016"
+    ],
+    "summary": {
+      "total_tasks": 29,
+      "high_priority_tasks": 25,
+      "risk_distribution": {
+        "critical": 1,
+        "high": 7,
+        "medium": 11,
+        "low": 10
+      }
+    }
+  }
+}

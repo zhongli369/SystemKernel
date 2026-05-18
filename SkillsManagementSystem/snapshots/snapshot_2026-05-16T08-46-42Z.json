@@ -1,0 +1,239 @@
+{
+  "version": "1.0.0",
+  "timestamp": "2026-05-16T08:46:42Z",
+  "label": "after phase1",
+  "registry_version": "2.0.0",
+  "packages": {
+    "base": {
+      "display_name": "基础技能包",
+      "version": "1.0.0",
+      "skills": [
+        "code-review",
+        "debugger",
+        "repo-analyzer",
+        "reflective-reasoning",
+        "researcher",
+        "skill-creator"
+      ]
+    },
+    "dsa": {
+      "display_name": "数据结构与算法包",
+      "version": "1.0.0",
+      "skills": [
+        "algorithm-explainer"
+      ]
+    },
+    "office": {
+      "display_name": "办公软件包",
+      "version": "1.0.0",
+      "skills": [
+        "docx",
+        "xlsx",
+        "pptx",
+        "pdf"
+      ]
+    },
+    "finance": {
+      "display_name": "金融炒股包",
+      "version": "0.1.0",
+      "skills": []
+    },
+    "dev": {
+      "display_name": "项目开发包",
+      "version": "1.0.0",
+      "skills": [
+        "claude-api",
+        "algorithmic-art",
+        "brand-guidelines",
+        "canvas-design",
+        "doc-coauthoring",
+        "frontend-design",
+        "internal-comms",
+        "mcp-builder",
+        "slack-gif-creator",
+        "theme-factory",
+        "web-artifacts-builder",
+        "webapp-testing"
+      ]
+    },
+    "vercel-agent-skills": {
+      "display_name": "Vercel Agent Skills",
+      "version": "1.5.5",
+      "skills": [
+        "react-best-practices",
+        "web-design-guidelines",
+        "composition-patterns",
+        "next-best-practices",
+        "next-cache-components",
+        "next-upgrade",
+        "react-native-skills"
+      ]
+    },
+    "find-skill": {
+      "display_name": "技能发现工具",
+      "version": "1.0.0",
+      "skills": [
+        "find-skills"
+      ]
+    }
+  },
+  "skills": {
+    "code-review": {
+      "version": "1.0.0",
+      "package": "base",
+      "description": "Review code changes for correctness, security, performance, and maintainability"
+    },
+    "debugger": {
+      "version": "1.0.0",
+      "package": "base",
+      "description": "Debug code with structured error analysis, targeted fixes, and retry logic"
+    },
+    "repo-analyzer": {
+      "version": "1.0.0",
+      "package": "base",
+      "description": "Explore and analyze code repositories with architecture review and dependency mapping"
+    },
+    "reflective-reasoning": {
+      "version": "1.0.0",
+      "package": "base",
+      "description": "Formal mathematical and logical reasoning with proofs and systematic analysis"
+    },
+    "researcher": {
+      "version": "1.0.0",
+      "package": "base",
+      "description": "Six-phase systematic literature review with structured notes and synthesized reports"
+    },
+    "skill-creator": {
+      "version": "1.0.0",
+      "package": "base",
+      "description": "Create new skills, modify existing skills, and measure skill performance"
+    },
+    "algorithm-explainer": {
+      "version": "1.0.0",
+      "package": "dsa",
+      "description": "Design and explain algorithms with pseudocode, UML, and Mermaid diagrams"
+    },
+    "docx": {
+      "version": "1.0.0",
+      "package": "office",
+      "description": "Create, read, edit, and manipulate Word documents (.docx files)"
+    },
+    "xlsx": {
+      "version": "1.0.0",
+      "package": "office",
+      "description": "Create, edit, and analyze Excel spreadsheets (.xlsx, .xlsm, .csv, .tsv)"
+    },
+    "pptx": {
+      "version": "1.0.0",
+      "package": "office",
+      "description": "Create, edit, and analyze PowerPoint presentations (.pptx files)"
+    },
+    "pdf": {
+      "version": "1.0.0",
+      "package": "office",
+      "description": "Read, create, merge, split, and manipulate PDF files with forms support"
+    },
+    "claude-api": {
+      "version": "1.0.0",
+      "package": "dev",
+      "description": "Build, debug, and optimize Claude API / Anthropic SDK applications"
+    },
+    "algorithmic-art": {
+      "version": "1.0.0",
+      "package": "dev",
+      "description": "Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration"
+    },
+    "brand-guidelines": {
+      "version": "1.0.0",
+      "package": "dev",
+      "description": "Applies Anthropic's official brand colors and typography to artifacts"
+    },
+    "canvas-design": {
+      "version": "1.0.0",
+      "package": "dev",
+      "description": "Create beautiful visual art in .png and .pdf documents using design philosophy"
+    },
+    "doc-coauthoring": {
+      "version": "1.0.0",
+      "package": "dev",
+      "description": "Guide users through a structured workflow for co-authoring documentation"
+    },
+    "frontend-design": {
+      "version": "1.0.0",
+      "package": "dev",
+      "description": "Create distinctive, production-grade frontend interfaces with high design quality"
+    },
+    "internal-comms": {
+      "version": "1.0.0",
+      "package": "dev",
+      "description": "Resources to help write internal communications"
+    },
+    "mcp-builder": {
+      "version": "1.0.0",
+      "package": "dev",
+      "description": "Guide for creating MCP (Model Context Protocol) servers"
+    },
+    "slack-gif-creator": {
+      "version": "1.0.0",
+      "package": "dev",
+      "description": "Creating animated GIFs optimized for Slack"
+    },
+    "theme-factory": {
+      "version": "1.0.0",
+      "package": "dev",
+      "description": "Toolkit for styling artifacts with a theme"
+    },
+    "web-artifacts-builder": {
+      "version": "1.0.0",
+      "package": "dev",
+      "description": "Suite of tools for creating multi-component claude.ai HTML artifacts"
+    },
+    "webapp-testing": {
+      "version": "1.0.0",
+      "package": "dev",
+      "description": "Toolkit for testing local web applications with Playwright"
+    },
+    "react-best-practices": {
+      "version": "1.5.5",
+      "package": "vercel-agent-skills",
+      "description": "React patterns and best practices from Vercel"
+    },
+    "web-design-guidelines": {
+      "version": "1.5.5",
+      "package": "vercel-agent-skills",
+      "description": "Web design standards and guidelines from Vercel"
+    },
+    "composition-patterns": {
+      "version": "1.5.5",
+      "package": "vercel-agent-skills",
+      "description": "React component composition patterns from Vercel"
+    },
+    "next-best-practices": {
+      "version": "1.5.5",
+      "package": "vercel-agent-skills",
+      "description": "Next.js recommended patterns and best practices"
+    },
+    "next-cache-components": {
+      "version": "1.5.5",
+      "package": "vercel-agent-skills",
+      "description": "Caching strategies for Next.js applications"
+    },
+    "next-upgrade": {
+      "version": "1.5.5",
+      "package": "vercel-agent-skills",
+      "description": "Upgrade Next.js projects to latest version"
+    },
+    "react-native-skills": {
+      "version": "1.5.5",
+      "package": "vercel-agent-skills",
+      "description": "React Native best practices and patterns"
+    },
+    "find-skills": {
+      "version": "1.0.0",
+      "package": "find-skill",
+      "description": "Helps users discover and install agent skills from the open agent skills ecosystem"
+    }
+  },
+  "total_packages": 7,
+  "total_skills": 31
+}

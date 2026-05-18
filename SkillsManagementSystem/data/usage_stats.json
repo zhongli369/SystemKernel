@@ -1,0 +1,33 @@
+{
+  "version": "1.0.0",
+  "created": "2026-05-16T08:46:29Z",
+  "counts": {
+    "install": 0,
+    "uninstall": 0,
+    "search": 0,
+    "register": 0,
+    "find-skill": 2
+  },
+  "events": [
+    {
+      "timestamp": "2026-05-16T08:56:08Z",
+      "event_type": "find-skill",
+      "details": {
+        "skill": "pdf",
+        "query": "I need to analyze a pdf file",
+        "package": "office",
+        "source": "[local]"
+      }
+    },
+    {
+      "timestamp": "2026-05-16T08:56:08Z",
+      "event_type": "find-skill",
+      "details": {
+        "skill": "mcp-builder",
+        "query": "I want to build an mcp server",
+        "package": "dev",
+        "source": "[local]"
+      }
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "version": "1.0.0",
+  "rules": [
+    {
+      "keywords": [
+        "pdf",
+        "pptx",
+        "xlsx",
+        "docx",
+        "word",
+        "excel",
+        "powerpoint",
+        "spreadsheet",
+        "presentation",
+        "document",
+        "csv",
+        "tsv",
+        "form"
+      ],
+      "package": "office",
+      "description": "Office document processing — Word, Excel, PowerPoint, PDF"
+    },
+    {
+      "keywords": [
+        "react",
+        "nextjs",
+        "next.js",
+        "vue",
+        "angular",
+        "svelte",
+        "frontend",
+        "component",
+        "tailwind",
+        "css",
+        "ui",
+        "ux",
+        "webapp",
+        "website",
+        "html",
+        "landing page"
+      ],
+      "package": "dev",
+      "description": "Frontend / web development — React, Next.js, UI design"
+    },
+    {
+      "keywords": [
+        "dp",
+        "graph",
+        "tree",
+        "sort",
+        "algorithm",
+        "data structure",
+        "complexity",
+        "big o",
+        "binary search",
+        "traversal",
+        "recursion",
+        "leetcode",
+        "pseudocode",
+        "uml",
+        "mermaid"
+      ],
+      "package": "dsa",
+      "description": "Data structures & algorithms — LeetCode, pseudocode, UML"
+    },
+    {
+      "keywords": [
+        "code review",
+        "debug",
+        "refactor",
+        "research",
+        "proof",
+        "reasoning",
+        "logic",
+        "analysis",
+        "explore repo",
+        "systematic",
+        "literature review",
+        "audit",
+        "inspect"
+      ],
+      "package": "base",
+      "description": "Core reasoning & analysis — code review, debugging, research"
+    },
+    {
+      "keywords": [
+        "stock",
+        "trading",
+        "finance",
+        "investment",
+        "market",
+        "portfolio",
+        "crypto",
+        "shares",
+        "dividend",
+        "options",
+        "fund",
+        "bond"
+      ],
+      "package": "finance",
+      "description": "Finance & trading — stocks, portfolio, market analysis"
+    }
+  ]
+}

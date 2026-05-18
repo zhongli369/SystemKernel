@@ -1,0 +1,35 @@
+{
+  "name": "base",
+  "display_name": "基础技能包",
+  "display_name_en": "Base Skills Pack",
+  "description": "通用底层能力：代码审查、调试、仓库分析、逻辑推理、学术研究、Skill创建",
+  "version": "1.0.0",
+  "installable": true,
+  "tags": ["reasoning", "debug", "research", "review", "analysis"],
+  "dependencies": [],
+  "skills": [
+    "code-review",
+    "debugger",
+    "repo-analyzer",
+    "reflective-reasoning",
+    "researcher",
+    "skill-creator",
+    "markdown-analyzer"
+  ],
+  "auto_match_keywords": [
+    "reasoning",
+    "debug",
+    "repo",
+    "analyze",
+    "research",
+    "review",
+    "code review",
+    "logical",
+    "proof",
+    "literature review",
+    "systematic",
+    "markdown",
+    "todo",
+    "documentation"
+  ]
+}

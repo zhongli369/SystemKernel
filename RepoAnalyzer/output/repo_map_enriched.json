@@ -1,0 +1,700 @@
+{
+  "schema_version": "repoanalyzer.v1",
+  "repo_id": "RepoAnalyzer",
+  "phase": "enrich",
+  "generated_at": "2026-05-17T16:02:46Z",
+  "data": {
+    "repo_name": "RepoAnalyzer",
+    "root_path": "F:\\Claude\\RepoAnalyzer",
+    "files": [
+      {
+        "path": "cli.py",
+        "name": "cli.py",
+        "ext": ".py",
+        "size": 13540,
+        "language": "python",
+        "role": "entrypoint",
+        "importance_score": 1.0,
+        "is_entrypoint": true,
+        "tags": [
+          "python",
+          "entrypoint",
+          "cli"
+        ]
+      },
+      {
+        "path": "core/__init__.py",
+        "name": "__init__.py",
+        "ext": ".py",
+        "size": 0,
+        "language": "python",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "tags": [
+          "python",
+          "service",
+          "core"
+        ]
+      },
+      {
+        "path": "core/architecture_layering.py",
+        "name": "architecture_layering.py",
+        "ext": ".py",
+        "size": 1403,
+        "language": "python",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "tags": [
+          "python",
+          "service",
+          "core"
+        ]
+      },
+      {
+        "path": "core/architecture_task_mapper.py",
+        "name": "architecture_task_mapper.py",
+        "ext": ".py",
+        "size": 4472,
+        "language": "python",
+        "role": "service",
+        "importance_score": 0.9500000000000001,
+        "is_entrypoint": false,
+        "tags": [
+          "python",
+          "service",
+          "core"
+        ]
+      },
+      {
+        "path": "core/bottleneck_detector.py",
+        "name": "bottleneck_detector.py",
+        "ext": ".py",
+        "size": 3338,
+        "language": "python",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "tags": [
+          "python",
+          "service",
+          "core"
+        ]
+      },
+      {
+        "path": "core/bottleneck_task_generator.py",
+        "name": "bottleneck_task_generator.py",
+        "ext": ".py",
+        "size": 2703,
+        "language": "python",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "tags": [
+          "python",
+          "service",
+          "core"
+        ]
+      },
+      {
+        "path": "core/coupling_analyzer.py",
+        "name": "coupling_analyzer.py",
+        "ext": ".py",
+        "size": 2267,
+        "language": "python",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "tags": [
+          "python",
+          "service",
+          "core"
+        ]
+      },
+      {
+        "path": "core/coupling_task_builder.py",
+        "name": "coupling_task_builder.py",
+        "ext": ".py",
+        "size": 2802,
+        "language": "python",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "tags": [
+          "python",
+          "service",
+          "ui",
+          "build"
+        ]
+      },
+      {
+        "path": "core/criticality_scorer.py",
+        "name": "criticality_scorer.py",
+        "ext": ".py",
+        "size": 1970,
+        "language": "python",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "tags": [
+          "python",
+          "service",
+          "core"
+        ]
+      },
+      {
+        "path": "core/dependency_builder.py",
+        "name": "dependency_builder.py",
+        "ext": ".py",
+        "size": 2416,
+        "language": "python",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "tags": [
+          "python",
+          "service",
+          "ui",
+          "build"
+        ]
+      },
+      {
+        "path": "core/dependency_meaning_inferer.py",
+        "name": "dependency_meaning_inferer.py",
+        "ext": ".py",
+        "size": 3086,
+        "language": "python",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "tags": [
+          "python",
+          "service",
+          "core"
+        ]
+      },
+      {
+        "path": "core/dependency_pipeline.py",
+        "name": "dependency_pipeline.py",
+        "ext": ".py",
+        "size": 1959,
+        "language": "python",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "tags": [
+          "python",
+          "service",
+          "io",
+          "ci",
+          "core"
+        ]
+      },
+      {
+        "path": "core/enrich_pipeline.py",
+        "name": "enrich_pipeline.py",
+        "ext": ".py",
+        "size": 2965,
+        "language": "python",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "tags": [
+          "python",
+          "service",
+          "io",
+          "ci",
+          "core"
+        ]
+      },
+      {
+        "path": "core/entrypoint_detector.py",
+        "name": "entrypoint_detector.py",
+        "ext": ".py",
+        "size": 1789,
+        "language": "python",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "tags": [
+          "python",
+          "service",
+          "core"
+        ]
+      },
+      {
+        "path": "core/global_task_id.py",
+        "name": "global_task_id.py",
+        "ext": ".py",
+        "size": 971,
+        "language": "python",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "tags": [
+          "python",
+          "service",
+          "core"
+        ]
+      },
+      {
+        "path": "core/graph_analyzer.py",
+        "name": "graph_analyzer.py",
+        "ext": ".py",
+        "size": 2512,
+        "language": "python",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "tags": [
+          "python",
+          "service",
+          "core"
+        ]
+      },
+      {
+        "path": "core/graph_builder.py",
+        "name": "graph_builder.py",
+        "ext": ".py",
+        "size": 2229,
+        "language": "python",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "tags": [
+          "python",
+          "service",
+          "ui",
+          "build"
+        ]
+      },
+      {
+        "path": "core/graph_indexer.py",
+        "name": "graph_indexer.py",
+        "ext": ".py",
+        "size": 1521,
+        "language": "python",
+        "role": "service",
+        "importance_score": 0.9500000000000001,
+        "is_entrypoint": false,
+        "tags": [
+          "python",
+          "service",
+          "core"
+        ]
+      },
+      {
+        "path": "core/graph_pipeline.py",
+        "name": "graph_pipeline.py",
+        "ext": ".py",
+        "size": 3292,
+        "language": "python",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "tags": [
+          "python",
+          "service",
+          "io",
+          "ci",
+          "core"
+        ]
+      },
+      {
+        "path": "core/impact_analyzer.py",
+        "name": "impact_analyzer.py",
+        "ext": ".py",
+        "size": 692,
+        "language": "python",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "tags": [
+          "python",
+          "service",
+          "core"
+        ]
+      },
+      {
+        "path": "core/impact_task_analyzer.py",
+        "name": "impact_task_analyzer.py",
+        "ext": ".py",
+        "size": 2496,
+        "language": "python",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "tags": [
+          "python",
+          "service",
+          "core"
+        ]
+      },
+      {
+        "path": "core/import_extractor.py",
+        "name": "import_extractor.py",
+        "ext": ".py",
+        "size": 2683,
+        "language": "python",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "tags": [
+          "python",
+          "service",
+          "core"
+        ]
+      },
+      {
+        "path": "core/importance_scorer.py",
+        "name": "importance_scorer.py",
+        "ext": ".py",
+        "size": 1347,
+        "language": "python",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "tags": [
+          "python",
+          "service",
+          "core"
+        ]
+      },
+      {
+        "path": "core/interpretation_pipeline.py",
+        "name": "interpretation_pipeline.py",
+        "ext": ".py",
+        "size": 5313,
+        "language": "python",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "tags": [
+          "python",
+          "service",
+          "io",
+          "ci",
+          "core"
+        ]
+      },
+      {
+        "path": "core/model.py",
+        "name": "model.py",
+        "ext": ".py",
+        "size": 8405,
+        "language": "python",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "tags": [
+          "python",
+          "service",
+          "data",
+          "core"
+        ]
+      },
+      {
+        "path": "core/output_contract.py",
+        "name": "output_contract.py",
+        "ext": ".py",
+        "size": 2110,
+        "language": "python",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "tags": [
+          "python",
+          "service",
+          "core"
+        ]
+      },
+      {
+        "path": "core/parser.py",
+        "name": "parser.py",
+        "ext": ".py",
+        "size": 3378,
+        "language": "python",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "tags": [
+          "python",
+          "service",
+          "core"
+        ]
+      },
+      {
+        "path": "core/path_resolver.py",
+        "name": "path_resolver.py",
+        "ext": ".py",
+        "size": 4202,
+        "language": "python",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "tags": [
+          "python",
+          "service",
+          "core"
+        ]
+      },
+      {
+        "path": "core/role_classifier.py",
+        "name": "role_classifier.py",
+        "ext": ".py",
+        "size": 5152,
+        "language": "python",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "tags": [
+          "python",
+          "service",
+          "core"
+        ]
+      },
+      {
+        "path": "core/scanner.py",
+        "name": "scanner.py",
+        "ext": ".py",
+        "size": 1240,
+        "language": "python",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "tags": [
+          "python",
+          "service",
+          "core"
+        ]
+      },
+      {
+        "path": "core/skill_suggestion_mapper.py",
+        "name": "skill_suggestion_mapper.py",
+        "ext": ".py",
+        "size": 2447,
+        "language": "python",
+        "role": "service",
+        "importance_score": 0.9500000000000001,
+        "is_entrypoint": false,
+        "tags": [
+          "python",
+          "service",
+          "io",
+          "core"
+        ]
+      },
+      {
+        "path": "core/system_health_reporter.py",
+        "name": "system_health_reporter.py",
+        "ext": ".py",
+        "size": 3085,
+        "language": "python",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "tags": [
+          "python",
+          "service",
+          "core"
+        ]
+      },
+      {
+        "path": "core/system_insights_pipeline.py",
+        "name": "system_insights_pipeline.py",
+        "ext": ".py",
+        "size": 2588,
+        "language": "python",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "tags": [
+          "python",
+          "service",
+          "io",
+          "ci",
+          "core"
+        ]
+      },
+      {
+        "path": "core/system_role_classifier.py",
+        "name": "system_role_classifier.py",
+        "ext": ".py",
+        "size": 2104,
+        "language": "python",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "tags": [
+          "python",
+          "service",
+          "core"
+        ]
+      },
+      {
+        "path": "core/tag_generator.py",
+        "name": "tag_generator.py",
+        "ext": ".py",
+        "size": 2355,
+        "language": "python",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "tags": [
+          "python",
+          "service",
+          "core"
+        ]
+      },
+      {
+        "path": "core/task_planning_pipeline.py",
+        "name": "task_planning_pipeline.py",
+        "ext": ".py",
+        "size": 6803,
+        "language": "python",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "tags": [
+          "python",
+          "service",
+          "io",
+          "ci",
+          "core"
+        ]
+      },
+      {
+        "path": "core/time_utils.py",
+        "name": "time_utils.py",
+        "ext": ".py",
+        "size": 275,
+        "language": "python",
+        "role": "service",
+        "importance_score": 0.9,
+        "is_entrypoint": false,
+        "tags": [
+          "python",
+          "service",
+          "core"
+        ]
+      },
+      {
+        "path": "output/dependency_edges.json",
+        "name": "dependency_edges.json",
+        "ext": ".json",
+        "size": 13061,
+        "language": "json",
+        "role": "utility",
+        "importance_score": 0.5,
+        "is_entrypoint": false,
+        "tags": [
+          "json",
+          "utility"
+        ]
+      },
+      {
+        "path": "output/dependency_graph.json",
+        "name": "dependency_graph.json",
+        "ext": ".json",
+        "size": 30060,
+        "language": "json",
+        "role": "utility",
+        "importance_score": 0.5,
+        "is_entrypoint": false,
+        "tags": [
+          "json",
+          "utility"
+        ]
+      },
+      {
+        "path": "output/interpreted_graph.json",
+        "name": "interpreted_graph.json",
+        "ext": ".json",
+        "size": 37708,
+        "language": "json",
+        "role": "utility",
+        "importance_score": 0.5,
+        "is_entrypoint": false,
+        "tags": [
+          "json",
+          "utility"
+        ]
+      },
+      {
+        "path": "output/repo_map.json",
+        "name": "repo_map.json",
+        "ext": ".json",
+        "size": 10987,
+        "language": "json",
+        "role": "utility",
+        "importance_score": 0.5,
+        "is_entrypoint": false,
+        "tags": [
+          "json",
+          "utility"
+        ]
+      },
+      {
+        "path": "output/repo_map_enriched.json",
+        "name": "repo_map_enriched.json",
+        "ext": ".json",
+        "size": 14140,
+        "language": "json",
+        "role": "utility",
+        "importance_score": 0.5,
+        "is_entrypoint": false,
+        "tags": [
+          "json",
+          "utility"
+        ]
+      },
+      {
+        "path": "output/system_insights.json",
+        "name": "system_insights.json",
+        "ext": ".json",
+        "size": 4524,
+        "language": "json",
+        "role": "utility",
+        "importance_score": 0.5,
+        "is_entrypoint": false,
+        "tags": [
+          "json",
+          "utility"
+        ]
+      },
+      {
+        "path": "output/task_plan.json",
+        "name": "task_plan.json",
+        "ext": ".json",
+        "size": 49300,
+        "language": "json",
+        "role": "utility",
+        "importance_score": 0.5,
+        "is_entrypoint": false,
+        "tags": [
+          "json",
+          "utility"
+        ]
+      }
+    ],
+    "folders": [
+      {
+        "path": "core",
+        "depth": 1
+      },
+      {
+        "path": "output",
+        "depth": 1
+      }
+    ],
+    "stats": {
+      "total_files": 44,
+      "total_folders": 2,
+      "language_distribution": {
+        "json": 7,
+        "python": 37
+      }
+    }
+  }
+}

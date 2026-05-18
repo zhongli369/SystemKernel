@@ -1,0 +1,30 @@
+{
+  "name": "dsa",
+  "display_name": "数据结构与算法包",
+  "display_name_en": "DSA Skills Pack",
+  "description": "算法设计与可视化：伪代码、UML图、Mermaid类图/时序图",
+  "version": "1.0.0",
+  "installable": true,
+  "tags": ["algorithm", "data-structure", "visualization", "education"],
+  "dependencies": [],
+  "skills": [
+    "algorithm-explainer"
+  ],
+  "auto_match_keywords": [
+    "algorithm",
+    "leetcode",
+    "graph",
+    "dp",
+    "tree",
+    "competitive programming",
+    "data structure",
+    "pseudocode",
+    "UML",
+    "mermaid",
+    "complexity",
+    "big-o",
+    "sorting",
+    "searching",
+    "dynamic programming"
+  ]
+}

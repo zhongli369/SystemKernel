@@ -1,0 +1,500 @@
+{
+  "schema_version": "repoanalyzer.v1",
+  "repo_id": "RepoAnalyzer",
+  "phase": "graph",
+  "generated_at": "2026-05-17T16:02:52Z",
+  "data": {
+    "nodes": [
+      "cli.py",
+      "core/architecture_layering.py",
+      "core/architecture_task_mapper.py",
+      "core/bottleneck_detector.py",
+      "core/bottleneck_task_generator.py",
+      "core/coupling_analyzer.py",
+      "core/coupling_task_builder.py",
+      "core/criticality_scorer.py",
+      "core/dependency_builder.py",
+      "core/dependency_meaning_inferer.py",
+      "core/dependency_pipeline.py",
+      "core/enrich_pipeline.py",
+      "core/entrypoint_detector.py",
+      "core/global_task_id.py",
+      "core/graph_analyzer.py",
+      "core/graph_builder.py",
+      "core/graph_indexer.py",
+      "core/graph_pipeline.py",
+      "core/impact_analyzer.py",
+      "core/impact_task_analyzer.py",
+      "core/import_extractor.py",
+      "core/importance_scorer.py",
+      "core/interpretation_pipeline.py",
+      "core/model.py",
+      "core/output_contract.py",
+      "core/parser.py",
+      "core/path_resolver.py",
+      "core/role_classifier.py",
+      "core/scanner.py",
+      "core/skill_suggestion_mapper.py",
+      "core/system_health_reporter.py",
+      "core/system_insights_pipeline.py",
+      "core/system_role_classifier.py",
+      "core/tag_generator.py",
+      "core/task_planning_pipeline.py",
+      "core/time_utils.py"
+    ],
+    "edges": [
+      {
+        "from": "cli.py",
+        "to": "core/parser.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "cli.py",
+        "to": "core/enrich_pipeline.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "cli.py",
+        "to": "core/dependency_pipeline.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "cli.py",
+        "to": "core/graph_pipeline.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "cli.py",
+        "to": "core/interpretation_pipeline.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "cli.py",
+        "to": "core/system_insights_pipeline.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "cli.py",
+        "to": "core/task_planning_pipeline.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "cli.py",
+        "to": "core/output_contract.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/architecture_layering.py",
+        "to": "core/model.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/architecture_task_mapper.py",
+        "to": "core/model.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/architecture_task_mapper.py",
+        "to": "core/global_task_id.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/bottleneck_detector.py",
+        "to": "core/model.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/bottleneck_task_generator.py",
+        "to": "core/model.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/bottleneck_task_generator.py",
+        "to": "core/global_task_id.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/coupling_analyzer.py",
+        "to": "core/model.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/coupling_task_builder.py",
+        "to": "core/model.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/coupling_task_builder.py",
+        "to": "core/global_task_id.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/criticality_scorer.py",
+        "to": "core/model.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/dependency_builder.py",
+        "to": "core/model.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/dependency_builder.py",
+        "to": "core/import_extractor.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/dependency_builder.py",
+        "to": "core/path_resolver.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/dependency_pipeline.py",
+        "to": "core/dependency_builder.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/dependency_pipeline.py",
+        "to": "core/output_contract.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/enrich_pipeline.py",
+        "to": "core/model.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/enrich_pipeline.py",
+        "to": "core/role_classifier.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/enrich_pipeline.py",
+        "to": "core/entrypoint_detector.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/enrich_pipeline.py",
+        "to": "core/importance_scorer.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/enrich_pipeline.py",
+        "to": "core/tag_generator.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/enrich_pipeline.py",
+        "to": "core/output_contract.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/graph_analyzer.py",
+        "to": "core/model.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/graph_analyzer.py",
+        "to": "core/graph_builder.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/graph_analyzer.py",
+        "to": "core/graph_indexer.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/graph_builder.py",
+        "to": "core/model.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/graph_builder.py",
+        "to": "core/output_contract.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/graph_indexer.py",
+        "to": "core/model.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/graph_pipeline.py",
+        "to": "core/model.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/graph_pipeline.py",
+        "to": "core/graph_builder.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/graph_pipeline.py",
+        "to": "core/graph_analyzer.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/graph_pipeline.py",
+        "to": "core/output_contract.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/interpretation_pipeline.py",
+        "to": "core/model.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/interpretation_pipeline.py",
+        "to": "core/criticality_scorer.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/interpretation_pipeline.py",
+        "to": "core/system_role_classifier.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/interpretation_pipeline.py",
+        "to": "core/dependency_meaning_inferer.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/interpretation_pipeline.py",
+        "to": "core/impact_analyzer.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/interpretation_pipeline.py",
+        "to": "core/output_contract.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/output_contract.py",
+        "to": "core/output_contract.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/output_contract.py",
+        "to": "core/time_utils.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/parser.py",
+        "to": "core/model.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/parser.py",
+        "to": "core/scanner.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/system_health_reporter.py",
+        "to": "core/model.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/system_insights_pipeline.py",
+        "to": "core/model.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/system_insights_pipeline.py",
+        "to": "core/bottleneck_detector.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/system_insights_pipeline.py",
+        "to": "core/architecture_layering.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/system_insights_pipeline.py",
+        "to": "core/coupling_analyzer.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/system_insights_pipeline.py",
+        "to": "core/system_health_reporter.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/system_insights_pipeline.py",
+        "to": "core/output_contract.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/system_role_classifier.py",
+        "to": "core/model.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/task_planning_pipeline.py",
+        "to": "core/model.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/task_planning_pipeline.py",
+        "to": "core/bottleneck_task_generator.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/task_planning_pipeline.py",
+        "to": "core/coupling_task_builder.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/task_planning_pipeline.py",
+        "to": "core/architecture_task_mapper.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/task_planning_pipeline.py",
+        "to": "core/impact_task_analyzer.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/task_planning_pipeline.py",
+        "to": "core/skill_suggestion_mapper.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      },
+      {
+        "from": "core/task_planning_pipeline.py",
+        "to": "core/output_contract.py",
+        "type": "import",
+        "language": "python",
+        "confidence": 1.0
+      }
+    ],
+    "stats": {
+      "total_edges": 64,
+      "unique_nodes": 36
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "baseline_version": "repoanalyzer.drift.v1",
+  "task_count": 29,
+  "field_set": {
+    "task_id": "str",
+    "title": "str",
+    "type": "str",
+    "priority": "str",
+    "target_nodes": "list",
+    "impact_score": "float",
+    "risk_level": "str",
+    "reason": "str",
+    "steps": "list",
+    "depends_on": "list",
+    "global_task_id": "str",
+    "skill_id": "str",
+    "skill_input": "dict",
+    "skill_output": "dict"
+  },
+  "skill_bound_tasks": 0,
+  "skill_bound_ratio": 0.0,
+  "known_fields": [
+    "depends_on",
+    "global_task_id",
+    "impact_score",
+    "priority",
+    "reason",
+    "risk_level",
+    "skill_id",
+    "skill_input",
+    "skill_output",
+    "steps",
+    "target_nodes",
+    "task_id",
+    "title",
+    "type"
+  ]
+}

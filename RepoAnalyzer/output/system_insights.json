@@ -1,0 +1,152 @@
+{
+  "schema_version": "repoanalyzer.v1",
+  "repo_id": "RepoAnalyzer",
+  "phase": "insights",
+  "generated_at": "2026-05-17T16:03:10Z",
+  "data": {
+    "bottlenecks": [
+      {
+        "node_id": "core/model.py",
+        "bottleneck_type": "primary",
+        "severity": "critical",
+        "reason": "Shared core with 19 dependents; failure impacts many modules",
+        "fan_in": 19,
+        "fan_out": 0
+      },
+      {
+        "node_id": "cli.py",
+        "bottleneck_type": "system_critical",
+        "severity": "high",
+        "reason": "System entry point with 8 direct dependencies; failure blocks entire system",
+        "fan_in": 0,
+        "fan_out": 8
+      },
+      {
+        "node_id": "core/enrich_pipeline.py",
+        "bottleneck_type": "orchestration",
+        "severity": "high",
+        "reason": "Orchestrator depends on 6 modules; high coupling risk",
+        "fan_in": 1,
+        "fan_out": 6
+      },
+      {
+        "node_id": "core/graph_pipeline.py",
+        "bottleneck_type": "orchestration",
+        "severity": "high",
+        "reason": "Orchestrator depends on 4 modules; high coupling risk",
+        "fan_in": 1,
+        "fan_out": 4
+      },
+      {
+        "node_id": "core/interpretation_pipeline.py",
+        "bottleneck_type": "orchestration",
+        "severity": "high",
+        "reason": "Orchestrator depends on 6 modules; high coupling risk",
+        "fan_in": 1,
+        "fan_out": 6
+      },
+      {
+        "node_id": "core/output_contract.py",
+        "bottleneck_type": "primary",
+        "severity": "high",
+        "reason": "Shared core with 9 dependents; failure impacts many modules",
+        "fan_in": 9,
+        "fan_out": 2
+      },
+      {
+        "node_id": "core/system_insights_pipeline.py",
+        "bottleneck_type": "orchestration",
+        "severity": "high",
+        "reason": "Orchestrator depends on 6 modules; high coupling risk",
+        "fan_in": 1,
+        "fan_out": 6
+      },
+      {
+        "node_id": "core/task_planning_pipeline.py",
+        "bottleneck_type": "orchestration",
+        "severity": "high",
+        "reason": "Orchestrator depends on 7 modules; high coupling risk",
+        "fan_in": 1,
+        "fan_out": 7
+      }
+    ],
+    "architecture_layers": {
+      "entry_layer": [
+        "cli.py"
+      ],
+      "orchestration_layer": [
+        "core/task_planning_pipeline.py",
+        "core/enrich_pipeline.py",
+        "core/interpretation_pipeline.py",
+        "core/system_insights_pipeline.py",
+        "core/graph_pipeline.py"
+      ],
+      "core_layer": [
+        "core/model.py",
+        "core/output_contract.py",
+        "core/dependency_builder.py",
+        "core/graph_analyzer.py",
+        "core/graph_builder.py",
+        "core/architecture_task_mapper.py",
+        "core/bottleneck_task_generator.py",
+        "core/coupling_task_builder.py",
+        "core/dependency_pipeline.py",
+        "core/parser.py",
+        "core/global_task_id.py",
+        "core/graph_indexer.py",
+        "core/architecture_layering.py",
+        "core/bottleneck_detector.py",
+        "core/coupling_analyzer.py",
+        "core/criticality_scorer.py",
+        "core/system_health_reporter.py",
+        "core/system_role_classifier.py"
+      ],
+      "utility_layer": [],
+      "leaf_layer": [
+        "core/skill_suggestion_mapper.py",
+        "core/dependency_meaning_inferer.py",
+        "core/entrypoint_detector.py",
+        "core/impact_analyzer.py",
+        "core/impact_task_analyzer.py",
+        "core/import_extractor.py",
+        "core/importance_scorer.py",
+        "core/path_resolver.py",
+        "core/role_classifier.py",
+        "core/scanner.py",
+        "core/tag_generator.py",
+        "core/time_utils.py",
+        "core/__init__.py",
+        "output/dependency_edges.json",
+        "output/dependency_graph.json",
+        "output/interpreted_graph.json",
+        "output/repo_map.json",
+        "output/repo_map_enriched.json",
+        "output/system_insights.json",
+        "output/task_plan.json"
+      ]
+    },
+    "coupling_metrics": {
+      "high_coupling_nodes": [
+        "cli.py",
+        "core/enrich_pipeline.py",
+        "core/interpretation_pipeline.py",
+        "core/system_insights_pipeline.py",
+        "core/task_planning_pipeline.py"
+      ],
+      "low_cohesion_nodes": [],
+      "avg_coupling_score": 0.222
+    },
+    "system_health": {
+      "overall_score": 0.533,
+      "risk_level": "medium",
+      "fragile_modules": [],
+      "refactor_candidates": [
+        "cli.py",
+        "core/task_planning_pipeline.py",
+        "core/enrich_pipeline.py",
+        "core/interpretation_pipeline.py",
+        "core/system_insights_pipeline.py"
+      ]
+    }
+  }
+}
