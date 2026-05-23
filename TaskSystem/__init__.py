@@ -1,0 +1,1 @@
+"""TaskSystem — Task lifecycle orchestration (backlog → active → done)."""

@@ -1,0 +1,19 @@
+{
+  "snapshot_system": "claude-md-kernel-snapshot/v1",
+  "tracked_files": [
+    "F:/Claude/CLAUDE.md",
+    "F:/Claude/SystemKernel/CLAUDE.md"
+  ],
+  "snapshots": [
+    {
+      "id": "snap-001",
+      "timestamp": "2026-05-19T14:00:21Z",
+      "trigger": "manual",
+      "files_hash": "2c53d46beb43d9ca",
+      "version_labels": {
+        "root": "v2.0",
+        "kernel": "v1.1"
+      }
+    }
+  ]
+}

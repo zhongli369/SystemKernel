@@ -1,0 +1,64 @@
+#!/bin/bash
+# SystemKernel Architecture Drift Pre-Commit Hook
+# Runs drift_detector.py — blocks on CRITICAL discrepancies.
+# Install: copy to .git/hooks/pre-commit
+
+KERNEL_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+DRIFT_DETECTOR="$KERNEL_ROOT/drift_detector.py"
+
+if [ ! -f "$DRIFT_DETECTOR" ]; then
+    echo "[pre-commit] WARNING: drift_detector.py not found — skipping architecture check."
+    exit 0
+fi
+
+# Find python (prefer python3, fallback to python)
+PYTHON=""
+for candidate in python3 python; do
+    if cmd=$("$candidate" -c "print('ok')" 2>/dev/null); then
+        PYTHON="$candidate"
+        break
+    fi
+done
+
+# Try known Python paths on Windows
+if [ -z "$PYTHON" ]; then
+    for py_path in \
+        "/c/Users/14679/AppData/Local/Programs/Python/Python312/python.exe" \
+        "/c/Python312/python.exe" \
+        "/c/Program Files/Python312/python.exe"; do
+        if [ -f "$py_path" ]; then
+            PYTHON="$py_path"
+            break
+        fi
+    done
+fi
+
+if [ -z "$PYTHON" ]; then
+    echo "[pre-commit] WARNING: python not found — skipping architecture check."
+    exit 0
+fi
+
+echo "[pre-commit] Running architecture drift detector..."
+
+# Run drift detector in pre-commit mode
+# --pre-commit: creates snapshot, then checks; exit 1 on CRITICAL
+OUTPUT=$("$PYTHON" "$DRIFT_DETECTOR" --pre-commit 2>&1)
+EXIT_CODE=$?
+
+echo "$OUTPUT"
+echo ""
+
+if [ $EXIT_CODE -ne 0 ]; then
+    echo "=============================================="
+    echo "  COMMIT BLOCKED: CRITICAL architecture drift"
+    echo "=============================================="
+    echo ""
+    echo "The CLAUDE.md files do not match the codebase."
+    echo "Review discrepancies above. To override (NOT recommended):"
+    echo "  git commit --no-verify"
+    echo ""
+    exit 1
+fi
+
+echo "[pre-commit] Architecture drift check: PASSED"
+exit 0

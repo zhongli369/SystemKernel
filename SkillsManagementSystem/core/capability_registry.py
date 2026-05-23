@@ -1,17 +1,21 @@
 """
-capability_registry.py — Unified Capability Registry (v4.0)
+capability_registry.py — Unified Capability Registry (v4.1 — Phase 2 hardened)
 
 Builds a unified view of ALL skills (local + external) from:
-  1. registry.json skills section
-  2. Package manifests (auto_match_keywords, tags)
-  3. SKILL.md frontmatter (tags, aliases, domains, capabilities)
-  4. lazyload_rules.json (package-level keywords)
-  5. Hardcoded external skill metadata (for skills without local SKILL.md)
+  1. registry.json skills section — primary authority
+  2. Package manifests (manifest.json: tags, skills list)
+  3. SKILL.md frontmatter (tags, aliases, domains, capabilities) — HIGHEST priority
+  4. data/skill_capabilities.json — transitional metadata (replaces hardcoded dicts)
+  5. lazyload_rules.json (package-level keywords)
 
 Output: list of CapabilityEntry objects.
 
 Key invariant: installed state is metadata only — it does NOT gate routing.
 A skill CAN be recommended even if not installed.
+
+Phase 2 hardening: ALL skill metadata is now loaded from DATA FILES (JSON),
+not from Python dicts. The data/skill_capabilities.json file is a transitional
+artifact — the long-term target is to have all metadata in SKILL.md frontmatter.
 """
 
 import json
@@ -29,350 +33,55 @@ _SCRIPT_DIR = Path(__file__).resolve().parent.parent
 _REGISTRY_PATH = _SCRIPT_DIR / "registry.json"
 _PACKAGES_DIR = _SCRIPT_DIR / "packages"
 _LAZYLOAD_PATH = _SCRIPT_DIR / "data" / "lazyload_rules.json"
+_CAPABILITIES_PATH = _SCRIPT_DIR / "data" / "skill_capabilities.json"
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# External skill capability definitions
+# Transitional: load skill metadata from JSON data file
 # ═══════════════════════════════════════════════════════════════════════════════
+# This replaces the 334 lines of hardcoded Python dicts (_EXTERNAL_SKILL_METADATA
+# and _LOCAL_SKILL_CAPABILITIES). The JSON file is transparent, auditable, and
+# non-executable. Migration target: move all entries to their respective
+# SKILL.md frontmatter blocks. Once migration is complete, this JSON file
+# and the load function can be deleted.
+#
+# Governance: This is a PURE DATA LOADER. It does not:
+#   - Generate or infer skill capabilities
+#   - Classify, score, or rank skills
+#   - Make any decisions
+#   - Call any LLM
 
-_EXTERNAL_SKILL_METADATA = {
-    "react-best-practices": {
-        "aliases": [
-            "react optimization", "react patterns", "react architecture",
-            "best practices react", "react performance", "react code quality",
-            "react conventions", "react component patterns",
-        ],
-        "tags": ["react", "frontend", "performance", "patterns", "components"],
-        "domains": ["frontend", "web"],
-        "capabilities": [
-            "react optimization", "component architecture",
-            "render performance", "react code patterns",
-            "react best practices",
-        ],
-    },
-    "web-design-guidelines": {
-        "aliases": [
-            "web design guidelines", "design standards guidelines",
-            "web design standards", "web standards design",
-            "design guidelines web", "web guidelines",
-        ],
-        "tags": ["web", "design", "frontend", "standards", "guidelines"],
-        "domains": ["frontend", "web", "design"],
-        "capabilities": [
-            "web design standards", "design system creation",
-            "visual guidelines", "web design guidelines",
-            "design standards guidelines web",
-        ],
-    },
-    "composition-patterns": {
-        "aliases": [
-            "component composition", "react composition",
-            "composition patterns", "higher order components",
-            "render props", "compound components",
-        ],
-        "tags": ["react", "components", "patterns", "composition", "architecture"],
-        "domains": ["frontend", "web"],
-        "capabilities": [
-            "component composition", "react architecture patterns",
-            "compound component design",
-        ],
-    },
-    "next-best-practices": {
-        "aliases": [
-            "nextjs best practices", "next.js optimization",
-            "next patterns", "next architecture",
-        ],
-        "tags": ["nextjs", "next.js", "frontend", "react", "ssr", "performance"],
-        "domains": ["frontend", "web"],
-        "capabilities": [
-            "nextjs optimization", "ssr patterns",
-            "next.js architecture",
-        ],
-    },
-    "next-cache-components": {
-        "aliases": [
-            "nextjs caching", "next cache", "next.js cache",
-            "cache components next", "incremental static regeneration",
-            "isr nextjs", "next data cache", "cache strategy",
-            "next cache optimization", "cache strategy nextjs",
-            "nextjs cache upgrade", "cache components",
-            "nextjs cache strategy", "upgrade nextjs cache",
-        ],
-        "capabilities": [
-            "nextjs caching strategy", "cache component design",
-            "incremental static regeneration",
-            "next data cache optimization", "cache strategy upgrade",
-            "upgrade nextjs cache",
-        ],
-        "tags": ["nextjs", "next.js", "caching", "performance", "ssr", "isr"],
-        "domains": ["frontend", "web"],
-        "capabilities": [
-            "nextjs caching strategy", "cache component design",
-            "incremental static regeneration",
-            "next data cache optimization",
-        ],
-    },
-    "next-upgrade": {
-        "aliases": [
-            "nextjs upgrade", "next migration", "upgrade next.js",
-            "next version upgrade", "next.js migration",
-            "migrate nextjs", "next breaking changes",
-        ],
-        "tags": ["nextjs", "next.js", "upgrade", "migration", "versioning"],
-        "domains": ["frontend", "web"],
-        "capabilities": [
-            "nextjs version upgrade", "next.js migration",
-            "breaking changes resolution",
-        ],
-    },
-    "react-native-skills": {
-        "aliases": [
-            "react native", "mobile react", "react native app",
-            "react native optimization", "native mobile",
-            "ios react", "android react",
-        ],
-        "tags": ["react-native", "mobile", "ios", "android", "cross-platform"],
-        "domains": ["mobile", "frontend"],
-        "capabilities": [
-            "react native development", "cross-platform mobile",
-            "mobile app optimization",
-        ],
-    },
-    "find-skills": {
-        "aliases": [
-            "find skill", "search skills", "discover skills",
-            "browse skills", "skill search", "install skill",
-            "npx skills search",
-        ],
-        "tags": ["discovery", "search", "skills.sh", "install"],
-        "domains": ["meta", "discovery"],
-        "capabilities": [
-            "skill discovery", "skill search",
-            "ecosystem browsing",
-        ],
-    },
-    "markdown-analyzer": {
-        "aliases": [
-            "markdown analysis", "parse markdown", "analyze markdown",
-            "markdown parser", "extract todos from markdown",
-            "document analysis",
-        ],
-        "tags": ["markdown", "analysis", "documentation", "todo"],
-        "domains": ["documentation", "analysis"],
-        "capabilities": [
-            "markdown parsing", "structure extraction",
-            "todo tracking from docs",
-        ],
-    },
-}
+_CAPABILITIES_CACHE: Optional[dict] = None
 
-# ═══════════════════════════════════════════════════════════════════════════════
-# Skill-specific capability enrichment (for local skills without SKILL.md tags)
-# ═══════════════════════════════════════════════════════════════════════════════
 
-_LOCAL_SKILL_CAPABILITIES = {
-    "code-review": {
-        "aliases": ["code review", "review code", "pr review", "audit code",
-                    "code audit", "inspect code"],
-        "tags": ["review", "code", "quality", "security", "performance", "analysis"],
-        "domains": ["development"],
-        "capabilities": ["code review", "pr review", "code audit",
-                         "security review", "quality assessment"],
-    },
-    "debugger": {
-        "aliases": ["debug", "debugging", "fix error", "fix bug",
-                    "troubleshoot", "error analysis", "stack trace"],
-        "tags": ["debug", "error", "fix", "troubleshooting", "analysis"],
-        "domains": ["development"],
-        "capabilities": ["code debugging", "error analysis", "bug fixing",
-                         "stack trace analysis"],
-    },
-    "repo-analyzer": {
-        "aliases": ["repo analysis", "analyze repo", "codebase analysis",
-                    "architecture review", "dependency map", "explore code",
-                    "codebase exploration", "repository analysis"],
-        "tags": ["analysis", "architecture", "repository", "codebase",
-                 "dependencies", "exploration"],
-        "domains": ["development", "architecture"],
-        "capabilities": ["repository analysis", "architecture review",
-                         "dependency mapping", "codebase exploration"],
-    },
-    "reflective-reasoning": {
-        "aliases": ["logical reasoning", "mathematical proof", "formal logic",
-                    "theorem proof", "logical analysis", "mathematical reasoning"],
-        "tags": ["reasoning", "logic", "mathematics", "proof", "formal"],
-        "domains": ["reasoning", "mathematics"],
-        "capabilities": ["logical reasoning", "mathematical proof",
-                         "formal analysis", "theorem derivation"],
-    },
-    "researcher": {
-        "aliases": ["research", "literature review", "academic research",
-                    "paper survey", "systematic review", "scholarly research"],
-        "tags": ["research", "academic", "literature", "systematic", "survey"],
-        "domains": ["research", "academia"],
-        "capabilities": ["literature review", "academic research",
-                         "systematic survey", "paper analysis"],
-    },
-    "skill-creator": {
-        "aliases": ["create skill", "new skill", "build skill",
-                    "skill development", "create agent skill"],
-        "tags": ["skill", "creation", "meta", "development"],
-        "domains": ["meta"],
-        "capabilities": ["skill creation", "skill modification",
-                         "skill evaluation"],
-    },
-    "algorithm-explainer": {
-        "aliases": ["algorithm", "data structure", "pseudocode",
-                    "algorithm design", "complexity analysis",
-                    "big o notation", "leetcode", "competitive programming"],
-        "tags": ["algorithm", "data-structure", "complexity", "pseudocode",
-                 "visualization"],
-        "domains": ["computer-science", "algorithms"],
-        "capabilities": ["algorithm design", "complexity analysis",
-                         "pseudocode generation", "data structure explanation"],
-    },
-    "docx": {
-        "aliases": ["word document", "word doc", "create docx",
-                    "microsoft word", "word processing", "document template",
-                    "letter", "contract", "memo", "report docx"],
-        "tags": ["office", "word", "document", "docx", "writing"],
-        "domains": ["office", "document"],
-        "capabilities": ["word document creation", "docx editing",
-                         "document formatting", "template generation"],
-    },
-    "xlsx": {
-        "aliases": ["excel", "spreadsheet", "create xlsx",
-                    "microsoft excel", "data table", "csv processing",
-                    "tsv file", "financial spreadsheet", "excel formula",
-                    "excel chart", "data analysis spreadsheet"],
-        "tags": ["office", "excel", "spreadsheet", "data", "csv", "tsv"],
-        "domains": ["office", "data"],
-        "capabilities": ["excel spreadsheet creation", "data table management",
-                         "csv processing", "spreadsheet formulas"],
-    },
-    "pptx": {
-        "aliases": ["powerpoint", "presentation", "create pptx",
-                    "slides", "slide deck", "keynote alternative",
-                    "presentation design", "business presentation"],
-        "tags": ["office", "powerpoint", "presentation", "slides", "design"],
-        "domains": ["office", "presentation"],
-        "capabilities": ["powerpoint presentation creation",
-                         "slide deck design", "presentation formatting"],
-    },
-    "pdf": {
-        "aliases": ["pdf document", "create pdf", "pdf generation",
-                    "pdf report", "export to pdf", "pdf form",
-                    "printable document", "pdf manipulation"],
-        "tags": ["office", "pdf", "document", "export", "print"],
-        "domains": ["office", "document"],
-        "capabilities": ["pdf creation", "pdf manipulation",
-                         "pdf form handling", "document export"],
-    },
-    "claude-api": {
-        "aliases": ["claude api", "anthropic sdk", "claude integration",
-                    "claude development", "prompt caching", "tool use claude",
-                    "streaming claude", "claude model"],
-        "tags": ["api", "claude", "anthropic", "sdk", "llm", "integration"],
-        "domains": ["backend", "ai"],
-        "capabilities": ["claude api integration", "anthropic sdk development",
-                         "prompt caching", "llm application building"],
-    },
-    "algorithmic-art": {
-        "aliases": ["algorithmic art", "generative art", "p5js art",
-                    "flow field", "particle system", "creative coding"],
-        "tags": ["art", "generative", "creative", "p5js", "visual"],
-        "domains": ["creative", "art"],
-        "capabilities": ["generative art creation", "algorithmic art design",
-                         "creative coding"],
-    },
-    "brand-guidelines": {
-        "aliases": ["brand guidelines", "brand colors", "branding",
-                    "corporate identity", "color palette", "typography brand"],
-        "tags": ["brand", "design", "colors", "typography", "identity"],
-        "domains": ["design", "branding"],
-        "capabilities": ["brand styling", "color palette application",
-                         "corporate design"],
-    },
-    "canvas-design": {
-        "aliases": ["canvas design", "visual art", "poster design",
-                    "static design", "graphic design", "visual creation",
-                    "illustration design", "art poster"],
-        "tags": ["design", "visual", "art", "poster", "graphic", "canvas"],
-        "domains": ["design", "creative"],
-        "capabilities": ["visual design", "poster creation",
-                         "graphic design", "static art"],
-    },
-    "doc-coauthoring": {
-        "aliases": ["document coauthoring", "coauthor docs", "collaborative writing",
-                    "document collaboration", "writing workflow",
-                    "coauthoring workflow", "collaborative document editing",
-                    "structured documentation coauthoring"],
-        "tags": ["documentation", "writing", "collaboration", "workflow", "coauthoring"],
-        "domains": ["documentation", "collaboration"],
-        "capabilities": ["collaborative document writing",
-                         "structured documentation workflow",
-                         "coauthoring documents", "document collaboration workflow"],
-    },
-    "frontend-design": {
-        "aliases": ["frontend design", "web design", "ui design",
-                    "web interface", "component design", "landing page",
-                    "website design", "dashboard design", "react component design",
-                    "html css design", "web page design"],
-        "tags": ["frontend", "ui", "design", "web", "components", "css", "html"],
-        "domains": ["frontend", "web", "design"],
-        "capabilities": ["frontend ui design", "web page creation",
-                         "component styling", "landing page design"],
-    },
-    "internal-comms": {
-        "aliases": ["internal communications", "company communication",
-                    "team comms", "status report", "project update"],
-        "tags": ["communication", "internal", "writing", "business"],
-        "domains": ["business", "communication"],
-        "capabilities": ["internal communication writing",
-                         "status report creation"],
-    },
-    "mcp-builder": {
-        "aliases": ["mcp server", "model context protocol",
-                    "build mcp", "create mcp", "mcp integration",
-                    "mcp tool", "mcp development"],
-        "tags": ["mcp", "server", "integration", "tool", "protocol"],
-        "domains": ["backend", "integration"],
-        "capabilities": ["mcp server development", "tool integration",
-                         "protocol implementation"],
-    },
-    "slack-gif-creator": {
-        "aliases": ["slack gif", "animated gif", "gif creator",
-                    "slack animation", "create gif for slack"],
-        "tags": ["slack", "gif", "animation", "communication"],
-        "domains": ["communication", "creative"],
-        "capabilities": ["slack gif creation", "animated gif design"],
-    },
-    "theme-factory": {
-        "aliases": ["theme styling", "theme creation", "ui theme",
-                    "color theme", "design theme", "css theme"],
-        "tags": ["theme", "styling", "design", "css", "colors"],
-        "domains": ["design", "frontend"],
-        "capabilities": ["theme creation", "styling system",
-                         "color scheme design"],
-    },
-    "web-artifacts-builder": {
-        "aliases": ["web artifacts", "claude artifacts", "html artifacts",
-                    "artifact builder", "multi-component artifact"],
-        "tags": ["web", "artifacts", "html", "components", "claude"],
-        "domains": ["web", "frontend"],
-        "capabilities": ["web artifact creation", "html artifact building",
-                         "multi-component design"],
-    },
-    "webapp-testing": {
-        "aliases": ["webapp testing", "browser testing", "playwright test",
-                    "e2e testing", "ui testing", "web testing",
-                    "browser automation", "selenium test"],
-        "tags": ["testing", "web", "playwright", "e2e", "browser", "automation"],
-        "domains": ["testing", "web", "frontend"],
-        "capabilities": ["web application testing", "browser automation",
-                         "e2e test creation", "playwright scripting"],
-    },
-}
+def _load_capabilities_data() -> dict:
+    """Load the transitional skill_capabilities.json file.
+
+    Returns dict with 'external_skills' and 'local_skills' keys.
+    Lazily loaded — reads from disk once, caches in memory.
+    """
+    global _CAPABILITIES_CACHE
+    if _CAPABILITIES_CACHE is not None:
+        return _CAPABILITIES_CACHE
+
+    try:
+        _CAPABILITIES_CACHE = json.loads(
+            _CAPABILITIES_PATH.read_text(encoding="utf-8")
+        )
+    except (FileNotFoundError, json.JSONDecodeError):
+        _CAPABILITIES_CACHE = {"external_skills": {}, "local_skills": {}}
+
+    return _CAPABILITIES_CACHE
+
+
+def _get_external_metadata() -> dict:
+    """Get external skill metadata from JSON data file."""
+    return _load_capabilities_data().get("external_skills", {})
+
+
+def _get_local_metadata() -> dict:
+    """Get local skill metadata from JSON data file."""
+    return _load_capabilities_data().get("local_skills", {})
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -496,59 +205,50 @@ def _check_installed(skill_name: str, pkg_name: str) -> bool:
 # ═══════════════════════════════════════════════════════════════════════════════
 
 def _merge_capability_data(skill_name: str, pkg_name: str, source: str,
-                           registry_meta: dict, local_meta: dict,
-                           external_meta: dict) -> CapabilityEntry:
+                           registry_meta: dict, file_meta: dict) -> CapabilityEntry:
     """Merge capability data from all sources into a single CapabilityEntry.
 
-    Priority: frontmatter > hardcoded local > hardcoded external > registry description.
+    Priority: SKILL.md frontmatter > JSON data file > registry.json description.
+    All data sources are file-based — no hardcoded Python dicts.
     """
-    # Aliases: frontmatter + local + external
-    aliases = list(
-        local_meta.get("aliases", []) +
-        external_meta.get("aliases", [])
-    )
-    frontmatter_aliases = _parse_frontmatter_tags(skill_name, pkg_name).get("aliases", [])
-    for a in frontmatter_aliases:
+    fm = _parse_frontmatter_tags(skill_name, pkg_name)
+
+    # Aliases: JSON data file + frontmatter (frontmatter wins)
+    aliases = list(file_meta.get("aliases", []))
+    for a in fm.get("aliases", []):
         if a not in aliases:
             aliases.append(a)
 
-    # Tags: local + external + frontmatter
-    tags = list(
-        local_meta.get("tags", []) +
-        external_meta.get("tags", [])
-    )
-    frontmatter_tags = _parse_frontmatter_tags(skill_name, pkg_name).get("tags", [])
-    for t in frontmatter_tags:
+    # Tags: JSON data file + frontmatter
+    tags = list(file_meta.get("tags", []))
+    for t in fm.get("tags", []):
         if t not in tags:
             tags.append(t)
 
-    # Domains
-    domains = list(
-        local_meta.get("domains", []) +
-        external_meta.get("domains", [])
-    )
+    # Domains: JSON data file + frontmatter
+    domains = list(file_meta.get("domains", []))
+    for d in fm.get("domains", []):
+        if d not in domains:
+            domains.append(d)
 
-    # Capabilities
-    capabilities = list(
-        local_meta.get("capabilities", []) +
-        external_meta.get("capabilities", [])
-    )
+    # Capabilities: JSON data file + frontmatter
+    capabilities = list(file_meta.get("capabilities", []))
+    for c in fm.get("capabilities", []):
+        if c not in capabilities:
+            capabilities.append(c)
 
-    # Description fallback chain
+    # Description fallback: registry > JSON file
     description = (
         registry_meta.get("description", "") or
-        local_meta.get("description", "") or
-        external_meta.get("description", "")
+        file_meta.get("description", "")
     )
 
     installed = _check_installed(skill_name, pkg_name)
 
     install_hint = ""
     if source == "external" and not installed:
-        pkg = registry_meta.get("package", pkg_name)
         install_hint = registry_meta.get("install_command", "")
         if not install_hint:
-            # Check package-level install command
             pkg_entry = _load_registry().get("packages", {}).get(pkg_name, {})
             install_hint = pkg_entry.get("install_command", f"npx skills add {skill_name}")
 
@@ -560,7 +260,7 @@ def _merge_capability_data(skill_name: str, pkg_name: str, source: str,
         source=source,
         installed=installed,
         description=description,
-        aliases=tuple(dict.fromkeys(aliases)),     # dedup, preserve order
+        aliases=tuple(dict.fromkeys(aliases)),
         tags=tuple(dict.fromkeys(tags)),
         domains=tuple(dict.fromkeys(domains)),
         capabilities=tuple(dict.fromkeys(capabilities)),
@@ -572,12 +272,15 @@ def _merge_capability_data(skill_name: str, pkg_name: str, source: str,
 def build_capability_registry(registry_data: Optional[dict] = None) -> list[CapabilityEntry]:
     """Build the unified capability registry from all data sources.
 
+    All metadata comes from file-based sources (JSON, SKILL.md frontmatter).
+    No hardcoded Python data.
+
     Args:
         registry_data: Optional pre-loaded registry dict. Loads from disk if None.
 
     Returns:
         List of CapabilityEntry objects for ALL known skills (local + external).
-        Deterministic order: sorted by (source, package, skill).
+        Deterministic order: sorted by skill name.
     """
     if registry_data is None:
         registry_data = _load_registry()
@@ -588,6 +291,11 @@ def build_capability_registry(registry_data: Optional[dict] = None) -> list[Capa
     skills_section = registry_data.get("skills", {})
     packages_section = registry_data.get("packages", {})
 
+    # Load file-based metadata (transitional: will be phased out once all
+    # SKILL.md files have proper frontmatter)
+    local_file_meta = _get_local_metadata()
+    external_file_meta = _get_external_metadata()
+
     for skill_name, skill_meta in skills_section.items():
         if skill_name in seen_skills:
             continue
@@ -597,27 +305,28 @@ def build_capability_registry(registry_data: Optional[dict] = None) -> list[Capa
         is_external = skill_meta.get("external", False)
         source = "external" if is_external else "local"
 
-        local_meta = _LOCAL_SKILL_CAPABILITIES.get(skill_name, {})
-        ext_meta = _EXTERNAL_SKILL_METADATA.get(skill_name, {})
-        registry_meta = skill_meta
+        # Load metadata from file-based source (not hardcoded Python)
+        if is_external:
+            file_meta = external_file_meta.get(skill_name, {})
+        else:
+            file_meta = local_file_meta.get(skill_name, {})
 
         entry = _merge_capability_data(
             skill_name=skill_name,
             pkg_name=pkg_name,
             source=source,
-            registry_meta=registry_meta,
-            local_meta=local_meta,
-            external_meta=ext_meta,
+            registry_meta=skill_meta,
+            file_meta=file_meta,
         )
         entries.append(entry)
 
-    # Add vercel-agent-skills entries that may not be in registry
-    for skill_name, ext_meta in _EXTERNAL_SKILL_METADATA.items():
+    # Add external skills that exist in the capabilities data file but
+    # not yet registered in registry.json skills section
+    for skill_name, file_meta in external_file_meta.items():
         if skill_name in seen_skills:
             continue
         seen_skills.add(skill_name)
 
-        # Determine package from registry packages section
         pkg_name = ""
         for pkg_entry_name, pkg_entry in packages_section.items():
             if skill_name in pkg_entry.get("skills", []):
@@ -632,8 +341,7 @@ def build_capability_registry(registry_data: Optional[dict] = None) -> list[Capa
             pkg_name=pkg_name,
             source="external",
             registry_meta={},
-            local_meta={},
-            external_meta=ext_meta,
+            file_meta=file_meta,
         )
         entries.append(entry)
 

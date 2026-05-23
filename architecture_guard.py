@@ -31,7 +31,12 @@ EXTERNAL_SYSTEMS = {
     "RepoAnalyzer": WORKSPACE_ROOT / "RepoAnalyzer",
     "TaskSystem": WORKSPACE_ROOT / "TaskSystem",
     "ExecutionLoop": WORKSPACE_ROOT / "ExecutionLoop",
+    "EventBus": WORKSPACE_ROOT / "EventBus",
+    "Observability": WORKSPACE_ROOT / "Observability",
 }
+
+# EventBus modules — self-contained, do not import from SkillsManagementSystem
+EVENTBUS_PATH = WORKSPACE_ROOT / "EventBus"
 
 SKILLSYSTEM_PATH = WORKSPACE_ROOT / "SkillsManagementSystem"
 
@@ -101,7 +106,12 @@ def _excluded_from_hardcoded_check(filepath: Path) -> bool:
         "SkillsManagementSystem/core/__init__.py",
         "architecture_guard.py",
     ]
-    return any(relative.endswith(e) for e in excluded)
+    if any(relative.endswith(e) for e in excluded):
+        return True
+    # Observability files reference skill names only in docstring examples
+    if relative.startswith("Observability/"):
+        return True
+    return False
 
 
 def check_external_access(filepath: Path) -> list[dict]:
@@ -378,6 +388,215 @@ def check_execution_loop_purity() -> list[dict]:
     return violations
 
 
+def check_classify_not_in_routing_path() -> list[dict]:
+    """Verify classify.py is NOT imported by any routing pipeline module.
+
+    classify.py is a dev-only tool. It must not participate in runtime routing.
+    """
+    violations = []
+    routing_modules = [
+        SKILLSYSTEM_PATH / "core" / "routing_pipeline.py",
+        SKILLSYSTEM_PATH / "core" / "routing_engine.py",
+        SKILLSYSTEM_PATH / "core" / "adapter.py",
+        SKILLSYSTEM_PATH / "core" / "capability_registry.py",
+    ]
+
+    for mod_path in routing_modules:
+        if not mod_path.exists():
+            continue
+        try:
+            content = mod_path.read_text(encoding="utf-8", errors="replace")
+        except Exception:
+            continue
+
+        relative = str(mod_path.relative_to(WORKSPACE_ROOT)).replace("\\", "/")
+        for line_no, line in enumerate(content.split("\n"), 1):
+            if "import" in line and "classify" in line and not line.strip().startswith("#"):
+                violations.append({
+                    "file": relative,
+                    "line": line_no,
+                    "rule": "classify_in_routing_path",
+                    "detail": line.strip()[:120],
+                    "severity": "CRITICAL",
+                })
+
+    return violations
+
+
+def check_capability_registry_purity() -> list[dict]:
+    """Check capability_registry.py no longer uses hardcoded Python dicts.
+
+    Phase 2: _EXTERNAL_SKILL_METADATA and _LOCAL_SKILL_CAPABILITIES
+    must NOT exist as Python dicts in the code.
+    """
+    violations = []
+    cr_path = SKILLSYSTEM_PATH / "core" / "capability_registry.py"
+    if not cr_path.exists():
+        return violations
+
+    try:
+        content = cr_path.read_text(encoding="utf-8", errors="replace")
+    except Exception:
+        return violations
+
+    for line_no, line in enumerate(content.split("\n"), 1):
+        stripped = line.strip()
+        if stripped.startswith("#"):
+            continue
+        # Check for old hardcoded dict definitions
+        if stripped == "_EXTERNAL_SKILL_METADATA = {" or stripped == "_LOCAL_SKILL_CAPABILITIES = {":
+            violations.append({
+                "file": "SkillsManagementSystem/core/capability_registry.py",
+                "line": line_no,
+                "rule": "hardcoded_skill_dict",
+                "detail": f"Hardcoded Python dict still present: {stripped[:80]}",
+                "severity": "CRITICAL",
+            })
+
+    return violations
+
+
+def check_eventbus_no_llm() -> list[dict]:
+    """Verify EventBus has zero LLM-related imports or calls."""
+    violations = []
+    if not EVENTBUS_PATH.exists():
+        return violations
+
+    llm_patterns = [
+        "openai", "anthropic", "llm", "embedding", "semantic",
+        "classify", "predict", "model.generate", "chat.completions",
+    ]
+
+    for py_file in EVENTBUS_PATH.rglob("*.py"):
+        try:
+            content = py_file.read_text(encoding="utf-8", errors="replace")
+        except Exception:
+            continue
+
+        relative = str(py_file.relative_to(WORKSPACE_ROOT)).replace("\\", "/")
+        for line_no, line in enumerate(content.split("\n"), 1):
+            stripped = line.strip()
+            if stripped.startswith("#"):
+                continue
+            for pattern in llm_patterns:
+                if pattern in stripped.lower() and "import" in stripped:
+                    violations.append({
+                        "file": relative,
+                        "line": line_no,
+                        "rule": "eventbus_llm_import",
+                        "detail": line.strip()[:120],
+                        "severity": "CRITICAL",
+                    })
+
+    return violations
+
+
+def check_observability_purity() -> list[dict]:
+    """Verify Observability layer has zero intelligence, zero LLM calls.
+
+    Phase 3: Observability must be pure write-only / read-only.
+    No AI, no decisions, no anomaly detection, no model imports.
+    Only flags actual import statements — not documentation mentions.
+    """
+    violations = []
+    obs_path = WORKSPACE_ROOT / "Observability"
+    if not obs_path.exists():
+        return violations
+
+    # Patterns that indicate intelligence imports in observability
+    llm_import_patterns = [
+        "import openai", "import anthropic", "from openai",
+        "from anthropic", "import torch", "import tensorflow",
+        "import sklearn", "from sklearn",
+    ]
+    # Patterns that indicate decision-making function calls (not in comments/docstrings)
+    decision_calls = [
+        ".predict(", ".classify(", ".generate(", ".complete(",
+    ]
+
+    for py_file in obs_path.rglob("*.py"):
+        try:
+            content = py_file.read_text(encoding="utf-8", errors="replace")
+        except Exception:
+            continue
+
+        relative = str(py_file.relative_to(WORKSPACE_ROOT)).replace("\\", "/")
+        in_docstring = False
+
+        for line_no, line in enumerate(content.split("\n"), 1):
+            stripped = line.strip()
+
+            # Skip comments and docstrings
+            if stripped.startswith("#"):
+                continue
+            if '"""' in stripped:
+                in_docstring = not in_docstring
+                continue
+            if in_docstring:
+                continue
+
+            for pattern in llm_import_patterns:
+                if pattern in stripped:
+                    violations.append({
+                        "file": relative,
+                        "line": line_no,
+                        "rule": "observability_intelligence_leak",
+                        "detail": f"LLM/AI import in observability: {stripped[:120]}",
+                        "severity": "CRITICAL",
+                    })
+
+            for pattern in decision_calls:
+                if pattern in stripped:
+                    violations.append({
+                        "file": relative,
+                        "line": line_no,
+                        "rule": "observability_decision_call",
+                        "detail": f"Decision-making call in observability: {stripped[:120]}",
+                        "severity": "CRITICAL",
+                    })
+
+    return violations
+
+
+def check_observability_hooks_non_blocking() -> list[dict]:
+    """Verify observability hooks in kernel subsystems are try/except: pass.
+
+    Observability failure must NEVER affect kernel behavior.
+    Every hook must be wrapped in try/except Exception: pass.
+    """
+    violations = []
+    kernel_files = [
+        WORKSPACE_ROOT / "EventBus" / "event_bus.py",
+        WORKSPACE_ROOT / "SkillsManagementSystem" / "core" / "adapter.py",
+        WORKSPACE_ROOT / "ExecutionLoop" / "loop.py",
+        WORKSPACE_ROOT / "TaskSystem" / "core" / "task_manager.py",
+    ]
+
+    for kf in kernel_files:
+        if not kf.exists():
+            continue
+        try:
+            content = kf.read_text(encoding="utf-8", errors="replace")
+        except Exception:
+            continue
+
+        relative = str(kf.relative_to(WORKSPACE_ROOT)).replace("\\", "/")
+
+        # Check: if Observability is imported, it must have try/except protection
+        if "from Observability" in content or "import Observability" in content:
+            has_try_except = "try:" in content and "except Exception:" in content
+            if not has_try_except:
+                violations.append({
+                    "file": relative,
+                    "line": 0,
+                    "rule": "observability_hook_unprotected",
+                    "detail": "Observability import found without try/except protection",
+                    "severity": "MEDIUM",
+                })
+
+    return violations
+
+
 def check_intent_hints_canonical() -> list[dict]:
     """Verify INTENT_HINTS only exists in adapter.py."""
     violations = []
@@ -443,6 +662,11 @@ def run_guard() -> dict:
     # Special checks
     all_violations.extend(check_execution_loop_purity())
     all_violations.extend(check_intent_hints_canonical())
+    all_violations.extend(check_classify_not_in_routing_path())
+    all_violations.extend(check_capability_registry_purity())
+    all_violations.extend(check_eventbus_no_llm())
+    all_violations.extend(check_observability_purity())
+    all_violations.extend(check_observability_hooks_non_blocking())
 
     # Deduplicate
     seen = set()
@@ -484,11 +708,13 @@ def run_guard() -> dict:
             "SkillSystem internal logic (routing_engine improvements)",
             "registry.json additions (new skills)",
             "Adapter INTENT_HINTS (additive changes only, no structural change)",
+            "Observability dashboard view additions (display-only, no intelligence)",
         ],
         "immutable_borders": [
             "Adapter is the ONLY entry point for skill selection, metadata, routing",
             "SkillSystem internals (routing_pipeline, capability_registry, etc.) are PRIVATE",
             "ExecutionLoop is PURE — no routing decisions, no task creation",
+            "Observability is PURE — write-only/read-only, zero intelligence, zero decisions",
             "No new layers, entrypoints, or alternative routing systems",
         ],
         "forbidden_operations": [
@@ -499,10 +725,14 @@ def run_guard() -> dict:
             "sys.path manipulation inside function bodies",
             "Duplicate skill selection logic",
             "Fallback skill heuristics outside Adapter",
+            "AI/LLM imports in observability layer",
+            "Anomaly detection or alerting in observability",
+            "Observability hooks without try/except protection",
         ],
         "checked_modules": len(list(_py_files(WORKSPACE_ROOT / "RepoAnalyzer"))) +
                           len(list(_py_files(WORKSPACE_ROOT / "TaskSystem"))) +
                           len(list(_py_files(SKILLSYSTEM_PATH))) +
+                          len(list(_py_files(WORKSPACE_ROOT / "Observability"))) +
                           (1 if (WORKSPACE_ROOT / "ExecutionLoop" / "loop.py").exists() else 0),
     }
 

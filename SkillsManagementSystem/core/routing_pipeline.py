@@ -94,7 +94,18 @@ def _format_output(result: RoutingResult) -> dict:
 # Public API
 # ═══════════════════════════════════════════════════════════════════════════════
 
-# Module-level singleton registry (loaded once, used many times)
+# Module-level cache: loaded once from disk, reused across suggest() calls.
+# This is the ONLY module-level mutable state in the routing pipeline.
+# Invariants:
+#   - Set to None on module load (no disk I/O at import time)
+#   - Filled on first suggest() call (lazy load)
+#   - Reset to None on reload_registry() (explicit invalidation)
+#   - NEVER used to make decisions — pure data cache only
+#   - Same contents as the JSON/package files on disk (deterministic)
+# Governance: This cache exists because capability_registry loads from
+# multiple files (registry.json + package manifests + SKILL.md x 60+).
+# Reloading every suggest() call would be 60+ file reads per query.
+# The cache is invalidated ONLY by explicit reload_registry() call.
 _registry_cache: Optional[list] = None
 
 

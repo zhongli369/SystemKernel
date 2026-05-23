@@ -1,0 +1,27 @@
+{
+  "name": "algo-sensei",
+  "display_name": "算法导师包",
+  "display_name_en": "Algo Sensei",
+  "description": "AI驱动的DSA导师：苏格拉底式教学、渐进提示、代码审查、模拟面试、模式识别训练",
+  "version": "1.0.0",
+  "installable": true,
+  "tags": ["leetcode", "interview", "dsa", "mentor", "algorithm", "teaching"],
+  "dependencies": [],
+  "skills": [
+    "algo-sensei"
+  ],
+  "auto_match_keywords": [
+    "leetcode",
+    "interview",
+    "mock interview",
+    "hint",
+    "teach",
+    "learn algorithm",
+    "code review dsa",
+    "pattern recognition",
+    "algorithm mentor",
+    "tutor",
+    "explain problem",
+    "complexity analysis"
+  ]
+}

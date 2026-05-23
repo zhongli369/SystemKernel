@@ -130,6 +130,19 @@ def create_task(title: str) -> dict:
         "priority": "P1",
     }
     save_task(task, "backlog")
+
+    # ── Observability: record task span (non-invasive)
+    try:
+        import uuid as _uuid
+        from Observability.trace import record_span as _record_span
+        _record_span(
+            stage="task",
+            data={"task_id": task_id, "title": title, "priority": "P1"},
+            trace_id=str(_uuid.uuid4()),
+        )
+    except Exception:
+        pass
+
     return task
 
 

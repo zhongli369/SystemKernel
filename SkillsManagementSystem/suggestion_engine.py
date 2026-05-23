@@ -1,8 +1,15 @@
 #!/usr/bin/env python3
 """
-suggestion_engine.py — Skill Suggestion Entry Point (v4.0 Architecture)
+suggestion_engine.py — DEPRECATED compatibility wrapper (v4.0 → to be removed)
 
-Delegates to the new capability-based routing pipeline (core/routing_pipeline.py).
+STATUS: DEPRECATED. All routing MUST go through Adapter.resolve().
+This module exists ONLY for backward compatibility with v3.5 callers.
+New code should use:
+
+    from SkillsManagementSystem.core.adapter import resolve, CapabilityRequest
+    binding = resolve(CapabilityRequest(intent="...", context="..."))
+
+Delegates to the capability-based routing pipeline (core/routing_pipeline.py).
 Maintains backward compatibility with v3.5 input/output format.
 
 Standard Input (v3.5 compat):
@@ -31,6 +38,13 @@ This module is PURELY passive:
   - No filesystem writes
   - No CLI / subprocess calls
   - No TaskSystem interaction
+
+Phase 2 governance:
+  - DEPRECATED. Use Adapter.resolve() instead.
+  - This file is a compatibility shim, NOT a routing entry point.
+  - It delegates to routing_pipeline.suggest() — which itself is an internal
+    implementation detail behind Adapter.resolve().
+  - Callers should migrate to the canonical path: Adapter.resolve(CapabilityRequest(...))
 """
 
 import sys

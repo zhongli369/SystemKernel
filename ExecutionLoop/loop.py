@@ -1,19 +1,29 @@
 """
-Execution Loop — Minimal Verification Harness (v1.0)
+ExecutionLoop — Deterministic Verification Gate (v2.0 — Phase 2 industrial)
 
-Flow: resolve once → execute → verify → optional single correction → verify → stop.
+Flow: execute skill → verify (lint → typecheck → test) → report → optional retry → stop.
 
-NOT an agent, executor, orchestrator, or workflow engine.
-A deterministic verification gate with one bounded retry.
+THIS IS A MECHANICAL QUALITY GATE, not an agent or executor.
+
+Key guarantees:
+  - Fixed pipeline: lint → typecheck → test → report (ALWAYS in this order)
+  - Max 2 attempts (initial + 1 correction based on error log only)
+  - No AI decisions, no dynamic pipeline, no conditional execution
+  - Subprocess isolation per check (timeout, filesystem scope)
+  - Standardized JSON report output
+  - Deterministic: same input → same check sequence every time
 """
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field, asdict
 import subprocess
 import sys
+import time
 from typing import Optional, Tuple
 
 
-# ═══════════ Data types (frozen — no runtime state) ═══════════
+# ═══════════════════════════════════════════════════════════════════════════════
+# Data types (frozen — no runtime state mutation)
+# ═══════════════════════════════════════════════════════════════════════════════
 
 @dataclass(frozen=True)
 class ResolvedCapability:
@@ -26,8 +36,8 @@ class ResolvedCapability:
 class ExecutionRequest:
     """Input to the execution loop."""
     capability: ResolvedCapability
-    target: str                     # modified file path or description
-    verification: tuple[str, ...]   # check names ("lint") or shell commands
+    target: str                     # file path or description of what changed
+    verification: tuple[str, ...]   # check names ("lint", "typecheck", "test") or shell commands
 
 
 @dataclass(frozen=True)
@@ -38,88 +48,280 @@ class ExecutionResult:
     verification_passed: bool
     attempt: int                    # 1 or 2
     correction_remaining: bool      # True if one more correction allowed
-    summary: str
+    summary: str                    # human-readable
+
+    def json_report(self) -> dict:
+        """Standardized JSON execution report (Phase 2 industrial)."""
+        return {
+            "task_id": "",
+            "skill_id": "",
+            "attempts": self.attempt,
+            "lint": "",
+            "typecheck": "",
+            "tests": "",
+            "duration_ms": 0,
+            "error_summary": "",
+        }
 
 
-# ═══════════ Named verification checks (deterministic only) ═══════════
+# ═══════════════════════════════════════════════════════════════════════════════
+# Sandbox configuration
+# ═══════════════════════════════════════════════════════════════════════════════
 
+@dataclass(frozen=True)
+class SandboxConfig:
+    """Isolation parameters for verification checks.
+
+    LIGHTWEIGHT — subprocess isolation only. No containers, no VMs.
+    """
+    timeout_per_check: int = 300   # seconds per individual check (5 min)
+    timeout_total: int = 600       # seconds for all checks combined (10 min)
+    filesystem_scope: str = "."    # cwd for subprocess invocation
+    max_output_bytes: int = 50_000 # truncate output beyond this
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# Fixed verification pipeline — ALWAYS lint → typecheck → test → report
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# Named checks map (deterministic, no dynamic resolution)
 _NAMED_CHECKS: dict[str, list[str]] = {
     "lint":      ["ruff", "check", "."],
     "typecheck": ["mypy", "."],
     "test":      ["pytest", "-q", "--tb=short"],
 }
 
+# Fixed execution order — the ONLY order, always
+_FIXED_PIPELINE = ("lint", "typecheck", "test")
 
-# ═══════════ Internal: single check runner ═══════════
 
-def _run_one_check(check: str, cwd: str, timeout: int = 120) -> Tuple[bool, str]:
-    """Run a single check. Named check or raw shell command.
+@dataclass
+class CheckResult:
+    """Result of a single verification check."""
+    check_name: str
+    passed: bool
+    output: str
+    duration_ms: int
+    error: str = ""
 
-    Returns (passed: bool, output: str).
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# Single check runner — subprocess isolation
+# ═══════════════════════════════════════════════════════════════════════════════
+
+def _run_one_check(
+    check: str,
+    cwd: str = ".",
+    timeout: int = 300,
+    max_output: int = 50_000,
+) -> CheckResult:
+    """Run a single verification check in isolated subprocess.
+
+    Pure I/O function. No side effects beyond subprocess execution.
+
+    Args:
+        check: Named check ("lint", "typecheck", "test") or raw shell command.
+        cwd: Working directory for the subprocess.
+        timeout: Seconds before SIGTERM.
+        max_output: Maximum output bytes before truncation.
+
+    Returns:
+        CheckResult with passed/fail, output, timing.
     """
     if check in _NAMED_CHECKS:
         cmd = _NAMED_CHECKS[check]
     else:
         cmd = check.split()
 
+    start = time.monotonic()
+    result = CheckResult(
+        check_name=check,
+        passed=False,
+        output="",
+        duration_ms=0,
+    )
+
     try:
-        result = subprocess.run(
+        proc = subprocess.run(
             cmd,
             capture_output=True,
             text=True,
             timeout=timeout,
             cwd=cwd,
         )
-        passed = result.returncode == 0
-        output = (result.stdout + result.stderr).strip()
-        return passed, output or "(no output)"
+        elapsed = int((time.monotonic() - start) * 1000)
+        result.duration_ms = elapsed
+        result.passed = proc.returncode == 0
+        output = (proc.stdout + "\n" + proc.stderr).strip()
+        result.output = output[:max_output] if len(output) > max_output else output
+        if len(output) > max_output:
+            result.output += f"\n[TRUNCATED at {max_output} bytes]"
+
     except FileNotFoundError:
-        return False, f"check not found: {cmd[0]}"
+        result.duration_ms = int((time.monotonic() - start) * 1000)
+        result.output = f"Command not found: {cmd[0]}"
+        result.error = result.output
+
     except subprocess.TimeoutExpired:
-        return False, f"check timed out after {timeout}s: {' '.join(cmd)}"
+        result.duration_ms = int((time.monotonic() - start) * 1000)
+        result.output = f"Check timed out after {timeout}s: {' '.join(cmd)}"
+        result.error = result.output
+
     except Exception as exc:
-        return False, f"check error: {exc}"
+        result.duration_ms = int((time.monotonic() - start) * 1000)
+        result.output = f"Check error: {exc}"
+        result.error = result.output
+
+    return result
 
 
-# ═══════════ Internal: all checks runner ═══════════
+# ═══════════════════════════════════════════════════════════════════════════════
+# Fixed pipeline runner — lint → typecheck → test → report (ALWAYS)
+# ═══════════════════════════════════════════════════════════════════════════════
 
-def _run_all_checks(verification: tuple[str, ...], cwd: str) -> Tuple[bool, str]:
-    """Run all checks sequentially. Stops at first failure for efficiency.
+def _run_fixed_pipeline(
+    verification: tuple[str, ...],
+    cwd: str,
+    sandbox: SandboxConfig,
+) -> Tuple[bool, list[CheckResult], int]:
+    """Run ALL checks in FIXED order. Stops at first failure.
 
-    Returns (all_passed: bool, combined_output: str).
+    The order is ALWAYS lint → typecheck → test → [custom].
+    Named checks are ordered. Custom checks run after named checks.
+    No dynamic ordering. No conditional execution.
+
+    Returns:
+        (all_passed: bool, results: list[CheckResult], total_duration_ms: int)
     """
+    results: list[CheckResult] = []
     all_passed = True
-    lines: list[str] = []
+    total_start = time.monotonic()
 
-    for check in verification:
-        passed, output = _run_one_check(check, cwd)
-        status = "PASS" if passed else "FAIL"
-        # Truncate per-check output to keep summary bounded
-        truncated = output[:300] + "..." if len(output) > 300 else output
-        lines.append(f"[{status}] {check}")
-        if truncated:
-            lines.append(f"  {truncated}")
-        if not passed:
+    # Partition: named checks in fixed order, then custom checks
+    named_checks = [c for c in _FIXED_PIPELINE if c in verification]
+    custom_checks = [c for c in verification if c not in _NAMED_CHECKS]
+
+    # Run named checks in FIXED order
+    for check in named_checks:
+        elapsed = int((time.monotonic() - total_start) * 1000)
+        if elapsed > sandbox.timeout_total * 1000:
+            results.append(CheckResult(
+                check_name=check,
+                passed=False,
+                output="Total timeout exceeded — pipeline halted",
+                error="timeout",
+            ))
             all_passed = False
-            break  # stop at first failure — fix that first
+            break
 
-    return all_passed, "\n".join(lines)
+        result = _run_one_check(check, cwd=cwd, timeout=sandbox.timeout_per_check)
+        results.append(result)
+
+        if not result.passed:
+            all_passed = False
+            break  # Stop at first failure — fix that first
+
+    # Run custom checks only if named checks all passed
+    if all_passed:
+        for check in custom_checks:
+            elapsed = int((time.monotonic() - total_start) * 1000)
+            if elapsed > sandbox.timeout_total * 1000:
+                results.append(CheckResult(
+                    check_name=check,
+                    passed=False,
+                    output="Total timeout exceeded — pipeline halted",
+                    error="timeout",
+                ))
+                all_passed = False
+                break
+
+            result = _run_one_check(check, cwd=cwd, timeout=sandbox.timeout_per_check)
+            results.append(result)
+
+            if not result.passed:
+                all_passed = False
+                break
+
+    total_duration = int((time.monotonic() - total_start) * 1000)
+    return all_passed, results, total_duration
 
 
-# ═══════════ Public API — single entry point ═══════════
+# ═══════════════════════════════════════════════════════════════════════════════
+# Standardized JSON report builder
+# ═══════════════════════════════════════════════════════════════════════════════
+
+def _build_json_report(
+    task_id: str,
+    skill_id: str,
+    attempt: int,
+    results: list[CheckResult],
+    total_duration_ms: int,
+) -> dict:
+    """Build the standardized execution report (Phase 2 industrial).
+
+    Output schema:
+    {
+        "task_id": str,
+        "skill_id": str,
+        "attempts": int,
+        "lint": "pass|fail|skipped",
+        "typecheck": "pass|fail|skipped",
+        "tests": "pass|fail|skipped",
+        "duration_ms": int,
+        "error_summary": str
+    }
+    """
+    report = {
+        "task_id": task_id,
+        "skill_id": skill_id,
+        "attempts": attempt,
+        "lint": "skipped",
+        "typecheck": "skipped",
+        "tests": "skipped",
+        "duration_ms": total_duration_ms,
+        "error_summary": "",
+    }
+
+    error_messages: list[str] = []
+
+    for r in results:
+        status = "pass" if r.passed else "fail"
+        if r.check_name in report:
+            report[r.check_name] = status
+        else:
+            # Custom check — add as extra field
+            report[f"check_{r.check_name}"] = status
+
+        if not r.passed:
+            error_messages.append(f"[{r.check_name}] {r.output[:200]}")
+
+    if error_messages:
+        report["error_summary"] = "\n".join(error_messages)
+
+    return report
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# Public API — single entry point
+# ═══════════════════════════════════════════════════════════════════════════════
 
 def run(
     request: ExecutionRequest,
     *,
     correction_attempted: bool = False,
     cwd: str = ".",
+    sandbox: Optional[SandboxConfig] = None,
 ) -> ExecutionResult:
     """Run the bounded execution verification loop.
+
+    FIXED PIPELINE: lint → typecheck → test → [custom] → report.
+    Always this order. No dynamic reordering. No conditional execution.
 
     Call sequence:
         1. run(request)                          → first verification
         2. If result.correction_remaining:
            caller applies ONE correction
+           (Correction MUST be based on error log output — no AI decisions)
         3. run(request, correction_attempted=True) → final verification
         4. Stop — no further corrections allowed.
 
@@ -127,47 +329,125 @@ def run(
         request: ExecutionRequest with capability, target, and verification checks.
         correction_attempted: Set True when calling after a correction was applied.
         cwd: Working directory for running checks.
+        sandbox: Optional SandboxConfig for isolation parameters.
 
     Returns:
         ExecutionResult — ephemeral. Caller decides whether to persist summary.
     """
-    if correction_attempted and not request.verification:
+    if sandbox is None:
+        sandbox = SandboxConfig()
+
+    skill_id = request.capability.skill_id
+    target = request.target
+
+    # Handle edge case: no verification checks configured
+    if not request.verification:
         return ExecutionResult(
             success=False,
-            corrected=True,
+            corrected=correction_attempted,
             verification_passed=False,
-            attempt=2,
+            attempt=2 if correction_attempted else 1,
             correction_remaining=False,
             summary=(
-                f"CORRECTION APPLIED — no verification checks configured.\n"
-                f"Target: {request.target}\n"
-                f"Capability: {request.capability.skill_id}\n"
-                f"Attempt: 2/2 (max)"
+                f"VERIFICATION FAILED — no verification checks configured.\n"
+                f"Target: {target}\n"
+                f"Skill: {skill_id}\n"
+                f"Attempt: {'2/2 (max)' if correction_attempted else '1/2'}"
             ),
         )
 
     attempt = 2 if correction_attempted else 1
-    passed, output = _run_all_checks(request.verification, cwd)
 
-    # Build summary
+    # ── Observability: record execution span (non-invasive) ────────────
+    import uuid as _uuid
+    _exec_trace_id = str(_uuid.uuid4())
+    _exec_span_id = ""
+    try:
+        from Observability.trace import record_span as _record_span
+        _exec_span_obj = _record_span(
+            stage="execution",
+            data={
+                "target": target,
+                "verification": list(request.verification),
+                "attempt": attempt,
+            },
+            trace_id=_exec_trace_id,
+        )
+        _exec_span_id = _exec_span_obj.span_id
+    except Exception:
+        pass
+
+    _exec_start = time.monotonic()
+
+    # Run the FIXED pipeline
+    passed, results, total_duration = _run_fixed_pipeline(
+        request.verification, cwd, sandbox
+    )
+
+    _exec_elapsed_ms = (time.monotonic() - _exec_start) * 1000
+
+    # Build JSON report (Phase 2 industrial)
+    json_rpt = _build_json_report("", skill_id, attempt, results, total_duration)
+
+    # Build human-readable summary
     header = "VERIFICATION PASSED" if passed else "VERIFICATION FAILED"
-    correction_note = ""
-    if correction_attempted:
-        correction_note = " (after correction)"
+    correction_note = " (after correction)" if correction_attempted else ""
 
     summary_lines = [
         f"{header}{correction_note}.",
-        f"Target: {request.target}",
-        f"Capability: {request.capability.skill_id} "
-        f"(confidence: {request.capability.confidence:.2f})",
+        f"Target: {target}",
+        f"Skill: {skill_id} (confidence: {request.capability.confidence:.2f})",
         f"Attempt: {attempt}/2 (max)",
-        f"Checks: {', '.join(request.verification)}",
+        f"Pipeline: {' → '.join(request.verification)}",
+        f"Duration: {total_duration}ms",
         "",
-        output,
     ]
+
+    for r in results:
+        status = "PASS" if r.passed else "FAIL"
+        summary_lines.append(f"[{status}] {r.check_name} ({r.duration_ms}ms)")
+        if r.output:
+            truncated = r.output[:200] + "..." if len(r.output) > 200 else r.output
+            summary_lines.append(f"  {truncated}")
+
+    # JSON report embedded in summary
+    import json
+    summary_lines.append("")
+    summary_lines.append("--- JSON Report ---")
+    summary_lines.append(json.dumps(json_rpt, indent=2, ensure_ascii=False))
 
     # Correction remaining only if first attempt failed and no correction yet
     correction_remaining = (not passed and not correction_attempted)
+
+    # ── Observability: record validation span + metrics (non-invasive)
+    try:
+        from Observability.trace import record_span as _record_span
+        from Observability.metrics import record_metric as _record_metric
+
+        _record_span(
+            stage="validation",
+            data={
+                "verification_passed": passed,
+                "lint": json_rpt.get("lint", "skipped"),
+                "typecheck": json_rpt.get("typecheck", "skipped"),
+                "tests": json_rpt.get("tests", "skipped"),
+                "duration_ms": total_duration,
+            },
+            trace_id=_exec_trace_id,
+            parent_span_id=_exec_span_id,
+        )
+        _record_metric("execution_latency_ms", _exec_elapsed_ms,
+                       tags={"skill": skill_id, "attempt": str(attempt)},
+                       trace_id=_exec_trace_id)
+        _record_metric("validation_passed", 1 if passed else 0,
+                       tags={"skill": skill_id},
+                       trace_id=_exec_trace_id)
+        if correction_attempted:
+            _record_metric("retry", 1,
+                           tags={"skill": skill_id},
+                           trace_id=_exec_trace_id)
+    except Exception:
+        pass
 
     return ExecutionResult(
         success=passed,
@@ -179,7 +459,39 @@ def run(
     )
 
 
-# ═══════════ Optional: persist summary to TaskSystem ═══════════
+# ═══════════════════════════════════════════════════════════════════════════════
+# Structured report extractor (for callers that want machine-readable output)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+def extract_report(result: ExecutionResult) -> dict:
+    """Extract the JSON report from an ExecutionResult's summary.
+
+    Parses the embedded JSON report block from the summary string.
+    Callers that need structured data can use this instead of parsing summary.
+    """
+    lines = result.summary.split("\n")
+    in_json = False
+    json_lines = []
+    for line in lines:
+        if line.strip() == "--- JSON Report ---":
+            in_json = True
+            continue
+        if in_json:
+            json_lines.append(line)
+
+    if json_lines:
+        import json
+        try:
+            return json.loads("\n".join(json_lines))
+        except json.JSONDecodeError:
+            pass
+
+    return result.json_report()
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# Optional: persist summary to TaskSystem
+# ═══════════════════════════════════════════════════════════════════════════════
 
 def write_summary_to_task(
     result: ExecutionResult,
@@ -188,8 +500,8 @@ def write_summary_to_task(
 ) -> bool:
     """Write the execution result summary to a TaskSystem task's context_log.
 
-    This is OPTIONAL. The caller may choose to persist the summary or discard it.
-    The execution loop itself has no opinion on persistence.
+    OPTIONAL. Caller decides whether to persist. The execution loop itself
+    has no opinion on persistence.
 
     Returns True if written successfully, False otherwise.
     """

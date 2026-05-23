@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """
-classify.py — Auto-classification engine for Skill Package Manager.
+classify.py — DEV TOOL ONLY (DEPRECATED for runtime routing — v1.0 → retired)
+
+STATUS: DEPRECATED. This is a DEV TOOL for skill package registration assistance.
+It must NEVER participate in runtime routing. All runtime routing goes through
+Adapter.resolve() → routing_pipeline.suggest().
 
 Given a skill path or skill data, reads SKILL.md frontmatter and description,
 then matches against package auto_match_keywords to determine the best-fit package.
@@ -16,9 +20,15 @@ Returns:
         "matched_keywords": ["react", "frontend"]
     }
 
-Usage:
+Usage (DEV ONLY — NOT in runtime routing path):
     python classify.py <skill_path>
     python classify.py <skill_path> --json
+
+Phase 2 governance:
+  - This file is a DEV TOOL, NOT a routing component
+  - It must NOT be imported by any routing pipeline module
+  - It must NOT influence skill selection at runtime
+  - It serves ONLY as a registration-time helper for package assignment
 """
 
 import json

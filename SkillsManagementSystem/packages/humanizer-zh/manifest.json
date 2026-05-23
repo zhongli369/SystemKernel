@@ -1,0 +1,29 @@
+{
+  "name": "humanizer-zh",
+  "display_name": "AI写作去痕工具",
+  "display_name_en": "Humanizer-zh",
+  "description": "去除文本中AI生成痕迹。基于维基百科AI写作特征指南，检测并修复24种AI写作模式：夸大象征意义、宣传性语言、AI词汇、破折号过度使用、三段式法则等。中文版，翻译自blader/humanizer。",
+  "version": "1.0.0",
+  "installable": true,
+  "install_command": "install humanizer-zh",
+  "external": true,
+  "source_url": "https://github.com/op7418/Humanizer-zh",
+  "tags": ["writing", "editing", "humanizer", "ai-detection", "chinese"],
+  "dependencies": [],
+  "skills": [
+    "humanizer-zh"
+  ],
+  "auto_match_keywords": [
+    "humanize",
+    "humanizer",
+    "去AI",
+    "人性化",
+    "AI痕迹",
+    "写作去痕",
+    "去AI化",
+    "自然化",
+    "润色",
+    "改写",
+    "humanizer-zh"
+  ]
+}
