@@ -1,0 +1,15 @@
+{
+  "agent_count": 3,
+  "cache_read_ratio": 0.970728,
+  "date_end": "2026-05-26",
+  "date_start": "2026-05-13",
+  "model_count": 4,
+  "record_count": 10,
+  "report_hash": "63efaecc1b0117eb",
+  "sensitive_text_detected": false,
+  "source_tool": "ccusage",
+  "total_cost_usd": 24.193558,
+  "total_tokens": 648907149,
+  "truth_source": false,
+  "warnings": []
+}

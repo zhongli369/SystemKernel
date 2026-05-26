@@ -1,0 +1,168 @@
+{
+  "inspected_at": "2026-05-26T16:45:00Z",
+  "phase": "7A",
+  "report_files": [
+    "docs/external_tool_inspection_report.md",
+    "docs/external_tool_usage_matrix.md",
+    "v3/exports/external_tool_inspection_summary.json"
+  ],
+  "repos": [
+    {
+      "name": "repomix",
+      "path": "F:/Claude/Github/repomix",
+      "commit": "5f704397bd5aefb5a6482144285136a9b186bb3d",
+      "version": "1.14.0",
+      "license": "MIT",
+      "language": "TypeScript (Node.js)",
+      "use_mode": "direct_tool",
+      "inspection_status": "YES",
+      "findings": {
+        "cli": "bin/repomix.cjs — npx repomix",
+        "output_formats": ["xml", "markdown", "json", "plain"],
+        "mcp_support": true,
+        "mcp_tools": 7,
+        "claude_code_plugins": 3,
+        "key_features": [
+          "token_counting",
+          "code_compression_tree-sitter",
+          "security_scanning_secretlint",
+          "remote_repo_processing",
+          "git_diff_log_inclusion",
+          "split_output_large_repos",
+          "stdin_piping",
+          "agent_skills_generation"
+        ]
+      },
+      "integration_risk": "LOW",
+      "immediate_value": "HIGH",
+      "recommended_next_actions": [
+        "Run npx repomix manually in a test directory to observe output",
+        "Review repomix-output.xml format for kernel report consumption",
+        "Document CLI options relevant to SystemKernel workflows",
+        "Evaluate token-count integration with kernel observability metrics"
+      ],
+      "forbidden_actions": [
+        "Do NOT add repomix as a Python dependency",
+        "Do NOT import repomix internals into kernel",
+        "Do NOT automate repomix execution without manual audit",
+        "Do NOT run npm install inside cloned repo directory"
+      ]
+    },
+    {
+      "name": "ccusage",
+      "path": "F:/Claude/Github/ccusage",
+      "commit": "309a29524f4fc3f20c988fea632cb869b53abf1b",
+      "version": "20.0.4",
+      "license": "MIT",
+      "language": "TypeScript + Rust (hybrid monorepo)",
+      "use_mode": "direct_tool",
+      "inspection_status": "YES",
+      "findings": {
+        "cli": "apps/ccusage/src/cli.ts — bunx ccusage",
+        "output_formats": ["terminal_table", "json"],
+        "mcp_support": false,
+        "supported_sources": 15,
+        "key_features": [
+          "daily_weekly_monthly_session_reports",
+          "cost_tracking_usd",
+          "model_breakdown",
+          "cache_token_support",
+          "offline_mode",
+          "timezone_support",
+          "date_filtering",
+          "project_instance_grouping",
+          "statusline_integration"
+        ]
+      },
+      "integration_risk": "MEDIUM",
+      "data_format_risk": "MEDIUM — coupled to Claude Code JSONL format",
+      "immediate_value": "MEDIUM",
+      "recommended_next_actions": [
+        "Run bunx ccusage daily --json manually to inspect JSON output format",
+        "Compare JSON schema to kernel metric types for potential mapping",
+        "Document the data flow: ccusage JSON → kernel metrics ingestion",
+        "Evaluate if ccusage report data complements kernel observability"
+      ],
+      "forbidden_actions": [
+        "Do NOT add ccusage as a Python dependency",
+        "Do NOT import ccusage internals into kernel",
+        "Do NOT hardcode ccusage JSON schema in kernel modules",
+        "Do NOT run pnpm install inside cloned repo directory",
+        "Do NOT run automated ccusage against kernel traces without manual audit"
+      ]
+    },
+    {
+      "name": "anthropic-skills",
+      "path": "F:/Claude/Github/anthropic-skills",
+      "commit": "690f15cac7f7b4c055c5ab109c79ed9259934081",
+      "license": "Apache 2.0 (most skills); Proprietary (docx, pdf, pptx, xlsx)",
+      "language": "Markdown + scripts (Python, JavaScript)",
+      "use_mode": "format_reference",
+      "inspection_status": "YES",
+      "findings": {
+        "skill_count": 17,
+        "structure": "skills/<name>/SKILL.md with optional scripts/, references/, assets/",
+        "frontmatter_fields": ["name (required)", "description (required)", "license (optional)", "compatibility (optional)"],
+        "spec": "agentskills.io/specification",
+        "key_conventions": [
+          "three_level_progressive_disclosure",
+          "yaml_frontmatter_name_description",
+          "markdown_body_under_500_lines",
+          "imperative_form_instructions",
+          "scripts_references_assets_layout",
+          "why_explanations_over_MUST_statements"
+        ],
+        "reusable_concepts": [
+          "YAML frontmatter for skill package manifests",
+          "Progressive disclosure pattern",
+          "scripts/references/assets directory layout",
+          "Description-driven triggering mechanism"
+        ]
+      },
+      "integration_risk": "NONE",
+      "immediate_value": "HIGH",
+      "recommended_next_actions": [
+        "Study template/SKILL.md as canonical starting format",
+        "Compare skill-creator evaluation loop with kernel golden path",
+        "Review mcp-builder for MCP server patterns",
+        "Document SKILL.md conventions in kernel developer docs",
+        "Consider adopting YAML frontmatter for kernel skill package manifests"
+      ],
+      "forbidden_actions": [
+        "Do NOT copy SKILL.md files into SystemKernel tree",
+        "Do NOT install Anthropic Skills as Claude Code skills (separate decision)",
+        "Do NOT use proprietary skills (docx, pdf, pptx, xlsx) as reference for kernel code",
+        "Do NOT integrate Anthropic Skills runtime into kernel"
+      ]
+    }
+  ],
+  "summary": {
+    "total_inspected": 3,
+    "all_viable": true,
+    "all_external": true,
+    "none_integrated": true,
+    "immediate_actions": [
+      "Manual test: npx repomix in test directory",
+      "Study: Anthropic Skills SKILL.md conventions",
+      "Manual test: bunx ccusage daily --json"
+    ],
+    "deferred_actions": [
+      "Evaluate MCP integration architecture for repomix",
+      "Map ccusage JSON schema to kernel metric types",
+      "Adopt SKILL.md frontmatter conventions in kernel skill packages"
+    ]
+  },
+  "safety": {
+    "systemkernel_modified": false,
+    "v3_runtime_modified": false,
+    "kernel_modified": false,
+    "release_modified": false,
+    "cloned_repos_modified": false,
+    "dependency_installs_run": false,
+    "external_code_executed": false,
+    "git_pull_executed": false,
+    "git_push_executed": false,
+    "destructive_commands_run": false,
+    "more_repos_cloned": false
+  }
+}

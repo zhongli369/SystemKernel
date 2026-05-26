@@ -891,6 +891,246 @@ def cmd_intake_clone_list() -> int:
 
 
 # ═══════════════════════════════════════════════════════════════════════
+# Command: context-pack plan
+# ═══════════════════════════════════════════════════════════════════════
+
+def cmd_context_pack_plan(target: str, output: str, style: str = "markdown") -> int:
+    """Plan a context pack command. Does NOT execute."""
+    if ROOT not in sys.path:
+        sys.path.insert(0, ROOT)
+
+    from v3.external.context_pack import ContextPackConfig, ContextPackAdapter
+
+    config = ContextPackConfig(
+        target_path=target,
+        output_path=output,
+        style=style,
+    )
+    result = ContextPackAdapter.plan(config)
+
+    print("=" * 60)
+    print("  SystemKernel v3.0 — Context Pack Plan")
+    print("=" * 60)
+    print()
+    print(f"  Status:               {result.status}")
+    print(f"  Target:               {result.target_path}")
+    print(f"  Output:               {result.output_path}")
+    print(f"  Estimated size:       {result.size_bytes:,} bytes")
+    print(f"  Estimated tokens:     {result.token_estimate:,}")
+    print(f"  Estimated files:      {len(result.included_files)}")
+    print(f"  Truth source:         {result.truth_source}")
+
+    if result.command:
+        print(f"\n  Planned command:")
+        print(f"    {result.command}")
+
+    if result.warnings:
+        print(f"\n  Warnings:")
+        for w in result.warnings:
+            print(f"    - {w}")
+
+    if result.included_files:
+        print(f"\n  Files to include ({len(result.included_files)}):")
+        for f in result.included_files[:20]:
+            print(f"    - {f}")
+        if len(result.included_files) > 20:
+            print(f"    ... and {len(result.included_files) - 20} more")
+
+    print()
+    if result.status == "blocked":
+        return 1
+    return 0
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Command: context-pack inspect
+# ═══════════════════════════════════════════════════════════════════════
+
+def cmd_context_pack_inspect(path: str) -> int:
+    """Inspect an existing context pack output file. Read-only."""
+    if ROOT not in sys.path:
+        sys.path.insert(0, ROOT)
+
+    from v3.external.context_pack import ContextPackAdapter
+
+    result = ContextPackAdapter.inspect_output(path)
+    verified = ContextPackAdapter.verify_pack(result)
+
+    print("=" * 60)
+    print("  SystemKernel v3.0 — Context Pack Inspect")
+    print("=" * 60)
+    print()
+    print(f"  Status:               {result.status}")
+    print(f"  Path:                 {result.output_path}")
+    print(f"  Size:                 {result.size_bytes:,} bytes")
+    print(f"  Lines:                {result.line_count:,}")
+    print(f"  Token estimate:       {result.token_estimate:,}")
+    print(f"  Pack hash:            {result.pack_hash}")
+    print(f"  Truth source:         {result.truth_source}")
+    print(f"  Verified:             {verified}")
+    print(f"  Included files:       {len(result.included_files)}")
+
+    if result.included_files:
+        print()
+        for f in result.included_files[:30]:
+            print(f"    - {f}")
+        if len(result.included_files) > 30:
+            print(f"    ... and {len(result.included_files) - 30} more")
+
+    if result.warnings:
+        print(f"\n  Warnings:")
+        for w in result.warnings:
+            print(f"    - {w}")
+
+    print()
+    return 0 if result.status == "generated" else 1
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Command: context-pack generate
+# ═══════════════════════════════════════════════════════════════════════
+
+def cmd_context_pack_generate(target: str, output: str, style: str = "markdown",
+                               allow_execute: bool = False) -> int:
+    """Generate a context pack. Requires --allow-execute flag."""
+    if ROOT not in sys.path:
+        sys.path.insert(0, ROOT)
+
+    from v3.external.context_pack import ContextPackConfig, ContextPackAdapter
+
+    if not allow_execute:
+        print("ERROR: --allow-execute flag is required to generate a context pack.")
+        print()
+        print("This flag confirms you understand:")
+        print("  1. An external tool (npx repomix) will be executed")
+        print("  2. Network access may be required on first run")
+        print("  3. The generated pack is NOT a truth source")
+        print("  4. The generated pack will be written to disk")
+        print()
+        print("Run with --allow-execute to proceed.")
+        return 1
+
+    config = ContextPackConfig(
+        target_path=target,
+        output_path=output,
+        style=style,
+    )
+    result = ContextPackAdapter.generate(config, allow_execute=True)
+
+    print("=" * 60)
+    print("  SystemKernel v3.0 — Context Pack Generate")
+    print("=" * 60)
+    print()
+    print(f"  Status:               {result.status}")
+    print(f"  Target:               {result.target_path}")
+    print(f"  Output:               {result.output_path}")
+
+    if result.status == "generated":
+        print(f"  Size:                 {result.size_bytes:,} bytes")
+        print(f"  Lines:                {result.line_count:,}")
+        print(f"  Token estimate:       {result.token_estimate:,}")
+        print(f"  Pack hash:            {result.pack_hash}")
+        print(f"  Included files:       {len(result.included_files)}")
+        print(f"  Truth source:         {result.truth_source}")
+
+    if result.warnings:
+        print(f"\n  Warnings:")
+        for w in result.warnings:
+            print(f"    - {w}")
+
+    print()
+    return 0 if result.status == "generated" else 1
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Command: usage inspect
+# ═══════════════════════════════════════════════════════════════════════
+
+def cmd_usage_inspect(path: str) -> int:
+    """Inspect ccusage JSON output and print summary."""
+    if ROOT not in sys.path:
+        sys.path.insert(0, ROOT)
+
+    from v3.external.usage_report import UsageReportAdapter
+
+    print("=" * 60)
+    print("  SystemKernel v3.0 — Usage Report Inspect")
+    print("=" * 60)
+
+    if not os.path.exists(path):
+        print(f"\n  ERROR: File not found: {path}")
+        return 1
+
+    try:
+        summary = UsageReportAdapter.inspect(path)
+    except Exception as e:
+        print(f"\n  ERROR: Failed to parse usage data: {e}")
+        return 1
+
+    verified = UsageReportAdapter.verify_summary(summary)
+
+    print(f"\n  Source tool:          {summary.source_tool}")
+    print(f"  Records:              {summary.record_count}")
+    print(f"  Date range:           {summary.date_start} → {summary.date_end}")
+    print(f"  Total tokens:         {summary.total_tokens:,}")
+    print(f"  Total cost:           ${summary.total_cost_usd:,.6f}")
+    print(f"  Cache read ratio:     {summary.cache_read_ratio:.4f}")
+    print(f"  Models:               {summary.model_count}")
+    print(f"  Agents:               {summary.agent_count}")
+    print(f"  Sensitive detected:   {summary.sensitive_text_detected}")
+    print(f"  Report hash:          {summary.report_hash}")
+    print(f"  Truth source:         {summary.truth_source}")
+    print(f"  Verified:             {verified}")
+
+    if summary.warnings:
+        print(f"\n  Warnings ({len(summary.warnings)}):")
+        for w in summary.warnings:
+            print(f"    - {w}")
+
+    print()
+    return 0 if verified else 1
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Command: usage summarize
+# ═══════════════════════════════════════════════════════════════════════
+
+def cmd_usage_summarize(path: str, output: str) -> int:
+    """Read ccusage JSON output and write normalized usage summary."""
+    if ROOT not in sys.path:
+        sys.path.insert(0, ROOT)
+
+    from v3.external.usage_report import UsageReportAdapter
+
+    print("=" * 60)
+    print("  SystemKernel v3.0 — Usage Report Summarize")
+    print("=" * 60)
+
+    if not os.path.exists(path):
+        print(f"\n  ERROR: File not found: {path}")
+        return 1
+
+    try:
+        summary = UsageReportAdapter.inspect(path)
+    except Exception as e:
+        print(f"\n  ERROR: Failed to parse usage data: {e}")
+        return 1
+
+    UsageReportAdapter.write_summary(summary, output)
+
+    print(f"\n  Input:                {path}")
+    print(f"  Output:               {output}")
+    print(f"  Records:              {summary.record_count}")
+    print(f"  Total tokens:         {summary.total_tokens:,}")
+    print(f"  Total cost:           ${summary.total_cost_usd:,.6f}")
+    print(f"  Report hash:          {summary.report_hash}")
+    print(f"  Truth source:         {summary.truth_source}")
+    print(f"\n  Summary written.")
+    print()
+    return 0
+
+
+# ═══════════════════════════════════════════════════════════════════════
 # CLI Main
 # ═══════════════════════════════════════════════════════════════════════
 
@@ -944,6 +1184,40 @@ def build_parser() -> argparse.ArgumentParser:
 
     intake_sub.add_parser("clone-list", help="List recommended clone order (no actual cloning)")
 
+    # context-pack
+    cp_parser = sub.add_parser("context-pack", help="External context pack operations")
+    cp_sub = cp_parser.add_subparsers(dest="cp_action", help="Context pack actions")
+
+    cp_plan_parser = cp_sub.add_parser("plan", help="Plan a context pack (no execution)")
+    cp_plan_parser.add_argument("target", help="Target directory path")
+    cp_plan_parser.add_argument("--output", required=True, help="Output file path")
+    cp_plan_parser.add_argument("--style", default="markdown",
+                                choices=["markdown", "xml", "json", "plain"],
+                                help="Output format (default: markdown)")
+
+    cp_inspect_parser = cp_sub.add_parser("inspect", help="Inspect an existing context pack")
+    cp_inspect_parser.add_argument("path", help="Path to context pack output file")
+
+    cp_gen_parser = cp_sub.add_parser("generate", help="Generate a context pack (requires --allow-execute)")
+    cp_gen_parser.add_argument("target", help="Target directory path")
+    cp_gen_parser.add_argument("--output", required=True, help="Output file path")
+    cp_gen_parser.add_argument("--style", default="markdown",
+                               choices=["markdown", "xml", "json", "plain"],
+                               help="Output format (default: markdown)")
+    cp_gen_parser.add_argument("--allow-execute", action="store_true",
+                               help="Explicitly allow external command execution")
+
+    # usage
+    usage_parser = sub.add_parser("usage", help="External usage report operations")
+    usage_sub = usage_parser.add_subparsers(dest="usage_action", help="Usage actions")
+
+    usage_inspect_parser = usage_sub.add_parser("inspect", help="Inspect ccusage JSON output")
+    usage_inspect_parser.add_argument("path", help="Path to ccusage JSON output file")
+
+    usage_summarize_parser = usage_sub.add_parser("summarize", help="Write normalized usage summary")
+    usage_summarize_parser.add_argument("path", help="Path to ccusage JSON output file")
+    usage_summarize_parser.add_argument("--output", required=True, help="Output JSON path")
+
     return parser
 
 
@@ -995,6 +1269,31 @@ def main(argv: Optional[list] = None) -> int:
             return cmd_intake_clone_list()
         else:
             print(f"Unknown intake action: {args.intake_action}")
+            return 1
+    elif args.command == "context-pack":
+        if args.cp_action == "plan":
+            return cmd_context_pack_plan(
+                args.target, args.output,
+                style=getattr(args, "style", "markdown"),
+            )
+        elif args.cp_action == "inspect":
+            return cmd_context_pack_inspect(args.path)
+        elif args.cp_action == "generate":
+            return cmd_context_pack_generate(
+                args.target, args.output,
+                style=getattr(args, "style", "markdown"),
+                allow_execute=getattr(args, "allow_execute", False),
+            )
+        else:
+            print(f"Unknown context-pack action: {args.cp_action}")
+            return 1
+    elif args.command == "usage":
+        if args.usage_action == "inspect":
+            return cmd_usage_inspect(args.path)
+        elif args.usage_action == "summarize":
+            return cmd_usage_summarize(args.path, args.output)
+        else:
+            print(f"Unknown usage action: {args.usage_action}")
             return 1
     else:
         parser.print_help()

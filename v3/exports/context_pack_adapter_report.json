@@ -1,0 +1,58 @@
+{
+  "report_type": "context_pack_adapter_report",
+  "phase": "7C",
+  "date": "2026-05-26",
+  "adapter": {
+    "module": "v3/external/context_pack.py",
+    "classes": ["ContextPackConfig", "ContextPackResult", "ContextPackAdapter"],
+    "methods": ["plan", "generate", "inspect_output", "verify_pack"],
+    "location": "external (outside kernel boundary)"
+  },
+  "planned_command_for_v3_intake": {
+    "command": "npx repomix@latest v3/intake --output external_trials/repomix/intake_context.md --style markdown",
+    "target": "v3/intake",
+    "output": "external_trials/repomix/intake_context.md",
+    "style": "markdown",
+    "estimated_size_bytes": 112296,
+    "estimated_tokens": 28074,
+    "estimated_files": 6
+  },
+  "inspected_trial_output": {
+    "path": "external_trials/repomix/intake_context.md",
+    "exists": true,
+    "size_bytes": 99500,
+    "line_count": 2547,
+    "pack_hash": "eb79c7eeace47123",
+    "token_estimate": 22966,
+    "included_files": [
+      "__init__.py",
+      "clone_plan.py",
+      "repo_intake.py",
+      "repo_profiles.py",
+      "rules.py",
+      "tool_registry.py"
+    ],
+    "truth_source": false,
+    "verified": true
+  },
+  "safety_verdicts": {
+    "repomix_imported_as_dependency": false,
+    "kernel_modified": false,
+    "context_pack_is_truth_source": false,
+    "network_required_in_tests": false,
+    "complexity_gate_status": "not REJECT",
+    "adapter_in_kernel_directory": false,
+    "external_process_executed_in_tests": false
+  },
+  "test_results": {
+    "test_context_pack_adapter": "31/31 PASS",
+    "test_developer_cli": "26/26 PASS",
+    "test_complexity_budget": "41/41 PASS",
+    "test_kernel_invariants": "6/6 PASS"
+  },
+  "cli_commands": {
+    "plan": "PASS",
+    "inspect": "PASS",
+    "generate_without_allow_execute": "REFUSED (correctly)"
+  }
+}

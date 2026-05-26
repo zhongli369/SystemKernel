@@ -1,0 +1,67 @@
+{
+  "trial_status": "COMPLETE",
+  "trial_date": "2026-05-26",
+  "phase": "7D",
+  "tool": "ccusage",
+  "version": "20.0.5",
+  "command": "npx ccusage@latest daily --json",
+  "environment": {
+    "node": "v24.15.0",
+    "npm": "11.12.1",
+    "npx": "11.12.1",
+    "bun": "not installed",
+    "proxy_workaround": "HTTP_PROXY/HTTPS_PROXY unset (non-running proxy at 127.0.0.1:7890)",
+    "network_used": true
+  },
+  "output_path": "external_trials/ccusage/daily.json",
+  "output_size_bytes": 11507,
+  "json_valid": true,
+  "schema_fields": [
+    "agent",
+    "cacheCreationTokens",
+    "cacheReadTokens",
+    "inputTokens",
+    "outputTokens",
+    "totalTokens",
+    "totalCost",
+    "period",
+    "metadata",
+    "modelBreakdowns",
+    "modelsUsed"
+  ],
+  "record_count": 10,
+  "date_range": {
+    "from": "2026-05-13",
+    "to": "2026-05-26"
+  },
+  "totals": {
+    "totalTokens": 648907149,
+    "inputTokens": 14746103,
+    "outputTokens": 4248854,
+    "cacheReadTokens": 629912192,
+    "cacheCreationTokens": 0,
+    "totalCost": 24.19
+  },
+  "detected_agents": ["claude", "codex", "openclaw"],
+  "detected_models": [
+    "deepseek-v4-pro",
+    "deepseek-v4-flash",
+    "gpt-5.5",
+    "[openclaw] deepseek-chat"
+  ],
+  "sensitive_text_detected": false,
+  "false_positive_keyword_hits": ["token (field names like inputTokens, cacheReadTokens)"],
+  "verdict": "useful_for_usage_observability",
+  "useful_for_usage_observability": true,
+  "proceed_to_adapter_design": true,
+  "integration_performed": false,
+  "systemkernel_runtime_modified": false,
+  "recommended_next_action": "Design a lightweight external usage adapter that shells out to npx ccusage --json and maps output to kernel metric types; never import ccusage as a Python module",
+  "risks": [
+    "Coupling to Claude Code JSONL format — upstream changes could break ccusage",
+    "npx network dependency on first run per version",
+    "Cost tracking uses LiteLLM pricing — may lag model launches",
+    "Multi-agent data path assumptions vary by agent",
+    "Rust native binary — platform-specific optional dependencies"
+  ]
+}

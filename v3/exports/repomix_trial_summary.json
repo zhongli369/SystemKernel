@@ -1,0 +1,41 @@
+{
+  "trial_status": "COMPLETE",
+  "trial_date": "2026-05-26",
+  "phase": "7B",
+  "command": "npx repomix@latest v3/intake --output external_trials/repomix/intake_context.md --style markdown",
+  "target": "v3/intake",
+  "output_path": "external_trials/repomix/intake_context.md",
+  "output_size_bytes": 99500,
+  "line_count": 2546,
+  "included_file_count": 6,
+  "included_files": [
+    {"file": "repo_intake.py", "tokens": 6876, "chars": 28364},
+    {"file": "tool_registry.py", "tokens": 4045, "chars": 18363},
+    {"file": "clone_plan.py", "tokens": 3243, "chars": 14594},
+    {"file": "repo_profiles.py", "tokens": 3044, "chars": 13205},
+    {"file": "rules.py", "tokens": 2632, "chars": 11240},
+    {"file": "__init__.py", "tokens": 1530, "chars": 6100}
+  ],
+  "total_tokens": 21370,
+  "total_chars": 91866,
+  "output_format": "markdown",
+  "security_check": "passed",
+  "proxy_workaround": "HTTP_PROXY/HTTPS_PROXY unset (non-running proxy at 127.0.0.1:7890)",
+  "network_used": true,
+  "local_clone_unused": true,
+  "local_clone_unbuilt": true,
+  "verdict": "useful_for_context_pack",
+  "useful_for_context_pack": true,
+  "proceed_to_adapter_design": true,
+  "integration_performed": false,
+  "recommended_next_action": "Design a lightweight external adapter that shells out to npx repomix and reads output; never import repomix internals",
+  "risks": [
+    "npx network dependency on first run per version",
+    "proxy configuration environment-specific",
+    "binary files silently excluded (not relevant for Python targets)"
+  ],
+  "systemkernel_runtime_modified": false,
+  "kernel_modified": false,
+  "cloned_repo_modified": false,
+  "dependency_install_run": false
+}

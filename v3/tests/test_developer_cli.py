@@ -298,7 +298,7 @@ def test_cli_uses_existing_facades():
     tree = ast.parse(source)
 
     allowed_internal = {
-        "v3.quality", "v3.memory", "v3.intake",
+        "v3.quality", "v3.memory", "v3.intake", "v3.external",
         "v3.quality.complexity_budget",
         "v3.quality.phase_gate",
         "v3.quality.analyze_complexity",
@@ -309,6 +309,8 @@ def test_cli_uses_existing_facades():
         "v3.intake.rules",
         "v3.intake.tool_registry",
         "v3.intake.clone_plan",
+        "v3.external.context_pack",
+        "v3.external.usage_report",
         "v3.cli",
     }
 

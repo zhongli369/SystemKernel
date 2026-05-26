@@ -1,0 +1,463 @@
+{
+  "daily": [
+    {
+      "agent": "all",
+      "cacheCreationTokens": 0,
+      "cacheReadTokens": 7755008,
+      "inputTokens": 395616,
+      "metadata": {
+        "agents": [
+          "claude"
+        ]
+      },
+      "modelBreakdowns": [
+        {
+          "cacheCreationTokens": 0,
+          "cacheReadTokens": 7755008,
+          "cost": 0.0,
+          "inputTokens": 395616,
+          "modelName": "deepseek-v4-pro",
+          "outputTokens": 61198
+        }
+      ],
+      "modelsUsed": [
+        "deepseek-v4-pro"
+      ],
+      "outputTokens": 61198,
+      "period": "2026-05-13",
+      "totalCost": 0,
+      "totalTokens": 8211822
+    },
+    {
+      "agent": "all",
+      "cacheCreationTokens": 0,
+      "cacheReadTokens": 9909888,
+      "inputTokens": 321851,
+      "metadata": {
+        "agents": [
+          "claude"
+        ]
+      },
+      "modelBreakdowns": [
+        {
+          "cacheCreationTokens": 0,
+          "cacheReadTokens": 9782144,
+          "cost": 0.0,
+          "inputTokens": 258489,
+          "modelName": "deepseek-v4-pro",
+          "outputTokens": 73671
+        },
+        {
+          "cacheCreationTokens": 0,
+          "cacheReadTokens": 127744,
+          "cost": 0.0,
+          "inputTokens": 63362,
+          "modelName": "deepseek-v4-flash",
+          "outputTokens": 9340
+        }
+      ],
+      "modelsUsed": [
+        "deepseek-v4-flash",
+        "deepseek-v4-pro"
+      ],
+      "outputTokens": 83011,
+      "period": "2026-05-14",
+      "totalCost": 0,
+      "totalTokens": 10314750
+    },
+    {
+      "agent": "all",
+      "cacheCreationTokens": 0,
+      "cacheReadTokens": 46607104,
+      "inputTokens": 669529,
+      "metadata": {
+        "agents": [
+          "claude"
+        ]
+      },
+      "modelBreakdowns": [
+        {
+          "cacheCreationTokens": 0,
+          "cacheReadTokens": 46515968,
+          "cost": 0.0,
+          "inputTokens": 625905,
+          "modelName": "deepseek-v4-pro",
+          "outputTokens": 254457
+        },
+        {
+          "cacheCreationTokens": 0,
+          "cacheReadTokens": 91136,
+          "cost": 0.0,
+          "inputTokens": 43624,
+          "modelName": "deepseek-v4-flash",
+          "outputTokens": 2510
+        }
+      ],
+      "modelsUsed": [
+        "deepseek-v4-flash",
+        "deepseek-v4-pro"
+      ],
+      "outputTokens": 256967,
+      "period": "2026-05-16",
+      "totalCost": 0,
+      "totalTokens": 47533600
+    },
+    {
+      "agent": "all",
+      "cacheCreationTokens": 0,
+      "cacheReadTokens": 22951168,
+      "inputTokens": 522230,
+      "metadata": {
+        "agents": [
+          "claude",
+          "openclaw"
+        ]
+      },
+      "modelBreakdowns": [
+        {
+          "cacheCreationTokens": 0,
+          "cacheReadTokens": 248832,
+          "cost": 0.038793216000000005,
+          "inputTokens": 111720,
+          "modelName": "[openclaw] deepseek-chat",
+          "outputTokens": 1296
+        },
+        {
+          "cacheCreationTokens": 0,
+          "cacheReadTokens": 22401408,
+          "cost": 0.0,
+          "inputTokens": 309427,
+          "modelName": "deepseek-v4-pro",
+          "outputTokens": 155197
+        },
+        {
+          "cacheCreationTokens": 0,
+          "cacheReadTokens": 300928,
+          "cost": 0.0,
+          "inputTokens": 101083,
+          "modelName": "deepseek-v4-flash",
+          "outputTokens": 11880
+        }
+      ],
+      "modelsUsed": [
+        "[openclaw] deepseek-chat",
+        "deepseek-v4-flash",
+        "deepseek-v4-pro"
+      ],
+      "outputTokens": 168373,
+      "period": "2026-05-17",
+      "totalCost": 0.038793216000000005,
+      "totalTokens": 23641771
+    },
+    {
+      "agent": "all",
+      "cacheCreationTokens": 0,
+      "cacheReadTokens": 103300608,
+      "inputTokens": 2226460,
+      "metadata": {
+        "agents": [
+          "claude",
+          "openclaw"
+        ]
+      },
+      "modelBreakdowns": [
+        {
+          "cacheCreationTokens": 0,
+          "cacheReadTokens": 110336,
+          "cost": 0.004680368,
+          "inputTokens": 3918,
+          "modelName": "[openclaw] deepseek-chat",
+          "outputTokens": 1176
+        },
+        {
+          "cacheCreationTokens": 0,
+          "cacheReadTokens": 100743680,
+          "cost": 0.0,
+          "inputTokens": 1534980,
+          "modelName": "deepseek-v4-pro",
+          "outputTokens": 646834
+        },
+        {
+          "cacheCreationTokens": 0,
+          "cacheReadTokens": 2446592,
+          "cost": 0.0,
+          "inputTokens": 687562,
+          "modelName": "deepseek-v4-flash",
+          "outputTokens": 91955
+        }
+      ],
+      "modelsUsed": [
+        "[openclaw] deepseek-chat",
+        "deepseek-v4-flash",
+        "deepseek-v4-pro"
+      ],
+      "outputTokens": 739965,
+      "period": "2026-05-18",
+      "totalCost": 0.004680368,
+      "totalTokens": 106267033
+    },
+    {
+      "agent": "all",
+      "cacheCreationTokens": 0,
+      "cacheReadTokens": 149758848,
+      "inputTokens": 2743578,
+      "metadata": {
+        "agents": [
+          "claude",
+          "codex",
+          "openclaw"
+        ]
+      },
+      "modelBreakdowns": [
+        {
+          "cacheCreationTokens": 0,
+          "cacheReadTokens": 1073408,
+          "cost": 1.948569,
+          "inputTokens": 190903,
+          "modelName": "gpt-5.5",
+          "outputTokens": 15245
+        },
+        {
+          "cacheCreationTokens": 0,
+          "cacheReadTokens": 283136,
+          "cost": 0.015184988,
+          "inputTokens": 23373,
+          "modelName": "[openclaw] deepseek-chat",
+          "outputTokens": 1697
+        },
+        {
+          "cacheCreationTokens": 0,
+          "cacheReadTokens": 147027200,
+          "cost": 0.0,
+          "inputTokens": 2181774,
+          "modelName": "deepseek-v4-pro",
+          "outputTokens": 744510
+        },
+        {
+          "cacheCreationTokens": 0,
+          "cacheReadTokens": 1375104,
+          "cost": 0.0,
+          "inputTokens": 347528,
+          "modelName": "deepseek-v4-flash",
+          "outputTokens": 70308
+        }
+      ],
+      "modelsUsed": [
+        "[openclaw] deepseek-chat",
+        "deepseek-v4-flash",
+        "deepseek-v4-pro",
+        "gpt-5.5"
+      ],
+      "outputTokens": 831760,
+      "period": "2026-05-19",
+      "totalCost": 1.963753988,
+      "totalTokens": 153334186
+    },
+    {
+      "agent": "all",
+      "cacheCreationTokens": 0,
+      "cacheReadTokens": 110007040,
+      "inputTokens": 2358343,
+      "metadata": {
+        "agents": [
+          "claude",
+          "codex"
+        ]
+      },
+      "modelBreakdowns": [
+        {
+          "cacheCreationTokens": 0,
+          "cacheReadTokens": 3260288,
+          "cost": 5.161769,
+          "inputTokens": 395765,
+          "modelName": "gpt-5.5",
+          "outputTokens": 51760
+        },
+        {
+          "cacheCreationTokens": 0,
+          "cacheReadTokens": 106372992,
+          "cost": 0.0,
+          "inputTokens": 1908121,
+          "modelName": "deepseek-v4-pro",
+          "outputTokens": 701515
+        },
+        {
+          "cacheCreationTokens": 0,
+          "cacheReadTokens": 373760,
+          "cost": 0.0,
+          "inputTokens": 54457,
+          "modelName": "deepseek-v4-flash",
+          "outputTokens": 7550
+        }
+      ],
+      "modelsUsed": [
+        "deepseek-v4-flash",
+        "deepseek-v4-pro",
+        "gpt-5.5"
+      ],
+      "outputTokens": 760825,
+      "period": "2026-05-23",
+      "totalCost": 5.161769,
+      "totalTokens": 113126208
+    },
+    {
+      "agent": "all",
+      "cacheCreationTokens": 0,
+      "cacheReadTokens": 17477504,
+      "inputTokens": 693426,
+      "metadata": {
+        "agents": [
+          "claude",
+          "codex"
+        ]
+      },
+      "modelBreakdowns": [
+        {
+          "cacheCreationTokens": 0,
+          "cacheReadTokens": 163712,
+          "cost": 0.674026,
+          "inputTokens": 94512,
+          "modelName": "gpt-5.5",
+          "outputTokens": 3987
+        },
+        {
+          "cacheCreationTokens": 0,
+          "cacheReadTokens": 17145856,
+          "cost": 0.0,
+          "inputTokens": 481185,
+          "modelName": "deepseek-v4-pro",
+          "outputTokens": 178890
+        },
+        {
+          "cacheCreationTokens": 0,
+          "cacheReadTokens": 167936,
+          "cost": 0.0,
+          "inputTokens": 117729,
+          "modelName": "deepseek-v4-flash",
+          "outputTokens": 15593
+        }
+      ],
+      "modelsUsed": [
+        "deepseek-v4-flash",
+        "deepseek-v4-pro",
+        "gpt-5.5"
+      ],
+      "outputTokens": 198470,
+      "period": "2026-05-24",
+      "totalCost": 0.674026,
+      "totalTokens": 18369400
+    },
+    {
+      "agent": "all",
+      "cacheCreationTokens": 0,
+      "cacheReadTokens": 116212608,
+      "inputTokens": 3568032,
+      "metadata": {
+        "agents": [
+          "claude",
+          "codex",
+          "openclaw"
+        ]
+      },
+      "modelBreakdowns": [
+        {
+          "cacheCreationTokens": 0,
+          "cacheReadTokens": 6043904,
+          "cost": 13.575697,
+          "inputTokens": 1562325,
+          "modelName": "gpt-5.5",
+          "outputTokens": 91404
+        },
+        {
+          "cacheCreationTokens": 0,
+          "cacheReadTokens": 694656,
+          "cost": 0.05575474799999999,
+          "inputTokens": 123471,
+          "modelName": "[openclaw] deepseek-chat",
+          "outputTokens": 4125
+        },
+        {
+          "cacheCreationTokens": 0,
+          "cacheReadTokens": 107414144,
+          "cost": 0.0,
+          "inputTokens": 1414141,
+          "modelName": "deepseek-v4-pro",
+          "outputTokens": 728221
+        },
+        {
+          "cacheCreationTokens": 0,
+          "cacheReadTokens": 2059904,
+          "cost": 0.0,
+          "inputTokens": 468095,
+          "modelName": "deepseek-v4-flash",
+          "outputTokens": 34798
+        }
+      ],
+      "modelsUsed": [
+        "[openclaw] deepseek-chat",
+        "deepseek-v4-flash",
+        "deepseek-v4-pro",
+        "gpt-5.5"
+      ],
+      "outputTokens": 858548,
+      "period": "2026-05-25",
+      "totalCost": 13.631451748,
+      "totalTokens": 120639188
+    },
+    {
+      "agent": "all",
+      "cacheCreationTokens": 0,
+      "cacheReadTokens": 45932416,
+      "inputTokens": 1247038,
+      "metadata": {
+        "agents": [
+          "claude",
+          "codex"
+        ]
+      },
+      "modelBreakdowns": [
+        {
+          "cacheCreationTokens": 0,
+          "cacheReadTokens": 1157248,
+          "cost": 2.719084,
+          "inputTokens": 338740,
+          "modelName": "gpt-5.5",
+          "outputTokens": 14892
+        },
+        {
+          "cacheCreationTokens": 0,
+          "cacheReadTokens": 43692800,
+          "cost": 0.0,
+          "inputTokens": 666398,
+          "modelName": "deepseek-v4-pro",
+          "outputTokens": 248795
+        },
+        {
+          "cacheCreationTokens": 0,
+          "cacheReadTokens": 1082368,
+          "cost": 0.0,
+          "inputTokens": 241900,
+          "modelName": "deepseek-v4-flash",
+          "outputTokens": 26050
+        }
+      ],
+      "modelsUsed": [
+        "deepseek-v4-flash",
+        "deepseek-v4-pro",
+        "gpt-5.5"
+      ],
+      "outputTokens": 289737,
+      "period": "2026-05-26",
+      "totalCost": 2.719084,
+      "totalTokens": 47469191
+    }
+  ],
+  "totals": {
+    "cacheCreationTokens": 0,
+    "cacheReadTokens": 629912192,
+    "inputTokens": 14746103,
+    "outputTokens": 4248854,
+    "totalCost": 24.193558319999998,
+    "totalTokens": 648907149
+  }
+}
