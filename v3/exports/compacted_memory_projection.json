@@ -1,0 +1,148 @@
+{
+  "archived_count": 2,
+  "compacted_records": [
+    {
+      "candidate_types": [
+        "execution_summary"
+      ],
+      "compacted_hash": "74fb779416447fe1",
+      "compacted_id": "73e3afe127cbd83e",
+      "compaction_reason": "execution_summary:merge",
+      "content": {
+        "duration_ms": 500,
+        "status": "completed"
+      },
+      "execution_ids": [
+        "exec-A",
+        "exec-B"
+      ],
+      "graph_hashes": [
+        "gh-aaa",
+        "gh-bbb"
+      ],
+      "importance": 2,
+      "source_hashes": [
+        "43f4a78f8f6d4b99",
+        "c15983b344cf8c34"
+      ],
+      "source_memory_ids": [
+        "mem-001",
+        "mem-006"
+      ],
+      "source_record_hashes": [
+        "5ebd5590592ba032",
+        "8277a59ce8b5a662"
+      ],
+      "tags": [
+        "status:completed",
+        "type:execution_summary"
+      ]
+    },
+    {
+      "candidate_types": [
+        "error_detail"
+      ],
+      "compacted_hash": "c78f2de9d2ccb2c8",
+      "compacted_id": "9db6a3be4ed42c71",
+      "compaction_reason": "error_detail:merge",
+      "content": {
+        "error": "minor warning",
+        "stage_name": "lint"
+      },
+      "execution_ids": [
+        "exec-A",
+        "exec-B"
+      ],
+      "graph_hashes": [
+        "gh-aaa",
+        "gh-bbb"
+      ],
+      "importance": 2,
+      "source_hashes": [
+        "43f4a78f8f6d4b99",
+        "c15983b344cf8c34"
+      ],
+      "source_memory_ids": [
+        "mem-004",
+        "mem-010"
+      ],
+      "source_record_hashes": [
+        "e8482dc4eb8da4cd",
+        "f326f38801719db7"
+      ],
+      "tags": [
+        "has_error",
+        "stage:build",
+        "stage:lint",
+        "type:error_detail"
+      ]
+    },
+    {
+      "candidate_types": [
+        "stage_result"
+      ],
+      "compacted_hash": "6b6c697354d3c3cb",
+      "compacted_id": "baa1ac2414159ed1",
+      "compaction_reason": "stage_result:merge:merge:merge",
+      "content": {
+        "stage_name": "build",
+        "status": "passed"
+      },
+      "execution_ids": [
+        "exec-A",
+        "exec-B",
+        "exec-C"
+      ],
+      "graph_hashes": [
+        "gh-aaa",
+        "gh-bbb",
+        "gh-ccc"
+      ],
+      "importance": 1,
+      "source_hashes": [
+        "43f4a78f8f6d4b99",
+        "c15983b344cf8c34",
+        "daf444924bc35bb7"
+      ],
+      "source_memory_ids": [
+        "mem-002",
+        "mem-003",
+        "mem-005",
+        "mem-007"
+      ],
+      "source_record_hashes": [
+        "15ff2881e23ef749",
+        "39d81081c69953d9",
+        "b075ae80160e550e",
+        "e0551afedc980fc8"
+      ],
+      "tags": [
+        "stage:build",
+        "stage:deploy",
+        "stage:test",
+        "status:passed",
+        "type:stage_result"
+      ]
+    }
+  ],
+  "duplicate_count": 5,
+  "input_count": 10,
+  "output_count": 3,
+  "policy": {
+    "archive_low_importance": true,
+    "deterministic_sort": "",
+    "duplicate_strategy": "merge_sources",
+    "enabled": true,
+    "group_by": "candidate_type",
+    "max_records_per_group": 50,
+    "min_importance": 1
+  },
+  "projection_type": "memory_compaction",
+  "projection_version": "1.0",
+  "result_hash": "b132a74fedc0744c",
+  "source_linkage": {
+    "provenance_preserved": true,
+    "total_source_memory_ids": 8,
+    "total_source_record_hashes": 8
+  }
+}

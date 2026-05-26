@@ -1,0 +1,229 @@
+{
+  "items": [
+    {
+      "clone_now": false,
+      "forbidden_post_clone_actions": [
+        "do_not_clone",
+        "do_not_import",
+        "do_not_integrate",
+        "do_not_run_as_dependency"
+      ],
+      "name": "LangGraph",
+      "post_clone_action": "none",
+      "priority": "C",
+      "reason": "Architecture reference only — not cloned. Study design patterns from documentation.",
+      "repo_url": "https://github.com/langchain-ai/langgraph",
+      "target_path": ""
+    },
+    {
+      "clone_now": false,
+      "forbidden_post_clone_actions": [
+        "do_not_clone",
+        "do_not_import",
+        "do_not_integrate",
+        "do_not_run_as_dependency"
+      ],
+      "name": "CrewAI",
+      "post_clone_action": "none",
+      "priority": "C",
+      "reason": "Architecture reference only — not cloned. Study design patterns from documentation.",
+      "repo_url": "https://github.com/crewAIInc/crewAI",
+      "target_path": ""
+    },
+    {
+      "clone_now": false,
+      "forbidden_post_clone_actions": [
+        "do_not_import_directly",
+        "do_not_install_locally_without_review",
+        "do_not_integrate_into_kernel",
+        "do_not_modify_kernel_boundary"
+      ],
+      "name": "OpenAI Swarm",
+      "post_clone_action": "evaluate_external_service",
+      "priority": "B",
+      "reason": "External service — evaluate via API only. Risk=5.0/10.",
+      "repo_url": "https://github.com/openai/swarm",
+      "target_path": ""
+    },
+    {
+      "clone_now": true,
+      "forbidden_post_clone_actions": [
+        "do_not_integrate_into_kernel",
+        "do_not_execute_skills_directly",
+        "do_not_embed_as_kernel_module"
+      ],
+      "name": "Anthropic Skills",
+      "post_clone_action": "extract_format_reference",
+      "priority": "S",
+      "reason": "Format reference — clone to study file formats and conventions.",
+      "repo_url": "https://github.com/anthropics/skills",
+      "target_path": "F:/Claude/Github/anthropic-skills"
+    },
+    {
+      "clone_now": false,
+      "forbidden_post_clone_actions": [
+        "do_not_import_directly",
+        "do_not_install_locally_without_review",
+        "do_not_integrate_into_kernel",
+        "do_not_modify_kernel_boundary"
+      ],
+      "name": "mem0",
+      "post_clone_action": "evaluate_external_service",
+      "priority": "C",
+      "reason": "External service — evaluate via API only. Risk=6.0/10.",
+      "repo_url": "https://github.com/mem0ai/mem0",
+      "target_path": ""
+    },
+    {
+      "clone_now": false,
+      "forbidden_post_clone_actions": [
+        "do_not_import_directly",
+        "do_not_install_locally_without_review",
+        "do_not_integrate_into_kernel",
+        "do_not_modify_kernel_boundary"
+      ],
+      "name": "Graphiti",
+      "post_clone_action": "evaluate_external_service",
+      "priority": "B",
+      "reason": "External service — evaluate via API only. Risk=5.0/10.",
+      "repo_url": "https://github.com/getzep/graphiti",
+      "target_path": ""
+    },
+    {
+      "clone_now": true,
+      "forbidden_post_clone_actions": [
+        "do_not_integrate_into_kernel",
+        "do_not_modify_kernel_boundary",
+        "do_not_embed_as_kernel_module"
+      ],
+      "name": "Repomix",
+      "post_clone_action": "run_cli_help",
+      "priority": "S",
+      "reason": "Direct CLI tool — clone for local use. CC value=10.0/10.",
+      "repo_url": "https://github.com/yamadashy/repomix",
+      "target_path": "F:/Claude/Github/repomix"
+    },
+    {
+      "clone_now": true,
+      "forbidden_post_clone_actions": [
+        "do_not_integrate_into_kernel",
+        "do_not_modify_kernel_boundary",
+        "do_not_embed_as_kernel_module"
+      ],
+      "name": "ccusage",
+      "post_clone_action": "run_cli_help",
+      "priority": "S",
+      "reason": "Direct CLI tool — clone for local use. CC value=10.0/10.",
+      "repo_url": "https://github.com/anthropics/ccusage",
+      "target_path": "F:/Claude/Github/ccusage"
+    },
+    {
+      "clone_now": false,
+      "forbidden_post_clone_actions": [
+        "do_not_import_directly",
+        "do_not_install_locally_without_review",
+        "do_not_integrate_into_kernel",
+        "do_not_modify_kernel_boundary"
+      ],
+      "name": "Continue",
+      "post_clone_action": "evaluate_external_service",
+      "priority": "B",
+      "reason": "External service — evaluate via API only. Risk=5.0/10.",
+      "repo_url": "https://github.com/continuedev/continue",
+      "target_path": ""
+    },
+    {
+      "clone_now": false,
+      "forbidden_post_clone_actions": [
+        "do_not_run_as_dependency",
+        "do_not_integrate_into_kernel",
+        "do_not_modify_kernel_boundary",
+        "do_not_execute_without_review"
+      ],
+      "name": "AppFlowy",
+      "post_clone_action": "inspect_only",
+      "priority": "S",
+      "reason": "Large application — inspect source code for design patterns only.",
+      "repo_url": "https://github.com/AppFlowy-IO/appflowy",
+      "target_path": ""
+    },
+    {
+      "clone_now": false,
+      "forbidden_post_clone_actions": [
+        "do_not_run_as_dependency",
+        "do_not_integrate_into_kernel",
+        "do_not_modify_kernel_boundary",
+        "do_not_execute_without_review"
+      ],
+      "name": "JupyterLab",
+      "post_clone_action": "inspect_only",
+      "priority": "S",
+      "reason": "Large application — inspect source code for design patterns only.",
+      "repo_url": "https://github.com/jupyterlab/jupyterlab",
+      "target_path": ""
+    },
+    {
+      "clone_now": false,
+      "forbidden_post_clone_actions": [
+        "do_not_run_as_dependency",
+        "do_not_integrate_into_kernel",
+        "do_not_modify_kernel_boundary",
+        "do_not_execute_without_review"
+      ],
+      "name": "SuperClaude",
+      "post_clone_action": "inspect_only",
+      "priority": "S",
+      "reason": "Large application — inspect source code for design patterns only.",
+      "repo_url": "https://github.com/anthropics/SuperClaude",
+      "target_path": ""
+    },
+    {
+      "clone_now": false,
+      "forbidden_post_clone_actions": [
+        "do_not_clone",
+        "do_not_import",
+        "do_not_integrate",
+        "do_not_run_as_dependency"
+      ],
+      "name": "awesome-claude-code",
+      "post_clone_action": "none",
+      "priority": "C",
+      "reason": "Architecture reference only — not cloned. Study design patterns from documentation.",
+      "repo_url": "https://github.com/anthropics/awesome-claude-code",
+      "target_path": ""
+    },
+    {
+      "clone_now": false,
+      "forbidden_post_clone_actions": [
+        "do_not_clone",
+        "do_not_import",
+        "do_not_integrate",
+        "do_not_run_as_dependency"
+      ],
+      "name": "Awesome-Prompt-Engineering",
+      "post_clone_action": "none",
+      "priority": "C",
+      "reason": "Architecture reference only — not cloned. Study design patterns from documentation.",
+      "repo_url": "https://github.com/promptslab/Awesome-Prompt-Engineering",
+      "target_path": ""
+    }
+  ],
+  "plan_hash": "e38a62da69d95369",
+  "root_dir": "F:\\Claude\\Github",
+  "safety_notes": [
+    "PLAN ONLY — no actual cloning is performed by this module.",
+    "DIRECT_CLONE repos are external tools, NOT kernel modules.",
+    "Large application repos (AppFlowy, JupyterLab) are inspect-only despite DIRECT_CLONE decision.",
+    "External service repos must NOT be installed locally without review.",
+    "Architecture reference repos are NOT cloned at all.",
+    "All clones target F:/Claude/Github/ — outside the kernel boundary.",
+    "No repo may be integrated into the kernel without a separate audit."
+  ],
+  "summary": {
+    "clone_now": 3,
+    "external_eval": 4,
+    "inspect_only": 3,
+    "reference_only": 4,
+    "total": 14
+  }
+}

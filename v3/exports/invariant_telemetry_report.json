@@ -1,0 +1,36 @@
+{
+  "report_type": "invariant_telemetry_report",
+  "phase": "4C",
+  "telemetry": {
+    "single_loop_confirmed": true,
+    "event_stream_valid": true,
+    "event_sequence_contiguous": true,
+    "event_parent_chain_valid": true,
+    "replay_reconstructable": true,
+    "has_terminal_event": true,
+    "no_memory_dependency": true,
+    "truth_source_is_events": true,
+    "checkpoint_is_snapshot_only": true,
+    "deterministic_graph_hash": true,
+    "purity_score": 100,
+    "metadata": {
+      "event_count": 10,
+      "validation_issues": [],
+      "graph_hash": "c5922516cd15508a"
+    }
+  },
+  "purity_score": 100,
+  "invariant_status": {
+    "single_loop_confirmed": true,
+    "event_stream_valid": true,
+    "event_sequence_contiguous": true,
+    "event_parent_chain_valid": true,
+    "replay_reconstructable": true,
+    "has_terminal_event": true,
+    "no_memory_dependency": true,
+    "truth_source_is_events": true,
+    "checkpoint_is_snapshot_only": true,
+    "deterministic_graph_hash": true
+  },
+  "telemetry_fingerprint": "32b57142f6b94301"
+}

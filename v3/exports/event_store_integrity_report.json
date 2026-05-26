@@ -1,0 +1,45 @@
+{
+  "report_type": "event_store_integrity_report",
+  "phase": "4B",
+  "timestamp": "2026-05-24T00:00:00.000000+00:00",
+  "summary": "Event store integrity validation — verifies append-only guarantees, sequence monotonicity, hash consistency, and stream integrity.",
+  "validations": [
+    {
+      "name": "append_only_writes",
+      "description": "FileEventStore uses open(path, 'a') exclusively — never truncates, never overwrites",
+      "passed": true,
+      "detail": "All writes are append-only. Existing event lines remain unchanged after subsequent writes."
+    },
+    {
+      "name": "monotonic_sequences",
+      "description": "Event sequences within a stream are strictly monotonic (0, 1, 2, ...)",
+      "passed": true
+    },
+    {
+      "name": "parent_chain_integrity",
+      "description": "parent_event_id forms an unbroken chain linking each event to its predecessor",
+      "passed": true
+    },
+    {
+      "name": "hash_consistency",
+      "description": "Stored deterministic_hash matches recomputed hash for each event",
+      "passed": true
+    },
+    {
+      "name": "valid_event_types",
+      "description": "All events use one of the 12 closed-set EventType values",
+      "passed": true
+    },
+    {
+      "name": "stream_termination",
+      "description": "Non-empty streams end with a terminal event (completed/failed/crashed)",
+      "passed": true
+    },
+    {
+      "name": "corruption_detection",
+      "description": "validate_event_stream detects gaps, wrong start types, and missing terminals",
+      "passed": true
+    }
+  ],
+  "all_passed": true
+}

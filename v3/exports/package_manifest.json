@@ -1,0 +1,1289 @@
+{
+  "created_at": "2026-05-26T08:22:19.367018+00:00",
+  "entries": [
+    {
+      "artifact_type": "doc",
+      "hash": "9b0be521451b447f",
+      "path": "docs/ARCHITECTURE_OVERVIEW.md",
+      "required": false,
+      "size_bytes": 5019,
+      "subsystem": "docs"
+    },
+    {
+      "artifact_type": "doc",
+      "hash": "e773d3d787a821ac",
+      "path": "docs/KERNEL_BOUNDARY.md",
+      "required": false,
+      "size_bytes": 8514,
+      "subsystem": "docs"
+    },
+    {
+      "artifact_type": "doc",
+      "hash": "b37a12c0cb7e5534",
+      "path": "docs/OPERATIONS.md",
+      "required": false,
+      "size_bytes": 8681,
+      "subsystem": "docs"
+    },
+    {
+      "artifact_type": "doc",
+      "hash": "2a8f258beaf3419b",
+      "path": "docs/QUICKSTART.md",
+      "required": false,
+      "size_bytes": 1871,
+      "subsystem": "docs"
+    },
+    {
+      "artifact_type": "doc",
+      "hash": "07cf9bd7e8691739",
+      "path": "docs/adr/ADR-001-kernel-boundary.md",
+      "required": false,
+      "size_bytes": 6257,
+      "subsystem": "docs"
+    },
+    {
+      "artifact_type": "doc",
+      "hash": "21cad9822f37cfd0",
+      "path": "docs/complexity-risk-report.md",
+      "required": false,
+      "size_bytes": 12085,
+      "subsystem": "docs"
+    },
+    {
+      "artifact_type": "doc",
+      "hash": "03da99d7784b654b",
+      "path": "docs/v3-build-plan.md",
+      "required": false,
+      "size_bytes": 42591,
+      "subsystem": "docs"
+    },
+    {
+      "artifact_type": "example",
+      "hash": "6b62ec7a44a770c3",
+      "path": "examples/basic_usage.py",
+      "required": true,
+      "size_bytes": 3615,
+      "subsystem": "examples"
+    },
+    {
+      "artifact_type": "example",
+      "hash": "714f2743f54caea8",
+      "path": "examples/golden_path/README.md",
+      "required": true,
+      "size_bytes": 2452,
+      "subsystem": "examples"
+    },
+    {
+      "artifact_type": "example",
+      "hash": "63dd78189a523093",
+      "path": "examples/golden_path/expected_summary.json",
+      "required": true,
+      "size_bytes": 837,
+      "subsystem": "examples"
+    },
+    {
+      "artifact_type": "example",
+      "hash": "7ff9c7ac232859fd",
+      "path": "examples/golden_path/output/complexity_budget_report.json",
+      "required": true,
+      "size_bytes": 36346,
+      "subsystem": "examples"
+    },
+    {
+      "artifact_type": "example",
+      "hash": "d2dcacb74d9daa92",
+      "path": "examples/golden_path/output/golden_path_summary.json",
+      "required": true,
+      "size_bytes": 871,
+      "subsystem": "examples"
+    },
+    {
+      "artifact_type": "example",
+      "hash": "d9af28ddb2c3f2d8",
+      "path": "examples/golden_path/output/memory_system_report.json",
+      "required": true,
+      "size_bytes": 885,
+      "subsystem": "examples"
+    },
+    {
+      "artifact_type": "example",
+      "hash": "56a687ea86af0df6",
+      "path": "examples/golden_path/run_golden_path.py",
+      "required": true,
+      "size_bytes": 19268,
+      "subsystem": "examples"
+    },
+    {
+      "artifact_type": "cli",
+      "hash": "925b487ff2ad63cf",
+      "path": "scripts/verify_v3_baseline.py",
+      "required": true,
+      "size_bytes": 9771,
+      "subsystem": "scripts"
+    },
+    {
+      "artifact_type": "cli",
+      "hash": "6e3dcefb5842703c",
+      "path": "v3/cli/__init__.py",
+      "required": true,
+      "size_bytes": 516,
+      "subsystem": "cli"
+    },
+    {
+      "artifact_type": "cli",
+      "hash": "b0d15bc5624986de",
+      "path": "v3/cli/systemkernel.py",
+      "required": true,
+      "size_bytes": 41183,
+      "subsystem": "cli"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "2bdbf2f89a0e831c",
+      "path": "v3/config/kernel_config.yaml",
+      "required": true,
+      "size_bytes": 452,
+      "subsystem": "config"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "b8cdfae4718e9a03",
+      "path": "v3/config/memory_config.yaml",
+      "required": true,
+      "size_bytes": 712,
+      "subsystem": "config"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "5088f5f7d2be61d9",
+      "path": "v3/config/observability_config.yaml",
+      "required": true,
+      "size_bytes": 332,
+      "subsystem": "config"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "6007eefce0abca2f",
+      "path": "v3/config/tools_config.yaml",
+      "required": true,
+      "size_bytes": 540,
+      "subsystem": "config"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "c856a7756ef5bc45",
+      "path": "v3/exports/architecture_report.md",
+      "required": true,
+      "size_bytes": 4178,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "2cbad928656d43dc",
+      "path": "v3/exports/checkpoint_lifecycle.md",
+      "required": true,
+      "size_bytes": 2344,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "6dc56bdd3a671944",
+      "path": "v3/exports/compacted_memory_projection.json",
+      "required": false,
+      "size_bytes": 3421,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "46058dec6a4e5af9",
+      "path": "v3/exports/complexity_budget_architecture.md",
+      "required": true,
+      "size_bytes": 3348,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "fc530b129e4eda00",
+      "path": "v3/exports/complexity_budget_report.json",
+      "required": true,
+      "size_bytes": 36337,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "eea60444f9356a25",
+      "path": "v3/exports/deterministic_replay_validation.json",
+      "required": false,
+      "size_bytes": 1535,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "7e08c580095fe72e",
+      "path": "v3/exports/developer_cli_architecture.md",
+      "required": true,
+      "size_bytes": 3249,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "b316399ee64ca34c",
+      "path": "v3/exports/episodic_memory_architecture.md",
+      "required": true,
+      "size_bytes": 5172,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "7ff4594cad51ce6e",
+      "path": "v3/exports/episodic_memory_integrity_report.json",
+      "required": false,
+      "size_bytes": 1084,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "ff148ebf37b357d2",
+      "path": "v3/exports/event_reduction_flow.md",
+      "required": true,
+      "size_bytes": 2431,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "8f4b7eb6c2d7f6cc",
+      "path": "v3/exports/event_sourcing_architecture.md",
+      "required": true,
+      "size_bytes": 2816,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "ad91f6275b857c73",
+      "path": "v3/exports/event_store_integrity_report.json",
+      "required": false,
+      "size_bytes": 1590,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "5621c4b9e3415bed",
+      "path": "v3/exports/execution_report.json",
+      "required": false,
+      "size_bytes": 1566,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "04e30d070acb8082",
+      "path": "v3/exports/external_tool_registry.json",
+      "required": true,
+      "size_bytes": 13535,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "03bf37d3a65532df",
+      "path": "v3/exports/fork_replay_validation.json",
+      "required": false,
+      "size_bytes": 1875,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "769bf5d51136500e",
+      "path": "v3/exports/generate_4d6_reports.py",
+      "required": false,
+      "size_bytes": 12401,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "7bb5f8c55dfed038",
+      "path": "v3/exports/generate_compaction_reports.py",
+      "required": false,
+      "size_bytes": 10240,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "076b165e44c84f70",
+      "path": "v3/exports/github_clone_plan.json",
+      "required": true,
+      "size_bytes": 8010,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "b39abf7598179459",
+      "path": "v3/exports/github_clone_plan.md",
+      "required": true,
+      "size_bytes": 5431,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "740c69916cf7dbd3",
+      "path": "v3/exports/golden_path_report.md",
+      "required": true,
+      "size_bytes": 2035,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "82ba9e0350b72493",
+      "path": "v3/exports/invariant_telemetry_report.json",
+      "required": false,
+      "size_bytes": 1087,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "181e72cde2a927a6",
+      "path": "v3/exports/kernel_validity_report.json",
+      "required": true,
+      "size_bytes": 975,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "1e0443934934faa6",
+      "path": "v3/exports/manual_step_reduction_report.json",
+      "required": false,
+      "size_bytes": 712,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "baff60e8aad9c51f",
+      "path": "v3/exports/memory_compaction_architecture.md",
+      "required": true,
+      "size_bytes": 4764,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "d3a4e961f903099a",
+      "path": "v3/exports/memory_compaction_integrity_report.json",
+      "required": false,
+      "size_bytes": 983,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "eea7eb7bd49da96c",
+      "path": "v3/exports/memory_removability_report.json",
+      "required": false,
+      "size_bytes": 701,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "8eab0a71b7535b4d",
+      "path": "v3/exports/memory_runtime_architecture.md",
+      "required": true,
+      "size_bytes": 3953,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "afea7c1b10788db8",
+      "path": "v3/exports/memory_system_report.json",
+      "required": true,
+      "size_bytes": 885,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "f536fb5d0b55b119",
+      "path": "v3/exports/observability_graph_architecture.md",
+      "required": true,
+      "size_bytes": 4778,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "4fd0ab20dcd1ff53",
+      "path": "v3/exports/phase_4d_completion_report.md",
+      "required": true,
+      "size_bytes": 4057,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "46e522c59e92e735",
+      "path": "v3/exports/phase_5a_gate_report.md",
+      "required": true,
+      "size_bytes": 3218,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "130cf37f069e90d3",
+      "path": "v3/exports/phase_5b_cli_report.md",
+      "required": true,
+      "size_bytes": 3389,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "f3a2d45206f4efca",
+      "path": "v3/exports/phase_5c_examples_report.md",
+      "required": true,
+      "size_bytes": 2321,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "7bd24826b550a8f8",
+      "path": "v3/exports/phase_5d_repo_intake_report.md",
+      "required": true,
+      "size_bytes": 3096,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "5fb56fb75bf811de",
+      "path": "v3/exports/phase_5e_external_registry_report.md",
+      "required": true,
+      "size_bytes": 4814,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "212ef73a4dc3cd68",
+      "path": "v3/exports/phase_5f_release_freeze_report.md",
+      "required": true,
+      "size_bytes": 4221,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "a6bfd254a80a16fe",
+      "path": "v3/exports/recall_integrity_report.json",
+      "required": false,
+      "size_bytes": 504,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "af619752c56b807d",
+      "path": "v3/exports/recall_provenance_report.json",
+      "required": false,
+      "size_bytes": 869,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "129230b3fb6f2dfa",
+      "path": "v3/exports/release_inventory.json",
+      "required": true,
+      "size_bytes": 33563,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "842d4230bf2de878",
+      "path": "v3/exports/release_validation_matrix.json",
+      "required": true,
+      "size_bytes": 13839,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "9f3783fcfa53da4b",
+      "path": "v3/exports/repo_intake_architecture.md",
+      "required": true,
+      "size_bytes": 4162,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "db04f25f6f1e643b",
+      "path": "v3/exports/repo_intake_summary.json",
+      "required": false,
+      "size_bytes": 16106,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "d05a70906d7bafb2",
+      "path": "v3/exports/retrieval_runtime_report.json",
+      "required": false,
+      "size_bytes": 4025,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "6151c0e4274915fd",
+      "path": "v3/exports/runtime_graph_model.md",
+      "required": true,
+      "size_bytes": 3556,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "11c02a86f98dcdb3",
+      "path": "v3/exports/runtime_metrics_report.json",
+      "required": false,
+      "size_bytes": 1373,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "ba951219753bbc3f",
+      "path": "v3/exports/runtime_state_transition.md",
+      "required": true,
+      "size_bytes": 1896,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "e80f1d35170af510",
+      "path": "v3/exports/semantic_index_integrity_report.json",
+      "required": false,
+      "size_bytes": 515,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "9d56be4661c49b42",
+      "path": "v3/exports/semantic_memory_index_architecture.md",
+      "required": true,
+      "size_bytes": 5843,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "f872bc65c1bb16f7",
+      "path": "v3/exports/systemkernel_v3_release_notes.md",
+      "required": true,
+      "size_bytes": 7114,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "9f6cfd7f2398bc69",
+      "path": "v3/exports/time_travel_runtime.md",
+      "required": true,
+      "size_bytes": 2335,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "c89089a514a852cb",
+      "path": "v3/exports/truth_linked_recall_architecture.md",
+      "required": true,
+      "size_bytes": 2587,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "report",
+      "hash": "dc9b59f9e359f2dd",
+      "path": "v3/exports/usage_sample.jsonl",
+      "required": false,
+      "size_bytes": 245,
+      "subsystem": "exports"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "e98cc945d3fc8d63",
+      "path": "v3/intake/__init__.py",
+      "required": true,
+      "size_bytes": 4246,
+      "subsystem": "intake"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "03256694ff79ae15",
+      "path": "v3/intake/clone_plan.py",
+      "required": true,
+      "size_bytes": 16053,
+      "subsystem": "intake"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "115227be31bfad8d",
+      "path": "v3/intake/repo_intake.py",
+      "required": true,
+      "size_bytes": 30991,
+      "subsystem": "intake"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "dae1719896cfb00b",
+      "path": "v3/intake/repo_profiles.py",
+      "required": true,
+      "size_bytes": 13806,
+      "subsystem": "intake"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "b20b2f6476502d62",
+      "path": "v3/intake/rules.py",
+      "required": true,
+      "size_bytes": 12149,
+      "subsystem": "intake"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "5eb5b29572d91949",
+      "path": "v3/intake/tool_registry.py",
+      "required": true,
+      "size_bytes": 20404,
+      "subsystem": "intake"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "8bc32f6a9f815071",
+      "path": "v3/integrations/README.md",
+      "required": false,
+      "size_bytes": 1654,
+      "subsystem": "integrations"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "3bb710d7ab503392",
+      "path": "v3/integrations/ccusage/README.md",
+      "required": false,
+      "size_bytes": 133,
+      "subsystem": "integrations"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "adc3b403c9aa5c58",
+      "path": "v3/integrations/graphiti/README.md",
+      "required": false,
+      "size_bytes": 200,
+      "subsystem": "integrations"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "fc062accde10b218",
+      "path": "v3/integrations/graphiti_adapter.py",
+      "required": false,
+      "size_bytes": 5513,
+      "subsystem": "integrations"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "cefcec3fa6916de3",
+      "path": "v3/integrations/mem0/README.md",
+      "required": false,
+      "size_bytes": 185,
+      "subsystem": "integrations"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "d17cb7a5b7fec6a8",
+      "path": "v3/integrations/mem0_adapter.py",
+      "required": false,
+      "size_bytes": 5582,
+      "subsystem": "integrations"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "cc6d595f05362417",
+      "path": "v3/integrations/repomix/README.md",
+      "required": false,
+      "size_bytes": 159,
+      "subsystem": "integrations"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "895d530ebaa55d24",
+      "path": "v3/kernel/README.md",
+      "required": true,
+      "size_bytes": 622,
+      "subsystem": "kernel"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "45538a1fc781ece6",
+      "path": "v3/kernel/__init__.py",
+      "required": true,
+      "size_bytes": 5383,
+      "subsystem": "kernel"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "6c8cdaf2612ed08a",
+      "path": "v3/kernel/checkpoint.py",
+      "required": true,
+      "size_bytes": 12054,
+      "subsystem": "kernel"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "075c48b94780c466",
+      "path": "v3/kernel/complexity_budget.py",
+      "required": true,
+      "size_bytes": 12718,
+      "subsystem": "kernel"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "e7b639083ee0e4c0",
+      "path": "v3/kernel/event_store.py",
+      "required": true,
+      "size_bytes": 8206,
+      "subsystem": "kernel"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "447d4bd2913edc55",
+      "path": "v3/kernel/events.py",
+      "required": true,
+      "size_bytes": 13147,
+      "subsystem": "kernel"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "17b4ce5292b6edb9",
+      "path": "v3/kernel/execution_engine.py",
+      "required": true,
+      "size_bytes": 33643,
+      "subsystem": "kernel"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "099b3f15cf8acb6f",
+      "path": "v3/kernel/execution_state.py",
+      "required": true,
+      "size_bytes": 13751,
+      "subsystem": "kernel"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "92aaf58a0e4f1646",
+      "path": "v3/kernel/invariants.py",
+      "required": true,
+      "size_bytes": 11238,
+      "subsystem": "kernel"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "f61822263e7fd026",
+      "path": "v3/kernel/memory_candidate.py",
+      "required": true,
+      "size_bytes": 18527,
+      "subsystem": "kernel"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "0378e71aec437765",
+      "path": "v3/kernel/memory_contract.py",
+      "required": true,
+      "size_bytes": 9575,
+      "subsystem": "kernel"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "13fa867a97a721c0",
+      "path": "v3/kernel/memory_gateway.py",
+      "required": true,
+      "size_bytes": 11478,
+      "subsystem": "kernel"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "a9c6aa6c22378ff2",
+      "path": "v3/kernel/metrics.py",
+      "required": true,
+      "size_bytes": 8611,
+      "subsystem": "kernel"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "47eb14922d3faf5e",
+      "path": "v3/kernel/observability.py",
+      "required": true,
+      "size_bytes": 12737,
+      "subsystem": "kernel"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "4f10a97f4f26e285",
+      "path": "v3/kernel/observability_graph.py",
+      "required": true,
+      "size_bytes": 17898,
+      "subsystem": "kernel"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "5325f3c804fbc484",
+      "path": "v3/kernel/replay.py",
+      "required": true,
+      "size_bytes": 12797,
+      "subsystem": "kernel"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "5664262b2927b085",
+      "path": "v3/kernel/structure_trace.py",
+      "required": true,
+      "size_bytes": 474,
+      "subsystem": "kernel"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "cb5c3ff4724dad7e",
+      "path": "v3/kernel/telemetry.py",
+      "required": true,
+      "size_bytes": 11479,
+      "subsystem": "kernel"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "61353b97d0aa6c48",
+      "path": "v3/kernel/time_travel.py",
+      "required": true,
+      "size_bytes": 16503,
+      "subsystem": "kernel"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "0ce274c59f929be8",
+      "path": "v3/kernel/truth_model.py",
+      "required": true,
+      "size_bytes": 10817,
+      "subsystem": "kernel"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "2ea6390a315fd476",
+      "path": "v3/main.py",
+      "required": true,
+      "size_bytes": 9773,
+      "subsystem": "kernel"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "44d5d01c8a4f91d8",
+      "path": "v3/memory/README.md",
+      "required": true,
+      "size_bytes": 709,
+      "subsystem": "memory"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "a1a10774ea3f79ae",
+      "path": "v3/memory/__init__.py",
+      "required": true,
+      "size_bytes": 3957,
+      "subsystem": "memory"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "5a274b09fcd737ee",
+      "path": "v3/memory/adapter_stub.py",
+      "required": true,
+      "size_bytes": 2363,
+      "subsystem": "memory"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "527ca27423ba54a6",
+      "path": "v3/memory/compaction.py",
+      "required": true,
+      "size_bytes": 29492,
+      "subsystem": "memory"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "7fdb059c490cf242",
+      "path": "v3/memory/compaction_integrity.py",
+      "required": true,
+      "size_bytes": 13459,
+      "subsystem": "memory"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "00c68437394b7792",
+      "path": "v3/memory/data/compacted_projection.json",
+      "required": true,
+      "size_bytes": 2274,
+      "subsystem": "memory"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "48d526342a8b3861",
+      "path": "v3/memory/episodic_adapter.py",
+      "required": true,
+      "size_bytes": 9479,
+      "subsystem": "memory"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "006d3a9bd849605f",
+      "path": "v3/memory/episodic_store.py",
+      "required": true,
+      "size_bytes": 21972,
+      "subsystem": "memory"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "9d9762e0a00d6edb",
+      "path": "v3/memory/index_integrity.py",
+      "required": true,
+      "size_bytes": 8686,
+      "subsystem": "memory"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "0137633152b46074",
+      "path": "v3/memory/integrity.py",
+      "required": true,
+      "size_bytes": 9882,
+      "subsystem": "memory"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "e95ac01e52aa6578",
+      "path": "v3/memory/memory_adapter_base.py",
+      "required": true,
+      "size_bytes": 5782,
+      "subsystem": "memory"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "85b31f61a0d55fca",
+      "path": "v3/memory/memory_service.py",
+      "required": true,
+      "size_bytes": 3686,
+      "subsystem": "memory"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "6a6a6b2a2b9a8bdd",
+      "path": "v3/memory/provenance.py",
+      "required": true,
+      "size_bytes": 11161,
+      "subsystem": "memory"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "b1713ea7bee3b424",
+      "path": "v3/memory/recall.py",
+      "required": true,
+      "size_bytes": 18841,
+      "subsystem": "memory"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "50f62f58764ec61c",
+      "path": "v3/memory/retrieval.py",
+      "required": true,
+      "size_bytes": 11869,
+      "subsystem": "memory"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "b597069f6d53cee9",
+      "path": "v3/memory/runtime.py",
+      "required": true,
+      "size_bytes": 21353,
+      "subsystem": "memory"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "ec2f853de06ae573",
+      "path": "v3/memory/semantic_index.py",
+      "required": true,
+      "size_bytes": 20759,
+      "subsystem": "memory"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "0d367df0b27b8ad0",
+      "path": "v3/memory/system_report.py",
+      "required": true,
+      "size_bytes": 8474,
+      "subsystem": "memory"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "abb7717657991166",
+      "path": "v3/packages/README.md",
+      "required": true,
+      "size_bytes": 352,
+      "subsystem": "packages"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "8ad150703e6e8b40",
+      "path": "v3/packages/__init__.py",
+      "required": true,
+      "size_bytes": 112,
+      "subsystem": "packages"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "f3ee1c62cf47672b",
+      "path": "v3/quality/__init__.py",
+      "required": true,
+      "size_bytes": 1302,
+      "subsystem": "quality"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "6d81cb47603efb82",
+      "path": "v3/quality/analyze_complexity.py",
+      "required": true,
+      "size_bytes": 19470,
+      "subsystem": "quality"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "36a0f8971410cc41",
+      "path": "v3/quality/complexity_budget.py",
+      "required": true,
+      "size_bytes": 15181,
+      "subsystem": "quality"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "f5450b5391a57c1a",
+      "path": "v3/quality/phase_gate.py",
+      "required": true,
+      "size_bytes": 16103,
+      "subsystem": "quality"
+    },
+    {
+      "artifact_type": "release",
+      "hash": "dcf6ddb025b37e69",
+      "path": "v3/release/__init__.py",
+      "required": true,
+      "size_bytes": 1694,
+      "subsystem": "release"
+    },
+    {
+      "artifact_type": "release",
+      "hash": "bb15fd1d2dc84301",
+      "path": "v3/release/handoff.py",
+      "required": true,
+      "size_bytes": 17432,
+      "subsystem": "release"
+    },
+    {
+      "artifact_type": "release",
+      "hash": "43a2091350f8c966",
+      "path": "v3/release/inventory.py",
+      "required": true,
+      "size_bytes": 15054,
+      "subsystem": "release"
+    },
+    {
+      "artifact_type": "release",
+      "hash": "a8d3833055f39e4c",
+      "path": "v3/release/package_manifest.py",
+      "required": true,
+      "size_bytes": 16229,
+      "subsystem": "release"
+    },
+    {
+      "artifact_type": "release",
+      "hash": "af09aac34bd861f8",
+      "path": "v3/release/release_notes.py",
+      "required": true,
+      "size_bytes": 10281,
+      "subsystem": "release"
+    },
+    {
+      "artifact_type": "release",
+      "hash": "d63a0f35716f04a1",
+      "path": "v3/release/validation_matrix.py",
+      "required": true,
+      "size_bytes": 25388,
+      "subsystem": "release"
+    },
+    {
+      "artifact_type": "test",
+      "hash": "38a3b2e8cfb5b2a4",
+      "path": "v3/tests/__init__.py",
+      "required": false,
+      "size_bytes": 42,
+      "subsystem": "tests"
+    },
+    {
+      "artifact_type": "test",
+      "hash": "90197916593d63a4",
+      "path": "v3/tests/test_architecture_diff.py",
+      "required": true,
+      "size_bytes": 12489,
+      "subsystem": "tests"
+    },
+    {
+      "artifact_type": "test",
+      "hash": "927cf34c1428ea2c",
+      "path": "v3/tests/test_architecture_guard.py",
+      "required": true,
+      "size_bytes": 11946,
+      "subsystem": "tests"
+    },
+    {
+      "artifact_type": "test",
+      "hash": "9ade345a153c45ac",
+      "path": "v3/tests/test_baseline_packaging.py",
+      "required": true,
+      "size_bytes": 14869,
+      "subsystem": "tests"
+    },
+    {
+      "artifact_type": "test",
+      "hash": "4585a9695c29851b",
+      "path": "v3/tests/test_checkpoint_runtime.py",
+      "required": true,
+      "size_bytes": 25131,
+      "subsystem": "tests"
+    },
+    {
+      "artifact_type": "test",
+      "hash": "854610bca51572c8",
+      "path": "v3/tests/test_complexity_budget.py",
+      "required": true,
+      "size_bytes": 42992,
+      "subsystem": "tests"
+    },
+    {
+      "artifact_type": "test",
+      "hash": "b7f3bb2f5c78d7c9",
+      "path": "v3/tests/test_developer_cli.py",
+      "required": true,
+      "size_bytes": 29042,
+      "subsystem": "tests"
+    },
+    {
+      "artifact_type": "test",
+      "hash": "fc73a32edd6c711b",
+      "path": "v3/tests/test_episodic_memory_store.py",
+      "required": true,
+      "size_bytes": 35521,
+      "subsystem": "tests"
+    },
+    {
+      "artifact_type": "test",
+      "hash": "1630101f586b45d9",
+      "path": "v3/tests/test_event_runtime.py",
+      "required": true,
+      "size_bytes": 26182,
+      "subsystem": "tests"
+    },
+    {
+      "artifact_type": "test",
+      "hash": "88b7ee72714f3186",
+      "path": "v3/tests/test_external_tool_registry.py",
+      "required": true,
+      "size_bytes": 43366,
+      "subsystem": "tests"
+    },
+    {
+      "artifact_type": "test",
+      "hash": "7ceefc08b67d028c",
+      "path": "v3/tests/test_golden_path.py",
+      "required": true,
+      "size_bytes": 21462,
+      "subsystem": "tests"
+    },
+    {
+      "artifact_type": "test",
+      "hash": "e4b6165240af0426",
+      "path": "v3/tests/test_kernel_invariants.py",
+      "required": true,
+      "size_bytes": 29992,
+      "subsystem": "tests"
+    },
+    {
+      "artifact_type": "test",
+      "hash": "24191ce5b22a280c",
+      "path": "v3/tests/test_memory_boundary.py",
+      "required": true,
+      "size_bytes": 29058,
+      "subsystem": "tests"
+    },
+    {
+      "artifact_type": "test",
+      "hash": "acaf79d9274261e9",
+      "path": "v3/tests/test_memory_compaction.py",
+      "required": true,
+      "size_bytes": 48643,
+      "subsystem": "tests"
+    },
+    {
+      "artifact_type": "test",
+      "hash": "28176f6233727961",
+      "path": "v3/tests/test_memory_runtime_finalization.py",
+      "required": true,
+      "size_bytes": 45041,
+      "subsystem": "tests"
+    },
+    {
+      "artifact_type": "test",
+      "hash": "4c9ac3490f0e8bc4",
+      "path": "v3/tests/test_observability_graph.py",
+      "required": true,
+      "size_bytes": 30700,
+      "subsystem": "tests"
+    },
+    {
+      "artifact_type": "test",
+      "hash": "a96b6b6eee141f42",
+      "path": "v3/tests/test_release_freeze.py",
+      "required": true,
+      "size_bytes": 33481,
+      "subsystem": "tests"
+    },
+    {
+      "artifact_type": "test",
+      "hash": "5773cad27371cc3a",
+      "path": "v3/tests/test_repo_intake.py",
+      "required": true,
+      "size_bytes": 36619,
+      "subsystem": "tests"
+    },
+    {
+      "artifact_type": "test",
+      "hash": "282952e4dad4f685",
+      "path": "v3/tests/test_semantic_memory_index.py",
+      "required": true,
+      "size_bytes": 29500,
+      "subsystem": "tests"
+    },
+    {
+      "artifact_type": "test",
+      "hash": "c0b1823166118a31",
+      "path": "v3/tests/test_truth_linked_recall.py",
+      "required": true,
+      "size_bytes": 29275,
+      "subsystem": "tests"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "33edeca19e0948e2",
+      "path": "v3/tools/README.md",
+      "required": true,
+      "size_bytes": 462,
+      "subsystem": "tools"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "1b6b6add89ed2395",
+      "path": "v3/tools/__init__.py",
+      "required": true,
+      "size_bytes": 473,
+      "subsystem": "tools"
+    },
+    {
+      "artifact_type": "source",
+      "hash": "2437442a6b161cdd",
+      "path": "v3/tools/tool_adapter_base.py",
+      "required": true,
+      "size_bytes": 4038,
+      "subsystem": "tools"
+    }
+  ],
+  "manifest_hash": "e8af37076e90922a",
+  "optional_count": 34,
+  "required_count": 126,
+  "version": "3.0.0"
+}

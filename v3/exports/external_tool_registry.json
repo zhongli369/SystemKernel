@@ -1,0 +1,404 @@
+{
+  "counts": {
+    "architecture_reference": 8,
+    "direct_clone": 2,
+    "external_extension": 4,
+    "reject": 0,
+    "total": 14
+  },
+  "entries": [
+    {
+      "allowed_actions": [
+        "study_architecture",
+        "extract_design_patterns",
+        "document_findings"
+      ],
+      "claude_code_value": 8.0,
+      "decision": "ARCHITECTURE_REFERENCE",
+      "forbidden_actions": [
+        "do_not_integrate_into_kernel",
+        "do_not_modify_kernel_boundary",
+        "do_not_clone",
+        "do_not_import",
+        "do_not_integrate",
+        "do_not_run_as_dependency"
+      ],
+      "kernel_risk": 6.0,
+      "name": "LangGraph",
+      "notes": "Agent framework. Architecture reference only. Heavy langchain dependency. Study state machine patterns.",
+      "priority": "C",
+      "repo_url": "https://github.com/langchain-ai/langgraph",
+      "systemkernel_touchpoints": [
+        "architecture_study",
+        "pattern_extraction"
+      ],
+      "target_dir": "F:/Claude/Reference/langgraph",
+      "use_mode": "architecture_reference"
+    },
+    {
+      "allowed_actions": [
+        "study_architecture",
+        "extract_design_patterns",
+        "document_findings"
+      ],
+      "claude_code_value": 5.0,
+      "decision": "ARCHITECTURE_REFERENCE",
+      "forbidden_actions": [
+        "do_not_integrate_into_kernel",
+        "do_not_modify_kernel_boundary",
+        "do_not_clone",
+        "do_not_import",
+        "do_not_integrate",
+        "do_not_run_as_dependency"
+      ],
+      "kernel_risk": 10.0,
+      "name": "CrewAI",
+      "notes": "Multi-agent orchestration. Architecture reference only. OpenAI + langchain deps. Study role-based agent patterns.",
+      "priority": "C",
+      "repo_url": "https://github.com/crewAIInc/crewAI",
+      "systemkernel_touchpoints": [
+        "architecture_study",
+        "pattern_extraction"
+      ],
+      "target_dir": "F:/Claude/Reference/crewai",
+      "use_mode": "architecture_reference"
+    },
+    {
+      "allowed_actions": [
+        "evaluate_via_api",
+        "study_architecture",
+        "read_documentation",
+        "test_external_integration"
+      ],
+      "claude_code_value": 6.0,
+      "decision": "EXTERNAL_EXTENSION",
+      "forbidden_actions": [
+        "do_not_integrate_into_kernel",
+        "do_not_modify_kernel_boundary",
+        "do_not_import_directly",
+        "do_not_embed_as_kernel_module",
+        "do_not_install_locally_without_review"
+      ],
+      "kernel_risk": 5.0,
+      "name": "OpenAI Swarm",
+      "notes": "Lightweight agent swarm. Evaluate as external service. OpenAI dependency. Study swarm patterns.",
+      "priority": "B",
+      "repo_url": "https://github.com/openai/swarm",
+      "systemkernel_touchpoints": [
+        "api_evaluation",
+        "integration_design"
+      ],
+      "target_dir": "F:/Claude/Github/_extensions/openai-swarm",
+      "use_mode": "external_service"
+    },
+    {
+      "allowed_actions": [
+        "clone_to_github",
+        "read_source_code",
+        "study_file_formats",
+        "extract_format_patterns",
+        "use_as_template_reference"
+      ],
+      "claude_code_value": 10.0,
+      "decision": "DIRECT_CLONE",
+      "forbidden_actions": [
+        "do_not_integrate_into_kernel",
+        "do_not_modify_kernel_boundary",
+        "do_not_embed_as_kernel_module"
+      ],
+      "kernel_risk": 0.0,
+      "name": "Anthropic Skills",
+      "notes": "Skill definition format reference. Clone to study SKILL.md structure and conventions. Do not execute skills.",
+      "priority": "S",
+      "repo_url": "https://github.com/anthropics/skills",
+      "systemkernel_touchpoints": [
+        "format_study",
+        "template_extraction",
+        "skill_definition_reference"
+      ],
+      "target_dir": "F:/Claude/Github/anthropic-skills",
+      "use_mode": "format_reference"
+    },
+    {
+      "allowed_actions": [
+        "evaluate_via_api",
+        "study_architecture",
+        "read_documentation",
+        "test_external_integration"
+      ],
+      "claude_code_value": 4.0,
+      "decision": "EXTERNAL_EXTENSION",
+      "forbidden_actions": [
+        "do_not_integrate_into_kernel",
+        "do_not_modify_kernel_boundary",
+        "do_not_import_directly",
+        "do_not_embed_as_kernel_module",
+        "do_not_install_locally_without_review"
+      ],
+      "kernel_risk": 6.0,
+      "name": "mem0",
+      "notes": "Memory layer for AI. Evaluate as external service only. Vector DB + LLM deps conflict with kernel constraints.",
+      "priority": "C",
+      "repo_url": "https://github.com/mem0ai/mem0",
+      "systemkernel_touchpoints": [
+        "api_evaluation",
+        "integration_design"
+      ],
+      "target_dir": "F:/Claude/Github/_extensions/mem0",
+      "use_mode": "external_service"
+    },
+    {
+      "allowed_actions": [
+        "evaluate_via_api",
+        "study_architecture",
+        "read_documentation",
+        "test_external_integration"
+      ],
+      "claude_code_value": 5.0,
+      "decision": "EXTERNAL_EXTENSION",
+      "forbidden_actions": [
+        "do_not_integrate_into_kernel",
+        "do_not_modify_kernel_boundary",
+        "do_not_import_directly",
+        "do_not_embed_as_kernel_module",
+        "do_not_install_locally_without_review"
+      ],
+      "kernel_risk": 5.0,
+      "name": "Graphiti",
+      "notes": "Knowledge graph memory. Evaluate as external service only. Neo4j + OpenAI deps conflict with kernel constraints.",
+      "priority": "B",
+      "repo_url": "https://github.com/getzep/graphiti",
+      "systemkernel_touchpoints": [
+        "api_evaluation",
+        "integration_design"
+      ],
+      "target_dir": "F:/Claude/Github/_extensions/graphiti",
+      "use_mode": "external_service"
+    },
+    {
+      "allowed_actions": [
+        "clone_to_github",
+        "run_locally_as_tool",
+        "use_cli_interface",
+        "read_source_code",
+        "study_architecture"
+      ],
+      "claude_code_value": 10.0,
+      "decision": "DIRECT_CLONE",
+      "forbidden_actions": [
+        "do_not_integrate_into_kernel",
+        "do_not_modify_kernel_boundary",
+        "do_not_embed_as_kernel_module"
+      ],
+      "kernel_risk": 0.0,
+      "name": "Repomix",
+      "notes": "CLI context packer — safe to clone and use as a local tool. No kernel integration needed.",
+      "priority": "S",
+      "repo_url": "https://github.com/yamadashy/repomix",
+      "systemkernel_touchpoints": [
+        "cli_invocation",
+        "output_parsing",
+        "filesystem_io"
+      ],
+      "target_dir": "F:/Claude/Github/repomix",
+      "use_mode": "direct_tool"
+    },
+    {
+      "allowed_actions": [
+        "clone_to_github",
+        "run_locally_as_tool",
+        "use_cli_interface",
+        "read_source_code",
+        "study_architecture"
+      ],
+      "claude_code_value": 10.0,
+      "decision": "DIRECT_CLONE",
+      "forbidden_actions": [
+        "do_not_integrate_into_kernel",
+        "do_not_modify_kernel_boundary",
+        "do_not_embed_as_kernel_module"
+      ],
+      "kernel_risk": 0.0,
+      "name": "ccusage",
+      "notes": "Claude Code usage tracker — safe to clone, CLI tool only. Useful for monitoring CC costs.",
+      "priority": "S",
+      "repo_url": "https://github.com/anthropics/ccusage",
+      "systemkernel_touchpoints": [
+        "cli_invocation",
+        "output_parsing",
+        "filesystem_io"
+      ],
+      "target_dir": "F:/Claude/Github/ccusage",
+      "use_mode": "direct_tool"
+    },
+    {
+      "allowed_actions": [
+        "evaluate_via_api",
+        "study_architecture",
+        "read_documentation",
+        "test_external_integration"
+      ],
+      "claude_code_value": 6.0,
+      "decision": "EXTERNAL_EXTENSION",
+      "forbidden_actions": [
+        "do_not_integrate_into_kernel",
+        "do_not_modify_kernel_boundary",
+        "do_not_import_directly",
+        "do_not_embed_as_kernel_module",
+        "do_not_install_locally_without_review"
+      ],
+      "kernel_risk": 5.0,
+      "name": "Continue",
+      "notes": "IDE extension for AI. Evaluate as external service. OpenAI dependency. Useful for IDE integration patterns.",
+      "priority": "B",
+      "repo_url": "https://github.com/continuedev/continue",
+      "systemkernel_touchpoints": [
+        "api_evaluation",
+        "integration_design"
+      ],
+      "target_dir": "F:/Claude/Github/_extensions/continue",
+      "use_mode": "external_service"
+    },
+    {
+      "allowed_actions": [
+        "clone_to_github_for_inspection",
+        "read_source_code",
+        "study_architecture",
+        "extract_design_patterns"
+      ],
+      "claude_code_value": 8.0,
+      "decision": "DIRECT_CLONE",
+      "forbidden_actions": [
+        "do_not_integrate_into_kernel",
+        "do_not_modify_kernel_boundary",
+        "do_not_run_as_dependency",
+        "do_not_embed_as_kernel_module",
+        "do_not_execute_without_review"
+      ],
+      "kernel_risk": 0.0,
+      "name": "AppFlowy",
+      "notes": "Large Flutter/Rust application. Inspect for Notion-like document model patterns. AGPL license requires care.",
+      "priority": "S",
+      "repo_url": "https://github.com/AppFlowy-IO/appflowy",
+      "systemkernel_touchpoints": [
+        "source_code_study",
+        "architecture_analysis"
+      ],
+      "target_dir": "F:/Claude/Github/appflowy",
+      "use_mode": "source_reference"
+    },
+    {
+      "allowed_actions": [
+        "clone_to_github_for_inspection",
+        "read_source_code",
+        "study_architecture",
+        "extract_design_patterns"
+      ],
+      "claude_code_value": 10.0,
+      "decision": "DIRECT_CLONE",
+      "forbidden_actions": [
+        "do_not_integrate_into_kernel",
+        "do_not_modify_kernel_boundary",
+        "do_not_run_as_dependency",
+        "do_not_embed_as_kernel_module",
+        "do_not_execute_without_review"
+      ],
+      "kernel_risk": 0.0,
+      "name": "JupyterLab",
+      "notes": "Very large codebase. Inspect architecture for notebook/IDE patterns. Not suitable for direct integration.",
+      "priority": "S",
+      "repo_url": "https://github.com/jupyterlab/jupyterlab",
+      "systemkernel_touchpoints": [
+        "source_code_study",
+        "architecture_analysis"
+      ],
+      "target_dir": "F:/Claude/Github/jupyterlab",
+      "use_mode": "source_reference"
+    },
+    {
+      "allowed_actions": [
+        "clone_to_github_for_inspection",
+        "read_source_code",
+        "study_architecture",
+        "extract_design_patterns"
+      ],
+      "claude_code_value": 9.0,
+      "decision": "DIRECT_CLONE",
+      "forbidden_actions": [
+        "do_not_integrate_into_kernel",
+        "do_not_modify_kernel_boundary",
+        "do_not_run_as_dependency",
+        "do_not_embed_as_kernel_module",
+        "do_not_execute_without_review"
+      ],
+      "kernel_risk": 0.0,
+      "name": "SuperClaude",
+      "notes": "Claude Code enhancement utilities. Inspect source for patterns. Contains skill definitions that may overlap with existing skills.",
+      "priority": "S",
+      "repo_url": "https://github.com/anthropics/SuperClaude",
+      "systemkernel_touchpoints": [
+        "source_code_study",
+        "architecture_analysis"
+      ],
+      "target_dir": "F:/Claude/Github/superclaude",
+      "use_mode": "source_reference"
+    },
+    {
+      "allowed_actions": [
+        "study_architecture",
+        "extract_design_patterns",
+        "document_findings"
+      ],
+      "claude_code_value": 7.0,
+      "decision": "ARCHITECTURE_REFERENCE",
+      "forbidden_actions": [
+        "do_not_integrate_into_kernel",
+        "do_not_modify_kernel_boundary",
+        "do_not_clone",
+        "do_not_import",
+        "do_not_integrate",
+        "do_not_run_as_dependency"
+      ],
+      "kernel_risk": 0.0,
+      "name": "awesome-claude-code",
+      "notes": "Curated resource list. Architecture reference for discovering tools and patterns.",
+      "priority": "C",
+      "repo_url": "https://github.com/anthropics/awesome-claude-code",
+      "systemkernel_touchpoints": [
+        "architecture_study",
+        "pattern_extraction"
+      ],
+      "target_dir": "F:/Claude/Reference/awesome-claude-code",
+      "use_mode": "architecture_reference"
+    },
+    {
+      "allowed_actions": [
+        "study_architecture",
+        "extract_design_patterns",
+        "document_findings"
+      ],
+      "claude_code_value": 7.0,
+      "decision": "ARCHITECTURE_REFERENCE",
+      "forbidden_actions": [
+        "do_not_integrate_into_kernel",
+        "do_not_modify_kernel_boundary",
+        "do_not_clone",
+        "do_not_import",
+        "do_not_integrate",
+        "do_not_run_as_dependency"
+      ],
+      "kernel_risk": 0.0,
+      "name": "Awesome-Prompt-Engineering",
+      "notes": "Curated prompt engineering resources. Reference for prompt design patterns.",
+      "priority": "C",
+      "repo_url": "https://github.com/promptslab/Awesome-Prompt-Engineering",
+      "systemkernel_touchpoints": [
+        "architecture_study",
+        "pattern_extraction"
+      ],
+      "target_dir": "F:/Claude/Reference/awesome-prompt-engineering",
+      "use_mode": "architecture_reference"
+    }
+  ],
+  "registry_hash": "fd600f0a4e9c4871"
+}

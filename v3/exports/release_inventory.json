@@ -1,0 +1,1173 @@
+{
+  "entries": [
+    {
+      "description": "Checkpoint — Append-only JSONL checkpoint persistence for deterministic execution.",
+      "kind": "module",
+      "lines": 282,
+      "path": "v3/kernel/checkpoint.py",
+      "subsystem": "kernel"
+    },
+    {
+      "description": "Complexity Budget — Static analysis only. ZERO runtime impact.",
+      "kind": "module",
+      "lines": 379,
+      "path": "v3/kernel/complexity_budget.py",
+      "subsystem": "kernel"
+    },
+    {
+      "description": "Event Store — Append-only event stream persistence.",
+      "kind": "module",
+      "lines": 199,
+      "path": "v3/kernel/event_store.py",
+      "subsystem": "kernel"
+    },
+    {
+      "description": "Execution Events — Immutable event types for event-sourced runtime.",
+      "kind": "module",
+      "lines": 337,
+      "path": "v3/kernel/events.py",
+      "subsystem": "kernel"
+    },
+    {
+      "description": "ExecutionEngine v4.0 — State + Checkpoint + Reducer + Replay execution engine.",
+      "kind": "module",
+      "lines": 815,
+      "path": "v3/kernel/execution_engine.py",
+      "subsystem": "kernel"
+    },
+    {
+      "description": "ExecutionState — Frozen lifecycle tracker for deterministic execution runs.",
+      "kind": "module",
+      "lines": 334,
+      "path": "v3/kernel/execution_state.py",
+      "subsystem": "kernel"
+    },
+    {
+      "description": "Architecture Invariant Registry — Runtime verification of system invariants.",
+      "kind": "module",
+      "lines": 241,
+      "path": "v3/kernel/invariants.py",
+      "subsystem": "kernel"
+    },
+    {
+      "description": "Memory Candidates — Pure functional projection of \"memory-worthy\" data",
+      "kind": "module",
+      "lines": 477,
+      "path": "v3/kernel/memory_candidate.py",
+      "subsystem": "kernel"
+    },
+    {
+      "description": "MemoryContract — Formal write/read contract between kernel and memory subsystem.",
+      "kind": "module",
+      "lines": 221,
+      "path": "v3/kernel/memory_contract.py",
+      "subsystem": "kernel"
+    },
+    {
+      "description": "MemoryGateway — Kernel-side Memory Isolation Boundary.",
+      "kind": "module",
+      "lines": 334,
+      "path": "v3/kernel/memory_gateway.py",
+      "subsystem": "kernel"
+    },
+    {
+      "description": "Metrics — Deterministic runtime metrics aggregation from event streams.",
+      "kind": "module",
+      "lines": 245,
+      "path": "v3/kernel/metrics.py",
+      "subsystem": "kernel"
+    },
+    {
+      "description": "ObservabilityService v3.0 — Trace + Metrics + ccusage Bridge.",
+      "kind": "module",
+      "lines": 293,
+      "path": "v3/kernel/observability.py",
+      "subsystem": "kernel"
+    },
+    {
+      "description": "Observability Graph — Deterministic runtime graph projection from event streams.",
+      "kind": "module",
+      "lines": 460,
+      "path": "v3/kernel/observability_graph.py",
+      "subsystem": "kernel"
+    },
+    {
+      "description": "Replay — Deterministic execution timeline replay from event streams.",
+      "kind": "module",
+      "lines": 321,
+      "path": "v3/kernel/replay.py",
+      "subsystem": "kernel"
+    },
+    {
+      "description": "Structural Trace — Backward-compatibility re-exports from truth_model.",
+      "kind": "module",
+      "lines": 15,
+      "path": "v3/kernel/structure_trace.py",
+      "subsystem": "kernel"
+    },
+    {
+      "description": "Telemetry — Deterministic invariant telemetry projection from event streams.",
+      "kind": "module",
+      "lines": 273,
+      "path": "v3/kernel/telemetry.py",
+      "subsystem": "kernel"
+    },
+    {
+      "description": "Time Travel — Rewind, fork, and diff execution timelines.",
+      "kind": "module",
+      "lines": 432,
+      "path": "v3/kernel/time_travel.py",
+      "subsystem": "kernel"
+    },
+    {
+      "description": "Execution Truth Snapshot — Single source of architectural truth per execution.",
+      "kind": "module",
+      "lines": 251,
+      "path": "v3/kernel/truth_model.py",
+      "subsystem": "kernel"
+    },
+    {
+      "description": "MemoryAdapterStub — No-op memory adapter. Always connected, stores nothing.",
+      "kind": "module",
+      "lines": 75,
+      "path": "v3/memory/adapter_stub.py",
+      "subsystem": "memory"
+    },
+    {
+      "description": "Deterministic Memory Compaction — Projection optimization for episodic memory.",
+      "kind": "module",
+      "lines": 703,
+      "path": "v3/memory/compaction.py",
+      "subsystem": "memory"
+    },
+    {
+      "description": "Compaction Integrity — Deterministic integrity checks for memory compaction.",
+      "kind": "module",
+      "lines": 295,
+      "path": "v3/memory/compaction_integrity.py",
+      "subsystem": "memory"
+    },
+    {
+      "description": "EpisodicMemoryAdapter — Gateway adapter for EpisodicMemoryStore.",
+      "kind": "module",
+      "lines": 256,
+      "path": "v3/memory/episodic_adapter.py",
+      "subsystem": "memory"
+    },
+    {
+      "description": "EpisodicMemoryStore — Deterministic, append-only JSONL episodic memory store.",
+      "kind": "module",
+      "lines": 563,
+      "path": "v3/memory/episodic_store.py",
+      "subsystem": "memory"
+    },
+    {
+      "description": "Index Integrity — Deterministic integrity checks for SemanticMemoryIndex.",
+      "kind": "module",
+      "lines": 216,
+      "path": "v3/memory/index_integrity.py",
+      "subsystem": "memory"
+    },
+    {
+      "description": "Memory Integrity — Deterministic integrity checks for episodic memory store.",
+      "kind": "module",
+      "lines": 225,
+      "path": "v3/memory/integrity.py",
+      "subsystem": "memory"
+    },
+    {
+      "description": "MemoryAdapter — Unified interface for external memory backends.",
+      "kind": "module",
+      "lines": 157,
+      "path": "v3/memory/memory_adapter_base.py",
+      "subsystem": "memory"
+    },
+    {
+      "description": "MemoryService v3.0 — Unified memory abstraction over mem0 + graphiti.",
+      "kind": "module",
+      "lines": 123,
+      "path": "v3/memory/memory_service.py",
+      "subsystem": "memory"
+    },
+    {
+      "description": "Provenance — Deterministic traceability chain for recall results.",
+      "kind": "module",
+      "lines": 276,
+      "path": "v3/memory/provenance.py",
+      "subsystem": "memory"
+    },
+    {
+      "description": "Truth-Linked Recall — Auditable memory recall with full provenance.",
+      "kind": "module",
+      "lines": 484,
+      "path": "v3/memory/recall.py",
+      "subsystem": "memory"
+    },
+    {
+      "description": "MemoryRetrievalRuntime — Retrieval layer using SemanticMemoryIndex.",
+      "kind": "module",
+      "lines": 315,
+      "path": "v3/memory/retrieval.py",
+      "subsystem": "memory"
+    },
+    {
+      "description": "MemoryRuntime — Unified facade for the complete memory pipeline.",
+      "kind": "module",
+      "lines": 540,
+      "path": "v3/memory/runtime.py",
+      "subsystem": "memory"
+    },
+    {
+      "description": "SemanticMemoryIndex — Deterministic lexical semantic index for episodic memory.",
+      "kind": "module",
+      "lines": 521,
+      "path": "v3/memory/semantic_index.py",
+      "subsystem": "memory"
+    },
+    {
+      "description": "MemorySystemReport — Unified integrity report across all memory subsystems.",
+      "kind": "module",
+      "lines": 218,
+      "path": "v3/memory/system_report.py",
+      "subsystem": "memory"
+    },
+    {
+      "description": "Complexity Analyzer — Deterministic AST-based complexity measurement.",
+      "kind": "module",
+      "lines": 511,
+      "path": "v3/quality/analyze_complexity.py",
+      "subsystem": "quality"
+    },
+    {
+      "description": "Complexity Budget — Deterministic value-based gating for Phase 5A.",
+      "kind": "module",
+      "lines": 368,
+      "path": "v3/quality/complexity_budget.py",
+      "subsystem": "quality"
+    },
+    {
+      "description": "Phase Gate — Deterministic gating for Phase 5A.",
+      "kind": "module",
+      "lines": 438,
+      "path": "v3/quality/phase_gate.py",
+      "subsystem": "quality"
+    },
+    {
+      "description": "Clone Plan — Safe, auditable clone plan for external repositories.",
+      "kind": "module",
+      "lines": 391,
+      "path": "v3/intake/clone_plan.py",
+      "subsystem": "intake"
+    },
+    {
+      "description": "Repo Intake Pipeline — Deterministic repository assessment.",
+      "kind": "module",
+      "lines": 750,
+      "path": "v3/intake/repo_intake.py",
+      "subsystem": "intake"
+    },
+    {
+      "description": "Repo Intake Profiles — Pre-built profiles for 14 known repositories.",
+      "kind": "module",
+      "lines": 384,
+      "path": "v3/intake/repo_profiles.py",
+      "subsystem": "intake"
+    },
+    {
+      "description": "Repo Intake Rules — Interpretable classifier rules.",
+      "kind": "module",
+      "lines": 302,
+      "path": "v3/intake/rules.py",
+      "subsystem": "intake"
+    },
+    {
+      "description": "External Tool Registry — Maps repo intake decisions to tool use modes.",
+      "kind": "module",
+      "lines": 469,
+      "path": "v3/intake/tool_registry.py",
+      "subsystem": "intake"
+    },
+    {
+      "description": "SystemKernel v3.0 — Developer CLI.",
+      "kind": "module",
+      "lines": 1005,
+      "path": "v3/cli/systemkernel.py",
+      "subsystem": "cli"
+    },
+    {
+      "description": "Project Inventory — Complete file/module inventory for SystemKernel v3.0.",
+      "kind": "module",
+      "lines": 418,
+      "path": "v3/release/inventory.py",
+      "subsystem": "release"
+    },
+    {
+      "description": "Release Notes — Generate SystemKernel v3.0 release notes.",
+      "kind": "module",
+      "lines": 303,
+      "path": "v3/release/release_notes.py",
+      "subsystem": "release"
+    },
+    {
+      "description": "Validation Matrix — Release-grade validation for SystemKernel v3.0.",
+      "kind": "module",
+      "lines": 568,
+      "path": "v3/release/validation_matrix.py",
+      "subsystem": "release"
+    },
+    {
+      "description": "ToolAdapter — Unified external tool invocation protocol.",
+      "kind": "module",
+      "lines": 128,
+      "path": "v3/tools/tool_adapter_base.py",
+      "subsystem": "tools"
+    },
+    {
+      "description": "7 test functions",
+      "kind": "test",
+      "lines": 269,
+      "path": "v3/tests/test_architecture_diff.py",
+      "subsystem": "tests"
+    },
+    {
+      "description": "7 test functions",
+      "kind": "test",
+      "lines": 262,
+      "path": "v3/tests/test_architecture_guard.py",
+      "subsystem": "tests"
+    },
+    {
+      "description": "9 test functions",
+      "kind": "test",
+      "lines": 567,
+      "path": "v3/tests/test_checkpoint_runtime.py",
+      "subsystem": "tests"
+    },
+    {
+      "description": "41 test functions",
+      "kind": "test",
+      "lines": 932,
+      "path": "v3/tests/test_complexity_budget.py",
+      "subsystem": "tests"
+    },
+    {
+      "description": "26 test functions",
+      "kind": "test",
+      "lines": 598,
+      "path": "v3/tests/test_developer_cli.py",
+      "subsystem": "tests"
+    },
+    {
+      "description": "19 test functions",
+      "kind": "test",
+      "lines": 826,
+      "path": "v3/tests/test_episodic_memory_store.py",
+      "subsystem": "tests"
+    },
+    {
+      "description": "11 test functions",
+      "kind": "test",
+      "lines": 589,
+      "path": "v3/tests/test_event_runtime.py",
+      "subsystem": "tests"
+    },
+    {
+      "description": "35 test functions",
+      "kind": "test",
+      "lines": 844,
+      "path": "v3/tests/test_external_tool_registry.py",
+      "subsystem": "tests"
+    },
+    {
+      "description": "19 test functions",
+      "kind": "test",
+      "lines": 421,
+      "path": "v3/tests/test_golden_path.py",
+      "subsystem": "tests"
+    },
+    {
+      "description": "7 test functions",
+      "kind": "test",
+      "lines": 713,
+      "path": "v3/tests/test_kernel_invariants.py",
+      "subsystem": "tests"
+    },
+    {
+      "description": "31 test functions",
+      "kind": "test",
+      "lines": 707,
+      "path": "v3/tests/test_memory_boundary.py",
+      "subsystem": "tests"
+    },
+    {
+      "description": "33 test functions",
+      "kind": "test",
+      "lines": 1074,
+      "path": "v3/tests/test_memory_compaction.py",
+      "subsystem": "tests"
+    },
+    {
+      "description": "30 test functions",
+      "kind": "test",
+      "lines": 1016,
+      "path": "v3/tests/test_memory_runtime_finalization.py",
+      "subsystem": "tests"
+    },
+    {
+      "description": "12 test functions",
+      "kind": "test",
+      "lines": 683,
+      "path": "v3/tests/test_observability_graph.py",
+      "subsystem": "tests"
+    },
+    {
+      "description": "30 test functions",
+      "kind": "test",
+      "lines": 653,
+      "path": "v3/tests/test_release_freeze.py",
+      "subsystem": "tests"
+    },
+    {
+      "description": "36 test functions",
+      "kind": "test",
+      "lines": 748,
+      "path": "v3/tests/test_repo_intake.py",
+      "subsystem": "tests"
+    },
+    {
+      "description": "17 test functions",
+      "kind": "test",
+      "lines": 695,
+      "path": "v3/tests/test_semantic_memory_index.py",
+      "subsystem": "tests"
+    },
+    {
+      "description": "18 test functions",
+      "kind": "test",
+      "lines": 684,
+      "path": "v3/tests/test_truth_linked_recall.py",
+      "subsystem": "tests"
+    },
+    {
+      "description": "4,178 bytes",
+      "kind": "report_markdown",
+      "lines": 0,
+      "path": "v3/exports/architecture_report.md",
+      "subsystem": "exports"
+    },
+    {
+      "description": "2,344 bytes",
+      "kind": "report_markdown",
+      "lines": 0,
+      "path": "v3/exports/checkpoint_lifecycle.md",
+      "subsystem": "exports"
+    },
+    {
+      "description": "3,421 bytes",
+      "kind": "report_json",
+      "lines": 0,
+      "path": "v3/exports/compacted_memory_projection.json",
+      "subsystem": "exports"
+    },
+    {
+      "description": "3,348 bytes",
+      "kind": "report_markdown",
+      "lines": 0,
+      "path": "v3/exports/complexity_budget_architecture.md",
+      "subsystem": "exports"
+    },
+    {
+      "description": "36,337 bytes",
+      "kind": "report_json",
+      "lines": 0,
+      "path": "v3/exports/complexity_budget_report.json",
+      "subsystem": "exports"
+    },
+    {
+      "description": "1,535 bytes",
+      "kind": "report_json",
+      "lines": 0,
+      "path": "v3/exports/deterministic_replay_validation.json",
+      "subsystem": "exports"
+    },
+    {
+      "description": "3,249 bytes",
+      "kind": "report_markdown",
+      "lines": 0,
+      "path": "v3/exports/developer_cli_architecture.md",
+      "subsystem": "exports"
+    },
+    {
+      "description": "5,172 bytes",
+      "kind": "report_markdown",
+      "lines": 0,
+      "path": "v3/exports/episodic_memory_architecture.md",
+      "subsystem": "exports"
+    },
+    {
+      "description": "1,084 bytes",
+      "kind": "report_json",
+      "lines": 0,
+      "path": "v3/exports/episodic_memory_integrity_report.json",
+      "subsystem": "exports"
+    },
+    {
+      "description": "2,431 bytes",
+      "kind": "report_markdown",
+      "lines": 0,
+      "path": "v3/exports/event_reduction_flow.md",
+      "subsystem": "exports"
+    },
+    {
+      "description": "2,816 bytes",
+      "kind": "report_markdown",
+      "lines": 0,
+      "path": "v3/exports/event_sourcing_architecture.md",
+      "subsystem": "exports"
+    },
+    {
+      "description": "1,590 bytes",
+      "kind": "report_json",
+      "lines": 0,
+      "path": "v3/exports/event_store_integrity_report.json",
+      "subsystem": "exports"
+    },
+    {
+      "description": "1,566 bytes",
+      "kind": "report_json",
+      "lines": 0,
+      "path": "v3/exports/execution_report.json",
+      "subsystem": "exports"
+    },
+    {
+      "description": "13,535 bytes",
+      "kind": "report_json",
+      "lines": 0,
+      "path": "v3/exports/external_tool_registry.json",
+      "subsystem": "exports"
+    },
+    {
+      "description": "1,875 bytes",
+      "kind": "report_json",
+      "lines": 0,
+      "path": "v3/exports/fork_replay_validation.json",
+      "subsystem": "exports"
+    },
+    {
+      "description": "12,401 bytes",
+      "kind": "data",
+      "lines": 0,
+      "path": "v3/exports/generate_4d6_reports.py",
+      "subsystem": "exports"
+    },
+    {
+      "description": "10,240 bytes",
+      "kind": "data",
+      "lines": 0,
+      "path": "v3/exports/generate_compaction_reports.py",
+      "subsystem": "exports"
+    },
+    {
+      "description": "8,010 bytes",
+      "kind": "report_json",
+      "lines": 0,
+      "path": "v3/exports/github_clone_plan.json",
+      "subsystem": "exports"
+    },
+    {
+      "description": "5,431 bytes",
+      "kind": "report_markdown",
+      "lines": 0,
+      "path": "v3/exports/github_clone_plan.md",
+      "subsystem": "exports"
+    },
+    {
+      "description": "2,035 bytes",
+      "kind": "report_markdown",
+      "lines": 0,
+      "path": "v3/exports/golden_path_report.md",
+      "subsystem": "exports"
+    },
+    {
+      "description": "1,087 bytes",
+      "kind": "report_json",
+      "lines": 0,
+      "path": "v3/exports/invariant_telemetry_report.json",
+      "subsystem": "exports"
+    },
+    {
+      "description": "975 bytes",
+      "kind": "report_json",
+      "lines": 0,
+      "path": "v3/exports/kernel_validity_report.json",
+      "subsystem": "exports"
+    },
+    {
+      "description": "712 bytes",
+      "kind": "report_json",
+      "lines": 0,
+      "path": "v3/exports/manual_step_reduction_report.json",
+      "subsystem": "exports"
+    },
+    {
+      "description": "4,764 bytes",
+      "kind": "report_markdown",
+      "lines": 0,
+      "path": "v3/exports/memory_compaction_architecture.md",
+      "subsystem": "exports"
+    },
+    {
+      "description": "983 bytes",
+      "kind": "report_json",
+      "lines": 0,
+      "path": "v3/exports/memory_compaction_integrity_report.json",
+      "subsystem": "exports"
+    },
+    {
+      "description": "701 bytes",
+      "kind": "report_json",
+      "lines": 0,
+      "path": "v3/exports/memory_removability_report.json",
+      "subsystem": "exports"
+    },
+    {
+      "description": "3,953 bytes",
+      "kind": "report_markdown",
+      "lines": 0,
+      "path": "v3/exports/memory_runtime_architecture.md",
+      "subsystem": "exports"
+    },
+    {
+      "description": "885 bytes",
+      "kind": "report_json",
+      "lines": 0,
+      "path": "v3/exports/memory_system_report.json",
+      "subsystem": "exports"
+    },
+    {
+      "description": "4,778 bytes",
+      "kind": "report_markdown",
+      "lines": 0,
+      "path": "v3/exports/observability_graph_architecture.md",
+      "subsystem": "exports"
+    },
+    {
+      "description": "4,057 bytes",
+      "kind": "report_markdown",
+      "lines": 0,
+      "path": "v3/exports/phase_4d_completion_report.md",
+      "subsystem": "exports"
+    },
+    {
+      "description": "3,218 bytes",
+      "kind": "report_markdown",
+      "lines": 0,
+      "path": "v3/exports/phase_5a_gate_report.md",
+      "subsystem": "exports"
+    },
+    {
+      "description": "3,389 bytes",
+      "kind": "report_markdown",
+      "lines": 0,
+      "path": "v3/exports/phase_5b_cli_report.md",
+      "subsystem": "exports"
+    },
+    {
+      "description": "2,321 bytes",
+      "kind": "report_markdown",
+      "lines": 0,
+      "path": "v3/exports/phase_5c_examples_report.md",
+      "subsystem": "exports"
+    },
+    {
+      "description": "3,096 bytes",
+      "kind": "report_markdown",
+      "lines": 0,
+      "path": "v3/exports/phase_5d_repo_intake_report.md",
+      "subsystem": "exports"
+    },
+    {
+      "description": "4,814 bytes",
+      "kind": "report_markdown",
+      "lines": 0,
+      "path": "v3/exports/phase_5e_external_registry_report.md",
+      "subsystem": "exports"
+    },
+    {
+      "description": "504 bytes",
+      "kind": "report_json",
+      "lines": 0,
+      "path": "v3/exports/recall_integrity_report.json",
+      "subsystem": "exports"
+    },
+    {
+      "description": "869 bytes",
+      "kind": "report_json",
+      "lines": 0,
+      "path": "v3/exports/recall_provenance_report.json",
+      "subsystem": "exports"
+    },
+    {
+      "description": "13,839 bytes",
+      "kind": "report_json",
+      "lines": 0,
+      "path": "v3/exports/release_validation_matrix.json",
+      "subsystem": "exports"
+    },
+    {
+      "description": "4,162 bytes",
+      "kind": "report_markdown",
+      "lines": 0,
+      "path": "v3/exports/repo_intake_architecture.md",
+      "subsystem": "exports"
+    },
+    {
+      "description": "16,106 bytes",
+      "kind": "report_json",
+      "lines": 0,
+      "path": "v3/exports/repo_intake_summary.json",
+      "subsystem": "exports"
+    },
+    {
+      "description": "4,025 bytes",
+      "kind": "report_json",
+      "lines": 0,
+      "path": "v3/exports/retrieval_runtime_report.json",
+      "subsystem": "exports"
+    },
+    {
+      "description": "3,556 bytes",
+      "kind": "report_markdown",
+      "lines": 0,
+      "path": "v3/exports/runtime_graph_model.md",
+      "subsystem": "exports"
+    },
+    {
+      "description": "1,373 bytes",
+      "kind": "report_json",
+      "lines": 0,
+      "path": "v3/exports/runtime_metrics_report.json",
+      "subsystem": "exports"
+    },
+    {
+      "description": "1,896 bytes",
+      "kind": "report_markdown",
+      "lines": 0,
+      "path": "v3/exports/runtime_state_transition.md",
+      "subsystem": "exports"
+    },
+    {
+      "description": "515 bytes",
+      "kind": "report_json",
+      "lines": 0,
+      "path": "v3/exports/semantic_index_integrity_report.json",
+      "subsystem": "exports"
+    },
+    {
+      "description": "5,843 bytes",
+      "kind": "report_markdown",
+      "lines": 0,
+      "path": "v3/exports/semantic_memory_index_architecture.md",
+      "subsystem": "exports"
+    },
+    {
+      "description": "2,335 bytes",
+      "kind": "report_markdown",
+      "lines": 0,
+      "path": "v3/exports/time_travel_runtime.md",
+      "subsystem": "exports"
+    },
+    {
+      "description": "2,587 bytes",
+      "kind": "report_markdown",
+      "lines": 0,
+      "path": "v3/exports/truth_linked_recall_architecture.md",
+      "subsystem": "exports"
+    },
+    {
+      "description": "245 bytes",
+      "kind": "data_jsonl",
+      "lines": 0,
+      "path": "v3/exports/usage_sample.jsonl",
+      "subsystem": "exports"
+    },
+    {
+      "description": "CLI command: clone-list",
+      "kind": "cli_command",
+      "lines": 0,
+      "path": "v3/cli/systemkernel.py::clone-list",
+      "subsystem": "cli"
+    },
+    {
+      "description": "CLI command: clone-plan",
+      "kind": "cli_command",
+      "lines": 0,
+      "path": "v3/cli/systemkernel.py::clone-plan",
+      "subsystem": "cli"
+    },
+    {
+      "description": "CLI command: doctor",
+      "kind": "cli_command",
+      "lines": 0,
+      "path": "v3/cli/systemkernel.py::doctor",
+      "subsystem": "cli"
+    },
+    {
+      "description": "CLI command: intake",
+      "kind": "cli_command",
+      "lines": 0,
+      "path": "v3/cli/systemkernel.py::intake",
+      "subsystem": "cli"
+    },
+    {
+      "description": "CLI command: list",
+      "kind": "cli_command",
+      "lines": 0,
+      "path": "v3/cli/systemkernel.py::list",
+      "subsystem": "cli"
+    },
+    {
+      "description": "CLI command: memory",
+      "kind": "cli_command",
+      "lines": 0,
+      "path": "v3/cli/systemkernel.py::memory",
+      "subsystem": "cli"
+    },
+    {
+      "description": "CLI command: profile",
+      "kind": "cli_command",
+      "lines": 0,
+      "path": "v3/cli/systemkernel.py::profile",
+      "subsystem": "cli"
+    },
+    {
+      "description": "CLI command: quality",
+      "kind": "cli_command",
+      "lines": 0,
+      "path": "v3/cli/systemkernel.py::quality",
+      "subsystem": "cli"
+    },
+    {
+      "description": "CLI command: registry",
+      "kind": "cli_command",
+      "lines": 0,
+      "path": "v3/cli/systemkernel.py::registry",
+      "subsystem": "cli"
+    },
+    {
+      "description": "CLI command: reports",
+      "kind": "cli_command",
+      "lines": 0,
+      "path": "v3/cli/systemkernel.py::reports",
+      "subsystem": "cli"
+    },
+    {
+      "description": "CLI command: status",
+      "kind": "cli_command",
+      "lines": 0,
+      "path": "v3/cli/systemkernel.py::status",
+      "subsystem": "cli"
+    },
+    {
+      "description": "CLI command: summarize",
+      "kind": "cli_command",
+      "lines": 0,
+      "path": "v3/cli/systemkernel.py::summarize",
+      "subsystem": "cli"
+    },
+    {
+      "description": "execution_engine_single_loop",
+      "kind": "invariant",
+      "lines": 0,
+      "path": "v3/kernel/invariants.py",
+      "subsystem": "kernel"
+    },
+    {
+      "description": "memory_gateway_non_interference",
+      "kind": "invariant",
+      "lines": 0,
+      "path": "v3/kernel/invariants.py",
+      "subsystem": "kernel"
+    },
+    {
+      "description": "tools_llm_free",
+      "kind": "invariant",
+      "lines": 0,
+      "path": "v3/kernel/invariants.py",
+      "subsystem": "kernel"
+    },
+    {
+      "description": "pipeline_immutability",
+      "kind": "invariant",
+      "lines": 0,
+      "path": "v3/kernel/invariants.py",
+      "subsystem": "kernel"
+    },
+    {
+      "description": "memory_side_effect_only",
+      "kind": "invariant",
+      "lines": 0,
+      "path": "v3/kernel/invariants.py",
+      "subsystem": "kernel"
+    },
+    {
+      "description": "observability_read_only",
+      "kind": "invariant",
+      "lines": 0,
+      "path": "v3/kernel/invariants.py",
+      "subsystem": "kernel"
+    },
+    {
+      "description": "use_mode=architecture_reference, priority=C",
+      "kind": "tool_entry",
+      "lines": 0,
+      "path": "external_registry::LangGraph",
+      "subsystem": "external_registry"
+    },
+    {
+      "description": "use_mode=architecture_reference, priority=C",
+      "kind": "tool_entry",
+      "lines": 0,
+      "path": "external_registry::CrewAI",
+      "subsystem": "external_registry"
+    },
+    {
+      "description": "use_mode=external_service, priority=B",
+      "kind": "tool_entry",
+      "lines": 0,
+      "path": "external_registry::OpenAI Swarm",
+      "subsystem": "external_registry"
+    },
+    {
+      "description": "use_mode=format_reference, priority=S",
+      "kind": "tool_entry",
+      "lines": 0,
+      "path": "external_registry::Anthropic Skills",
+      "subsystem": "external_registry"
+    },
+    {
+      "description": "use_mode=external_service, priority=C",
+      "kind": "tool_entry",
+      "lines": 0,
+      "path": "external_registry::mem0",
+      "subsystem": "external_registry"
+    },
+    {
+      "description": "use_mode=external_service, priority=B",
+      "kind": "tool_entry",
+      "lines": 0,
+      "path": "external_registry::Graphiti",
+      "subsystem": "external_registry"
+    },
+    {
+      "description": "use_mode=direct_tool, priority=S",
+      "kind": "tool_entry",
+      "lines": 0,
+      "path": "external_registry::Repomix",
+      "subsystem": "external_registry"
+    },
+    {
+      "description": "use_mode=direct_tool, priority=S",
+      "kind": "tool_entry",
+      "lines": 0,
+      "path": "external_registry::ccusage",
+      "subsystem": "external_registry"
+    },
+    {
+      "description": "use_mode=external_service, priority=B",
+      "kind": "tool_entry",
+      "lines": 0,
+      "path": "external_registry::Continue",
+      "subsystem": "external_registry"
+    },
+    {
+      "description": "use_mode=source_reference, priority=S",
+      "kind": "tool_entry",
+      "lines": 0,
+      "path": "external_registry::AppFlowy",
+      "subsystem": "external_registry"
+    },
+    {
+      "description": "use_mode=source_reference, priority=S",
+      "kind": "tool_entry",
+      "lines": 0,
+      "path": "external_registry::JupyterLab",
+      "subsystem": "external_registry"
+    },
+    {
+      "description": "use_mode=source_reference, priority=S",
+      "kind": "tool_entry",
+      "lines": 0,
+      "path": "external_registry::SuperClaude",
+      "subsystem": "external_registry"
+    },
+    {
+      "description": "use_mode=architecture_reference, priority=C",
+      "kind": "tool_entry",
+      "lines": 0,
+      "path": "external_registry::awesome-claude-code",
+      "subsystem": "external_registry"
+    },
+    {
+      "description": "use_mode=architecture_reference, priority=C",
+      "kind": "tool_entry",
+      "lines": 0,
+      "path": "external_registry::Awesome-Prompt-Engineering",
+      "subsystem": "external_registry"
+    },
+    {
+      "description": "Configuration file",
+      "kind": "config",
+      "lines": 22,
+      "path": "v3/config/kernel_config.yaml",
+      "subsystem": "config"
+    },
+    {
+      "description": "Configuration file",
+      "kind": "config",
+      "lines": 23,
+      "path": "v3/config/memory_config.yaml",
+      "subsystem": "config"
+    },
+    {
+      "description": "Configuration file",
+      "kind": "config",
+      "lines": 18,
+      "path": "v3/config/observability_config.yaml",
+      "subsystem": "config"
+    },
+    {
+      "description": "Configuration file",
+      "kind": "config",
+      "lines": 25,
+      "path": "v3/config/tools_config.yaml",
+      "subsystem": "config"
+    },
+    {
+      "description": "Documentation",
+      "kind": "documentation",
+      "lines": 144,
+      "path": "docs/ARCHITECTURE_OVERVIEW.md",
+      "subsystem": "docs"
+    },
+    {
+      "description": "Documentation",
+      "kind": "documentation",
+      "lines": 205,
+      "path": "docs/KERNEL_BOUNDARY.md",
+      "subsystem": "docs"
+    },
+    {
+      "description": "Documentation",
+      "kind": "documentation",
+      "lines": 84,
+      "path": "docs/QUICKSTART.md",
+      "subsystem": "docs"
+    },
+    {
+      "description": "Documentation",
+      "kind": "documentation",
+      "lines": 278,
+      "path": "docs/complexity-risk-report.md",
+      "subsystem": "docs"
+    },
+    {
+      "description": "Documentation",
+      "kind": "documentation",
+      "lines": 1041,
+      "path": "docs/v3-build-plan.md",
+      "subsystem": "docs"
+    },
+    {
+      "description": "Golden path example",
+      "kind": "example",
+      "lines": 129,
+      "path": "examples/basic_usage.py",
+      "subsystem": "examples"
+    },
+    {
+      "description": "Golden path example",
+      "kind": "example",
+      "lines": 77,
+      "path": "examples/golden_path/README.md",
+      "subsystem": "examples"
+    },
+    {
+      "description": "Golden path example",
+      "kind": "example",
+      "lines": 36,
+      "path": "examples/golden_path/expected_summary.json",
+      "subsystem": "examples"
+    },
+    {
+      "description": "Golden path example",
+      "kind": "example",
+      "lines": 451,
+      "path": "examples/golden_path/run_golden_path.py",
+      "subsystem": "examples"
+    },
+    {
+      "description": "Golden path example",
+      "kind": "example",
+      "lines": 1172,
+      "path": "examples/golden_path/output/complexity_budget_report.json",
+      "subsystem": "examples"
+    },
+    {
+      "description": "Golden path example",
+      "kind": "example",
+      "lines": 36,
+      "path": "examples/golden_path/output/golden_path_summary.json",
+      "subsystem": "examples"
+    },
+    {
+      "description": "Golden path example",
+      "kind": "example",
+      "lines": 40,
+      "path": "examples/golden_path/output/memory_system_report.json",
+      "subsystem": "examples"
+    },
+    {
+      "description": "SystemKernel v3.0 — Runnable Entry Point (Phase 2).",
+      "kind": "module",
+      "lines": 233,
+      "path": "v3/main.py",
+      "subsystem": "kernel"
+    }
+  ],
+  "release_hash": "55b1632af7e37cd7",
+  "release_version": "3.0.0",
+  "summary": {
+    "by_kind": {
+      "cli_command": 12,
+      "config": 4,
+      "data": 2,
+      "data_jsonl": 1,
+      "documentation": 5,
+      "example": 7,
+      "invariant": 6,
+      "module": 47,
+      "report_json": 22,
+      "report_markdown": 24,
+      "test": 18,
+      "tool_entry": 14
+    },
+    "by_subsystem": {
+      "cli": 13,
+      "config": 4,
+      "docs": 5,
+      "examples": 7,
+      "exports": 49,
+      "external_registry": 14,
+      "intake": 5,
+      "kernel": 25,
+      "memory": 15,
+      "quality": 3,
+      "release": 3,
+      "tests": 18,
+      "tools": 1
+    },
+    "total_entries": 162,
+    "total_lines": 33206
+  }
+}

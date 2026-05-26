@@ -1,0 +1,23 @@
+# SystemKernel v3.0 — Memory Config
+# Phase 2: mem0 + graphiti integration (PLACEHOLDER)
+
+memory:
+  working:
+    backend: in_process
+    max_entries: 100
+
+  episodic:
+    backend: mem0          # mem0 | in_process
+    vector_store: qdrant   # qdrant | milvus | chromadb
+    vector_store_uri: http://localhost:6333
+    embedder: openai       # openai | local | ollama
+    embedder_model: text-embedding-3-small
+    default_ttl_s: 604800  # 7 days
+    enabled: false         # Phase 2
+
+  semantic:
+    backend: graphiti      # graphiti | in_process
+    graph_db: falkordb     # falkordb | neo4j | kuzu
+    graph_db_uri: redis://localhost:6379
+    llm_model: claude-haiku-4-5
+    enabled: false         # Phase 2

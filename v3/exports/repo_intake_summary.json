@@ -1,0 +1,535 @@
+{
+  "phase": "5D",
+  "total_profiles": 14,
+  "decision_distribution": {
+    "DIRECT_CLONE": 6,
+    "EXTERNAL_EXTENSION": 4,
+    "ARCHITECTURE_REFERENCE": 4,
+    "REJECT": 0
+  },
+  "all_match": true,
+  "direct_clone_candidates": [
+    "Anthropic Skills",
+    "Repomix",
+    "ccusage",
+    "AppFlowy",
+    "JupyterLab",
+    "SuperClaude"
+  ],
+  "external_extension_candidates": [
+    "OpenAI Swarm",
+    "mem0",
+    "Graphiti",
+    "Continue"
+  ],
+  "architecture_reference_candidates": [
+    "LangGraph",
+    "CrewAI",
+    "awesome-claude-code",
+    "Awesome-Prompt-Engineering"
+  ],
+  "results": [
+    {
+      "name": "LangGraph",
+      "url": "https://github.com/langchain-ai/langgraph",
+      "category_hint": "agent_runtime",
+      "intended_use": "architecture_reference",
+      "repo_type": "agent_runtime",
+      "expected_decision": "ARCHITECTURE_REFERENCE",
+      "decision": "ARCHITECTURE_REFERENCE",
+      "match": true,
+      "priority": "C",
+      "cc_value": 8.0,
+      "sk_value": 8.0,
+      "complexity_risk": 2.5,
+      "purity_risk": 6.0,
+      "maintenance_risk": 0.0,
+      "final_score": 5.88,
+      "rule_id": "R02",
+      "reasons": [
+        "ARCHITECTURE_REFERENCE: agent framework dependencies detected"
+      ],
+      "known_risks": [
+        "Heavy langchain dependency",
+        "Agent execution model conflicts with SystemKernel",
+        "LLM-driven control flow"
+      ],
+      "recommended_target_dir": "F:/Claude/Reference/langgraph",
+      "allowed_actions": [
+        "study_architecture",
+        "extract_design_patterns",
+        "document_findings"
+      ],
+      "forbidden_actions": [
+        "clone_to_github",
+        "import_into_project",
+        "run_as_dependency",
+        "embed_as_kernel_module"
+      ]
+    },
+    {
+      "name": "CrewAI",
+      "url": "https://github.com/crewAIInc/crewAI",
+      "category_hint": "agent_runtime",
+      "intended_use": "architecture_reference",
+      "repo_type": "agent_runtime",
+      "expected_decision": "ARCHITECTURE_REFERENCE",
+      "decision": "ARCHITECTURE_REFERENCE",
+      "match": true,
+      "priority": "C",
+      "cc_value": 5.0,
+      "sk_value": 5.0,
+      "complexity_risk": 2.5,
+      "purity_risk": 10.0,
+      "maintenance_risk": 0.0,
+      "final_score": 1.88,
+      "rule_id": "R02",
+      "reasons": [
+        "ARCHITECTURE_REFERENCE: agent framework dependencies detected"
+      ],
+      "known_risks": [
+        "Multi-agent framework",
+        "LLM dependency (openai/anthropic)",
+        "Competing execution model"
+      ],
+      "recommended_target_dir": "F:/Claude/Reference/crewai",
+      "allowed_actions": [
+        "study_architecture",
+        "extract_design_patterns",
+        "document_findings"
+      ],
+      "forbidden_actions": [
+        "clone_to_github",
+        "import_into_project",
+        "run_as_dependency",
+        "embed_as_kernel_module"
+      ]
+    },
+    {
+      "name": "OpenAI Swarm",
+      "url": "https://github.com/openai/swarm",
+      "category_hint": "agent_runtime",
+      "intended_use": "architecture_reference",
+      "repo_type": "unknown",
+      "expected_decision": "EXTERNAL_EXTENSION",
+      "decision": "EXTERNAL_EXTENSION",
+      "match": true,
+      "priority": "B",
+      "cc_value": 6.0,
+      "sk_value": 8.0,
+      "complexity_risk": 1.0,
+      "purity_risk": 5.0,
+      "maintenance_risk": 0.0,
+      "final_score": 5.5,
+      "rule_id": "R03",
+      "reasons": [
+        "EXTERNAL_EXTENSION: LLM SDK dependencies detected"
+      ],
+      "known_risks": [
+        "OpenAI API dependency",
+        "Experimental agent framework"
+      ],
+      "recommended_target_dir": "F:/Claude/Github/_extensions/openai-swarm",
+      "allowed_actions": [
+        "clone_to_github_extensions",
+        "run_as_external_service",
+        "import_via_api",
+        "study_architecture"
+      ],
+      "forbidden_actions": [
+        "directly_import_into_kernel",
+        "embed_as_kernel_module",
+        "modify_kernel_boundary"
+      ]
+    },
+    {
+      "name": "Anthropic Skills",
+      "url": "https://github.com/anthropics/skills",
+      "category_hint": "skill_system",
+      "intended_use": "claude_code_enhancement",
+      "repo_type": "claude_code_extension",
+      "expected_decision": "DIRECT_CLONE",
+      "decision": "DIRECT_CLONE",
+      "match": true,
+      "priority": "S",
+      "cc_value": 10.0,
+      "sk_value": 10.0,
+      "complexity_risk": 0.0,
+      "purity_risk": 0.0,
+      "maintenance_risk": 0.0,
+      "final_score": 10.0,
+      "rule_id": "R01",
+      "reasons": [
+        "DIRECT_CLONE: high value, well-documented, low risk"
+      ],
+      "known_risks": [],
+      "recommended_target_dir": "F:/Claude/Github/anthropic-skills",
+      "allowed_actions": [
+        "clone_to_github",
+        "import_as_extension",
+        "run_locally",
+        "study_architecture"
+      ],
+      "forbidden_actions": [
+        "modify_kernel_for_integration",
+        "embed_as_kernel_module"
+      ]
+    },
+    {
+      "name": "mem0",
+      "url": "https://github.com/mem0ai/mem0",
+      "category_hint": "memory_system",
+      "intended_use": "architecture_reference",
+      "repo_type": "memory_system",
+      "expected_decision": "EXTERNAL_EXTENSION",
+      "decision": "EXTERNAL_EXTENSION",
+      "match": true,
+      "priority": "C",
+      "cc_value": 4.0,
+      "sk_value": 8.0,
+      "complexity_risk": 1.0,
+      "purity_risk": 6.0,
+      "maintenance_risk": 0.0,
+      "final_score": 4.25,
+      "rule_id": "R04",
+      "reasons": [
+        "EXTERNAL_EXTENSION: memory/heavy deps require external deployment"
+      ],
+      "known_risks": [
+        "Vector database dependency",
+        "LLM embedding dependency",
+        "Memory system conflicts with SK"
+      ],
+      "recommended_target_dir": "F:/Claude/Github/_extensions/mem0",
+      "allowed_actions": [
+        "clone_to_github_extensions",
+        "run_as_external_service",
+        "import_via_api",
+        "study_architecture"
+      ],
+      "forbidden_actions": [
+        "directly_import_into_kernel",
+        "embed_as_kernel_module",
+        "modify_kernel_boundary"
+      ]
+    },
+    {
+      "name": "Graphiti",
+      "url": "https://github.com/getzep/graphiti",
+      "category_hint": "memory_system",
+      "intended_use": "architecture_reference",
+      "repo_type": "unknown",
+      "expected_decision": "EXTERNAL_EXTENSION",
+      "decision": "EXTERNAL_EXTENSION",
+      "match": true,
+      "priority": "B",
+      "cc_value": 5.0,
+      "sk_value": 8.0,
+      "complexity_risk": 3.0,
+      "purity_risk": 5.0,
+      "maintenance_risk": 1.5,
+      "final_score": 4.5,
+      "rule_id": "R03",
+      "reasons": [
+        "EXTERNAL_EXTENSION: LLM SDK dependencies detected"
+      ],
+      "known_risks": [
+        "Neo4j/graph database dependency",
+        "LLM-based entity extraction",
+        "Memory system conflicts with SK"
+      ],
+      "recommended_target_dir": "F:/Claude/Github/_extensions/graphiti",
+      "allowed_actions": [
+        "clone_to_github_extensions",
+        "run_as_external_service",
+        "import_via_api",
+        "study_architecture"
+      ],
+      "forbidden_actions": [
+        "directly_import_into_kernel",
+        "embed_as_kernel_module",
+        "modify_kernel_boundary"
+      ]
+    },
+    {
+      "name": "Repomix",
+      "url": "https://github.com/yamadashy/repomix",
+      "category_hint": "context_tool",
+      "intended_use": "claude_code_enhancement",
+      "repo_type": "context_tool",
+      "expected_decision": "DIRECT_CLONE",
+      "decision": "DIRECT_CLONE",
+      "match": true,
+      "priority": "S",
+      "cc_value": 10.0,
+      "sk_value": 10.0,
+      "complexity_risk": 0.0,
+      "purity_risk": 0.0,
+      "maintenance_risk": 0.0,
+      "final_score": 10.0,
+      "rule_id": "R01",
+      "reasons": [
+        "DIRECT_CLONE: high value, well-documented, low risk"
+      ],
+      "known_risks": [],
+      "recommended_target_dir": "F:/Claude/Github/repomix",
+      "allowed_actions": [
+        "clone_to_github",
+        "import_as_extension",
+        "run_locally",
+        "study_architecture"
+      ],
+      "forbidden_actions": [
+        "modify_kernel_for_integration",
+        "embed_as_kernel_module"
+      ]
+    },
+    {
+      "name": "ccusage",
+      "url": "https://github.com/anthropics/ccusage",
+      "category_hint": "claude_code_extension",
+      "intended_use": "claude_code_enhancement",
+      "repo_type": "unknown",
+      "expected_decision": "DIRECT_CLONE",
+      "decision": "DIRECT_CLONE",
+      "match": true,
+      "priority": "S",
+      "cc_value": 10.0,
+      "sk_value": 10.0,
+      "complexity_risk": 0.0,
+      "purity_risk": 0.0,
+      "maintenance_risk": 0.0,
+      "final_score": 10.0,
+      "rule_id": "R01",
+      "reasons": [
+        "DIRECT_CLONE: high value, well-documented, low risk"
+      ],
+      "known_risks": [],
+      "recommended_target_dir": "F:/Claude/Github/ccusage",
+      "allowed_actions": [
+        "clone_to_github",
+        "import_as_extension",
+        "run_locally",
+        "study_architecture"
+      ],
+      "forbidden_actions": [
+        "modify_kernel_for_integration",
+        "embed_as_kernel_module"
+      ]
+    },
+    {
+      "name": "Continue",
+      "url": "https://github.com/continuedev/continue",
+      "category_hint": "claude_code_extension",
+      "intended_use": "claude_code_enhancement",
+      "repo_type": "unknown",
+      "expected_decision": "EXTERNAL_EXTENSION",
+      "decision": "EXTERNAL_EXTENSION",
+      "match": true,
+      "priority": "B",
+      "cc_value": 6.0,
+      "sk_value": 8.0,
+      "complexity_risk": 1.0,
+      "purity_risk": 5.0,
+      "maintenance_risk": 0.0,
+      "final_score": 5.5,
+      "rule_id": "R03",
+      "reasons": [
+        "EXTERNAL_EXTENSION: LLM SDK dependencies detected"
+      ],
+      "known_risks": [
+        "IDE-specific integration",
+        "LLM API dependencies"
+      ],
+      "recommended_target_dir": "F:/Claude/Github/_extensions/continue",
+      "allowed_actions": [
+        "clone_to_github_extensions",
+        "run_as_external_service",
+        "import_via_api",
+        "study_architecture"
+      ],
+      "forbidden_actions": [
+        "directly_import_into_kernel",
+        "embed_as_kernel_module",
+        "modify_kernel_boundary"
+      ]
+    },
+    {
+      "name": "AppFlowy",
+      "url": "https://github.com/AppFlowy-IO/appflowy",
+      "category_hint": "application",
+      "intended_use": "architecture_reference",
+      "repo_type": "unknown",
+      "expected_decision": "DIRECT_CLONE",
+      "decision": "DIRECT_CLONE",
+      "match": true,
+      "priority": "S",
+      "cc_value": 8.0,
+      "sk_value": 10.0,
+      "complexity_risk": 0.0,
+      "purity_risk": 0.0,
+      "maintenance_risk": 0.0,
+      "final_score": 9.0,
+      "rule_id": "R01",
+      "reasons": [
+        "DIRECT_CLONE: high value, well-documented, low risk"
+      ],
+      "known_risks": [
+        "Large Flutter/Rust codebase",
+        "Heavy dependency footprint"
+      ],
+      "recommended_target_dir": "F:/Claude/Github/appflowy",
+      "allowed_actions": [
+        "clone_to_github",
+        "import_as_extension",
+        "run_locally",
+        "study_architecture"
+      ],
+      "forbidden_actions": [
+        "modify_kernel_for_integration",
+        "embed_as_kernel_module"
+      ]
+    },
+    {
+      "name": "JupyterLab",
+      "url": "https://github.com/jupyterlab/jupyterlab",
+      "category_hint": "application",
+      "intended_use": "architecture_reference",
+      "repo_type": "unknown",
+      "expected_decision": "DIRECT_CLONE",
+      "decision": "DIRECT_CLONE",
+      "match": true,
+      "priority": "S",
+      "cc_value": 10.0,
+      "sk_value": 10.0,
+      "complexity_risk": 0.0,
+      "purity_risk": 0.0,
+      "maintenance_risk": 0.0,
+      "final_score": 10.0,
+      "rule_id": "R01",
+      "reasons": [
+        "DIRECT_CLONE: high value, well-documented, low risk"
+      ],
+      "known_risks": [
+        "Very large codebase",
+        "Heavy extension system"
+      ],
+      "recommended_target_dir": "F:/Claude/Github/jupyterlab",
+      "allowed_actions": [
+        "clone_to_github",
+        "import_as_extension",
+        "run_locally",
+        "study_architecture"
+      ],
+      "forbidden_actions": [
+        "modify_kernel_for_integration",
+        "embed_as_kernel_module"
+      ]
+    },
+    {
+      "name": "SuperClaude",
+      "url": "https://github.com/anthropics/SuperClaude",
+      "category_hint": "claude_code_extension",
+      "intended_use": "claude_code_enhancement",
+      "repo_type": "claude_code_extension",
+      "expected_decision": "DIRECT_CLONE",
+      "decision": "DIRECT_CLONE",
+      "match": true,
+      "priority": "S",
+      "cc_value": 9.0,
+      "sk_value": 10.0,
+      "complexity_risk": 0.0,
+      "purity_risk": 0.0,
+      "maintenance_risk": 0.0,
+      "final_score": 9.5,
+      "rule_id": "R01",
+      "reasons": [
+        "DIRECT_CLONE: high value, well-documented, low risk"
+      ],
+      "known_risks": [],
+      "recommended_target_dir": "F:/Claude/Github/superclaude",
+      "allowed_actions": [
+        "clone_to_github",
+        "import_as_extension",
+        "run_locally",
+        "study_architecture"
+      ],
+      "forbidden_actions": [
+        "modify_kernel_for_integration",
+        "embed_as_kernel_module"
+      ]
+    },
+    {
+      "name": "awesome-claude-code",
+      "url": "https://github.com/anthropics/awesome-claude-code",
+      "category_hint": "docs_only",
+      "intended_use": "architecture_reference",
+      "repo_type": "claude_code_extension",
+      "expected_decision": "ARCHITECTURE_REFERENCE",
+      "decision": "ARCHITECTURE_REFERENCE",
+      "match": true,
+      "priority": "C",
+      "cc_value": 7.0,
+      "sk_value": 6.0,
+      "complexity_risk": 0.0,
+      "purity_risk": 0.0,
+      "maintenance_risk": 5.0,
+      "final_score": 6.5,
+      "rule_id": "R09",
+      "reasons": [
+        "ARCHITECTURE_REFERENCE: insufficient documentation or value signals"
+      ],
+      "known_risks": [
+        "Documentation only, no runnable code"
+      ],
+      "recommended_target_dir": "F:/Claude/Reference/awesome-claude-code",
+      "allowed_actions": [
+        "study_architecture",
+        "extract_design_patterns",
+        "document_findings"
+      ],
+      "forbidden_actions": [
+        "clone_to_github",
+        "import_into_project",
+        "run_as_dependency",
+        "embed_as_kernel_module"
+      ]
+    },
+    {
+      "name": "Awesome-Prompt-Engineering",
+      "url": "https://github.com/promptslab/Awesome-Prompt-Engineering",
+      "category_hint": "docs_only",
+      "intended_use": "architecture_reference",
+      "repo_type": "docs_only",
+      "expected_decision": "ARCHITECTURE_REFERENCE",
+      "decision": "ARCHITECTURE_REFERENCE",
+      "match": true,
+      "priority": "C",
+      "cc_value": 7.0,
+      "sk_value": 6.0,
+      "complexity_risk": 0.0,
+      "purity_risk": 0.0,
+      "maintenance_risk": 5.0,
+      "final_score": 6.5,
+      "rule_id": "R09",
+      "reasons": [
+        "ARCHITECTURE_REFERENCE: insufficient documentation or value signals"
+      ],
+      "known_risks": [
+        "Documentation only, no runnable code"
+      ],
+      "recommended_target_dir": "F:/Claude/Reference/awesome-prompt-engineering",
+      "allowed_actions": [
+        "study_architecture",
+        "extract_design_patterns",
+        "document_findings"
+      ],
+      "forbidden_actions": [
+        "clone_to_github",
+        "import_into_project",
+        "run_as_dependency",
+        "embed_as_kernel_module"
+      ]
+    }
+  ]
+}

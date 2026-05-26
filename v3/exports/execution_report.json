@@ -1,0 +1,67 @@
+{
+  "v": "3.0.0-phase2",
+  "trace_id": "01e4073f-660f-4d22-a1c1-38b93e4f6016",
+  "task_id": "task-2b56e2a4",
+  "thread_id": "session-20260523-181018",
+  "target": ".",
+  "success": true,
+  "duration_ms": 62,
+  "stage_count": 4,
+  "stages": [
+    {
+      "stage_name": "stage_init",
+      "passed": true,
+      "output": {
+        "message": "Stage 'stage_init' completed"
+      },
+      "duration_ms": 16,
+      "error": ""
+    },
+    {
+      "stage_name": "stage_execute",
+      "passed": true,
+      "output": {
+        "message": "Stage 'stage_execute' completed"
+      },
+      "duration_ms": 15,
+      "error": ""
+    },
+    {
+      "stage_name": "stage_verify",
+      "passed": true,
+      "output": {
+        "message": "Stage 'stage_verify' completed"
+      },
+      "duration_ms": 15,
+      "error": ""
+    },
+    {
+      "stage_name": "stage_report",
+      "passed": true,
+      "output": {
+        "message": "Stage 'stage_report' completed"
+      },
+      "duration_ms": 15,
+      "error": ""
+    }
+  ],
+  "state_snapshot": {
+    "thread_id": "session-20260523-181018",
+    "target": ".",
+    "task_id": "task-2b56e2a4",
+    "skill_id": "demo-skill",
+    "_last_stage": "NoopStage",
+    "_last_result": {
+      "stage_name": "stage_report",
+      "passed": true,
+      "output": {
+        "message": "Stage 'stage_report' completed"
+      },
+      "duration_ms": 15,
+      "error": ""
+    }
+  },
+  "memory_events_emitted": 4,
+  "memory_backend": "in_process",
+  "memory_connected": true
+}

@@ -1,0 +1,25 @@
+# SystemKernel v3.0 — Tools Config
+# External tool adapters
+
+tools:
+  repomix:
+    adapter: RepomixAdapter
+    protocol: cli            # cli | mcp
+    command: npx repomix
+    enabled: false           # Phase 1: skeleton, not yet wired
+
+  ccusage:
+    adapter: CcusageAdapter
+    protocol: cli
+    command: npx ccusage
+    enabled: false
+
+  shell:
+    adapter: ShellAdapter
+    protocol: subprocess
+    enabled: true            # always available
+
+  mcp:
+    adapter: McpAdapter
+    protocol: mcp
+    enabled: false           # Phase 2+

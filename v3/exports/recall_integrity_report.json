@@ -1,0 +1,17 @@
+{
+  "recall_hash": "c02aa56ef03f32d5",
+  "bundle_hash": "785adf3f03b6a25e",
+  "integrity_status": "valid",
+  "provenance_checks": {
+    "all_have_record_hash": true,
+    "all_have_source_hash": true,
+    "all_have_execution_id": true,
+    "all_have_graph_hash": true,
+    "all_have_candidate_id": true,
+    "all_trace_valid": true,
+    "bundle_hash_stable": true,
+    "recall_is_projection_only": true,
+    "events_are_truth_source": true
+  },
+  "deterministic_verdict": "DETERMINISTIC"
+}

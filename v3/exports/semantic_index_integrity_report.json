@@ -1,0 +1,19 @@
+{
+  "record_count": 8,
+  "index_entry_count": 49,
+  "index_hash": "d29a2094992db0be",
+  "checks": {
+    "builds_from_episodic_records": true,
+    "all_memory_ids_valid": true,
+    "dangling_memory_ids": 0,
+    "all_record_hashes_valid": true,
+    "bad_record_hashes": 0,
+    "deterministic_search_ordering": true,
+    "index_hash_stable": true,
+    "index_is_projection_only": true,
+    "no_truth_source_violation": true
+  },
+  "issues": [],
+  "passed": true,
+  "report_hash": "f3d386fb9aa07e4b"
+}

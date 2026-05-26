@@ -1,0 +1,15 @@
+{
+  "baseline_hash": "5c6cf253911ee780",
+  "complexity_verdict": "REVIEW",
+  "handoff_hash": "d333e3bc560fd0ae",
+  "kernel_purity_score": 100,
+  "manifest_hash": "e8af37076e90922a",
+  "memory_removable": "YES",
+  "notes": "SystemKernel v3.0.0 baseline. Purity 100/100. Memory removable: YES. Complexity gate: REVIEW. Tests: 20/20 pass. Release ready: True.",
+  "release_date": "2026-05-26",
+  "tag_name": "systemkernel-v3.0.0-baseline",
+  "tests_passed": 20,
+  "tests_total": 20,
+  "validation_matrix_hash": "d1cf6761027671fb",
+  "version": "3.0.0"
+}

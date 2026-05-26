@@ -1,0 +1,31 @@
+{
+  "result_hash": "b132a74fedc0744c",
+  "checks": {
+    "all_reference_source_record_hashes": true,
+    "all_reference_source_hashes": true,
+    "all_reference_execution_ids": true,
+    "all_reference_graph_hashes": true,
+    "all_source_record_hashes_valid": true,
+    "all_source_hashes_valid": true,
+    "all_execution_ids_valid": true,
+    "all_graph_hashes_valid": true,
+    "source_records_accounted": true,
+    "no_provenance_loss": true,
+    "result_hash_stable": true,
+    "all_compacted_hashes_stable": true,
+    "compaction_is_projection_only": true,
+    "duplicate_strategy_applied": true,
+    "duplicate_handling_deterministic": true,
+    "stdlib_only": true,
+    "original_records_unchanged": true,
+    "total_compacted_records": 3,
+    "total_original_records": 10,
+    "input_count": 10,
+    "output_count": 3,
+    "duplicate_count": 5,
+    "archived_count": 2
+  },
+  "issues": [],
+  "valid": true,
+  "report_hash": "df3c96de692c7eed"
+}

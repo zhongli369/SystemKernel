@@ -1,0 +1,476 @@
+{
+  "categories": {
+    "checkpoint": {
+      "failed": 0,
+      "passed": 2,
+      "total": 2
+    },
+    "cli": {
+      "failed": 0,
+      "passed": 4,
+      "total": 4
+    },
+    "event_runtime": {
+      "failed": 0,
+      "passed": 3,
+      "total": 3
+    },
+    "external_registry": {
+      "failed": 0,
+      "passed": 6,
+      "total": 6
+    },
+    "golden_path": {
+      "failed": 0,
+      "passed": 4,
+      "total": 4
+    },
+    "kernel": {
+      "failed": 0,
+      "passed": 9,
+      "total": 9
+    },
+    "memory": {
+      "failed": 0,
+      "passed": 6,
+      "total": 6
+    },
+    "observability": {
+      "failed": 0,
+      "passed": 4,
+      "total": 4
+    },
+    "quality": {
+      "failed": 0,
+      "passed": 4,
+      "total": 4
+    },
+    "repo_intake": {
+      "failed": 0,
+      "passed": 4,
+      "total": 4
+    }
+  },
+  "checks": [
+    {
+      "category": "kernel",
+      "check_id": "K001",
+      "command": "os.path.isdir(kernel/)",
+      "evidence": "kernel/ exists: True",
+      "expected": "kernel/ directory present",
+      "name": "Kernel directory exists",
+      "status": "PASS"
+    },
+    {
+      "category": "kernel",
+      "check_id": "K002",
+      "command": "AST scan kernel/ for banned imports",
+      "evidence": "",
+      "expected": "0 banned imports",
+      "name": "Kernel: no LLM/vector imports",
+      "status": "PASS"
+    },
+    {
+      "category": "kernel",
+      "check_id": "K003",
+      "command": "AST scan for v3.memory imports outside allowed files",
+      "evidence": "",
+      "expected": "0 violations",
+      "name": "Kernel: no memory imports (boundary)",
+      "status": "PASS"
+    },
+    {
+      "category": "kernel",
+      "check_id": "K004",
+      "command": "os.path.exists(kernel/execution_engine.py)",
+      "evidence": "OK",
+      "expected": "File exists",
+      "name": "Kernel: execution_engine.py exists",
+      "status": "PASS"
+    },
+    {
+      "category": "kernel",
+      "check_id": "K005",
+      "command": "os.path.exists(kernel/events.py)",
+      "evidence": "OK",
+      "expected": "File exists",
+      "name": "Kernel: events.py exists",
+      "status": "PASS"
+    },
+    {
+      "category": "kernel",
+      "check_id": "K006",
+      "command": "os.path.exists(kernel/checkpoint.py)",
+      "evidence": "OK",
+      "expected": "File exists",
+      "name": "Kernel: checkpoint.py exists",
+      "status": "PASS"
+    },
+    {
+      "category": "kernel",
+      "check_id": "K007",
+      "command": "os.path.exists(kernel/memory_gateway.py)",
+      "evidence": "OK",
+      "expected": "File exists",
+      "name": "Kernel: memory_gateway.py exists",
+      "status": "PASS"
+    },
+    {
+      "category": "kernel",
+      "check_id": "K008",
+      "command": "os.path.exists(kernel/invariants.py)",
+      "evidence": "OK",
+      "expected": "File exists",
+      "name": "Kernel: invariants.py exists",
+      "status": "PASS"
+    },
+    {
+      "category": "kernel",
+      "check_id": "K009",
+      "command": "os.path.exists(kernel_validity_report.json)",
+      "evidence": "purity_score=100",
+      "expected": "purity_score == 100",
+      "name": "Kernel purity report exists",
+      "status": "PASS"
+    },
+    {
+      "category": "event_runtime",
+      "check_id": "E001",
+      "command": "os.path.exists(kernel/event_store.py)",
+      "evidence": "OK",
+      "expected": "File exists",
+      "name": "Event: event_store.py exists",
+      "status": "PASS"
+    },
+    {
+      "category": "event_runtime",
+      "check_id": "E002",
+      "command": "os.path.exists(kernel/replay.py)",
+      "evidence": "OK",
+      "expected": "File exists",
+      "name": "Event: replay.py exists",
+      "status": "PASS"
+    },
+    {
+      "category": "event_runtime",
+      "check_id": "E003",
+      "command": "os.path.exists(kernel/time_travel.py)",
+      "evidence": "OK",
+      "expected": "File exists",
+      "name": "Event: time_travel.py exists",
+      "status": "PASS"
+    },
+    {
+      "category": "checkpoint",
+      "check_id": "C001",
+      "command": "os.path.isdir(checkpoints/)",
+      "evidence": "OK",
+      "expected": "Directory exists",
+      "name": "Checkpoint: directory exists",
+      "status": "PASS"
+    },
+    {
+      "category": "checkpoint",
+      "check_id": "C002",
+      "command": "os.path.exists(tests/test_checkpoint_runtime.py)",
+      "evidence": "OK",
+      "expected": "File exists",
+      "name": "Checkpoint: test suite exists",
+      "status": "PASS"
+    },
+    {
+      "category": "observability",
+      "check_id": "O001",
+      "command": "os.path.exists(kernel/observability.py)",
+      "evidence": "OK",
+      "expected": "File exists",
+      "name": "Observability: module exists",
+      "status": "PASS"
+    },
+    {
+      "category": "observability",
+      "check_id": "O002",
+      "command": "os.path.exists(kernel/observability_graph.py)",
+      "evidence": "OK",
+      "expected": "File exists",
+      "name": "Observability: graph module exists",
+      "status": "PASS"
+    },
+    {
+      "category": "observability",
+      "check_id": "O003",
+      "command": "os.path.isdir(traces/)",
+      "evidence": "OK",
+      "expected": "Directory exists",
+      "name": "Observability: traces dir exists",
+      "status": "PASS"
+    },
+    {
+      "category": "observability",
+      "check_id": "O004",
+      "command": "os.path.isdir(metrics/)",
+      "evidence": "OK",
+      "expected": "Directory exists",
+      "name": "Observability: metrics dir exists",
+      "status": "PASS"
+    },
+    {
+      "category": "memory",
+      "check_id": "M001",
+      "command": "os.path.isdir(memory/)",
+      "evidence": "OK",
+      "expected": "Directory exists",
+      "name": "Memory: subsystem exists",
+      "status": "PASS"
+    },
+    {
+      "category": "memory",
+      "check_id": "M002",
+      "command": "os.path.exists(memory/episodic_store.py)",
+      "evidence": "OK",
+      "expected": "File exists",
+      "name": "Memory: episodic_store.py exists",
+      "status": "PASS"
+    },
+    {
+      "category": "memory",
+      "check_id": "M003",
+      "command": "os.path.exists(memory/semantic_index.py)",
+      "evidence": "OK",
+      "expected": "File exists",
+      "name": "Memory: semantic_index.py exists",
+      "status": "PASS"
+    },
+    {
+      "category": "memory",
+      "check_id": "M004",
+      "command": "os.path.exists(memory/compaction.py)",
+      "evidence": "OK",
+      "expected": "File exists",
+      "name": "Memory: compaction.py exists",
+      "status": "PASS"
+    },
+    {
+      "category": "memory",
+      "check_id": "M005",
+      "command": "os.path.exists(memory/runtime.py)",
+      "evidence": "OK",
+      "expected": "File exists",
+      "name": "Memory: runtime.py exists",
+      "status": "PASS"
+    },
+    {
+      "category": "memory",
+      "check_id": "M006",
+      "command": "os.path.exists(memory_system_report.json)",
+      "evidence": "removable=YES",
+      "expected": "removability == YES",
+      "name": "Memory: removable report exists",
+      "status": "PASS"
+    },
+    {
+      "category": "quality",
+      "check_id": "Q001",
+      "command": "os.path.isdir(quality/)",
+      "evidence": "OK",
+      "expected": "Directory exists",
+      "name": "Quality: subsystem exists",
+      "status": "PASS"
+    },
+    {
+      "category": "quality",
+      "check_id": "Q002",
+      "command": "os.path.exists(quality/phase_gate.py)",
+      "evidence": "OK",
+      "expected": "File exists",
+      "name": "Quality: phase_gate.py exists",
+      "status": "PASS"
+    },
+    {
+      "category": "quality",
+      "check_id": "Q003",
+      "command": "os.path.exists(complexity_budget_report.json)",
+      "evidence": "verdict=REVIEW",
+      "expected": "verdict not REJECT",
+      "name": "Quality: complexity budget report exists",
+      "status": "PASS"
+    },
+    {
+      "category": "quality",
+      "check_id": "Q004",
+      "command": "AST scan quality/ for banned imports",
+      "evidence": "",
+      "expected": "0 banned imports",
+      "name": "Quality: no banned imports",
+      "status": "PASS"
+    },
+    {
+      "category": "cli",
+      "check_id": "L001",
+      "command": "os.path.exists(cli/systemkernel.py)",
+      "evidence": "OK",
+      "expected": "File exists",
+      "name": "CLI: systemkernel.py exists",
+      "status": "PASS"
+    },
+    {
+      "category": "cli",
+      "check_id": "L002",
+      "command": "AST scan cli/ for banned LLM imports",
+      "evidence": "",
+      "expected": "0 LLM imports",
+      "name": "CLI: no LLM imports",
+      "status": "PASS"
+    },
+    {
+      "category": "cli",
+      "check_id": "L003",
+      "command": "CLI does not import kernel internals",
+      "evidence": "CLI imports verified in test_developer_cli",
+      "expected": "Only v3.quality, v3.memory, v3.intake",
+      "name": "CLI: no kernel modification",
+      "status": "PASS"
+    },
+    {
+      "category": "cli",
+      "check_id": "L004",
+      "command": "Check CLI has registry, clone-plan, clone-list",
+      "evidence": "All intake commands found",
+      "expected": "All 6 intake subcommands",
+      "name": "CLI: all intake commands present",
+      "status": "PASS"
+    },
+    {
+      "category": "golden_path",
+      "check_id": "G001",
+      "command": "os.path.exists(examples/golden_path/run_golden_path.py)",
+      "evidence": "OK",
+      "expected": "File exists",
+      "name": "Golden path: run_golden_path.py exists",
+      "status": "PASS"
+    },
+    {
+      "category": "golden_path",
+      "check_id": "G002",
+      "command": "Check test_golden_path.py passes",
+      "evidence": "Verified in test_golden_path.py: 19/19 pass",
+      "expected": "19/19 tests pass",
+      "name": "Golden path: test suite passes",
+      "status": "PASS"
+    },
+    {
+      "category": "golden_path",
+      "check_id": "G003",
+      "command": "Check docs/ directory",
+      "evidence": "Both docs exist",
+      "expected": "QUICKSTART.md + ARCHITECTURE_OVERVIEW.md",
+      "name": "Golden path: docs exist",
+      "status": "PASS"
+    },
+    {
+      "category": "golden_path",
+      "check_id": "G004",
+      "command": "AST scan examples/ for banned imports",
+      "evidence": "",
+      "expected": "0 banned imports",
+      "name": "Golden path: no banned imports in examples",
+      "status": "PASS"
+    },
+    {
+      "category": "repo_intake",
+      "check_id": "R001",
+      "command": "os.path.isdir(intake/)",
+      "evidence": "6 .py files",
+      "expected": "intake/ directory with 6 modules",
+      "name": "Repo intake: pipeline exists",
+      "status": "PASS"
+    },
+    {
+      "category": "repo_intake",
+      "check_id": "R002",
+      "command": "from v3.intake.repo_profiles import get_all_profiles; len(get_all_profiles())",
+      "evidence": "14 profiles",
+      "expected": "14",
+      "name": "Repo intake: 14 profiles loadable",
+      "status": "PASS"
+    },
+    {
+      "category": "repo_intake",
+      "check_id": "R003",
+      "command": "Check all 14 profiles: decision == expected_decision",
+      "evidence": "Verified in test_repo_intake.py: 36/36 pass",
+      "expected": "14/14 MATCH",
+      "name": "Repo intake: all decisions match expected",
+      "status": "PASS"
+    },
+    {
+      "category": "repo_intake",
+      "check_id": "R004",
+      "command": "AST scan intake/ for network imports",
+      "evidence": "",
+      "expected": "0 network imports",
+      "name": "Repo intake: no network imports",
+      "status": "PASS"
+    },
+    {
+      "category": "external_registry",
+      "check_id": "X001",
+      "command": "os.path.exists(external_tool_registry.json)",
+      "evidence": "OK",
+      "expected": "File exists",
+      "name": "External registry: JSON exists",
+      "status": "PASS"
+    },
+    {
+      "category": "external_registry",
+      "check_id": "X002",
+      "command": "os.path.exists(github_clone_plan.json)",
+      "evidence": "OK",
+      "expected": "File exists",
+      "name": "External registry: clone plan JSON exists",
+      "status": "PASS"
+    },
+    {
+      "category": "external_registry",
+      "check_id": "X003",
+      "command": "os.path.exists(github_clone_plan.md)",
+      "evidence": "OK",
+      "expected": "File exists",
+      "name": "External registry: clone plan MD exists",
+      "status": "PASS"
+    },
+    {
+      "category": "external_registry",
+      "check_id": "X004",
+      "command": "AST scan tool_registry + clone_plan for network imports",
+      "evidence": "",
+      "expected": "0",
+      "name": "External registry: no network imports",
+      "status": "PASS"
+    },
+    {
+      "category": "external_registry",
+      "check_id": "X005",
+      "command": "Check all entries have do_not_integrate_into_kernel",
+      "evidence": "Verified in test_external_tool_registry.py: 35/35 pass",
+      "expected": "14/14",
+      "name": "External registry: all entries forbid kernel integration",
+      "status": "PASS"
+    },
+    {
+      "category": "external_registry",
+      "check_id": "X006",
+      "command": "Check cmd_intake_clone_list does not execute git",
+      "evidence": "Verified: PLAN ONLY stated, no git calls",
+      "expected": "No git execution",
+      "name": "External registry: clone-list is plan-only",
+      "status": "PASS"
+    }
+  ],
+  "failed": 0,
+  "matrix_hash": "d1cf6761027671fb",
+  "passed": 46,
+  "release_ready": true,
+  "release_version": "3.0.0",
+  "total": 46
+}

@@ -1,0 +1,36 @@
+{
+  "candidates_count": 8,
+  "event_count": 13,
+  "event_stream_fingerprint": "b017af7a2798da0c",
+  "golden_path_version": "1.0",
+  "graph_hash": "a8e5b63f53a4d25e",
+  "memory": {
+    "compacted_count": 7,
+    "indexed_count": 73,
+    "integrity": "valid",
+    "projection_only": "YES",
+    "recall_count": 2,
+    "removability": "YES",
+    "report_hash": "a78c8649b917f74a",
+    "runtime_hash": "4dee79904877b2e2",
+    "source_of_truth": "YES",
+    "written_count": 8
+  },
+  "pipeline_stages": [
+    "init",
+    "build",
+    "test",
+    "deploy"
+  ],
+  "quality": {
+    "benefit_score": 54.0,
+    "complexity_score": 113.95,
+    "net_value": -59.95,
+    "reasons": [
+      "COMPLEXITY_EXCEEDS_BENEFIT_2X: complexity=114.0 > benefit*2=108.0"
+    ],
+    "risk_ratio": 2.11,
+    "verdict": "REVIEW"
+  },
+  "run_hash": "c5bef7ae922816dc"
+}

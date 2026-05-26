@@ -1,0 +1,59 @@
+{
+  "report_type": "runtime_metrics_report",
+  "phase": "4C",
+  "metrics": {
+    "execution_id": "report-92134bc3",
+    "total_events": 10,
+    "total_stages": 4,
+    "completed_stages": 4,
+    "failed_stages": 0,
+    "retries": 0,
+    "crashes": 0,
+    "forks": 0,
+    "checkpoints": 0,
+    "duration_ms": 95,
+    "average_stage_duration_ms": 23.75,
+    "longest_stage": "build",
+    "failed_stage_names": [],
+    "stage_duration_map": {
+      "init": 12,
+      "build": 45,
+      "test": 30,
+      "deploy": 8
+    },
+    "event_type_counts": {
+      "execution_started": 1,
+      "stage_started": 4,
+      "stage_completed": 4,
+      "execution_completed": 1
+    },
+    "execution_status": "COMPLETED"
+  },
+  "summary": {
+    "total_events": 10,
+    "total_stages": 4,
+    "completed_stages": 4,
+    "failed_stages": 0,
+    "retries": 0,
+    "forks": 0,
+    "checkpoints": 0,
+    "duration_ms": 95,
+    "average_stage_duration_ms": 23.75,
+    "longest_stage": "build",
+    "success_rate": 1.0,
+    "execution_status": "COMPLETED"
+  },
+  "stage_duration_map": {
+    "init": 12,
+    "build": 45,
+    "test": 30,
+    "deploy": 8
+  },
+  "event_type_counts": {
+    "execution_started": 1,
+    "stage_started": 4,
+    "stage_completed": 4,
+    "execution_completed": 1
+  },
+  "metrics_fingerprint": "6df062294525ee47"
+}

@@ -1,0 +1,31 @@
+{
+  "report_type": "memory_removability_report",
+  "phase": "4D-2",
+  "scenarios": [
+    {
+      "name": "no_memory_gateway",
+      "success": true,
+      "stage_count": 3,
+      "truth_snapshot": true
+    },
+    {
+      "name": "memory_gateway_with_stub",
+      "success": true,
+      "stage_count": 3,
+      "gateway_event_count": 3
+    },
+    {
+      "name": "memory_gateway_with_episodic",
+      "success": true,
+      "stage_count": 3,
+      "gateway_event_count": 3,
+      "store_record_count": 0
+    }
+  ],
+  "verdict": "MEMORY_REMOVABLE",
+  "comparison": {
+    "kernel_output_equal": true,
+    "truth_snapshot_equal": true,
+    "all_scenarios_success": true
+  }
+}

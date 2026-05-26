@@ -1,0 +1,37 @@
+{
+  "store_path": "C:\\Users\\14679\\AppData\\Local\\Temp\\tmp9l96zat_\\episodes.jsonl",
+  "total_records": 7,
+  "checks": {
+    "all_have_execution_id": true,
+    "all_have_source_hash": true,
+    "all_record_hashes_valid": true,
+    "no_duplicate_hashes": true,
+    "unique_record_hashes": 7,
+    "all_json_serializable": true,
+    "append_only_ordering_valid": true,
+    "all_trace_linked": true,
+    "memory_not_truth_source": true,
+    "all_have_candidate_id": true,
+    "all_have_content": true
+  },
+  "issues": [],
+  "passed": true,
+  "report_hash": "4bcd0b336c5d8dff",
+  "source": {
+    "execution_id": "report-exec-001",
+    "event_count": 11,
+    "candidate_count": 7,
+    "graph_hash": "fec632c356944ce0",
+    "metrics_fingerprint": "28fb3782b2601662",
+    "telemetry_fingerprint": "32b57142f6b94301",
+    "candidate_fingerprint": "0d4fc0227283d9ea"
+  },
+  "summary": {
+    "records_count": 7,
+    "writes_accepted": 7,
+    "writes_rejected": 0,
+    "duplicate_count": 0,
+    "trace_linked_count": 7,
+    "integrity_status": "PASS"
+  }
+}

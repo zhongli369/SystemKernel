@@ -1,0 +1,35 @@
+{
+  "query": "compilation error",
+  "bundle_hash": "785adf3f03b6a25e",
+  "integrity_status": "valid",
+  "total_results": 1,
+  "results": [
+    {
+      "memory_id": "3eb34ccb21ea9513",
+      "score": 1.2,
+      "matched_tokens": [
+        "compilation",
+        "error"
+      ],
+      "recall_hash": "c02aa56ef03f32d5",
+      "provenance": {
+        "record_hash": "7078289ba031dc6a",
+        "source_hash": "0c05b4a6bb1c5ed1",
+        "execution_id": "exec-beta",
+        "graph_hash": "gh-beta-002",
+        "event_ids": [
+          "ev-6",
+          "ev-7"
+        ],
+        "candidate_id": "4d4-04",
+        "candidate_type": "error_detail",
+        "trace_valid": true,
+        "provenance_hash": "c2df31d7a0e92199"
+      }
+    }
+  ],
+  "verification_summary": {
+    "all_provenance_valid": true,
+    "bundle_verified": true
+  }
+}

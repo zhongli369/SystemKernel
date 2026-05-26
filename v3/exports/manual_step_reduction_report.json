@@ -1,0 +1,24 @@
+{
+  "after_description": [
+    "systemkernel doctor",
+    "systemkernel quality",
+    "systemkernel reports list",
+    "systemkernel status"
+  ],
+  "after_steps": 4,
+  "before_description": [
+    "manually read kernel_validity_report.json",
+    "manually count test files and functions",
+    "manually inspect memory directory",
+    "manually run v3/quality/phase_gate.py",
+    "manually ls v3/exports/ and filter",
+    "manually grep for LLM imports",
+    "manually verify each directory exists",
+    "manually perform all of the above"
+  ],
+  "before_steps": 8,
+  "commands_added": 6,
+  "reduced_steps": 4,
+  "reduction_percent": 50.0,
+  "verdict": "MANUAL_STEPS_SIGNIFICANTLY_REDUCED"
+}

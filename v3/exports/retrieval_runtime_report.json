@@ -1,0 +1,178 @@
+{
+  "backend": "semantic",
+  "index_hash": "d29a2094992db0be",
+  "store_record_count": 8,
+  "index_entry_count": 49,
+  "sample_queries": [
+    {
+      "query_id": "q-build er",
+      "query_text": "build error",
+      "query_type": "general",
+      "filters": {},
+      "result_count": 2,
+      "backend": "semantic",
+      "duration_ms": 0,
+      "top_scores": [
+        1.4,
+        0.7
+      ],
+      "top_memory_ids": [
+        "8ab8ae012632cc43",
+        "abf5c4711500447d"
+      ],
+      "explain_tokens": [
+        "build",
+        "error"
+      ],
+      "explain_matched_entries": {
+        "build": {
+          "document_count": 2,
+          "total_frequency": 2,
+          "candidate_types": [
+            "error_detail",
+            "stage_result"
+          ]
+        },
+        "error": {
+          "document_count": 1,
+          "total_frequency": 1,
+          "candidate_types": [
+            "error_detail"
+          ]
+        }
+      }
+    },
+    {
+      "query_id": "q-compilat",
+      "query_text": "compilation",
+      "query_type": "error_lookup",
+      "filters": {},
+      "result_count": 1,
+      "backend": "semantic",
+      "duration_ms": 0,
+      "top_scores": [
+        1.0
+      ],
+      "top_memory_ids": [
+        "8ab8ae012632cc43"
+      ],
+      "explain_tokens": [
+        "compilation"
+      ],
+      "explain_matched_entries": {
+        "compilation": {
+          "document_count": 1,
+          "total_frequency": 1,
+          "candidate_types": [
+            "error_detail"
+          ]
+        }
+      }
+    },
+    {
+      "query_id": "q-deploy",
+      "query_text": "deploy",
+      "query_type": "general",
+      "filters": {
+        "candidate_type": "error_detail"
+      },
+      "result_count": 1,
+      "backend": "semantic",
+      "duration_ms": 0,
+      "top_scores": [
+        1.2
+      ],
+      "top_memory_ids": [
+        "4e6772ec32da32ca"
+      ],
+      "explain_tokens": [
+        "deploy"
+      ],
+      "explain_matched_entries": {
+        "deploy": {
+          "document_count": 1,
+          "total_frequency": 1,
+          "candidate_types": [
+            "error_detail"
+          ]
+        }
+      }
+    },
+    {
+      "query_id": "q-complete",
+      "query_text": "completed test",
+      "query_type": "general",
+      "filters": {},
+      "result_count": 5,
+      "backend": "semantic",
+      "duration_ms": 0,
+      "top_scores": [
+        1.4,
+        0.7,
+        0.7
+      ],
+      "top_memory_ids": [
+        "f8d144c76ae0dd8a",
+        "98f2b7de274568da",
+        "403cdb212092dd2d"
+      ],
+      "explain_tokens": [
+        "completed",
+        "test"
+      ],
+      "explain_matched_entries": {
+        "completed": {
+          "document_count": 6,
+          "total_frequency": 6,
+          "candidate_types": [
+            "execution_summary",
+            "pipeline_result",
+            "stage_result"
+          ]
+        },
+        "test": {
+          "document_count": 1,
+          "total_frequency": 1,
+          "candidate_types": [
+            "stage_result"
+          ]
+        }
+      }
+    },
+    {
+      "query_id": "q-connecti",
+      "query_text": "connection refused",
+      "query_type": "error_lookup",
+      "filters": {},
+      "result_count": 1,
+      "backend": "semantic",
+      "duration_ms": 0,
+      "top_scores": [
+        1.0
+      ],
+      "top_memory_ids": [
+        "4e6772ec32da32ca"
+      ],
+      "explain_tokens": [
+        "connection",
+        "refused"
+      ],
+      "explain_matched_entries": {
+        "connection": {
+          "document_count": 1,
+          "total_frequency": 1,
+          "candidate_types": [
+            "error_detail"
+          ]
+        },
+        "refused": {
+          "document_count": 1,
+          "total_frequency": 1,
+          "candidate_types": [
+            "error_detail"
+          ]
+        }
+      }
+    }
+  ]
+}

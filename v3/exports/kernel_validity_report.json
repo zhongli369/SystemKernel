@@ -1,0 +1,43 @@
+{
+  "report_type": "kernel_validity_report",
+  "phase": "3.6",
+  "timestamp": "2026-05-26T08:36:52.317987+00:00",
+  "purity_score": 100,
+  "verdict": "PURE KERNEL",
+  "invariant_results": {
+    "single_loop": {
+      "passed": true,
+      "detail": "PASS"
+    },
+    "llm_boundary": {
+      "passed": true,
+      "detail": "PASS",
+      "files_scanned": 19,
+      "violations_found": 0
+    },
+    "memory_removability": {
+      "passed": true,
+      "detail": "PASS"
+    },
+    "execution_determinism": {
+      "passed": true,
+      "detail": "PASS",
+      "runs": 10
+    },
+    "truth_singularity": {
+      "passed": true,
+      "detail": "PASS"
+    },
+    "kernel_independence": {
+      "passed": true,
+      "detail": "PASS"
+    }
+  },
+  "determinism_result": true,
+  "memory_dependency_result": false,
+  "llm_boundary_result": true,
+  "final_verdict": "PURE KERNEL",
+  "tests_passed": 6,
+  "tests_failed": 0,
+  "tests_total": 6
+}

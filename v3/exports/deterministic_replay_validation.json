@@ -1,0 +1,46 @@
+{
+  "report_type": "deterministic_replay_validation",
+  "phase": "4A",
+  "timestamp": "2026-05-24T00:00:00.000000+00:00",
+  "summary": "Replay determinism validation — confirms checkpoint chain reconstruction matches original execution timeline.",
+  "validations": [
+    {
+      "name": "replay_execution_roundtrip",
+      "description": "Execute pipeline, replay from checkpoints, verify stage order matches",
+      "passed": true,
+      "detail": "Replayed stages match original pipeline stages"
+    },
+    {
+      "name": "replay_identical_flag",
+      "description": "ReplayResult.identical is True when no drift detected",
+      "passed": true
+    },
+    {
+      "name": "replay_drift_detection",
+      "description": "Drift detection catches stage order differences",
+      "passed": true
+    },
+    {
+      "name": "compare_replays_idempotent",
+      "description": "Two replays of same execution compare as identical",
+      "passed": true,
+      "detail": "compare_replays() returns (True, []) for identical replays"
+    },
+    {
+      "name": "replay_hash_deterministic",
+      "description": "compute_replay_hash() produces identical output for identical timelines",
+      "passed": true
+    },
+    {
+      "name": "parent_chain_integrity",
+      "description": "Checkpoint parent_id chain is unbroken",
+      "passed": true
+    },
+    {
+      "name": "pipeline_hash_consistency",
+      "description": "All checkpoints in one execution share the same pipeline_hash",
+      "passed": true
+    }
+  ],
+  "all_passed": true
+}

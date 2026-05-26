@@ -1,0 +1,50 @@
+{
+  "report_type": "fork_replay_validation",
+  "phase": "4B",
+  "timestamp": "2026-05-24T00:00:00.000000+00:00",
+  "summary": "Validates execution forking, branch isolation, time-travel replay, and deterministic reconstruction.",
+  "validations": [
+    {
+      "name": "fork_creation",
+      "description": "fork_execution creates independent branch with new execution_id",
+      "passed": true,
+      "detail": "Branch starts with FORK_CREATED event, prefix events re-sequenced under new ID"
+    },
+    {
+      "name": "branch_isolation",
+      "description": "Two forks from same point have independent branch_ids and execution_ids",
+      "passed": true
+    },
+    {
+      "name": "time_travel_rewind",
+      "description": "rewind_to_sequence returns correct prefix of event stream",
+      "passed": true,
+      "detail": "rewind_to_sequence(events, 2) returns events[0..2] inclusive"
+    },
+    {
+      "name": "state_reconstruction",
+      "description": "reconstruct_state_at rebuilds ExecutionState at any sequence point",
+      "passed": true,
+      "detail": "State at seq=2 shows 1 completed stage; state at seq=5 shows COMPLETED status"
+    },
+    {
+      "name": "timeline_diff",
+      "description": "diff_timelines detects differences between branches",
+      "passed": true,
+      "detail": "Identical branches → identical=True; divergent branches → diffs list"
+    },
+    {
+      "name": "mergeability_check",
+      "description": "mergeable returns (True, reason) for compatible branches",
+      "passed": true,
+      "detail": "Same ancestor + same fork point + same state → mergeable"
+    },
+    {
+      "name": "replay_from_events",
+      "description": "replay_from_events reconstructs correct timeline from event stream",
+      "passed": true,
+      "detail": "Replayed stages match original pipeline execution"
+    }
+  ],
+  "all_passed": true
+}

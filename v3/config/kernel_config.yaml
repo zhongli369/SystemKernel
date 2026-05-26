@@ -1,0 +1,22 @@
+# SystemKernel v3.0 — Execution Engine Config
+# Phase 1: skeleton defaults
+
+execution:
+  pipeline:
+    - stage: lint
+      enabled: false  # disabled in skeleton
+    - stage: noop
+      enabled: true
+
+  retry:
+    policy: once       # none | once | fallback | circuit_breaker
+    max_retries: 1
+
+  checkpoint:
+    enabled: true
+    path: ./v3/checkpoints/
+
+  sandbox:
+    timeout_per_stage_s: 300
+    timeout_total_s: 600
+    max_output_bytes: 50000

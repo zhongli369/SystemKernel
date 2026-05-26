@@ -1,0 +1,40 @@
+{
+  "compaction_integrity": {
+    "available": false,
+    "checks": {},
+    "compacted_records": 0,
+    "issues": [],
+    "valid": true
+  },
+  "counts": {
+    "total_compacted_records": 0,
+    "total_indexed_entries": 0,
+    "total_records": 0
+  },
+  "index_integrity": {
+    "available": false,
+    "checks": {},
+    "entries": 0,
+    "issues": [],
+    "valid": true
+  },
+  "report_hash": "9e1662352306258e",
+  "store_integrity": {
+    "checks": {
+      "all_have_execution_id": true,
+      "all_have_source_hash": true,
+      "all_record_hashes_valid": true,
+      "candidate_id_count": 0,
+      "no_duplicate_hashes": true,
+      "record_count": 0,
+      "records_match_candidates": true
+    },
+    "issues": [],
+    "valid": true
+  },
+  "verdicts": {
+    "projection_only": "YES",
+    "removability": "YES",
+    "source_of_truth": "YES"
+  }
+}
