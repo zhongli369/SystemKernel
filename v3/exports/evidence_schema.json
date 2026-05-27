@@ -1,0 +1,160 @@
+{
+  "default_policy": {
+    "allow_low_trust_sources": true,
+    "forbidden_risk_flags": [],
+    "max_payload_summary_bytes": 500,
+    "max_records_per_bundle": 1000,
+    "policy_hash": "899cffd917817487",
+    "require_provenance": true
+  },
+  "evidence_types": [
+    "context_pack",
+    "usage_report",
+    "memory_signal",
+    "agent_result",
+    "ide_context",
+    "skill_reference",
+    "eval_result",
+    "generic"
+  ],
+  "example_bundle": {
+    "bundle_hash": "bundle:129e2a358214266b",
+    "bundle_id": "30d7dd27aa1604f3",
+    "bundle_type": "example",
+    "created_at": "2026-05-26T15:11:22.834293+00:00",
+    "records": [
+      {
+        "confidence": 0.0,
+        "evidence_hash": "evidence:475d7b94623078d7",
+        "evidence_id": "e5ee53a51e77b5ae",
+        "evidence_type": "context_pack",
+        "payload_ref": "",
+        "payload_summary": "files=5; bytes=1024",
+        "provenance": {
+          "adapter_spec_hash": "",
+          "collected_at": "2026-05-26T15:11:22.834293+00:00",
+          "command_hash": "49e87a18ad7231d5",
+          "input_hash": "input:78e225b9996bc357",
+          "output_hash": "output:fbc5c2459e32b2bb",
+          "provenance_hash": "prov:96027c4a0686a6e1",
+          "registry_hash": ""
+        },
+        "risk_flags": [],
+        "source": {
+          "adapter_id": "example_adapter",
+          "capability_type": "context",
+          "collected_by": "systemkernel",
+          "collection_mode": "inspect_only",
+          "source_hash": "58a6259ae80c36ee",
+          "source_hash_value": "src:b193d1355a536ac0",
+          "source_trust_level": "low",
+          "source_uri": "./src"
+        },
+        "truth_source": false
+      }
+    ],
+    "truth_source": false
+  },
+  "example_record": {
+    "confidence": 0.0,
+    "evidence_hash": "evidence:475d7b94623078d7",
+    "evidence_id": "e5ee53a51e77b5ae",
+    "evidence_type": "context_pack",
+    "payload_ref": "",
+    "payload_summary": "files=5; bytes=1024",
+    "provenance": {
+      "adapter_spec_hash": "",
+      "collected_at": "2026-05-26T15:11:22.834293+00:00",
+      "command_hash": "49e87a18ad7231d5",
+      "input_hash": "input:78e225b9996bc357",
+      "output_hash": "output:fbc5c2459e32b2bb",
+      "provenance_hash": "prov:96027c4a0686a6e1",
+      "registry_hash": ""
+    },
+    "risk_flags": [],
+    "source": {
+      "adapter_id": "example_adapter",
+      "capability_type": "context",
+      "collected_by": "systemkernel",
+      "collection_mode": "inspect_only",
+      "source_hash": "58a6259ae80c36ee",
+      "source_hash_value": "src:b193d1355a536ac0",
+      "source_trust_level": "low",
+      "source_uri": "./src"
+    },
+    "truth_source": false
+  },
+  "phase": 3,
+  "risk_flags": [
+    "unverified",
+    "external_io",
+    "network_access",
+    "file_system_write",
+    "subprocess",
+    "user_data",
+    "third_party"
+  ],
+  "schema": {
+    "EvidenceBundle": [
+      "bundle_id",
+      "records",
+      "bundle_type",
+      "created_at",
+      "truth_source",
+      "bundle_hash"
+    ],
+    "EvidencePolicy": [
+      "max_payload_summary_bytes",
+      "require_provenance",
+      "allow_low_trust_sources",
+      "max_records_per_bundle",
+      "forbidden_risk_flags"
+    ],
+    "EvidenceProvenance": [
+      "input_hash",
+      "output_hash",
+      "command_hash",
+      "adapter_spec_hash",
+      "registry_hash",
+      "collected_at",
+      "provenance_hash"
+    ],
+    "EvidenceRecord": [
+      "evidence_id",
+      "evidence_type",
+      "source",
+      "provenance",
+      "payload_summary",
+      "payload_ref",
+      "risk_flags",
+      "confidence",
+      "truth_source",
+      "evidence_hash"
+    ],
+    "EvidenceSource": [
+      "adapter_id",
+      "capability_type",
+      "source_uri",
+      "source_hash",
+      "collected_by",
+      "collection_mode",
+      "source_trust_level",
+      "source_hash_value"
+    ],
+    "EvidenceValidationReport": [
+      "valid",
+      "record_count",
+      "invalid_records",
+      "missing_provenance",
+      "truth_source_violations",
+      "duplicate_evidence_ids",
+      "report_hash"
+    ]
+  },
+  "trust_levels": [
+    "low",
+    "medium",
+    "high"
+  ],
+  "version": "4.0.0-alpha"
+}

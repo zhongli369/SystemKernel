@@ -1,0 +1,15 @@
+{
+  "version": "4.0.0",
+  "tag_name": "systemkernel-v4.0.0-pluggable-intelligence",
+  "release_date": "2026-05-27",
+  "baseline_reference": "systemkernel-v3.0.0",
+  "v3_baseline_tag": "systemkernel-v3.0.0",
+  "v4_matrix_hash": "b8052d4cd26ef013",
+  "v4_inventory_hash": "10e1b5bf3d796e71",
+  "kernel_purity_score": 100,
+  "memory_removable": true,
+  "complexity_verdict": "REVIEW",
+  "real_external_integrations": 0,
+  "release_ready": true,
+  "metadata_hash": "cb4a1c13f88a295b"
+}

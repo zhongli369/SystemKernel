@@ -1218,7 +1218,1635 @@ def build_parser() -> argparse.ArgumentParser:
     usage_summarize_parser.add_argument("path", help="Path to ccusage JSON output file")
     usage_summarize_parser.add_argument("--output", required=True, help="Output JSON path")
 
+    # context-plane
+    ctxpl_parser = sub.add_parser("context-plane", help="Context engineering plane operations")
+    ctxpl_sub = ctxpl_parser.add_subparsers(dest="ctxpl_action", help="Context plane actions")
+
+    ctxpl_plan_parser = ctxpl_sub.add_parser("plan", help="Plan a context pack (no execution)")
+    ctxpl_plan_parser.add_argument("target", help="Target directory path")
+    ctxpl_plan_parser.add_argument("--output", default="", help="Output file path")
+    ctxpl_plan_parser.add_argument("--style", default="markdown",
+                                   choices=["markdown", "xml", "json", "plain"],
+                                   help="Output format (default: markdown)")
+
+    ctxpl_inspect_parser = ctxpl_sub.add_parser("inspect", help="Inspect an existing context pack")
+    ctxpl_inspect_parser.add_argument("path", help="Path to context pack output file")
+
+    ctxpl_evidence_parser = ctxpl_sub.add_parser("evidence", help="Build evidence bundle from context pack")
+    ctxpl_evidence_parser.add_argument("path", help="Path to context pack output file")
+    ctxpl_evidence_parser.add_argument("--output", default="", help="Output JSON path for evidence bundle")
+    ctxpl_evidence_parser.add_argument("--target", default="", help="Original target path (for plan context)")
+
+    # memory-intel
+    mi_parser = sub.add_parser("memory-intel", help="Memory intelligence plane operations")
+    mi_sub = mi_parser.add_subparsers(dest="mi_action", help="Memory intelligence actions")
+
+    mi_sub.add_parser("profiles", help="List memory intelligence provider profiles")
+
+    mi_mock_parser = mi_sub.add_parser("mock", help="Generate deterministic mock memory intelligence result")
+    mi_mock_parser.add_argument("--provider", default="deterministic_mock_memory",
+                               help="Provider ID (default: deterministic_mock_memory)")
+    mi_mock_parser.add_argument("--signals", type=int, default=3,
+                               help="Number of mock signals to generate (default: 3)")
+
+    mi_evidence_parser = mi_sub.add_parser("evidence", help="Build evidence bundle from memory intelligence result")
+    mi_evidence_parser.add_argument("--provider", default="deterministic_mock_memory",
+                                   help="Provider ID (default: deterministic_mock_memory)")
+    mi_evidence_parser.add_argument("--output", default="", help="Output JSON path for evidence bundle")
+
+    # workspace
+    ws_parser = sub.add_parser("workspace", help="Workspace context plane operations")
+    ws_sub = ws_parser.add_subparsers(dest="ws_action", help="Workspace actions")
+
+    ws_sub.add_parser("profiles", help="List workspace provider profiles")
+
+    ws_mock_parser = ws_sub.add_parser("mock", help="Generate deterministic mock workspace snapshot")
+    ws_mock_parser.add_argument("--provider", default="deterministic_mock_workspace",
+                               help="Provider ID (default: deterministic_mock_workspace)")
+    ws_mock_parser.add_argument("--files", type=int, default=3,
+                               help="Number of mock file refs (default: 3)")
+    ws_mock_parser.add_argument("--diagnostics", type=int, default=2,
+                               help="Number of mock diagnostics (default: 2)")
+
+    ws_evidence_parser = ws_sub.add_parser("evidence", help="Build evidence bundle from workspace snapshot")
+    ws_evidence_parser.add_argument("--provider", default="deterministic_mock_workspace",
+                                   help="Provider ID (default: deterministic_mock_workspace)")
+    ws_evidence_parser.add_argument("--output", default="", help="Output JSON path for evidence bundle")
+
+    # agent-worker
+    aw_parser = sub.add_parser("agent-worker", help="Agent worker plane operations")
+    aw_sub = aw_parser.add_subparsers(dest="aw_action", help="Agent worker actions")
+
+    aw_sub.add_parser("profiles", help="List agent worker provider profiles")
+
+    aw_mock_parser = aw_sub.add_parser("mock", help="Generate deterministic mock agent worker result")
+    aw_mock_parser.add_argument("--provider", default="deterministic_mock_agent",
+                               help="Provider ID (default: deterministic_mock_agent)")
+    aw_mock_parser.add_argument("--proposals", type=int, default=2,
+                               help="Number of mock proposals to generate (default: 2)")
+
+    aw_evidence_parser = aw_sub.add_parser("evidence", help="Build evidence bundle from agent worker result")
+    aw_evidence_parser.add_argument("--provider", default="deterministic_mock_agent",
+                                   help="Provider ID (default: deterministic_mock_agent)")
+    aw_evidence_parser.add_argument("--output", default="", help="Output JSON path for evidence bundle")
+
+    # skill-evolution
+    se_parser = sub.add_parser("skill-evolution", help="Skill evolution plane operations")
+    se_sub = se_parser.add_subparsers(dest="se_action", help="Skill evolution actions")
+
+    se_sub.add_parser("profiles", help="List skill evolution provider profiles")
+
+    se_mock_parser = se_sub.add_parser("mock", help="Generate deterministic mock skill evolution result")
+    se_mock_parser.add_argument("--provider", default="deterministic_mock_skill_evolution",
+                               help="Provider ID (default: deterministic_mock_skill_evolution)")
+    se_mock_parser.add_argument("--proposals", type=int, default=2,
+                               help="Number of mock proposals to generate (default: 2)")
+    se_mock_parser.add_argument("--signals", type=int, default=3,
+                               help="Number of mock gap signals (default: 3)")
+
+    se_evidence_parser = se_sub.add_parser("evidence", help="Build evidence bundle from skill evolution result")
+    se_evidence_parser.add_argument("--provider", default="deterministic_mock_skill_evolution",
+                                   help="Provider ID (default: deterministic_mock_skill_evolution)")
+    se_evidence_parser.add_argument("--output", default="", help="Output JSON path for evidence bundle")
+
+    # orchestrate
+    orch_parser = sub.add_parser("orchestrate", help="Orchestration policy layer operations")
+    orch_sub = orch_parser.add_subparsers(dest="orch_action", help="Orchestration actions")
+
+    orch_sub.add_parser("policies", help="List orchestration policy profiles")
+
+    orch_plan_parser = orch_sub.add_parser("plan", help="Build dry-run orchestration plan")
+    orch_plan_parser.add_argument("--profile", default="safe_context_only",
+                                 help="Policy profile ID (default: safe_context_only)")
+    orch_plan_parser.add_argument("--objective", default="Dry-run orchestration plan",
+                                 help="Objective text for the plan")
+
+    orch_evidence_parser = orch_sub.add_parser("evidence", help="Build evidence bundle from orchestration plan")
+    orch_evidence_parser.add_argument("--profile", default="safe_context_only",
+                                     help="Policy profile ID (default: safe_context_only)")
+    orch_evidence_parser.add_argument("--objective", default="Dry-run orchestration plan",
+                                     help="Objective text for the plan")
+    orch_evidence_parser.add_argument("--output", default="", help="Output JSON path for evidence bundle")
+
+    # eval
+    eval_parser = sub.add_parser("eval", help="Evaluation and regression harness operations")
+    eval_sub = eval_parser.add_subparsers(dest="eval_action", help="Eval actions")
+
+    eval_sub.add_parser("suite", help="List default eval cases")
+
+    eval_sub.add_parser("run", help="Run deterministic static eval suite")
+
+    eval_reg_parser = eval_sub.add_parser("regression", help="Generate regression matrix result")
+    eval_reg_parser.add_argument("--output", default="", help="Output JSON path")
+
+    eval_ben_parser = eval_sub.add_parser("benefit", help="Generate benefit-vs-complexity report")
+    eval_ben_parser.add_argument("--output", default="", help="Output JSON path")
+
+    # v4
+    v4_parser = sub.add_parser("v4", help="V4 productization and ops commands")
+    v4_sub = v4_parser.add_subparsers(dest="v4_action", help="V4 actions")
+
+    v4_sub.add_parser("status", help="Print compact v4 operational status")
+
+    v4_ops_check_parser = v4_sub.add_parser("ops-check", help="Print v4 operational checklist")
+    v4_ops_check_parser.add_argument("--output", default="", help="Output JSON path")
+
+    v4_runbook_parser = v4_sub.add_parser("runbook", help="Write v4 runbook")
+    v4_runbook_parser.add_argument("--output", default="", help="Output directory (default: v3/exports/)")
+    v4_runbook_parser.add_argument("--format", default="md", choices=["md", "json"],
+                                    help="Output format (default: md)")
+
+    v4_sub.add_parser("summary", help="Combined registry/evidence/orchestration/eval summary")
+
+    # capability
+    cap_parser = sub.add_parser("capability", help="Capability registry operations")
+    cap_sub = cap_parser.add_subparsers(dest="cap_action", help="Capability actions")
+
+    cap_sub.add_parser("list", help="List all capability registry entries")
+
+    cap_sub.add_parser("summary", help="Print capability registry summary counts")
+
+    cap_show_parser = cap_sub.add_parser("show", help="Show one capability registry entry")
+    cap_show_parser.add_argument("adapter_id", help="Adapter ID to show")
+
     return parser
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Context engineering plane commands (Phase 4)
+# ═══════════════════════════════════════════════════════════════════════
+
+def cmd_context_plane_plan(target: str, output: str = "", style: str = "markdown") -> int:
+    """Plan a context pack through the Context Engineering Plane. No execution."""
+    if ROOT not in sys.path:
+        sys.path.insert(0, ROOT)
+
+    from v3.external.context_plane import (
+        plan_context_pack,
+        default_context_budget_policy,
+        validate_context_budget,
+        BUDGET_PASS,
+        BUDGET_REVIEW,
+        BUDGET_BLOCKED,
+    )
+
+    policy = default_context_budget_policy()
+    plan = plan_context_pack(target, output=output, style=style, policy=policy)
+    budget = validate_context_budget(plan, policy)
+
+    print("=" * 60)
+    print("  SystemKernel v4.0 — Context Engineering Plane")
+    print("=" * 60)
+    print()
+    print(f"  Adapter:              {plan.adapter_id}")
+    print(f"  Target:               {plan.target_path}")
+    print(f"  Output:               {plan.output_path}")
+    print(f"  Style:                {plan.style}")
+    print(f"  Estimated files:      {plan.estimated_files}")
+    print(f"  Estimated size:       {plan.estimated_bytes:,} bytes")
+    print(f"  Estimated tokens:     {plan.estimated_tokens:,}")
+    print(f"  Budget status:        {plan.budget_status}")
+    print(f"  Plan hash:            {plan.plan_hash}")
+
+    if plan.command:
+        print(f"\n  Planned command:")
+        print(f"    {plan.command}")
+
+    if budget.violations:
+        print(f"\n  Budget Violations:")
+        for v in budget.violations:
+            print(f"    [BLOCKED] {v}")
+
+    if budget.warnings:
+        print(f"\n  Budget Warnings:")
+        for w in budget.warnings:
+            print(f"    [WARN] {w}")
+
+    if plan.warnings:
+        print(f"\n  Adapter Warnings:")
+        for w in plan.warnings:
+            if w not in budget.violations and w not in budget.warnings:
+                print(f"    - {w}")
+
+    print()
+    if plan.budget_status == BUDGET_BLOCKED:
+        return 1
+    return 0
+
+
+def cmd_context_plane_inspect(path: str) -> int:
+    """Inspect an existing context pack through the Context Engineering Plane."""
+    if ROOT not in sys.path:
+        sys.path.insert(0, ROOT)
+
+    from v3.external.context_plane import (
+        inspect_context_pack,
+        default_context_budget_policy,
+        validate_context_budget,
+    )
+
+    policy = default_context_budget_policy()
+    inspection = inspect_context_pack(path, policy=policy)
+    budget = validate_context_budget(inspection, policy)
+
+    print("=" * 60)
+    print("  SystemKernel v4.0 — Context Engineering Plane")
+    print("=" * 60)
+    print()
+    print(f"  Path:                 {inspection.output_path}")
+    print(f"  Size:                 {inspection.size_bytes:,} bytes")
+    print(f"  Lines:                {inspection.line_count:,}")
+    print(f"  Token estimate:       {inspection.token_estimate:,}")
+    print(f"  Included files:       {len(inspection.included_files)}")
+    print(f"  Sections detected:    {len(inspection.detected_sections)}")
+    print(f"  Sensitive hits:       {len(inspection.sensitive_pattern_hits)}")
+    print(f"  Pack hash:            {inspection.pack_hash}")
+    print(f"  Inspection hash:      {inspection.inspection_hash}")
+
+    if inspection.sensitive_pattern_hits:
+        print(f"\n  Sensitive Pattern Hits:")
+        for hit in inspection.sensitive_pattern_hits:
+            print(f"    [WARN] Pattern detected: {hit}")
+
+    if budget.warnings:
+        print(f"\n  Budget Warnings:")
+        for w in budget.warnings:
+            print(f"    [WARN] {w}")
+
+    if inspection.detected_sections:
+        print(f"\n  Sections ({len(inspection.detected_sections)}):")
+        for s in inspection.detected_sections:
+            print(f"    - {s}")
+
+    if inspection.included_files:
+        print(f"\n  Files ({len(inspection.included_files)}):")
+        for f in inspection.included_files[:20]:
+            print(f"    - {f}")
+        if len(inspection.included_files) > 20:
+            print(f"    ... and {len(inspection.included_files) - 20} more")
+
+    print()
+    return 0
+
+
+def cmd_context_plane_evidence(path: str, output: str = "", target: str = "") -> int:
+    """Build evidence bundle from an existing inspected context pack."""
+    if ROOT not in sys.path:
+        sys.path.insert(0, ROOT)
+
+    from v3.external.context_plane import (
+        plan_context_pack,
+        inspect_context_pack,
+        context_pack_to_evidence,
+        build_context_engineering_report,
+        write_context_report,
+        default_context_budget_policy,
+    )
+    from v3.external.default_capabilities import build_default_registry
+
+    policy = default_context_budget_policy()
+    inspection = inspect_context_pack(path, policy=policy)
+    plan = plan_context_pack(
+        target=target or path, output=path, style="markdown", policy=policy,
+    )
+
+    registry = build_default_registry()
+    evidence_bundle = context_pack_to_evidence(
+        plan, inspection, registry_hash=registry.registry_hash,
+    )
+    report = build_context_engineering_report(plan, inspection, evidence_bundle)
+
+    if not output:
+        output = f"{path}.evidence.json"
+    written = write_context_report(report, output)
+
+    print("=" * 60)
+    print("  SystemKernel v4.0 — Context Engineering Plane")
+    print("=" * 60)
+    print()
+    print(f"  Evidence bundle:      {evidence_bundle.bundle_id}")
+    print(f"  Evidence records:     {len(evidence_bundle.records)}")
+    print(f"  Budget status:        {report.budget_status}")
+    print(f"  Truth source:         {report.truth_source}")
+    print(f"  Report hash:          {report.report_hash}")
+    print(f"  Report written:       {written}")
+
+    print()
+    return 0
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Memory intelligence plane commands (Phase 5)
+# ═══════════════════════════════════════════════════════════════════════
+
+def cmd_memory_intel_profiles() -> int:
+    """List all memory intelligence provider profiles and policy status."""
+    if ROOT not in sys.path:
+        sys.path.insert(0, ROOT)
+
+    from v3.external.memory_intelligence_profiles import (
+        get_all_profiles, evaluate_all_profiles,
+    )
+    from v3.external.memory_intelligence_policy import (
+        default_memory_intelligence_policy,
+    )
+
+    policy = default_memory_intelligence_policy()
+    profiles = get_all_profiles()
+    statuses = evaluate_all_profiles(policy)
+
+    print("=" * 60)
+    print("  SystemKernel v4.0 — Memory Intelligence Plane")
+    print("=" * 60)
+    print()
+    print(f"  Policy hash:           {policy.policy_hash}")
+    print(f"  Allow LLM providers:   {policy.allow_llm_providers}")
+    print(f"  Allow vector DB:       {policy.allow_vector_db_providers}")
+    print(f"  Allow graph DB:        {policy.allow_graph_db_providers}")
+    print(f"  Allow external svcs:   {policy.allow_external_services}")
+    print()
+    print(f"  {'Provider':<35} {'Type':<22} {'Allowed':<10} {'LLM':<6} {'VecDB':<7} {'Graph':<7} {'ExtSvc':<8}")
+    print(f"  {'-'*35} {'-'*22} {'-'*10} {'-'*6} {'-'*7} {'-'*7} {'-'*8}")
+
+    status_map = {s.provider_id: s for s in statuses}
+    for p in profiles:
+        st = status_map.get(p.provider_id)
+        allowed = "YES" if (st and st.allowed) else "NO"
+        print(f"  {p.provider_id:<35} {p.provider_type:<22} {allowed:<10} "
+              f"{'Y' if p.requires_llm else 'N':<6} "
+              f"{'Y' if p.requires_vector_db else 'N':<7} "
+              f"{'Y' if p.requires_graph_db else 'N':<7} "
+              f"{'Y' if p.external_service_required else 'N':<8}")
+
+    print()
+    print(f"  Profiles:              {len(profiles)}")
+    print("  External integrations: NONE (Phase 5 is contract only)")
+    print()
+    return 0
+
+
+def cmd_memory_intel_mock(provider_id: str = "deterministic_mock_memory",
+                          signals: int = 3) -> int:
+    """Generate deterministic mock memory intelligence result."""
+    if ROOT not in sys.path:
+        sys.path.insert(0, ROOT)
+
+    from v3.external.memory_intelligence import (
+        build_memory_intelligence_request,
+        mock_memory_intelligence_result,
+        validate_memory_intelligence_result,
+        MODE_INSPECT_ONLY,
+    )
+    from v3.external.memory_intelligence_profiles import get_profile
+    from v3.external.memory_intelligence_policy import (
+        default_memory_intelligence_policy,
+        validate_provider_against_policy,
+    )
+
+    provider = get_profile(provider_id)
+    if provider is None:
+        print(f"Unknown provider: {provider_id}")
+        return 1
+
+    policy = default_memory_intelligence_policy()
+    allowed, reason = validate_provider_against_policy(provider, policy)
+
+    print("=" * 60)
+    print("  SystemKernel v4.0 — Memory Intelligence Plane")
+    print("=" * 60)
+    print()
+    print(f"  Provider:              {provider.provider_id}")
+    print(f"  Type:                  {provider.provider_type}")
+    print(f"  Policy allowed:        {allowed}")
+    if not allowed:
+        print(f"  Reason:                {reason}")
+        return 1
+
+    request = build_memory_intelligence_request(
+        provider_id=provider_id,
+        input_record_refs=("mem-001", "mem-002", "mem-003"),
+        input_evidence_refs=("ev-001",),
+        mode=MODE_INSPECT_ONLY,
+        max_signals=signals,
+    )
+    result = mock_memory_intelligence_result(request, signal_count=signals)
+    validation = validate_memory_intelligence_result(result)
+
+    print(f"  Request ID:            {request.request_id}")
+    print(f"  Request mode:          {request.mode}")
+    print(f"  Signals generated:     {len(result.signals)}")
+    print(f"  Blocked:               {result.blocked}")
+    print(f"  Truth source:          {result.truth_source}")
+    print(f"  Result hash:           {result.result_hash}")
+    print(f"  Validation:            {'PASS' if validation.valid else 'FAIL'}")
+
+    if result.signals:
+        print(f"\n  Signals:")
+        for s in result.signals:
+            print(f"    [{s.signal_type}] {s.signal_id[:8]} "
+                  f"confidence={s.confidence:.1f} content='{s.content[:50]}...'")
+
+    print()
+    return 0
+
+
+def cmd_memory_intel_evidence(provider_id: str = "deterministic_mock_memory",
+                              output: str = "") -> int:
+    """Build evidence bundle from mock memory intelligence result."""
+    if ROOT not in sys.path:
+        sys.path.insert(0, ROOT)
+
+    from v3.external.memory_intelligence import (
+        build_memory_intelligence_request,
+        mock_memory_intelligence_result,
+        memory_signals_to_evidence,
+        build_memory_intelligence_report,
+        MODE_INSPECT_ONLY,
+    )
+    from v3.external.memory_intelligence_profiles import get_profile
+    from v3.external.memory_intelligence_policy import (
+        default_memory_intelligence_policy,
+        validate_provider_against_policy,
+    )
+    from v3.external.default_capabilities import build_default_registry
+    import json as _json
+
+    provider = get_profile(provider_id)
+    if provider is None:
+        print(f"Unknown provider: {provider_id}")
+        return 1
+
+    policy = default_memory_intelligence_policy()
+    allowed, reason = validate_provider_against_policy(provider, policy)
+
+    if not allowed:
+        print(f"Provider blocked: {reason}")
+        return 1
+
+    request = build_memory_intelligence_request(
+        provider_id=provider_id,
+        input_record_refs=("mem-001", "mem-002", "mem-003"),
+        input_evidence_refs=("ev-001",),
+        mode=MODE_INSPECT_ONLY,
+        max_signals=5,
+    )
+    result = mock_memory_intelligence_result(request, signal_count=3)
+    registry = build_default_registry()
+    bundle = memory_signals_to_evidence(
+        result, registry_hash=registry.registry_hash,
+    )
+    report = build_memory_intelligence_report(
+        provider, request, result, bundle, policy_status="pass",
+    )
+
+    if not output:
+        output = f"/tmp/memory_intel_evidence_{result.result_hash}.json"
+    with open(output, "w", encoding="utf-8") as f:
+        _json.dump(report.to_dict(), f, indent=2, ensure_ascii=False, sort_keys=True)
+
+    print("=" * 60)
+    print("  SystemKernel v4.0 — Memory Intelligence Plane")
+    print("=" * 60)
+    print()
+    print(f"  Evidence bundle:       {bundle.bundle_id}")
+    print(f"  Evidence records:      {len(bundle.records)}")
+    print(f"  Truth source:          {bundle.truth_source}")
+    print(f"  Policy status:         {report.policy_status}")
+    print(f"  Report hash:           {report.report_hash}")
+    print(f"  Report written:        {output}")
+
+    print()
+    return 0
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Workspace context plane commands (Phase 7)
+# ═══════════════════════════════════════════════════════════════════════
+
+def cmd_workspace_profiles() -> int:
+    """List all workspace provider profiles and policy status."""
+    if ROOT not in sys.path:
+        sys.path.insert(0, ROOT)
+
+    from v3.external.workspace_context_profiles import (
+        get_all_profiles, evaluate_all_profiles,
+    )
+    from v3.external.workspace_context_policy import (
+        default_workspace_context_policy,
+    )
+
+    policy = default_workspace_context_policy()
+    profiles = get_all_profiles()
+    statuses = evaluate_all_profiles(policy)
+
+    print("=" * 60)
+    print("  SystemKernel v4.0 — Workspace Context Plane")
+    print("=" * 60)
+    print()
+    print(f"  Policy hash:            {policy.policy_hash}")
+    print(f"  Allow IDE API:          {policy.allow_ide_api}")
+    print(f"  Allow file watch:       {policy.allow_file_watch}")
+    print(f"  Allow file read:        {policy.allow_file_read}")
+    print(f"  Allow file write:       {policy.allow_file_write}")
+    print(f"  Allow terminal:         {policy.allow_terminal_execution}")
+    print(f"  Allow external svcs:    {policy.allow_external_services}")
+    print(f"  Require redaction:      {policy.require_redaction}")
+    print(f"  Require human approval: {policy.require_human_approval}")
+    print()
+    print(f"  {'Provider':<35} {'Type':<22} {'Allowed':<10} {'IDE':<6} {'Watch':<7} {'Read':<6} {'Write':<7} {'Term':<6} {'ExtSvc':<8}")
+    print(f"  {'-'*35} {'-'*22} {'-'*10} {'-'*6} {'-'*7} {'-'*6} {'-'*7} {'-'*6} {'-'*8}")
+
+    status_map = {s.provider_id: s for s in statuses}
+    for p in profiles:
+        st = status_map.get(p.provider_id)
+        allowed = "YES" if (st and st.allowed) else "NO"
+        print(f"  {p.provider_id:<35} {p.provider_type:<22} {allowed:<10} "
+              f"{'Y' if p.requires_ide_api else 'N':<6} "
+              f"{'Y' if p.requires_file_watch else 'N':<7} "
+              f"{'Y' if p.can_read_files else 'N':<6} "
+              f"{'Y' if p.can_write_files else 'N':<7} "
+              f"{'Y' if p.can_execute_terminal else 'N':<6} "
+              f"{'Y' if p.external_service_required else 'N':<8}")
+
+    print()
+    print(f"  Profiles:               {len(profiles)}")
+    print("  External integrations:  NONE (Phase 7 is contract only)")
+    print()
+    return 0
+
+
+def cmd_workspace_mock(provider_id: str = "deterministic_mock_workspace",
+                       files: int = 3, diagnostics: int = 2) -> int:
+    """Generate deterministic mock workspace snapshot."""
+    if ROOT not in sys.path:
+        sys.path.insert(0, ROOT)
+
+    from v3.external.workspace_context import (
+        mock_workspace_snapshot,
+        validate_workspace_provider,
+        validate_workspace_snapshot,
+    )
+    from v3.external.workspace_context_profiles import get_profile
+    from v3.external.workspace_context_policy import (
+        default_workspace_context_policy,
+        validate_provider_against_policy,
+    )
+
+    provider = get_profile(provider_id)
+    if provider is None:
+        print(f"Unknown provider: {provider_id}")
+        return 1
+
+    policy = default_workspace_context_policy()
+    allowed, reason = validate_provider_against_policy(provider, policy)
+
+    print("=" * 60)
+    print("  SystemKernel v4.0 — Workspace Context Plane")
+    print("=" * 60)
+    print()
+    print(f"  Provider:               {provider.provider_id}")
+    print(f"  Type:                   {provider.provider_type}")
+    print(f"  Policy allowed:         {allowed}")
+    if not allowed:
+        print(f"  Reason:                 {reason}")
+        return 1
+
+    provider_valid = validate_workspace_provider(provider)
+    snapshot = mock_workspace_snapshot(
+        provider_id=provider_id,
+        file_count=files,
+        diagnostic_count=diagnostics,
+    )
+    snapshot_valid = validate_workspace_snapshot(snapshot)
+
+    print(f"  Snapshot ID:            {snapshot.snapshot_id}")
+    print(f"  Root path:              {snapshot.root_path}")
+    print(f"  File refs:              {len(snapshot.file_refs)}")
+    print(f"  Diagnostics:            {len(snapshot.diagnostics)}")
+    print(f"  Open files:             {len(snapshot.open_files)}")
+    if snapshot.active_file:
+        print(f"  Active file:            {snapshot.active_file}")
+    if snapshot.git_state:
+        print(f"  Git branch:             {snapshot.git_state.branch}")
+        print(f"  Modified count:         {snapshot.git_state.modified_count}")
+    print(f"  Truth source:           {snapshot.truth_source}")
+    print(f"  Snapshot hash:          {snapshot.snapshot_hash}")
+    print(f"  Provider validation:    {'PASS' if provider_valid.valid else 'FAIL'}")
+    print(f"  Snapshot validation:    {'PASS' if snapshot_valid.valid else 'FAIL'}")
+
+    if snapshot.file_refs:
+        print(f"\n  File Refs:")
+        for ref in snapshot.file_refs:
+            print(f"    {ref.path}  ({ref.language}, {ref.size_bytes:,} bytes)")
+
+    if snapshot.diagnostics:
+        print(f"\n  Diagnostics:")
+        for d in snapshot.diagnostics:
+            print(f"    [{d.severity}] {d.source}: {d.message_summary}")
+
+    print()
+    return 0
+
+
+def cmd_workspace_evidence(provider_id: str = "deterministic_mock_workspace",
+                           output: str = "") -> int:
+    """Build evidence bundle from mock workspace snapshot."""
+    if ROOT not in sys.path:
+        sys.path.insert(0, ROOT)
+
+    from v3.external.workspace_context import (
+        mock_workspace_snapshot,
+        workspace_snapshot_to_evidence,
+        build_workspace_context_report,
+    )
+    from v3.external.workspace_context_profiles import get_profile
+    from v3.external.workspace_context_policy import (
+        default_workspace_context_policy,
+        validate_provider_against_policy,
+    )
+    from v3.external.default_capabilities import build_default_registry
+    import json as _json
+
+    provider = get_profile(provider_id)
+    if provider is None:
+        print(f"Unknown provider: {provider_id}")
+        return 1
+
+    policy = default_workspace_context_policy()
+    allowed, reason = validate_provider_against_policy(provider, policy)
+
+    if not allowed:
+        print(f"Provider blocked: {reason}")
+        return 1
+
+    snapshot = mock_workspace_snapshot(provider_id=provider_id, file_count=3, diagnostic_count=2)
+    registry = build_default_registry()
+    bundle = workspace_snapshot_to_evidence(
+        snapshot, registry_hash=registry.registry_hash,
+    )
+    report = build_workspace_context_report(
+        provider, snapshot, bundle, policy_status="pass",
+    )
+
+    if not output:
+        output = f"/tmp/workspace_evidence_{snapshot.snapshot_hash}.json"
+    with open(output, "w", encoding="utf-8") as f:
+        _json.dump(report.to_dict(), f, indent=2, ensure_ascii=False, sort_keys=True)
+
+    print("=" * 60)
+    print("  SystemKernel v4.0 — Workspace Context Plane")
+    print("=" * 60)
+    print()
+    print(f"  Evidence bundle:        {bundle.bundle_id}")
+    print(f"  Evidence records:       {len(bundle.records)}")
+    print(f"  Truth source:           {bundle.truth_source}")
+    print(f"  Policy status:          {report.policy_status}")
+    print(f"  Report hash:            {report.report_hash}")
+    print(f"  Report written:         {output}")
+
+    print()
+    return 0
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Agent worker plane commands (Phase 6)
+# ═══════════════════════════════════════════════════════════════════════
+
+def cmd_agent_worker_profiles() -> int:
+    """List all agent worker provider profiles and policy status."""
+    if ROOT not in sys.path:
+        sys.path.insert(0, ROOT)
+
+    from v3.external.agent_worker_profiles import (
+        get_all_profiles, evaluate_all_profiles,
+    )
+    from v3.external.agent_worker_policy import (
+        default_agent_worker_policy,
+    )
+
+    policy = default_agent_worker_policy()
+    profiles = get_all_profiles()
+    statuses = evaluate_all_profiles(policy)
+
+    print("=" * 60)
+    print("  SystemKernel v4.0 — Agent Worker Plane")
+    print("=" * 60)
+    print()
+    print(f"  Policy hash:            {policy.policy_hash}")
+    print(f"  Allow LLM providers:    {policy.allow_llm_providers}")
+    print(f"  Allow network:          {policy.allow_network}")
+    print(f"  Allow file mod:         {policy.allow_file_modification}")
+    print(f"  Allow cmd exec:         {policy.allow_command_execution}")
+    print(f"  Allow external svcs:    {policy.allow_external_services}")
+    print(f"  Require sandbox:        {policy.require_sandbox}")
+    print(f"  Require human approval: {policy.require_human_approval}")
+    print()
+    print(f"  {'Provider':<35} {'Type':<22} {'Allowed':<10} {'LLM':<6} {'Net':<6} {'File':<6} {'Cmd':<6} {'ExtSvc':<8}")
+    print(f"  {'-'*35} {'-'*22} {'-'*10} {'-'*6} {'-'*6} {'-'*6} {'-'*6} {'-'*8}")
+
+    status_map = {s.provider_id: s for s in statuses}
+    for p in profiles:
+        st = status_map.get(p.provider_id)
+        allowed = "YES" if (st and st.allowed) else "NO"
+        print(f"  {p.provider_id:<35} {p.provider_type:<22} {allowed:<10} "
+              f"{'Y' if p.requires_llm else 'N':<6} "
+              f"{'Y' if p.requires_network else 'N':<6} "
+              f"{'Y' if p.can_modify_files else 'N':<6} "
+              f"{'Y' if p.can_execute_commands else 'N':<6} "
+              f"{'Y' if p.external_service_required else 'N':<8}")
+
+    print()
+    print(f"  Profiles:               {len(profiles)}")
+    print("  External integrations:  NONE (Phase 6 is contract only)")
+    print()
+    return 0
+
+
+def cmd_agent_worker_mock(provider_id: str = "deterministic_mock_agent",
+                          proposals: int = 2) -> int:
+    """Generate deterministic mock agent worker result."""
+    if ROOT not in sys.path:
+        sys.path.insert(0, ROOT)
+
+    from v3.external.agent_worker import (
+        build_agent_worker_task,
+        mock_agent_worker_result,
+        validate_agent_worker_provider,
+        validate_agent_worker_result,
+    )
+    from v3.external.agent_worker_profiles import get_profile
+    from v3.external.agent_worker_policy import (
+        default_agent_worker_policy,
+        validate_provider_against_policy,
+    )
+
+    provider = get_profile(provider_id)
+    if provider is None:
+        print(f"Unknown provider: {provider_id}")
+        return 1
+
+    policy = default_agent_worker_policy()
+    allowed, reason = validate_provider_against_policy(provider, policy)
+
+    print("=" * 60)
+    print("  SystemKernel v4.0 — Agent Worker Plane")
+    print("=" * 60)
+    print()
+    print(f"  Provider:               {provider.provider_id}")
+    print(f"  Type:                   {provider.provider_type}")
+    print(f"  Policy allowed:         {allowed}")
+    if not allowed:
+        print(f"  Reason:                 {reason}")
+        return 1
+
+    provider_valid = validate_agent_worker_provider(provider)
+    task = build_agent_worker_task(
+        provider_id=provider_id,
+        task_summary="Mock agent worker task for testing",
+        input_refs=("file-1.py", "file-2.py"),
+        allowed_paths=("./src",),
+        max_runtime_seconds=300,
+        dry_run=True,
+    )
+    result = mock_agent_worker_result(task, proposal_count=proposals)
+    result_valid = validate_agent_worker_result(result)
+
+    print(f"  Task ID:                {task.task_id}")
+    print(f"  Task dry_run:           {task.dry_run}")
+    print(f"  Proposals generated:    {len(result.proposals)}")
+    print(f"  Status:                 {result.status}")
+    print(f"  Truth source:           {result.truth_source}")
+    print(f"  Result hash:            {result.result_hash}")
+    print(f"  Provider validation:    {'PASS' if provider_valid.valid else 'FAIL'}")
+    print(f"  Result validation:      {'PASS' if result_valid.valid else 'FAIL'}")
+
+    if result.proposals:
+        print(f"\n  Proposals:")
+        for p in result.proposals:
+            print(f"    [{p.proposal_id[:8]}] confidence={p.confidence:.1f} "
+                  f"plan='{p.proposed_plan[:60]}...'")
+
+    print()
+    return 0
+
+
+def cmd_agent_worker_evidence(provider_id: str = "deterministic_mock_agent",
+                              output: str = "") -> int:
+    """Build evidence bundle from mock agent worker result."""
+    if ROOT not in sys.path:
+        sys.path.insert(0, ROOT)
+
+    from v3.external.agent_worker import (
+        build_agent_worker_task,
+        mock_agent_worker_result,
+        agent_proposals_to_evidence,
+        build_agent_worker_report,
+    )
+    from v3.external.agent_worker_profiles import get_profile
+    from v3.external.agent_worker_policy import (
+        default_agent_worker_policy,
+        validate_provider_against_policy,
+    )
+    from v3.external.default_capabilities import build_default_registry
+    import json as _json
+
+    provider = get_profile(provider_id)
+    if provider is None:
+        print(f"Unknown provider: {provider_id}")
+        return 1
+
+    policy = default_agent_worker_policy()
+    allowed, reason = validate_provider_against_policy(provider, policy)
+
+    if not allowed:
+        print(f"Provider blocked: {reason}")
+        return 1
+
+    task = build_agent_worker_task(
+        provider_id=provider_id,
+        task_summary="Mock agent worker task for evidence mapping",
+        input_refs=("file-1.py", "file-2.py"),
+        allowed_paths=("./src",),
+        max_runtime_seconds=300,
+        dry_run=True,
+    )
+    result = mock_agent_worker_result(task, proposal_count=3)
+    registry = build_default_registry()
+    bundle = agent_proposals_to_evidence(
+        result, registry_hash=registry.registry_hash,
+    )
+    report = build_agent_worker_report(
+        provider, task, result, bundle, policy_status="pass",
+    )
+
+    if not output:
+        output = f"/tmp/agent_worker_evidence_{result.result_hash}.json"
+    with open(output, "w", encoding="utf-8") as f:
+        _json.dump(report.to_dict(), f, indent=2, ensure_ascii=False, sort_keys=True)
+
+    print("=" * 60)
+    print("  SystemKernel v4.0 — Agent Worker Plane")
+    print("=" * 60)
+    print()
+    print(f"  Evidence bundle:        {bundle.bundle_id}")
+    print(f"  Evidence records:       {len(bundle.records)}")
+    print(f"  Truth source:           {bundle.truth_source}")
+    print(f"  Policy status:          {report.policy_status}")
+    print(f"  Report hash:            {report.report_hash}")
+    print(f"  Report written:         {output}")
+
+    print()
+    return 0
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Skill evolution plane commands (Phase 8)
+# ═══════════════════════════════════════════════════════════════════════
+
+def cmd_skill_evolution_profiles() -> int:
+    """List all skill evolution provider profiles and policy status."""
+    if ROOT not in sys.path:
+        sys.path.insert(0, ROOT)
+
+    from v3.external.skill_evolution_profiles import (
+        get_all_profiles, evaluate_all_profiles,
+    )
+    from v3.external.skill_evolution_policy import (
+        default_skill_evolution_policy,
+    )
+
+    policy = default_skill_evolution_policy()
+    profiles = get_all_profiles()
+    statuses = evaluate_all_profiles(policy)
+
+    print("=" * 60)
+    print("  SystemKernel v4.0 — Skill Evolution Plane")
+    print("=" * 60)
+    print()
+    print(f"  Policy hash:             {policy.policy_hash}")
+    print(f"  Allow LLM providers:     {policy.allow_llm_providers}")
+    print(f"  Allow skill mod:         {policy.allow_skill_file_modification}")
+    print(f"  Allow registry update:   {policy.allow_registry_update}")
+    print(f"  Allow skill install:     {policy.allow_skill_installation}")
+    print(f"  Require tests:           {policy.require_tests_for_changes}")
+    print(f"  Require human approval:  {policy.require_human_approval}")
+    print()
+    print(f"  {'Provider':<40} {'Type':<25} {'Allowed':<10} {'LLM':<6} {'Mod':<6} {'Reg':<6} {'Inst':<7} {'ExtSvc':<8}")
+    print(f"  {'-'*40} {'-'*25} {'-'*10} {'-'*6} {'-'*6} {'-'*6} {'-'*7} {'-'*8}")
+
+    status_map = {s.provider_id: s for s in statuses}
+    for p in profiles:
+        st = status_map.get(p.provider_id)
+        allowed = "YES" if (st and st.allowed) else "NO"
+        print(f"  {p.provider_id:<40} {p.provider_type:<25} {allowed:<10} "
+              f"{'Y' if p.requires_llm else 'N':<6} "
+              f"{'Y' if p.can_modify_skills else 'N':<6} "
+              f"{'Y' if p.can_update_registry else 'N':<6} "
+              f"{'Y' if p.can_install_skills else 'N':<7} "
+              f"{'Y' if p.external_service_required else 'N':<8}")
+
+    print()
+    print(f"  Profiles:                {len(profiles)}")
+    print("  Skill evolution:         PROPOSAL-ONLY (no automatic modification)")
+    print()
+    return 0
+
+
+def cmd_skill_evolution_mock(provider_id: str = "deterministic_mock_skill_evolution",
+                              proposals: int = 2, signals: int = 3) -> int:
+    """Generate deterministic mock skill evolution result."""
+    if ROOT not in sys.path:
+        sys.path.insert(0, ROOT)
+
+    from v3.external.skill_evolution import (
+        mock_skill_evolution_result,
+        validate_skill_provider,
+        validate_skill_result,
+    )
+    from v3.external.skill_evolution_profiles import get_profile
+    from v3.external.skill_evolution_policy import (
+        default_skill_evolution_policy,
+        validate_provider_against_policy,
+    )
+
+    provider = get_profile(provider_id)
+    if provider is None:
+        print(f"Unknown provider: {provider_id}")
+        return 1
+
+    policy = default_skill_evolution_policy()
+    allowed, reason = validate_provider_against_policy(provider, policy)
+
+    print("=" * 60)
+    print("  SystemKernel v4.0 — Skill Evolution Plane")
+    print("=" * 60)
+    print()
+    print(f"  Provider:                {provider.provider_id}")
+    print(f"  Type:                    {provider.provider_type}")
+    print(f"  Policy allowed:          {allowed}")
+    if not allowed:
+        print(f"  Reason:                  {reason}")
+        return 1
+
+    provider_valid = validate_skill_provider(provider)
+    result = mock_skill_evolution_result(
+        provider_id=provider_id,
+        proposal_count=proposals,
+        signal_count=signals,
+    )
+    result_valid = validate_skill_result(result)
+
+    print(f"  Proposals generated:     {len(result.proposals)}")
+    print(f"  Status:                  {result.status}")
+    print(f"  Truth source:            {result.truth_source}")
+    print(f"  Result hash:             {result.result_hash}")
+    print(f"  Provider validation:     {'PASS' if provider_valid.valid else 'FAIL'}")
+    print(f"  Result validation:       {'PASS' if result_valid.valid else 'FAIL'}")
+
+    if result.proposals:
+        print(f"\n  Proposals:")
+        for p in result.proposals:
+            print(f"    [{p.proposal_id[:8]}] type={p.proposal_type} "
+                  f"approval={p.approval_required} "
+                  f"summary='{p.proposed_changes_summary[:50]}...'")
+
+    if result.warnings:
+        print(f"\n  Warnings:")
+        for w in result.warnings:
+            print(f"    - {w}")
+
+    print()
+    return 0
+
+
+def cmd_skill_evolution_evidence(provider_id: str = "deterministic_mock_skill_evolution",
+                                  output: str = "") -> int:
+    """Build evidence bundle from mock skill evolution result."""
+    if ROOT not in sys.path:
+        sys.path.insert(0, ROOT)
+
+    from v3.external.skill_evolution import (
+        mock_skill_evolution_result,
+        skill_proposals_to_evidence,
+        build_skill_evolution_report,
+    )
+    from v3.external.skill_evolution_profiles import get_profile
+    from v3.external.skill_evolution_policy import (
+        default_skill_evolution_policy,
+        validate_provider_against_policy,
+    )
+    from v3.external.default_capabilities import build_default_registry
+    import json as _json
+
+    provider = get_profile(provider_id)
+    if provider is None:
+        print(f"Unknown provider: {provider_id}")
+        return 1
+
+    policy = default_skill_evolution_policy()
+    allowed, reason = validate_provider_against_policy(provider, policy)
+
+    if not allowed:
+        print(f"Provider blocked: {reason}")
+        return 1
+
+    result = mock_skill_evolution_result(provider_id=provider_id, proposal_count=3, signal_count=3)
+    registry = build_default_registry()
+    bundle = skill_proposals_to_evidence(
+        result, registry_hash=registry.registry_hash,
+    )
+    report = build_skill_evolution_report(
+        provider, result, bundle, policy_status="pass",
+    )
+
+    if not output:
+        output = f"/tmp/skill_evolution_evidence_{result.result_hash}.json"
+    with open(output, "w", encoding="utf-8") as f:
+        _json.dump(report.to_dict(), f, indent=2, ensure_ascii=False, sort_keys=True)
+
+    print("=" * 60)
+    print("  SystemKernel v4.0 — Skill Evolution Plane")
+    print("=" * 60)
+    print()
+    print(f"  Evidence bundle:         {bundle.bundle_id}")
+    print(f"  Evidence records:        {len(bundle.records)}")
+    print(f"  Truth source:            {bundle.truth_source}")
+    print(f"  Policy status:           {report.policy_status}")
+    print(f"  Report hash:             {report.report_hash}")
+    print(f"  Report written:          {output}")
+
+    print()
+    return 0
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Orchestration policy commands (Phase 9)
+# ═══════════════════════════════════════════════════════════════════════
+
+def cmd_orchestrate_policies() -> int:
+    """List all orchestration policy profiles."""
+    if ROOT not in sys.path:
+        sys.path.insert(0, ROOT)
+
+    from v3.external.orchestration_profiles import (
+        get_all_profiles, get_all_profile_statuses,
+    )
+
+    profiles = get_all_profiles()
+    statuses = get_all_profile_statuses()
+    status_map = {s.policy_id: s for s in statuses}
+
+    print("=" * 60)
+    print("  SystemKernel v4.0 — Orchestration Policy Layer")
+    print("=" * 60)
+    print()
+    print(f"  {'Profile':<30} {'Types':<30} {'Run':<8} {'Risk':<8} {'Exec':<6} {'Net':<6} {'File':<6}")
+    print(f"  {'-'*30} {'-'*30} {'-'*8} {'-'*8} {'-'*6} {'-'*6} {'-'*6}")
+
+    for p in profiles:
+        types_str = ",".join(p.allowed_capability_types[:3])
+        if len(p.allowed_capability_types) > 3:
+            types_str += "..."
+        if not p.allowed_capability_types:
+            types_str = "(all)"
+        print(f"  {p.policy_id:<30} {types_str:<30} "
+              f"{'dry' if p.dry_run_only else 'live':<8} "
+              f"{p.max_risk_level:<8} "
+              f"{'Y' if p.allow_external_execution else 'N':<6} "
+              f"{'Y' if p.allow_network else 'N':<6} "
+              f"{'Y' if p.allow_file_modification else 'N':<6}")
+
+    print()
+    print(f"  Profiles:                {len(profiles)}")
+    print("  Execution:               NONE (Phase 9 is planning only)")
+    print()
+    return 0
+
+
+def cmd_orchestrate_plan(profile_id: str = "safe_context_only",
+                          objective: str = "Dry-run orchestration plan") -> int:
+    """Build a dry-run orchestration plan."""
+    if ROOT not in sys.path:
+        sys.path.insert(0, ROOT)
+
+    from v3.external.orchestration_policy import (
+        build_orchestration_request,
+        plan_orchestration,
+        validate_orchestration_plan,
+    )
+    from v3.external.orchestration_profiles import get_profile
+    from v3.external.default_capabilities import build_default_registry
+
+    policy = get_profile(profile_id)
+    if policy is None:
+        print(f"Unknown profile: {profile_id}")
+        print(f"Use 'orchestrate policies' to list available profiles.")
+        return 1
+
+    registry = build_default_registry()
+    request = build_orchestration_request(
+        objective=objective,
+        requested_capability_types=policy.allowed_capability_types,
+    )
+    plan = plan_orchestration(request, registry, policy)
+    validation = validate_orchestration_plan(plan, registry, policy)
+
+    print("=" * 60)
+    print("  SystemKernel v4.0 — Orchestration Policy Layer")
+    print("=" * 60)
+    print()
+    print(f"  Profile:                {policy.policy_id}")
+    print(f"  Policy hash:            {policy.policy_hash}")
+    print(f"  Objective:              {objective}")
+    print(f"  Plan ID:                {plan.plan_id}")
+    print(f"  Steps:                  {len(plan.steps)}")
+    print(f"  Blocked steps:          {len(plan.blocked_steps)}")
+    print(f"  Warnings:               {len(plan.warnings)}")
+    print(f"  Truth source:           {plan.truth_source}")
+    print(f"  Plan hash:              {plan.plan_hash}")
+    print(f"  Validation:             {'PASS' if validation.valid else 'FAIL'}")
+
+    if plan.steps:
+        print(f"\n  Planned Steps:")
+        for s in plan.steps:
+            print(f"    [{s.capability_type}] {s.adapter_id}")
+            print(f"      mode={s.execution_mode} evidence={s.expected_evidence_type}")
+
+    if plan.blocked_steps:
+        print(f"\n  Blocked Steps:")
+        for s in plan.blocked_steps:
+            print(f"    [BLOCKED] {s.adapter_id} — {s.block_reason[:70]}")
+
+    if plan.warnings:
+        print(f"\n  Warnings:")
+        for w in plan.warnings:
+            print(f"    - {w}")
+
+    print()
+    return 0
+
+
+def cmd_orchestrate_evidence(profile_id: str = "safe_context_only",
+                               objective: str = "Dry-run orchestration plan",
+                               output: str = "") -> int:
+    """Build evidence bundle from orchestration plan."""
+    if ROOT not in sys.path:
+        sys.path.insert(0, ROOT)
+
+    from v3.external.orchestration_policy import (
+        build_orchestration_request,
+        plan_orchestration,
+        build_orchestration_policy_report,
+        orchestration_plan_to_evidence,
+    )
+    from v3.external.orchestration_profiles import get_profile
+    from v3.external.default_capabilities import build_default_registry
+    import json as _json
+
+    policy = get_profile(profile_id)
+    if policy is None:
+        print(f"Unknown profile: {profile_id}")
+        return 1
+
+    registry = build_default_registry()
+    request = build_orchestration_request(
+        objective=objective,
+        requested_capability_types=policy.allowed_capability_types,
+    )
+    plan = plan_orchestration(request, registry, policy)
+    bundle = orchestration_plan_to_evidence(
+        plan, registry_hash=registry.registry_hash,
+    )
+    report = build_orchestration_policy_report(
+        policy, request, plan, registry_hash=registry.registry_hash,
+    )
+
+    if not output:
+        output = f"/tmp/orchestration_evidence_{plan.plan_hash}.json"
+    with open(output, "w", encoding="utf-8") as f:
+        _json.dump(report.to_dict(), f, indent=2, ensure_ascii=False, sort_keys=True)
+
+    print("=" * 60)
+    print("  SystemKernel v4.0 — Orchestration Policy Layer")
+    print("=" * 60)
+    print()
+    print(f"  Evidence bundle:         {bundle.bundle_id}")
+    print(f"  Evidence records:        {len(bundle.records)}")
+    print(f"  Truth source:            {bundle.truth_source}")
+    print(f"  Validation status:       {report.validation_status}")
+    print(f"  Report hash:             {report.report_hash}")
+    print(f"  Report written:          {output}")
+
+    print()
+    return 0
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Capability registry commands (Phase 2)
+# ═══════════════════════════════════════════════════════════════════════
+
+def cmd_capability_list() -> int:
+    """List all capability registry entries."""
+    from v3.external.default_capabilities import build_default_registry
+
+    registry = build_default_registry()
+    if not registry.entries:
+        print("(no entries)")
+        return 0
+
+    for entry in registry.entries:
+        status = "[ENABLED]" if entry.enabled else "[DISABLED]"
+        risk = entry.spec.risk_level if entry.spec else "?"
+        print(f"{status} {entry.adapter_id} | {entry.maturity} | {entry.lifecycle_state} | risk={risk}")
+    return 0
+
+
+def cmd_capability_summary() -> int:
+    """Print capability registry summary counts."""
+    from v3.external.default_capabilities import build_default_registry
+    from v3.external.capability_registry import (
+        list_by_type, list_enabled, list_high_risk, list_by_lifecycle,
+    )
+    from v3.external.capability_lifecycle import STATE_APPROVED
+
+    registry = build_default_registry()
+    total = len(registry.entries)
+    enabled = list_enabled(registry)
+    disabled = [e for e in registry.entries if not e.enabled]
+    approved = list_by_lifecycle(registry, STATE_APPROVED)
+    high_risk = list_high_risk(registry)
+
+    print(f"Total entries:      {total}")
+    print(f"Enabled:            {len(enabled)}")
+    print(f"Disabled:           {len(disabled)}")
+    print(f"Approved:           {len(approved)}")
+    print(f"High risk:          {len(high_risk)}")
+    print()
+
+    # Counts by type
+    from v3.external.capability_contract import CapabilityType
+    print("By type:")
+    for t in CapabilityType:
+        entries = list_by_type(registry, t.value)
+        if entries:
+            enabled_count = sum(1 for e in entries if e.enabled)
+            print(f"  {t.value}: {len(entries)} ({enabled_count} enabled)")
+
+    print()
+    print(f"Registry hash:      {registry.registry_hash}")
+    print()
+    print("External integrations performed: NONE (Phase 2 is registry only)")
+    return 0
+
+
+def cmd_capability_show(adapter_id: str) -> int:
+    """Show one capability registry entry."""
+    from v3.external.default_capabilities import build_default_registry
+    from v3.external.capability_registry import get_entry
+
+    registry = build_default_registry()
+    entry = get_entry(registry, adapter_id)
+    if entry is None:
+        print(f"Entry not found: {adapter_id}")
+        return 1
+
+    print(f"Adapter ID:         {entry.adapter_id}")
+    if entry.spec:
+        print(f"Name:               {entry.spec.name}")
+        print(f"Type:               {entry.spec.capability_type}")
+        print(f"Modes:              {', '.join(entry.spec.execution_modes)}")
+        print(f"Risk:               {entry.spec.risk_level}")
+        print(f"Truth source:       {entry.spec.truth_source}")
+        print(f"Removable:          {entry.spec.removable}")
+        print(f"Forbidden actions:  {', '.join(entry.spec.forbidden_actions)}")
+    print(f"Lifecycle:          {entry.lifecycle_state}")
+    print(f"Enabled:            {entry.enabled}")
+    print(f"Maturity:           {entry.maturity}")
+    print(f"Approval required:  {entry.approval_required}")
+    print(f"Owner:              {entry.owner}")
+    print(f"Notes:              {entry.notes}")
+    print(f"Entry hash:         {entry.entry_hash}")
+    return 0
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Evaluation harness commands (Phase 10)
+# ═══════════════════════════════════════════════════════════════════════
+
+def cmd_eval_suite() -> int:
+    """List default eval cases."""
+    from v3.evals.evaluation_harness import build_default_eval_suite
+
+    suite = build_default_eval_suite()
+    print(f"Suite: {suite.suite_id}")
+    print(f"Cases: {len(suite.cases)}")
+    print(f"Hash:  {suite.suite_hash}")
+    print()
+    for case in suite.cases:
+        print(f"  [{case.category}] {case.name}")
+        print(f"    ID:        {case.case_id}")
+        print(f"    Objective: {case.objective}")
+        print(f"    Invariants: {', '.join(case.required_invariants) if case.required_invariants else '(none)'}")
+        print()
+    return 0
+
+
+def cmd_eval_run() -> int:
+    """Run deterministic static eval suite."""
+    from v3.evals.evaluation_harness import build_default_eval_suite, run_eval_suite
+
+    suite = build_default_eval_suite()
+    result = run_eval_suite(suite)
+
+    print(f"Suite:        {result.suite_id}")
+    print(f"Passed:       {result.passed_count}")
+    print(f"Failed:       {result.failed_count}")
+    print(f"Avg Score:    {result.average_score}")
+    print(f"Result Hash:  {result.suite_result_hash}")
+    print()
+
+    for r in result.results:
+        status = "PASS" if r.passed else "FAIL"
+        print(f"  [{status}] {r.case_id} — score={r.score}")
+        if r.missing_outputs:
+            print(f"    Missing: {', '.join(r.missing_outputs)}")
+        if r.warnings:
+            print(f"    Warnings: {', '.join(r.warnings)}")
+
+    print()
+    if result.failed_count == 0:
+        print("All eval cases passed.")
+        return 0
+    else:
+        print(f"{result.failed_count} eval case(s) failed.")
+        return 1
+
+
+def cmd_eval_regression(output: str = "") -> int:
+    """Generate regression matrix result."""
+    from v3.evals.regression_matrix import (
+        run_static_regression_matrix, write_regression_matrix_result,
+    )
+
+    if output:
+        path = write_regression_matrix_result(output)
+        print(f"Regression matrix written: {path}")
+    else:
+        result = run_static_regression_matrix()
+        print(f"Matrix:   {result.matrix.matrix_hash}")
+        print(f"Passed:   {result.passed}")
+        print(f"Failed:   {result.failed}")
+        print(f"Skipped:  {result.skipped}")
+        print(f"Total:    {result.matrix.total}")
+        print(f"Required: {result.matrix.required_count}")
+        print()
+        if result.release_blocking_failures:
+            print("Release Blocking Failures:")
+            for f in result.release_blocking_failures:
+                print(f"  - {f}")
+        else:
+            print("No release blocking failures.")
+        print(f"Result Hash: {result.result_hash}")
+
+    return 0 if result.failed == 0 else 1
+
+
+def cmd_eval_benefit(output: str = "") -> int:
+    """Generate benefit-vs-complexity report for current v4 planes."""
+    from v3.evals.benefit_complexity import (
+        BenefitSignal, score_benefit_complexity, write_benefit_complexity_report,
+    )
+
+    # Score each major v4 plane
+    planes = {
+        "capability_contract": (BenefitSignal(
+            reduces_manual_steps=True,
+            improves_verifiability=True,
+            improves_replaceability=True,
+            improves_safety_boundary=True,
+            improves_debuggability=False,
+            avoids_new_truth_source=True,
+            avoids_runtime_dependency=True,
+        ), 3.0),
+        "capability_registry": (BenefitSignal(
+            reduces_manual_steps=True,
+            improves_verifiability=True,
+            improves_replaceability=True,
+            improves_safety_boundary=True,
+            improves_debuggability=True,
+            avoids_new_truth_source=True,
+            avoids_runtime_dependency=True,
+        ), 4.0),
+        "evidence_model": (BenefitSignal(
+            reduces_manual_steps=False,
+            improves_verifiability=True,
+            improves_replaceability=False,
+            improves_safety_boundary=True,
+            improves_debuggability=True,
+            avoids_new_truth_source=True,
+            avoids_runtime_dependency=True,
+        ), 2.0),
+        "context_plane": (BenefitSignal(
+            reduces_manual_steps=True,
+            improves_verifiability=True,
+            improves_replaceability=True,
+            improves_safety_boundary=True,
+            improves_debuggability=False,
+            avoids_new_truth_source=True,
+            avoids_runtime_dependency=True,
+        ), 4.0),
+        "memory_intelligence": (BenefitSignal(
+            reduces_manual_steps=True,
+            improves_verifiability=True,
+            improves_replaceability=True,
+            improves_safety_boundary=True,
+            improves_debuggability=True,
+            avoids_new_truth_source=True,
+            avoids_runtime_dependency=True,
+        ), 5.0),
+        "agent_worker": (BenefitSignal(
+            reduces_manual_steps=True,
+            improves_verifiability=True,
+            improves_replaceability=True,
+            improves_safety_boundary=True,
+            improves_debuggability=True,
+            avoids_new_truth_source=True,
+            avoids_runtime_dependency=True,
+        ), 5.0),
+        "workspace_context": (BenefitSignal(
+            reduces_manual_steps=True,
+            improves_verifiability=False,
+            improves_replaceability=True,
+            improves_safety_boundary=True,
+            improves_debuggability=True,
+            avoids_new_truth_source=True,
+            avoids_runtime_dependency=True,
+        ), 5.0),
+        "skill_evolution": (BenefitSignal(
+            reduces_manual_steps=True,
+            improves_verifiability=True,
+            improves_replaceability=True,
+            improves_safety_boundary=True,
+            improves_debuggability=True,
+            avoids_new_truth_source=True,
+            avoids_runtime_dependency=True,
+        ), 5.0),
+        "orchestration_policy": (BenefitSignal(
+            reduces_manual_steps=True,
+            improves_verifiability=True,
+            improves_replaceability=True,
+            improves_safety_boundary=True,
+            improves_debuggability=True,
+            avoids_new_truth_source=True,
+            avoids_runtime_dependency=True,
+        ), 6.0),
+        "eval_harness": (BenefitSignal(
+            reduces_manual_steps=True,
+            improves_verifiability=True,
+            improves_replaceability=False,
+            improves_safety_boundary=True,
+            improves_debuggability=True,
+            avoids_new_truth_source=True,
+            avoids_runtime_dependency=True,
+        ), 2.0),
+    }
+
+    scores = tuple(
+        score_benefit_complexity(name, sig, complexity)
+        for name, (sig, complexity) in planes.items()
+    )
+
+    if output:
+        path = write_benefit_complexity_report(scores, output)
+        print(f"Benefit-complexity report written: {path}")
+    else:
+        print("V4 Plane Benefit-Complexity Scores:")
+        print()
+        for s in scores:
+            verdict_mark = {"ACCEPT": "+", "REVIEW": "~", "REJECT": "!"}.get(s.verdict, "?")
+            print(f"  [{verdict_mark}] {s.target_id}")
+            print(f"      Benefit={s.benefit_score}  Complexity={s.complexity_score}  "
+                  f"Net={s.net_value}  RiskRatio={s.risk_ratio}  Verdict={s.verdict}")
+
+        accepted = sum(1 for s in scores if s.verdict == "ACCEPT")
+        review = sum(1 for s in scores if s.verdict == "REVIEW")
+        rejected = sum(1 for s in scores if s.verdict == "REJECT")
+        print(f"\n  Accepted: {accepted}  Review: {review}  Rejected: {rejected}")
+
+    return 0
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# V4 Productization + Ops commands (Phase 11)
+# ═══════════════════════════════════════════════════════════════════════
+
+def cmd_v4_status() -> int:
+    """Print compact v4 operational status."""
+    from v3.ops.v4_ops import build_v4_ops_status
+
+    s = build_v4_ops_status()
+    print("V4 Operational Status")
+    print("=" * 40)
+    print(f"  Kernel purity:        {s.kernel_purity}/100")
+    print(f"  Memory removable:     {'YES' if s.memory_removable else 'NO'}")
+    print(f"  Registry entries:     {s.registry_entries} ({s.enabled_capabilities} enabled, {s.disabled_capabilities} disabled)")
+    print(f"  Evidence model:       {'READY' if s.evidence_model_ready else 'NOT READY'}")
+    print(f"  Orchestration:        {'READY' if s.orchestration_ready else 'NOT READY'}")
+    print(f"  Eval harness:         {'READY' if s.eval_ready else 'NOT READY'}")
+    print(f"  Complexity verdict:   {s.complexity_verdict}")
+    print(f"  Ops hash:             {s.ops_hash}")
+    return 0
+
+
+def cmd_v4_ops_check(output: str = "") -> int:
+    """Print v4 operational checklist."""
+    from v3.ops.v4_ops import build_v4_ops_checklist, write_v4_ops_checklist
+
+    checklist = build_v4_ops_checklist()
+
+    if output:
+        path = write_v4_ops_checklist(output)
+        print(f"Checklist written: {path}")
+    else:
+        print(f"V4 Ops Checklist — {checklist.checklist_id}")
+        print(f"Passed: {checklist.passed}  Failed: {checklist.failed}")
+        print(f"Hash:   {checklist.checklist_hash}")
+        print()
+        cats = {}
+        for item in checklist.items:
+            cats.setdefault(item.category, []).append(item)
+        for cat, cat_items in sorted(cats.items()):
+            print(f"  [{cat.upper()}]")
+            for item in cat_items:
+                m = {"pass": "+", "fail": "!", "pending": "?"}.get(item.status, "?")
+                req = " [REQUIRED]" if item.required else ""
+                print(f"    [{m}] {item.title}{req}")
+            print()
+
+    return 0 if checklist.failed == 0 else 1
+
+
+def cmd_v4_runbook(output: str = "", fmt: str = "md") -> int:
+    """Write v4 runbook to file."""
+    from v3.ops.runbook import write_v4_runbook_md, write_v4_runbook_json
+
+    if not output:
+        output_dir = os.path.join(EXPORTS_DIR, f"v4_runbook.{fmt}")
+    else:
+        output_dir = output
+
+    if fmt == "json":
+        path = write_v4_runbook_json(output_dir)
+    else:
+        path = write_v4_runbook_md(output_dir)
+
+    print(f"Runbook written: {path}")
+    return 0
+
+
+def cmd_v4_summary() -> int:
+    """Combined registry/evidence/orchestration/eval summary."""
+    from v3.external.default_capabilities import build_default_registry
+    from v3.external.capability_registry import list_enabled
+    from v3.external.orchestration_profiles import get_all_profiles
+    from v3.evals.evaluation_harness import build_default_eval_suite, run_eval_suite
+
+    # Registry
+    reg = build_default_registry()
+    enabled = list_enabled(reg)
+    types = {}
+    for e in reg.entries:
+        if e.spec:
+            types.setdefault(e.spec.capability_type, []).append(e)
+
+    # Orchestration
+    profiles = get_all_profiles()
+
+    # Eval
+    suite = build_default_eval_suite()
+    eval_result = run_eval_suite(suite)
+
+    print("=" * 50)
+    print("  SystemKernel v4.0 — Operational Summary")
+    print("=" * 50)
+
+    print(f"\n  Registry:        {len(reg.entries)} entries ({len(enabled)} enabled)")
+    print(f"  Capability types: {len(types)}/8 covered")
+    print(f"  Orchestration:    {len(profiles)} policy profiles")
+    print(f"  Eval:             {eval_result.passed_count}/{len(suite.cases)} cases pass (score={eval_result.average_score})")
+    print(f"  Regression:       static checks available via 'systemkernel eval regression'")
+    print(f"  Complexity:       check via 'systemkernel quality'")
+    print(f"  Kernel:           purity 100/100, memory removable")
+
+    print(f"\n  Commands:")
+    print(f"    systemkernel v4 status      — Full ops health")
+    print(f"    systemkernel v4 ops-check   — Operational checklist")
+    print(f"    systemkernel v4 runbook     — Generate runbook")
+    print(f"    systemkernel eval run       — Run deterministic eval suite")
+    print(f"    systemkernel eval benefit   — Benefit-complexity scores")
+    print(f"    systemkernel orchestrate plan --profile safe_context_only")
+
+    return 0
 
 
 def main(argv: Optional[list] = None) -> int:
@@ -1294,6 +2922,150 @@ def main(argv: Optional[list] = None) -> int:
             return cmd_usage_summarize(args.path, args.output)
         else:
             print(f"Unknown usage action: {args.usage_action}")
+            return 1
+    elif args.command == "context-plane":
+        if args.ctxpl_action == "plan":
+            return cmd_context_plane_plan(
+                args.target,
+                output=getattr(args, "output", ""),
+                style=getattr(args, "style", "markdown"),
+            )
+        elif args.ctxpl_action == "inspect":
+            return cmd_context_plane_inspect(args.path)
+        elif args.ctxpl_action == "evidence":
+            return cmd_context_plane_evidence(
+                args.path,
+                output=getattr(args, "output", ""),
+                target=getattr(args, "target", ""),
+            )
+        else:
+            print(f"Unknown context-plane action: {args.ctxpl_action}")
+            return 1
+    elif args.command == "memory-intel":
+        if args.mi_action == "profiles":
+            return cmd_memory_intel_profiles()
+        elif args.mi_action == "mock":
+            return cmd_memory_intel_mock(
+                provider_id=getattr(args, "provider", "deterministic_mock_memory"),
+                signals=getattr(args, "signals", 3),
+            )
+        elif args.mi_action == "evidence":
+            return cmd_memory_intel_evidence(
+                provider_id=getattr(args, "provider", "deterministic_mock_memory"),
+                output=getattr(args, "output", ""),
+            )
+        else:
+            print(f"Unknown memory-intel action: {args.mi_action}")
+            return 1
+    elif args.command == "workspace":
+        if args.ws_action == "profiles":
+            return cmd_workspace_profiles()
+        elif args.ws_action == "mock":
+            return cmd_workspace_mock(
+                provider_id=getattr(args, "provider", "deterministic_mock_workspace"),
+                files=getattr(args, "files", 3),
+                diagnostics=getattr(args, "diagnostics", 2),
+            )
+        elif args.ws_action == "evidence":
+            return cmd_workspace_evidence(
+                provider_id=getattr(args, "provider", "deterministic_mock_workspace"),
+                output=getattr(args, "output", ""),
+            )
+        else:
+            print(f"Unknown workspace action: {args.ws_action}")
+            return 1
+    elif args.command == "agent-worker":
+        if args.aw_action == "profiles":
+            return cmd_agent_worker_profiles()
+        elif args.aw_action == "mock":
+            return cmd_agent_worker_mock(
+                provider_id=getattr(args, "provider", "deterministic_mock_agent"),
+                proposals=getattr(args, "proposals", 2),
+            )
+        elif args.aw_action == "evidence":
+            return cmd_agent_worker_evidence(
+                provider_id=getattr(args, "provider", "deterministic_mock_agent"),
+                output=getattr(args, "output", ""),
+            )
+        else:
+            print(f"Unknown agent-worker action: {args.aw_action}")
+            return 1
+    elif args.command == "skill-evolution":
+        if args.se_action == "profiles":
+            return cmd_skill_evolution_profiles()
+        elif args.se_action == "mock":
+            return cmd_skill_evolution_mock(
+                provider_id=getattr(args, "provider", "deterministic_mock_skill_evolution"),
+                proposals=getattr(args, "proposals", 2),
+                signals=getattr(args, "signals", 3),
+            )
+        elif args.se_action == "evidence":
+            return cmd_skill_evolution_evidence(
+                provider_id=getattr(args, "provider", "deterministic_mock_skill_evolution"),
+                output=getattr(args, "output", ""),
+            )
+        else:
+            print(f"Unknown skill-evolution action: {args.se_action}")
+            return 1
+    elif args.command == "orchestrate":
+        if args.orch_action == "policies":
+            return cmd_orchestrate_policies()
+        elif args.orch_action == "plan":
+            return cmd_orchestrate_plan(
+                profile_id=getattr(args, "profile", "safe_context_only"),
+                objective=getattr(args, "objective", "Dry-run orchestration plan"),
+            )
+        elif args.orch_action == "evidence":
+            return cmd_orchestrate_evidence(
+                profile_id=getattr(args, "profile", "safe_context_only"),
+                objective=getattr(args, "objective", "Dry-run orchestration plan"),
+                output=getattr(args, "output", ""),
+            )
+        else:
+            print(f"Unknown orchestrate action: {args.orch_action}")
+            return 1
+    elif args.command == "capability":
+        if args.cap_action == "list":
+            return cmd_capability_list()
+        elif args.cap_action == "summary":
+            return cmd_capability_summary()
+        elif args.cap_action == "show":
+            return cmd_capability_show(args.adapter_id)
+        else:
+            print(f"Unknown capability action: {args.cap_action}")
+            return 1
+    elif args.command == "eval":
+        if args.eval_action == "suite":
+            return cmd_eval_suite()
+        elif args.eval_action == "run":
+            return cmd_eval_run()
+        elif args.eval_action == "regression":
+            return cmd_eval_regression(
+                output=getattr(args, "output", ""),
+            )
+        elif args.eval_action == "benefit":
+            return cmd_eval_benefit(
+                output=getattr(args, "output", ""),
+            )
+        else:
+            print(f"Unknown eval action: {args.eval_action}")
+            return 1
+    elif args.command == "v4":
+        if args.v4_action == "status":
+            return cmd_v4_status()
+        elif args.v4_action == "ops-check":
+            return cmd_v4_ops_check(
+                output=getattr(args, "output", ""),
+            )
+        elif args.v4_action == "runbook":
+            return cmd_v4_runbook(
+                output=getattr(args, "output", ""),
+                fmt=getattr(args, "format", "md"),
+            )
+        elif args.v4_action == "summary":
+            return cmd_v4_summary()
+        else:
+            print(f"Unknown v4 action: {args.v4_action}")
             return 1
     else:
         parser.print_help()

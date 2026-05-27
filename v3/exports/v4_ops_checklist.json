@@ -1,0 +1,228 @@
+{
+  "checklist_id": "v4_ops_checklist",
+  "items": [
+    {
+      "item_id": "c7dfb432ced154b7",
+      "title": "Kernel purity check",
+      "category": "daily",
+      "command": "cmd: systemkernel status",
+      "expected": "purity=100",
+      "status": "pending",
+      "required": true,
+      "item_hash": "ba803e543deb4678"
+    },
+    {
+      "item_id": "91e9554c8ceec960",
+      "title": "Complexity gate check",
+      "category": "daily",
+      "command": "cmd: systemkernel quality",
+      "expected": "ACCEPT",
+      "status": "pending",
+      "required": true,
+      "item_hash": "5f97b224563f2e88"
+    },
+    {
+      "item_id": "3a9f488651ce5c73",
+      "title": "Memory removability check",
+      "category": "daily",
+      "command": "import:v3.kernel.memory_gateway",
+      "expected": "importable with None",
+      "status": "pass",
+      "required": true,
+      "item_hash": "34477b1dcab32f4b"
+    },
+    {
+      "item_id": "1225c427768d41b7",
+      "title": "Registry entries exist",
+      "category": "registry",
+      "command": "file:external/default_capabilities.py",
+      "expected": "entries > 0",
+      "status": "pass",
+      "required": true,
+      "item_hash": "74424057b7c7fe2f"
+    },
+    {
+      "item_id": "132d59d71ef375cb",
+      "title": "All 8 capability types covered",
+      "category": "registry",
+      "command": "cmd: systemkernel capability summary",
+      "expected": "8 types",
+      "status": "pending",
+      "required": true,
+      "item_hash": "5482a53d2bd5b876"
+    },
+    {
+      "item_id": "3c4629d5534b8483",
+      "title": "No disabled required entries",
+      "category": "registry",
+      "command": "cmd: systemkernel capability list",
+      "expected": "all required enabled",
+      "status": "pending",
+      "required": true,
+      "item_hash": "47087e1cd990cb2e"
+    },
+    {
+      "item_id": "792c73621376d5fe",
+      "title": "Evidence model importable",
+      "category": "evidence",
+      "command": "import:v3.external.evidence",
+      "expected": "import succeeds",
+      "status": "pass",
+      "required": true,
+      "item_hash": "92c76e124763c850"
+    },
+    {
+      "item_id": "ae39ac213e4e136c",
+      "title": "Evidence bundles buildable",
+      "category": "evidence",
+      "command": "import:v3.external.evidence",
+      "expected": "build_evidence_bundle works",
+      "status": "pass",
+      "required": true,
+      "item_hash": "21b843ab7141d178"
+    },
+    {
+      "item_id": "c75f6f67368cf8ef",
+      "title": "Evidence truth_source always False",
+      "category": "evidence",
+      "command": "import:v3.external.evidence",
+      "expected": "invariant holds",
+      "status": "pass",
+      "required": true,
+      "item_hash": "4b3ba232f78ebc39"
+    },
+    {
+      "item_id": "d65149997c4f355e",
+      "title": "Orchestration policies listable",
+      "category": "orchestration",
+      "command": "cmd: systemkernel orchestrate policies",
+      "expected": "6 profiles",
+      "status": "pending",
+      "required": true,
+      "item_hash": "ad9b3307629448b4"
+    },
+    {
+      "item_id": "a903e9ab7515208d",
+      "title": "Dry-run plan succeeds",
+      "category": "orchestration",
+      "command": "cmd: systemkernel orchestrate plan",
+      "expected": "plan hash present",
+      "status": "pending",
+      "required": true,
+      "item_hash": "ef628b85bdf304d8"
+    },
+    {
+      "item_id": "7e00bf66c9c37ff8",
+      "title": "ECC profile is disabled placeholder",
+      "category": "orchestration",
+      "command": "cmd: systemkernel orchestrate plan --profile ecc_harness_review",
+      "expected": "dry_run_only",
+      "status": "pending",
+      "required": true,
+      "item_hash": "7b4a2c0df2e32bea"
+    },
+    {
+      "item_id": "0b5fb323afef5839",
+      "title": "Eval suite runs clean",
+      "category": "eval",
+      "command": "cmd: systemkernel eval run",
+      "expected": "19/19 pass",
+      "status": "pending",
+      "required": true,
+      "item_hash": "8e78f291d8b23b38"
+    },
+    {
+      "item_id": "6b730978fa270bb2",
+      "title": "Regression matrix passes",
+      "category": "eval",
+      "command": "cmd: systemkernel eval regression",
+      "expected": "0 release blocking failures",
+      "status": "pending",
+      "required": true,
+      "item_hash": "7a8f7b150d00862c"
+    },
+    {
+      "item_id": "ce133edbbfb36dae",
+      "title": "Benefit-complexity all ACCEPT",
+      "category": "eval",
+      "command": "cmd: systemkernel eval benefit",
+      "expected": "all ACCEPT",
+      "status": "pending",
+      "required": true,
+      "item_hash": "c1ea1d339b26a32d"
+    },
+    {
+      "item_id": "a2af100757cdaa97",
+      "title": "Context pack plans work",
+      "category": "context",
+      "command": "cmd: systemkernel context-plane plan . --output /dev/null",
+      "expected": "plan succeeds",
+      "status": "pending",
+      "required": true,
+      "item_hash": "53aee56fd5355e65"
+    },
+    {
+      "item_id": "8c4796dde88bb9c5",
+      "title": "Context budget policy exists",
+      "category": "context",
+      "command": "import:v3.external.context_plane",
+      "expected": "policy importable",
+      "status": "pass",
+      "required": true,
+      "item_hash": "1c77e8b9d8d09824"
+    },
+    {
+      "item_id": "5db9c9dd0707f4e0",
+      "title": "No LLM in kernel",
+      "category": "safety",
+      "command": "import:v3.kernel",
+      "expected": "zero banned imports",
+      "status": "pass",
+      "required": true,
+      "item_hash": "90dfb18fdba1bde1"
+    },
+    {
+      "item_id": "ea9a53e78a65cc52",
+      "title": "No external tools executed",
+      "category": "safety",
+      "command": "n/a",
+      "expected": "no subprocess in ops",
+      "status": "pending",
+      "required": true,
+      "item_hash": "74f80429d9f550d2"
+    },
+    {
+      "item_id": "771602be1eb57ac4",
+      "title": "No network access",
+      "category": "safety",
+      "command": "n/a",
+      "expected": "all ops local",
+      "status": "pending",
+      "required": true,
+      "item_hash": "1e8ec80678ea964a"
+    },
+    {
+      "item_id": "33aa88c8260f3be1",
+      "title": "ECC not integrated",
+      "category": "ecc",
+      "command": "cmd: systemkernel orchestrate policies",
+      "expected": "ecc_harness_review listed as disabled",
+      "status": "pending",
+      "required": true,
+      "item_hash": "3af19bdd4d43e529"
+    },
+    {
+      "item_id": "7b5762fad8d2a398",
+      "title": "ECC no install/repair/hook mod",
+      "category": "ecc",
+      "command": "n/a",
+      "expected": "never cloned or installed",
+      "status": "pending",
+      "required": true,
+      "item_hash": "d409b754d9d6d7e0"
+    }
+  ],
+  "passed": 7,
+  "failed": 0,
+  "checklist_hash": "5e4edeea4ce97956"
+}

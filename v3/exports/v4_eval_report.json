@@ -1,0 +1,343 @@
+{
+  "report_type": "v4_eval_report",
+  "phase": "10",
+  "suite_id": "v4_default_suite",
+  "passed_count": 19,
+  "failed_count": 0,
+  "average_score": 1.0,
+  "suite_result_hash": "13c02ea5fbb9a9ee",
+  "cases": [
+    {
+      "case_id": "d6a761c342cb0293",
+      "passed": true,
+      "score": 1.0,
+      "invariant_results": [
+        [
+          "registry_entries_exist",
+          true
+        ],
+        [
+          "entries_have_spec",
+          true
+        ]
+      ],
+      "missing_outputs": [],
+      "warnings": [],
+      "result_hash": "82192b3bf3226a90"
+    },
+    {
+      "case_id": "3bb924b808b25f2d",
+      "passed": true,
+      "score": 1.0,
+      "invariant_results": [
+        [
+          "all_8_types_present",
+          true
+        ]
+      ],
+      "missing_outputs": [],
+      "warnings": [],
+      "result_hash": "13952a437c490101"
+    },
+    {
+      "case_id": "46fb404a16b5d198",
+      "passed": true,
+      "score": 1.0,
+      "invariant_results": [
+        [
+          "truth_source_false",
+          true
+        ],
+        [
+          "evidence_id_present",
+          true
+        ]
+      ],
+      "missing_outputs": [],
+      "warnings": [],
+      "result_hash": "ccb5ce2d640e1ffc"
+    },
+    {
+      "case_id": "7d295a1fef8df64d",
+      "passed": true,
+      "score": 1.0,
+      "invariant_results": [
+        [
+          "bundle_truth_source_false",
+          true
+        ],
+        [
+          "bundle_id_present",
+          true
+        ]
+      ],
+      "missing_outputs": [],
+      "warnings": [],
+      "result_hash": "27d156dba09fd223"
+    },
+    {
+      "case_id": "4360ed85457cf431",
+      "passed": true,
+      "score": 1.0,
+      "invariant_results": [
+        [
+          "context_truth_source_false",
+          true
+        ]
+      ],
+      "missing_outputs": [],
+      "warnings": [],
+      "result_hash": "aba6e4a1bf81c4fc"
+    },
+    {
+      "case_id": "0ad7f5f0954eb092",
+      "passed": true,
+      "score": 1.0,
+      "invariant_results": [
+        [
+          "deterministic_plan",
+          true
+        ]
+      ],
+      "missing_outputs": [],
+      "warnings": [
+        "Unknown expected output: truth_source_false"
+      ],
+      "result_hash": "11decfcb41d64dfc"
+    },
+    {
+      "case_id": "57d2a7dad267dcbd",
+      "passed": true,
+      "score": 1.0,
+      "invariant_results": [
+        [
+          "memory_removable",
+          true
+        ],
+        [
+          "no_external_service",
+          true
+        ]
+      ],
+      "missing_outputs": [],
+      "warnings": [],
+      "result_hash": "83b886d1e73e9c50"
+    },
+    {
+      "case_id": "2de4a70d285e0a0f",
+      "passed": true,
+      "score": 1.0,
+      "invariant_results": [
+        [
+          "truth_source_false",
+          true
+        ]
+      ],
+      "missing_outputs": [],
+      "warnings": [],
+      "result_hash": "1c3fc13ca9142819"
+    },
+    {
+      "case_id": "c277a9a0e093afc4",
+      "passed": true,
+      "score": 1.0,
+      "invariant_results": [
+        [
+          "no_execution",
+          true
+        ],
+        [
+          "truth_source_false",
+          true
+        ]
+      ],
+      "missing_outputs": [],
+      "warnings": [],
+      "result_hash": "71af052140a93480"
+    },
+    {
+      "case_id": "9064cb21d6aac0f7",
+      "passed": true,
+      "score": 1.0,
+      "invariant_results": [
+        [
+          "no_execution",
+          true
+        ],
+        [
+          "block_reason_present",
+          true
+        ]
+      ],
+      "missing_outputs": [],
+      "warnings": [],
+      "result_hash": "a62c6cfca0e49900"
+    },
+    {
+      "case_id": "25678fc3b1a1dc7f",
+      "passed": true,
+      "score": 1.0,
+      "invariant_results": [
+        [
+          "no_execution",
+          true
+        ],
+        [
+          "truth_source_false",
+          true
+        ]
+      ],
+      "missing_outputs": [],
+      "warnings": [],
+      "result_hash": "1b0eb88da5fb7468"
+    },
+    {
+      "case_id": "c643631c52fc9bb0",
+      "passed": true,
+      "score": 1.0,
+      "invariant_results": [
+        [
+          "removable_true",
+          true
+        ]
+      ],
+      "missing_outputs": [],
+      "warnings": [],
+      "result_hash": "1e2d172af9b4129c"
+    },
+    {
+      "case_id": "9ab68048bf6c61a1",
+      "passed": true,
+      "score": 1.0,
+      "invariant_results": [
+        [
+          "no_registry_mutation",
+          true
+        ],
+        [
+          "no_skill_mutation",
+          true
+        ]
+      ],
+      "missing_outputs": [],
+      "warnings": [],
+      "result_hash": "e2fb7321222242c9"
+    },
+    {
+      "case_id": "8a5dfac14130e53b",
+      "passed": true,
+      "score": 1.0,
+      "invariant_results": [
+        [
+          "dry_run_only",
+          true
+        ]
+      ],
+      "missing_outputs": [],
+      "warnings": [],
+      "result_hash": "4612f3daecebc970"
+    },
+    {
+      "case_id": "6c76b87167f416f6",
+      "passed": true,
+      "score": 1.0,
+      "invariant_results": [
+        [
+          "no_execution",
+          true
+        ],
+        [
+          "no_file_mod",
+          true
+        ],
+        [
+          "no_network",
+          true
+        ]
+      ],
+      "missing_outputs": [],
+      "warnings": [],
+      "result_hash": "f1296d1c19eb2f81"
+    },
+    {
+      "case_id": "c25a72ee78bbe611",
+      "passed": true,
+      "score": 1.0,
+      "invariant_results": [
+        [
+          "truth_source_false",
+          true
+        ],
+        [
+          "step_order_deterministic",
+          true
+        ]
+      ],
+      "missing_outputs": [],
+      "warnings": [],
+      "result_hash": "651aa7fc1169ba3e"
+    },
+    {
+      "case_id": "0048b9b9caba1ef4",
+      "passed": true,
+      "score": 1.0,
+      "invariant_results": [
+        [
+          "ecc_not_integrated",
+          true
+        ],
+        [
+          "no_external_execution",
+          true
+        ]
+      ],
+      "missing_outputs": [],
+      "warnings": [],
+      "result_hash": "a44392be639ab082"
+    },
+    {
+      "case_id": "f952739d35a91f6a",
+      "passed": true,
+      "score": 1.0,
+      "invariant_results": [
+        [
+          "single_loop",
+          true
+        ],
+        [
+          "memory_removable",
+          true
+        ],
+        [
+          "deterministic_output",
+          true
+        ],
+        [
+          "no_llm_in_kernel",
+          true
+        ],
+        [
+          "truth_singular",
+          true
+        ]
+      ],
+      "missing_outputs": [],
+      "warnings": [],
+      "result_hash": "698335c97c60b3cd"
+    },
+    {
+      "case_id": "f229e1b396c21f70",
+      "passed": true,
+      "score": 1.0,
+      "invariant_results": [
+        [
+          "verdict_not_reject",
+          true
+        ]
+      ],
+      "missing_outputs": [],
+      "warnings": [],
+      "result_hash": "6a2adc83c22a969b"
+    }
+  ]
+}

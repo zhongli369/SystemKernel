@@ -1,0 +1,69 @@
+{
+  "_description": "Deterministic fixture for Skill Evolution Plane tests (Phase 8)",
+  "skill_refs": [
+    {
+      "skill_id": "refactor",
+      "name": "Refactor Code",
+      "source_path": "SkillsManagementSystem/packages/refactor/SKILL.md",
+      "has_skill_md": true,
+      "has_frontmatter": true
+    },
+    {
+      "skill_id": "decouple",
+      "name": "Decouple Modules",
+      "source_path": "SkillsManagementSystem/packages/decouple/SKILL.md",
+      "has_skill_md": true,
+      "has_frontmatter": true
+    },
+    {
+      "skill_id": "stabilize",
+      "name": "Stabilize Code",
+      "source_path": "SkillsManagementSystem/packages/stabilize/SKILL.md",
+      "has_skill_md": true,
+      "has_frontmatter": false
+    },
+    {
+      "skill_id": "optimize",
+      "name": "Optimize Pipeline",
+      "source_path": "SkillsManagementSystem/packages/optimize/SKILL.md",
+      "has_skill_md": false,
+      "has_frontmatter": false
+    }
+  ],
+  "gap_signals": [
+    {
+      "signal_type": "missing_skill",
+      "source_refs": ["registry.json", "SkillsManagementSystem/packages/"],
+      "description": "No skill exists for 'security-review' intent",
+      "severity": "high",
+      "confidence": 0.85
+    },
+    {
+      "signal_type": "registry_mismatch",
+      "source_refs": ["registry.json", "SkillsManagementSystem/packages/stabilize/manifest.json"],
+      "description": "registry.json lists stabilize as v2.0 but manifest says v1.5",
+      "severity": "medium",
+      "confidence": 0.92
+    },
+    {
+      "signal_type": "format_alignment",
+      "source_refs": ["SkillsManagementSystem/packages/decouple/SKILL.md"],
+      "description": "decouple SKILL.md missing required frontmatter fields",
+      "severity": "low",
+      "confidence": 0.78
+    },
+    {
+      "signal_type": "missing_tests",
+      "source_refs": ["SkillsManagementSystem/packages/optimize/"],
+      "description": "optimize package has no test directory",
+      "severity": "medium",
+      "confidence": 0.95
+    }
+  ],
+  "context_refs": [
+    "v3/exports/context_engineering_report.json",
+    "v3/exports/workspace_context_report.json",
+    "v3/exports/agent_worker_report.json"
+  ],
+  "registry_hash": "abc123def456"
+}

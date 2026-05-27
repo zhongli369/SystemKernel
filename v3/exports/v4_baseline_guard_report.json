@@ -1,0 +1,56 @@
+{
+  "baseline_commit": "13f2069c8fa6021d4d57f9bf8929bb601cc860b3",
+  "baseline_tag": "systemkernel-v3.0.0-baseline",
+  "inv_01_kernel_immutability": {
+    "files_checked": 19,
+    "files_modified": 0,
+    "modified_files": [],
+    "pass": true
+  },
+  "inv_02_memory_removability": {
+    "detail": "Kernel invariants pass with memory present",
+    "pass": true
+  },
+  "inv_03_kernel_llm_free": {
+    "imports": [],
+    "imports_found": 0,
+    "pass": true
+  },
+  "inv_04_protected_paths": {
+    "files_checked": 28,
+    "files_modified": 0,
+    "modified_files": [],
+    "pass": true
+  },
+  "inv_05_forbidden_deps": {
+    "imports": [],
+    "imports_found": 0,
+    "pass": true
+  },
+  "inv_06_adapter_contract": {
+    "detail": "resolve(CapabilityRequest) → CapabilityBinding intact",
+    "pass": true
+  },
+  "inv_07_execution_pipeline": {
+    "detail": "LintStage→PipelineStage tuple; max_retries=1; immutable pipeline",
+    "pass": true
+  },
+  "inv_08_eventbus_routing": {
+    "detail": "13 routing rules, all required actions present",
+    "pass": true
+  },
+  "inv_09_observability_contract": {
+    "detail": "Write-only, append-only, zero LLM, exception-safe hooks",
+    "pass": true
+  },
+  "inv_10_baseline_tag": {
+    "detail": "Tag systemkernel-v3.0.0-baseline → 13f2069c8fa6",
+    "pass": true
+  },
+  "summary": {
+    "invariants_failed": 0,
+    "invariants_passed": 10,
+    "overall_pass": true
+  },
+  "timestamp": "2026-05-26T14:13:57.511162+00:00"
+}

@@ -1,0 +1,133 @@
+{
+  "phase": 7,
+  "name": "Workspace Context Plane",
+  "version": "4.0.0-alpha",
+  "date": "2026-05-27",
+  "provider_types": [
+    "continue_like",
+    "cline_like",
+    "roo_like",
+    "vscode_like",
+    "deterministic_mock",
+    "generic"
+  ],
+  "severities": ["info", "warning", "error"],
+  "dataclasses": {
+    "WorkspaceProvider": {
+      "fields": [
+        "provider_id", "name", "provider_type", "capability_type",
+        "execution_mode", "requires_ide_api", "requires_file_watch",
+        "can_read_files", "can_write_files", "can_execute_terminal",
+        "external_service_required", "truth_source", "removable",
+        "description", "provider_hash"
+      ],
+      "frozen": true,
+      "description": "Description of an external workspace context provider"
+    },
+    "WorkspaceFileRef": {
+      "fields": ["path", "language", "size_bytes", "content_hash", "included", "redacted", "ref_hash"],
+      "frozen": true,
+      "description": "Metadata reference to a workspace file — no content stored"
+    },
+    "WorkspaceDiagnostic": {
+      "fields": ["diagnostic_id", "path", "severity", "source", "message_summary", "line", "diagnostic_hash"],
+      "frozen": true,
+      "description": "A diagnostic summary from a workspace provider"
+    },
+    "WorkspaceGitState": {
+      "fields": ["branch", "head_commit", "modified_count", "untracked_count", "staged_count", "git_state_hash"],
+      "frozen": true,
+      "description": "Read-only summary of git state — no diffs, no file contents"
+    },
+    "WorkspaceSnapshot": {
+      "fields": [
+        "snapshot_id", "provider_id", "root_path", "file_refs",
+        "diagnostics", "git_state", "open_files", "active_file",
+        "risk_flags", "truth_source", "snapshot_hash"
+      ],
+      "frozen": true,
+      "description": "Read-only workspace context snapshot — evidence only"
+    },
+    "WorkspaceContextReport": {
+      "fields": ["provider", "snapshot", "evidence_bundle_id", "policy_status", "report_hash"],
+      "frozen": true,
+      "description": "Full report combining provider, snapshot, and evidence"
+    },
+    "WorkspaceValidationResult": {
+      "fields": ["valid", "target_id", "violations"],
+      "frozen": true,
+      "description": "Result of validating a workspace context object"
+    }
+  },
+  "policy": {
+    "WorkspaceContextPolicy": {
+      "fields": [
+        "allow_ide_api", "allow_file_watch", "allow_file_read",
+        "allow_file_write", "allow_terminal_execution", "allow_external_services",
+        "max_files", "max_diagnostics", "max_open_files",
+        "allowed_roots", "forbidden_paths",
+        "require_redaction", "require_human_approval", "policy_hash"
+      ],
+      "frozen": true,
+      "defaults": {
+        "allow_ide_api": false,
+        "allow_file_watch": false,
+        "allow_file_read": true,
+        "allow_file_write": false,
+        "allow_terminal_execution": false,
+        "allow_external_services": false,
+        "max_files": 100,
+        "max_diagnostics": 200,
+        "max_open_files": 20,
+        "require_redaction": true,
+        "require_human_approval": true
+      }
+    }
+  },
+  "profiles": {
+    "continue_workspace_context": {
+      "provider_type": "continue_like",
+      "blocked_by_default": true,
+      "blocked_reasons": ["IDE API", "file write", "external service"]
+    },
+    "cline_workspace_context": {
+      "provider_type": "cline_like",
+      "blocked_by_default": true,
+      "blocked_reasons": ["IDE API", "file write", "terminal", "external service"]
+    },
+    "roo_workspace_context": {
+      "provider_type": "roo_like",
+      "blocked_by_default": true,
+      "blocked_reasons": ["IDE API", "file write", "terminal", "external service"]
+    },
+    "vscode_workspace_context": {
+      "provider_type": "vscode_like",
+      "blocked_by_default": true,
+      "blocked_reasons": ["IDE API", "file watch", "file write", "terminal"]
+    },
+    "deterministic_mock_workspace": {
+      "provider_type": "deterministic_mock",
+      "blocked_by_default": false,
+      "blocked_reasons": []
+    }
+  },
+  "evidence_mapping_rules": {
+    "file_refs": "All file refs aggregated into one IDE_CONTEXT record",
+    "diagnostics": "All diagnostics aggregated into one IDE_CONTEXT record",
+    "git_state": "Git state as one IDE_CONTEXT record",
+    "empty_snapshot": "Single fallback IDE_CONTEXT record",
+    "truth_source": "Always False on all records"
+  },
+  "contract_invariants": {
+    "truth_source": "Always False on all objects",
+    "removable": "Always True on all providers",
+    "file_content_stored": "No — metadata and hashes only",
+    "terminal_executed": "No",
+    "file_watch_started": "No",
+    "files_modified": "No",
+    "kernel_modified": "No",
+    "external_services_called": "No",
+    "llm_imports": "None",
+    "ide_plugins_imported": "None"
+  }
+}

@@ -58,6 +58,43 @@ from v3.release.archive_manifest import (
     verify_archive_manifest,
 )
 
+# ── V4 Release (Phase 12) ──────────────────────────────────────────────
+from v3.release.v4_validation_matrix import (
+    V4ValidationCheck,
+    V4ValidationMatrix,
+    build_v4_validation_matrix,
+    run_v4_static_validation,
+    write_v4_validation_matrix,
+)
+
+from v3.release.v4_inventory import (
+    V4InventoryEntry,
+    V4ReleaseInventory,
+    build_v4_release_inventory,
+    write_v4_release_inventory,
+    verify_v4_release_inventory,
+)
+
+from v3.release.v4_release_notes import (
+    V4ReleaseNotes,
+    build_v4_release_notes,
+    write_v4_release_notes,
+)
+
+from v3.release.v4_tag_metadata import (
+    V4TagMetadata,
+    build_v4_tag_metadata,
+    write_v4_tag_metadata,
+    verify_v4_tag_metadata,
+)
+
+from v3.release.v4_package_manifest import (
+    V4PackageManifest,
+    build_v4_package_manifest,
+    write_v4_package_manifest,
+    verify_v4_package_manifest,
+)
+
 __all__ = [
     # Validation
     "ValidationCheck",
@@ -97,4 +134,26 @@ __all__ = [
     "build_archive_manifest",
     "write_archive_manifest",
     "verify_archive_manifest",
+    # V4 Release (Phase 12)
+    "V4ValidationCheck",
+    "V4ValidationMatrix",
+    "build_v4_validation_matrix",
+    "run_v4_static_validation",
+    "write_v4_validation_matrix",
+    "V4InventoryEntry",
+    "V4ReleaseInventory",
+    "build_v4_release_inventory",
+    "write_v4_release_inventory",
+    "verify_v4_release_inventory",
+    "V4ReleaseNotes",
+    "build_v4_release_notes",
+    "write_v4_release_notes",
+    "V4TagMetadata",
+    "build_v4_tag_metadata",
+    "write_v4_tag_metadata",
+    "verify_v4_tag_metadata",
+    "V4PackageManifest",
+    "build_v4_package_manifest",
+    "write_v4_package_manifest",
+    "verify_v4_package_manifest",
 ]

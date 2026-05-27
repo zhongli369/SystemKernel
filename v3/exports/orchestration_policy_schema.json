@@ -1,0 +1,85 @@
+{
+  "_description": "Orchestration Policy Layer schema — Phase 9",
+  "phase": 9,
+  "principle": "Dry-run planning only — no execution",
+  "policy_fields": {
+    "policy_id": "Unique policy identifier",
+    "allowed_capability_types": "Capability types allowed in plan",
+    "forbidden_capability_types": "Capability types forbidden from plan",
+    "allowed_adapters": "Specific adapter IDs allowed",
+    "forbidden_adapters": "Specific adapter IDs forbidden",
+    "require_human_approval": "All steps require human approval",
+    "dry_run_only": "No execution permitted",
+    "max_adapters_per_plan": "Maximum planned steps",
+    "max_risk_level": "Maximum risk level (low/medium/high/critical)",
+    "allow_external_execution": "Whether execution is permitted",
+    "allow_file_modification": "Whether file modification is permitted",
+    "allow_network": "Whether network access is permitted",
+    "allow_registry_updates": "Whether registry updates are permitted",
+    "allow_memory_mutation": "Whether memory mutation is permitted",
+    "policy_hash": "Deterministic SHA-256 hash"
+  },
+  "request_schema": {
+    "request_id": "Deterministic hash of objective + types + refs",
+    "objective": "Human-readable objective",
+    "requested_capability_types": "Requested capability types",
+    "input_refs": "Input file references",
+    "constraints": "Additional constraints",
+    "dry_run": "ALWAYS True",
+    "request_hash": "Deterministic SHA-256 hash"
+  },
+  "step_schema": {
+    "step_id": "Deterministic hash of adapter + type + mode",
+    "adapter_id": "Capability adapter ID",
+    "capability_type": "Capability type",
+    "execution_mode": "dry_run (always)",
+    "reason": "Why this step was planned/blocked",
+    "expected_evidence_type": "Expected evidence type",
+    "approval_required": "Whether human approval is required",
+    "blocked": "Whether step is blocked",
+    "block_reason": "Reason for blocking",
+    "step_hash": "Deterministic SHA-256 hash"
+  },
+  "plan_schema": {
+    "plan_id": "Deterministic hash of request + policy",
+    "request": "OrchestrationRequest",
+    "steps": "Ordered tuple of OrchestrationStep (planned)",
+    "blocked_steps": "Ordered tuple of OrchestrationStep (blocked)",
+    "warnings": "Tuple of warning strings",
+    "truth_source": "ALWAYS False",
+    "plan_hash": "Deterministic SHA-256 hash"
+  },
+  "profiles": {
+    "safe_context_only": "context + usage, inspect-only",
+    "skill_evolution_review": "skill proposals only",
+    "memory_intelligence_review": "mock memory intelligence only",
+    "agent_worker_review": "mock agent worker only",
+    "full_external_review": "all 8 capability types, dry-run only",
+    "ecc_harness_review": "FUTURE — ECC harness enhancement (skill/tool/eval/context)"
+  },
+  "evidence_mapping": {
+    "truth_source": "ALWAYS False",
+    "evidence_type": "EVIDENCE_TYPE_GENERIC",
+    "trust_level": "TRUST_LOW",
+    "collection_mode": "dry_run",
+    "bundle_type": "orchestration_plan"
+  },
+  "truth_source_false_invariant": {
+    "plan": "truth_source always False"
+  },
+  "dataclasses": {
+    "OrchestrationPolicy": "Policy governing what can be planned together",
+    "OrchestrationRequest": "Dry-run request to plan adapter orchestration",
+    "OrchestrationStep": "One planned/blocked step in an orchestration",
+    "OrchestrationPlan": "Deterministic dry-run orchestration plan",
+    "OrchestrationPolicyReport": "Full report combining policy, request, plan"
+  },
+  "anti_overengineering_gates": {
+    "workflow_engine_created": false,
+    "autonomous_planner_created": false,
+    "evidence_model_reused": true,
+    "registry_reused": true,
+    "new_runtime_loop_added": false,
+    "ability_plus_10_complexity_plus_300_risk": "LOW"
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "_description": "Skill Evolution Plane schema — Phase 8",
+  "phase": 8,
+  "principle": "Proposal-only — no automatic skill modification",
+  "provider_types": [
+    {
+      "anthropic_skills_like": "Anthropic SKILL.md format alignment provider (BLOCKED)",
+      "superclaude_like": "SuperClaude pattern/taxonomy provider (BLOCKED)",
+      "deterministic_mock": "Deterministic mock provider (ALLOWED)",
+      "generic": "Generic/custom provider"
+    }
+  ],
+  "gap_signal_types": [
+    "missing_skill",
+    "outdated_skill",
+    "poor_description",
+    "missing_tests",
+    "registry_mismatch",
+    "format_alignment",
+    "duplicate_skill"
+  ],
+  "proposal_types": [
+    "create_skill",
+    "update_skill",
+    "deprecate_skill",
+    "registry_update",
+    "format_alignment",
+    "test_addition",
+    "docs_update"
+  ],
+  "result_statuses": [
+    "proposed",
+    "blocked",
+    "failed"
+  ],
+  "severities": [
+    "low",
+    "medium",
+    "high"
+  ],
+  "default_policy": {
+    "allow_llm_providers": false,
+    "allow_skill_file_modification": false,
+    "allow_registry_update": false,
+    "allow_skill_installation": false,
+    "require_tests_for_changes": true,
+    "require_human_approval": true,
+    "max_proposals": 10,
+    "allowed_proposal_types": [],
+    "forbidden_paths": []
+  },
+  "profile_statuses": {
+    "anthropic_skills_format": "BLOCKED — requires_llm=True, can_modify_skills=True, can_update_registry=True, can_install_skills=True",
+    "superclaude_pattern": "BLOCKED — requires_llm=True, can_modify_skills=True, can_update_registry=True",
+    "deterministic_mock_skill_evolution": "ALLOWED — no LLM, no modification, no registry update, no installation"
+  },
+  "evidence_mapping_rules": {
+    "truth_source": "ALWAYS False",
+    "evidence_type": "EVIDENCE_TYPE_SKILL_REFERENCE",
+    "trust_level": "TRUST_LOW",
+    "collection_mode": "inspect_only",
+    "bundle_type": "skill_evolution"
+  },
+  "truth_source_false_invariant": {
+    "providers": "truth_source always False",
+    "signals": "truth_source always False",
+    "proposals": "truth_source always False",
+    "results": "truth_source always False",
+    "evidence": "truth_source always False"
+  },
+  "dataclasses": {
+    "SkillEvolutionProvider": "External provider contract",
+    "SkillPackageRef": "Reference to an existing skill package",
+    "SkillGapSignal": "Detected gap or issue in skill ecosystem",
+    "SkillEvolutionProposal": "Proposed change — never automatic",
+    "SkillEvolutionResult": "Result of skill evolution analysis",
+    "SkillEvolutionReport": "Full report combining provider, result, evidence"
+  },
+  "anti_overengineering_gates": {
+    "self_modifying_agent": "NOT CREATED",
+    "evidence_model_reused": true,
+    "automatic_evolution_added": false,
+    "new_runtime_capability": false
+  }
+}

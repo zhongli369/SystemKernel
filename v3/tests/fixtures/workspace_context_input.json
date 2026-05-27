@@ -1,0 +1,24 @@
+{
+  "description": "Deterministic fixture for workspace context plane tests",
+  "root_path": "/mock/workspace",
+  "file_refs": [
+    {"path": "src/main.py", "language": "python", "size_bytes": 1024},
+    {"path": "src/utils.py", "language": "python", "size_bytes": 2048},
+    {"path": "docs/readme.md", "language": "markdown", "size_bytes": 512}
+  ],
+  "diagnostics": [
+    {"path": "src/main.py", "severity": "warning", "source": "ruff", "message_summary": "Unused import", "line": 5},
+    {"path": "src/utils.py", "severity": "error", "source": "mypy", "message_summary": "Type mismatch", "line": 12}
+  ],
+  "git_state": {
+    "branch": "master",
+    "head_commit": "a1b2c3d4e5f6a7b8",
+    "modified_count": 2,
+    "untracked_count": 0,
+    "staged_count": 1
+  },
+  "open_files": ["src/main.py", "src/utils.py"],
+  "active_file": "src/main.py",
+  "expected_snapshot_hash": "deterministic",
+  "fixture_hash": "c8d3e1a7"
+}

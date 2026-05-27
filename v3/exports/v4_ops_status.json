@@ -1,0 +1,12 @@
+{
+  "kernel_purity": 100,
+  "memory_removable": true,
+  "registry_entries": 10,
+  "enabled_capabilities": 2,
+  "disabled_capabilities": 8,
+  "evidence_model_ready": true,
+  "orchestration_ready": true,
+  "eval_ready": true,
+  "complexity_verdict": "REVIEW",
+  "ops_hash": "ff306fa9ef56788a"
+}

@@ -1,0 +1,88 @@
+{
+  "active_states": [
+    "approved",
+    "adapter_ready"
+  ],
+  "approval_required_for": [
+    "explicit_execute execution mode",
+    "network access",
+    "filesystem write",
+    "critical risk adapters (default disabled)",
+    "adapter_ready → approved lifecycle transition"
+  ],
+  "capability_types": [
+    "context",
+    "memory",
+    "agent",
+    "ide",
+    "eval",
+    "skill",
+    "usage",
+    "tool"
+  ],
+  "contract_enforcement": {
+    "validate_adapter_spec": "Validates ExternalCapabilityAdapterSpec against all rules",
+    "validate_lifecycle_transition": "Validates state transitions against allowed set",
+    "validate_run_result": "Validates CapabilityRunResult status and evidence"
+  },
+  "contract_version": "1.0.0",
+  "dataclasses": [
+    "CapabilityInputContract",
+    "CapabilityOutputContract",
+    "CapabilityEvidence",
+    "CapabilityRunResult",
+    "CapabilityRiskReport",
+    "ExternalCapabilityAdapterSpec",
+    "CapabilityLifecycleRecord",
+    "CapabilityLifecyclePolicy"
+  ],
+  "execution_modes": [
+    "dry_run",
+    "inspect_only",
+    "explicit_execute",
+    "external_service",
+    "disabled"
+  ],
+  "lifecycle_forward_gates": {
+    "adapter_ready": "approved",
+    "inspected": "trialed",
+    "proposed": "registered",
+    "registered": "inspected",
+    "trialed": "adapter_ready"
+  },
+  "lifecycle_states": [
+    "proposed",
+    "registered",
+    "inspected",
+    "trialed",
+    "adapter_ready",
+    "approved",
+    "deprecated",
+    "disabled",
+    "rejected"
+  ],
+  "phase": "1",
+  "risk_levels": [
+    "low",
+    "medium",
+    "high",
+    "critical"
+  ],
+  "terminal_states": [
+    "rejected",
+    "disabled",
+    "deprecated"
+  ],
+  "validation_rules": [
+    "adapter_id must be non-empty",
+    "truth_source must always be false",
+    "removable must always be true",
+    "forbidden_actions must not be empty",
+    "explicit_execute requires requires_approval=true",
+    "allows_network requires requires_approval=true",
+    "allows_filesystem_write requires requires_approval=true",
+    "critical risk adapters must include disabled in execution_modes",
+    "output_contract.truth_source must be false",
+    "all hashes deterministic (SHA-256, sorted JSON keys)"
+  ]
+}

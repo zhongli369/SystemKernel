@@ -1,0 +1,561 @@
+{
+  "approved_count": 2,
+  "by_type": {
+    "agent": 3,
+    "context": 1,
+    "eval": 0,
+    "ide": 1,
+    "memory": 3,
+    "skill": 1,
+    "tool": 0,
+    "usage": 1
+  },
+  "disabled_count": 8,
+  "enabled_count": 2,
+  "entries": [
+    {
+      "adapter_id": "anthropic_skills_format_reference",
+      "approval_required": false,
+      "enabled": false,
+      "entry_hash": "093e9d77e7196be0",
+      "execution_mode_default": "inspect_only",
+      "lifecycle_state": "registered",
+      "maturity": "experimental",
+      "notes": "Deferred to Skill Format Alignment phase. Inspected only, not integrated.",
+      "owner": "Phase 7B",
+      "spec": {
+        "adapter_id": "anthropic_skills_format_reference",
+        "allowed_actions": [
+          "inspect"
+        ],
+        "capability_type": "skill",
+        "execution_modes": [
+          "inspect_only"
+        ],
+        "forbidden_actions": [
+          "no_auto_execute",
+          "no_skill_execution",
+          "no_kernel_integration"
+        ],
+        "input_contract": {
+          "allows_filesystem_read": true,
+          "allows_filesystem_write": false,
+          "allows_network": false,
+          "max_input_bytes": 50000,
+          "optional_fields": [],
+          "required_fields": [
+            "path"
+          ],
+          "requires_approval": false,
+          "schema_name": "skills_format_request"
+        },
+        "name": "Anthropic Skills Format Reference",
+        "output_contract": {
+          "contains_artifacts": false,
+          "contains_evidence": true,
+          "max_output_bytes": 100000,
+          "output_fields": [
+            "skill_count",
+            "format_version",
+            "categories"
+          ],
+          "provenance_required": true,
+          "schema_name": "skills_format_reference",
+          "truth_source": false
+        },
+        "removable": true,
+        "risk_level": "low",
+        "spec_hash": "spec:69feb862c5fa3390",
+        "truth_source": false,
+        "version": "1.0.0"
+      }
+    },
+    {
+      "adapter_id": "autogen_multi_agent",
+      "approval_required": true,
+      "enabled": false,
+      "entry_hash": "d2cee6dbea45b7cd",
+      "execution_mode_default": "disabled",
+      "lifecycle_state": "disabled",
+      "maturity": "experimental",
+      "notes": "Phase 5 — Multi-agent orchestration. Not yet integrated.",
+      "owner": "v4.0 Roadmap",
+      "spec": {
+        "adapter_id": "autogen_multi_agent",
+        "allowed_actions": [],
+        "capability_type": "agent",
+        "execution_modes": [
+          "disabled"
+        ],
+        "forbidden_actions": [
+          "no_execute",
+          "no_network",
+          "no_filesystem",
+          "no_kernel_integration",
+          "placeholder_only"
+        ],
+        "input_contract": {
+          "allows_filesystem_read": false,
+          "allows_filesystem_write": false,
+          "allows_network": false,
+          "max_input_bytes": 0,
+          "optional_fields": [],
+          "required_fields": [],
+          "requires_approval": true,
+          "schema_name": "placeholder"
+        },
+        "name": "AutoGen Multi-Agent Framework",
+        "output_contract": {
+          "contains_artifacts": false,
+          "contains_evidence": false,
+          "max_output_bytes": 0,
+          "output_fields": [],
+          "provenance_required": true,
+          "schema_name": "placeholder",
+          "truth_source": false
+        },
+        "removable": true,
+        "risk_level": "medium",
+        "spec_hash": "spec:ae75248e4867afe0",
+        "truth_source": false,
+        "version": "0.0.0-placeholder"
+      }
+    },
+    {
+      "adapter_id": "ccusage_usage_report",
+      "approval_required": false,
+      "enabled": true,
+      "entry_hash": "f887da5e655b0b12",
+      "execution_mode_default": "inspect_only",
+      "lifecycle_state": "approved",
+      "maturity": "stable",
+      "notes": "Claude Code usage reporter. Inspect-only. Integrated and tested. 32 tests.",
+      "owner": "Phase 7E",
+      "spec": {
+        "adapter_id": "ccusage_usage_report",
+        "allowed_actions": [
+          "inspect",
+          "summarize"
+        ],
+        "capability_type": "usage",
+        "execution_modes": [
+          "inspect_only"
+        ],
+        "forbidden_actions": [
+          "no_execute_ccusage",
+          "no_network",
+          "no_kernel_integration"
+        ],
+        "input_contract": {
+          "allows_filesystem_read": true,
+          "allows_filesystem_write": false,
+          "allows_network": false,
+          "max_input_bytes": 10000,
+          "optional_fields": [
+            "output"
+          ],
+          "required_fields": [
+            "path"
+          ],
+          "requires_approval": false,
+          "schema_name": "usage_report_request"
+        },
+        "name": "Claude Code Usage Reporter",
+        "output_contract": {
+          "contains_artifacts": false,
+          "contains_evidence": true,
+          "max_output_bytes": 50000,
+          "output_fields": [
+            "total_tokens",
+            "total_cost",
+            "cache_read_ratio"
+          ],
+          "provenance_required": true,
+          "schema_name": "usage_report_summary",
+          "truth_source": false
+        },
+        "removable": true,
+        "risk_level": "low",
+        "spec_hash": "spec:e2d15a9ea07b360e",
+        "truth_source": false,
+        "version": "1.0.0"
+      }
+    },
+    {
+      "adapter_id": "continue_workspace_context",
+      "approval_required": true,
+      "enabled": false,
+      "entry_hash": "8d8430cb65b5696d",
+      "execution_mode_default": "disabled",
+      "lifecycle_state": "disabled",
+      "maturity": "experimental",
+      "notes": "Future — IDE/workspace context provider. Not yet integrated.",
+      "owner": "v4.0 Roadmap",
+      "spec": {
+        "adapter_id": "continue_workspace_context",
+        "allowed_actions": [],
+        "capability_type": "ide",
+        "execution_modes": [
+          "disabled"
+        ],
+        "forbidden_actions": [
+          "no_execute",
+          "no_network",
+          "no_filesystem",
+          "no_kernel_integration",
+          "placeholder_only"
+        ],
+        "input_contract": {
+          "allows_filesystem_read": false,
+          "allows_filesystem_write": false,
+          "allows_network": false,
+          "max_input_bytes": 0,
+          "optional_fields": [],
+          "required_fields": [],
+          "requires_approval": true,
+          "schema_name": "placeholder"
+        },
+        "name": "Continue Workspace Context",
+        "output_contract": {
+          "contains_artifacts": false,
+          "contains_evidence": false,
+          "max_output_bytes": 0,
+          "output_fields": [],
+          "provenance_required": true,
+          "schema_name": "placeholder",
+          "truth_source": false
+        },
+        "removable": true,
+        "risk_level": "medium",
+        "spec_hash": "spec:1dae8d73ac1bc194",
+        "truth_source": false,
+        "version": "0.0.0-placeholder"
+      }
+    },
+    {
+      "adapter_id": "graphiti_temporal_kg",
+      "approval_required": true,
+      "enabled": false,
+      "entry_hash": "069030bded6cb577",
+      "execution_mode_default": "disabled",
+      "lifecycle_state": "disabled",
+      "maturity": "experimental",
+      "notes": "Phase 3 — Graph-based temporal memory. Not yet integrated.",
+      "owner": "v4.0 Roadmap",
+      "spec": {
+        "adapter_id": "graphiti_temporal_kg",
+        "allowed_actions": [],
+        "capability_type": "memory",
+        "execution_modes": [
+          "disabled"
+        ],
+        "forbidden_actions": [
+          "no_execute",
+          "no_network",
+          "no_filesystem",
+          "no_kernel_integration",
+          "placeholder_only"
+        ],
+        "input_contract": {
+          "allows_filesystem_read": false,
+          "allows_filesystem_write": false,
+          "allows_network": false,
+          "max_input_bytes": 0,
+          "optional_fields": [],
+          "required_fields": [],
+          "requires_approval": true,
+          "schema_name": "placeholder"
+        },
+        "name": "Graphiti Temporal Knowledge Graph",
+        "output_contract": {
+          "contains_artifacts": false,
+          "contains_evidence": false,
+          "max_output_bytes": 0,
+          "output_fields": [],
+          "provenance_required": true,
+          "schema_name": "placeholder",
+          "truth_source": false
+        },
+        "removable": true,
+        "risk_level": "medium",
+        "spec_hash": "spec:b9e47a136139bf52",
+        "truth_source": false,
+        "version": "0.0.0-placeholder"
+      }
+    },
+    {
+      "adapter_id": "letta_memory_agent",
+      "approval_required": true,
+      "enabled": false,
+      "entry_hash": "b5f278f3a4533fe7",
+      "execution_mode_default": "disabled",
+      "lifecycle_state": "disabled",
+      "maturity": "experimental",
+      "notes": "Future — Memory-augmented agent framework. Not yet integrated.",
+      "owner": "v4.0 Roadmap",
+      "spec": {
+        "adapter_id": "letta_memory_agent",
+        "allowed_actions": [],
+        "capability_type": "memory",
+        "execution_modes": [
+          "disabled"
+        ],
+        "forbidden_actions": [
+          "no_execute",
+          "no_network",
+          "no_filesystem",
+          "no_kernel_integration",
+          "placeholder_only"
+        ],
+        "input_contract": {
+          "allows_filesystem_read": false,
+          "allows_filesystem_write": false,
+          "allows_network": false,
+          "max_input_bytes": 0,
+          "optional_fields": [],
+          "required_fields": [],
+          "requires_approval": true,
+          "schema_name": "placeholder"
+        },
+        "name": "Letta Memory Agent",
+        "output_contract": {
+          "contains_artifacts": false,
+          "contains_evidence": false,
+          "max_output_bytes": 0,
+          "output_fields": [],
+          "provenance_required": true,
+          "schema_name": "placeholder",
+          "truth_source": false
+        },
+        "removable": true,
+        "risk_level": "medium",
+        "spec_hash": "spec:34b956087ec70a25",
+        "truth_source": false,
+        "version": "0.0.0-placeholder"
+      }
+    },
+    {
+      "adapter_id": "mem0_memory_intelligence",
+      "approval_required": true,
+      "enabled": false,
+      "entry_hash": "05aabcaac6fc033f",
+      "execution_mode_default": "disabled",
+      "lifecycle_state": "disabled",
+      "maturity": "experimental",
+      "notes": "Phase 3 — Memory intelligence backend. Not yet integrated.",
+      "owner": "v4.0 Roadmap",
+      "spec": {
+        "adapter_id": "mem0_memory_intelligence",
+        "allowed_actions": [],
+        "capability_type": "memory",
+        "execution_modes": [
+          "disabled"
+        ],
+        "forbidden_actions": [
+          "no_execute",
+          "no_network",
+          "no_filesystem",
+          "no_kernel_integration",
+          "placeholder_only"
+        ],
+        "input_contract": {
+          "allows_filesystem_read": false,
+          "allows_filesystem_write": false,
+          "allows_network": false,
+          "max_input_bytes": 0,
+          "optional_fields": [],
+          "required_fields": [],
+          "requires_approval": true,
+          "schema_name": "placeholder"
+        },
+        "name": "mem0 Memory Intelligence",
+        "output_contract": {
+          "contains_artifacts": false,
+          "contains_evidence": false,
+          "max_output_bytes": 0,
+          "output_fields": [],
+          "provenance_required": true,
+          "schema_name": "placeholder",
+          "truth_source": false
+        },
+        "removable": true,
+        "risk_level": "medium",
+        "spec_hash": "spec:ce45e90b3bc732ec",
+        "truth_source": false,
+        "version": "0.0.0-placeholder"
+      }
+    },
+    {
+      "adapter_id": "openhands_agent_worker",
+      "approval_required": true,
+      "enabled": false,
+      "entry_hash": "181ba38386f611c5",
+      "execution_mode_default": "disabled",
+      "lifecycle_state": "disabled",
+      "maturity": "experimental",
+      "notes": "Phase 5 — Autonomous agent executor. Not yet integrated.",
+      "owner": "v4.0 Roadmap",
+      "spec": {
+        "adapter_id": "openhands_agent_worker",
+        "allowed_actions": [],
+        "capability_type": "agent",
+        "execution_modes": [
+          "disabled"
+        ],
+        "forbidden_actions": [
+          "no_execute",
+          "no_network",
+          "no_filesystem",
+          "no_kernel_integration",
+          "placeholder_only"
+        ],
+        "input_contract": {
+          "allows_filesystem_read": false,
+          "allows_filesystem_write": false,
+          "allows_network": false,
+          "max_input_bytes": 0,
+          "optional_fields": [],
+          "required_fields": [],
+          "requires_approval": true,
+          "schema_name": "placeholder"
+        },
+        "name": "OpenHands Agent Worker",
+        "output_contract": {
+          "contains_artifacts": false,
+          "contains_evidence": false,
+          "max_output_bytes": 0,
+          "output_fields": [],
+          "provenance_required": true,
+          "schema_name": "placeholder",
+          "truth_source": false
+        },
+        "removable": true,
+        "risk_level": "medium",
+        "spec_hash": "spec:038c187030cd0020",
+        "truth_source": false,
+        "version": "0.0.0-placeholder"
+      }
+    },
+    {
+      "adapter_id": "repomix_context_pack",
+      "approval_required": true,
+      "enabled": true,
+      "entry_hash": "3e90f61b27d58509",
+      "execution_mode_default": "dry_run",
+      "lifecycle_state": "approved",
+      "maturity": "stable",
+      "notes": "Context pack generator. Integrated and tested. 31 tests.",
+      "owner": "Phase 7C",
+      "spec": {
+        "adapter_id": "repomix_context_pack",
+        "allowed_actions": [
+          "plan",
+          "inspect",
+          "generate"
+        ],
+        "capability_type": "context",
+        "execution_modes": [
+          "dry_run",
+          "inspect_only",
+          "explicit_execute"
+        ],
+        "forbidden_actions": [
+          "no_auto_execute",
+          "no_kernel_integration"
+        ],
+        "input_contract": {
+          "allows_filesystem_read": true,
+          "allows_filesystem_write": true,
+          "allows_network": true,
+          "max_input_bytes": 10000,
+          "optional_fields": [
+            "output",
+            "style"
+          ],
+          "required_fields": [
+            "target"
+          ],
+          "requires_approval": true,
+          "schema_name": "context_pack_request"
+        },
+        "name": "Repomix Context Pack Generator",
+        "output_contract": {
+          "contains_artifacts": true,
+          "contains_evidence": true,
+          "max_output_bytes": 500000,
+          "output_fields": [
+            "content",
+            "file_count",
+            "total_bytes"
+          ],
+          "provenance_required": true,
+          "schema_name": "context_pack_result",
+          "truth_source": false
+        },
+        "removable": true,
+        "risk_level": "medium",
+        "spec_hash": "spec:028bc6c089d19a7a",
+        "truth_source": false,
+        "version": "1.0.0"
+      }
+    },
+    {
+      "adapter_id": "swe_agent_worker",
+      "approval_required": true,
+      "enabled": false,
+      "entry_hash": "e46c597297fed014",
+      "execution_mode_default": "disabled",
+      "lifecycle_state": "disabled",
+      "maturity": "experimental",
+      "notes": "Phase 5 — Software engineering agent. Not yet integrated.",
+      "owner": "v4.0 Roadmap",
+      "spec": {
+        "adapter_id": "swe_agent_worker",
+        "allowed_actions": [],
+        "capability_type": "agent",
+        "execution_modes": [
+          "disabled"
+        ],
+        "forbidden_actions": [
+          "no_execute",
+          "no_network",
+          "no_filesystem",
+          "no_kernel_integration",
+          "placeholder_only"
+        ],
+        "input_contract": {
+          "allows_filesystem_read": false,
+          "allows_filesystem_write": false,
+          "allows_network": false,
+          "max_input_bytes": 0,
+          "optional_fields": [],
+          "required_fields": [],
+          "requires_approval": true,
+          "schema_name": "placeholder"
+        },
+        "name": "SWE-Agent Worker",
+        "output_contract": {
+          "contains_artifacts": false,
+          "contains_evidence": false,
+          "max_output_bytes": 0,
+          "output_fields": [],
+          "provenance_required": true,
+          "schema_name": "placeholder",
+          "truth_source": false
+        },
+        "removable": true,
+        "risk_level": "medium",
+        "spec_hash": "spec:65e0078b5174c0b0",
+        "truth_source": false,
+        "version": "0.0.0-placeholder"
+      }
+    }
+  ],
+  "external_integrations_performed": "NONE — Phase 2 is registry only",
+  "high_risk_count": 0,
+  "phase": "2",
+  "placeholder_count": 7,
+  "registry_hash": "35e71e6e7cf87e39",
+  "registry_version": "1.0.0",
+  "total_entries": 10
+}

@@ -1,0 +1,115 @@
+{
+  "report_type": "benefit_complexity_report",
+  "targets": [
+    {
+      "target_id": "capability_contract",
+      "benefit_score": 6.5,
+      "complexity_score": 3.0,
+      "net_value": 3.5,
+      "risk_ratio": 0.4615,
+      "verdict": "ACCEPT",
+      "reasons": [],
+      "score_hash": "f9665961b16d6e99"
+    },
+    {
+      "target_id": "capability_registry",
+      "benefit_score": 7.5,
+      "complexity_score": 4.0,
+      "net_value": 3.5,
+      "risk_ratio": 0.5333,
+      "verdict": "ACCEPT",
+      "reasons": [],
+      "score_hash": "0cfcab22b618a877"
+    },
+    {
+      "target_id": "evidence_model",
+      "benefit_score": 5.5,
+      "complexity_score": 2.0,
+      "net_value": 3.5,
+      "risk_ratio": 0.3636,
+      "verdict": "ACCEPT",
+      "reasons": [],
+      "score_hash": "5623426cacd3dacd"
+    },
+    {
+      "target_id": "context_plane",
+      "benefit_score": 6.5,
+      "complexity_score": 4.0,
+      "net_value": 2.5,
+      "risk_ratio": 0.6154,
+      "verdict": "ACCEPT",
+      "reasons": [],
+      "score_hash": "fc417130ff9aa176"
+    },
+    {
+      "target_id": "memory_intelligence",
+      "benefit_score": 7.5,
+      "complexity_score": 5.0,
+      "net_value": 2.5,
+      "risk_ratio": 0.6667,
+      "verdict": "ACCEPT",
+      "reasons": [],
+      "score_hash": "9ac31da212c28eb2"
+    },
+    {
+      "target_id": "agent_worker",
+      "benefit_score": 7.5,
+      "complexity_score": 5.0,
+      "net_value": 2.5,
+      "risk_ratio": 0.6667,
+      "verdict": "ACCEPT",
+      "reasons": [],
+      "score_hash": "5adc3e679fd5edb3"
+    },
+    {
+      "target_id": "workspace_context",
+      "benefit_score": 6.5,
+      "complexity_score": 5.0,
+      "net_value": 1.5,
+      "risk_ratio": 0.7692,
+      "verdict": "ACCEPT",
+      "reasons": [],
+      "score_hash": "63ef6d1247c3d804"
+    },
+    {
+      "target_id": "skill_evolution",
+      "benefit_score": 7.5,
+      "complexity_score": 5.0,
+      "net_value": 2.5,
+      "risk_ratio": 0.6667,
+      "verdict": "ACCEPT",
+      "reasons": [],
+      "score_hash": "b76dd830a4b01c72"
+    },
+    {
+      "target_id": "orchestration_policy",
+      "benefit_score": 7.5,
+      "complexity_score": 6.0,
+      "net_value": 1.5,
+      "risk_ratio": 0.8,
+      "verdict": "ACCEPT",
+      "reasons": [],
+      "score_hash": "348d60c42fcc026e"
+    },
+    {
+      "target_id": "eval_harness",
+      "benefit_score": 6.5,
+      "complexity_score": 2.0,
+      "net_value": 4.5,
+      "risk_ratio": 0.3077,
+      "verdict": "ACCEPT",
+      "reasons": [],
+      "score_hash": "ce966cd8f78c5439"
+    }
+  ],
+  "summary": {
+    "total": 10,
+    "accepted": 10,
+    "review": 0,
+    "rejected": 0,
+    "average_benefit": 6.9,
+    "average_complexity": 4.1,
+    "average_net_value": 2.8,
+    "overall_verdict": "ACCEPT"
+  }
+}

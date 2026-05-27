@@ -1,0 +1,152 @@
+{
+  "budget_policy_defaults": {
+    "allow_repo_root": false,
+    "allowed_styles": [
+      "markdown",
+      "xml",
+      "json",
+      "plain"
+    ],
+    "default_style": "markdown",
+    "excluded_paths": [
+      ".git",
+      "__pycache__",
+      "node_modules",
+      ".venv",
+      "venv",
+      ".env",
+      ".tox",
+      ".mypy_cache",
+      ".pytest_cache",
+      ".ruff_cache",
+      "dist",
+      "build",
+      ".eggs",
+      "*.pyc"
+    ],
+    "max_bytes": 10000000,
+    "max_files": 500,
+    "max_tokens": 200000,
+    "policy_hash": "906c0c084524502d",
+    "require_subdir_target": true,
+    "sensitive_patterns": [
+      "API_KEY",
+      "SECRET",
+      "TOKEN",
+      "PASSWORD",
+      "PRIVATE_KEY",
+      "-----BEGIN RSA PRIVATE KEY-----",
+      "-----BEGIN OPENSSH PRIVATE KEY-----",
+      "-----BEGIN PGP PRIVATE KEY BLOCK-----",
+      "AUTH_TOKEN",
+      "ACCESS_KEY",
+      "SECRET_KEY"
+    ]
+  },
+  "budget_statuses": [
+    "pass",
+    "review",
+    "blocked"
+  ],
+  "component": "Context Engineering Plane",
+  "evidence_mapping_rules": {
+    "evidence_per_context_pack": 2,
+    "evidence_types": [
+      "context_pack (plan)",
+      "context_pack (inspection)"
+    ],
+    "inspection_is_evidence": true,
+    "plan_is_evidence": true,
+    "truth_source": false
+  },
+  "excluded_paths": [
+    ".git",
+    "__pycache__",
+    "node_modules",
+    ".venv",
+    "venv",
+    ".env",
+    ".tox",
+    ".mypy_cache",
+    ".pytest_cache",
+    ".ruff_cache",
+    "dist",
+    "build",
+    ".eggs",
+    "*.pyc"
+  ],
+  "invariants": {
+    "inspection_read_only": true,
+    "no_execution_in_plan": true,
+    "repo_root_blocked_by_default": true,
+    "truth_source_false": true
+  },
+  "phase": 4,
+  "schemas": {
+    "BudgetValidationResult": [
+      "status",
+      "violations",
+      "warnings",
+      "result_hash"
+    ],
+    "ContextBudgetPolicy": [
+      "max_files",
+      "max_bytes",
+      "max_tokens",
+      "allowed_styles",
+      "default_style",
+      "sensitive_patterns",
+      "excluded_paths",
+      "require_subdir_target",
+      "allow_repo_root",
+      "policy_hash"
+    ],
+    "ContextEngineeringReport": [
+      "adapter_id",
+      "plan",
+      "inspection",
+      "evidence_bundle_id",
+      "budget_status",
+      "truth_source",
+      "report_hash"
+    ],
+    "ContextPackInspection": [
+      "output_path",
+      "size_bytes",
+      "line_count",
+      "token_estimate",
+      "detected_sections",
+      "sensitive_pattern_hits",
+      "included_files",
+      "pack_hash",
+      "inspection_hash"
+    ],
+    "ContextPackPlan": [
+      "adapter_id",
+      "target_path",
+      "output_path",
+      "style",
+      "command",
+      "estimated_files",
+      "estimated_bytes",
+      "estimated_tokens",
+      "budget_status",
+      "warnings",
+      "plan_hash"
+    ]
+  },
+  "sensitive_patterns": [
+    "API_KEY",
+    "SECRET",
+    "TOKEN",
+    "PASSWORD",
+    "PRIVATE_KEY",
+    "-----BEGIN RSA PRIVATE KEY-----",
+    "-----BEGIN OPENSSH PRIVATE KEY-----",
+    "-----BEGIN PGP PRIVATE KEY BLOCK-----",
+    "AUTH_TOKEN",
+    "ACCESS_KEY",
+    "SECRET_KEY"
+  ],
+  "version": "4.0.0-alpha"
+}

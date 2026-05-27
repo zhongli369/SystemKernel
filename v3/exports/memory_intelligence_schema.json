@@ -1,0 +1,175 @@
+{
+  "component": "Memory Intelligence Plane",
+  "default_policy": {
+    "allow_external_services": false,
+    "allow_graph_db_providers": false,
+    "allow_llm_providers": false,
+    "allow_vector_db_providers": false,
+    "allowed_signal_types": [
+      "add",
+      "update",
+      "delete",
+      "noop",
+      "temporal_fact",
+      "entity_link",
+      "retrieval_hint"
+    ],
+    "forbidden_signal_types": [],
+    "max_signals": 100,
+    "policy_hash": "4db0197e0885d321",
+    "require_provenance": true
+  },
+  "evidence_mapping_rules": {
+    "evidence_type": "memory_signal",
+    "signal_count_to_evidence_count": "1:1",
+    "trust_level": "low",
+    "truth_source": false
+  },
+  "invariants": {
+    "kernel_memory_unchanged": true,
+    "no_external_services_called": true,
+    "no_llm_vector_graph_imports": true,
+    "real_providers_blocked_by_default": true,
+    "removable_true": true,
+    "truth_source_false": true
+  },
+  "phase": 5,
+  "profile_statuses": {
+    "deterministic_mock_memory": {
+      "allowed": true,
+      "reason": "OK"
+    },
+    "graphiti_temporal_kg": {
+      "allowed": false,
+      "reason": "Provider 'graphiti_temporal_kg' requires LLM, blocked by policy (allow_llm_providers=False)"
+    },
+    "letta_stateful_memory": {
+      "allowed": false,
+      "reason": "Provider 'letta_stateful_memory' requires LLM, blocked by policy (allow_llm_providers=False)"
+    },
+    "mem0_memory_intelligence": {
+      "allowed": false,
+      "reason": "Provider 'mem0_memory_intelligence' requires LLM, blocked by policy (allow_llm_providers=False)"
+    }
+  },
+  "profiles": {
+    "deterministic_mock_memory": {
+      "external_service_required": false,
+      "removable": true,
+      "requires_graph_db": false,
+      "requires_llm": false,
+      "requires_vector_db": false,
+      "truth_source": false,
+      "type": "deterministic_mock"
+    },
+    "graphiti_temporal_kg": {
+      "external_service_required": true,
+      "removable": true,
+      "requires_graph_db": true,
+      "requires_llm": true,
+      "requires_vector_db": false,
+      "truth_source": false,
+      "type": "graphiti_like"
+    },
+    "letta_stateful_memory": {
+      "external_service_required": true,
+      "removable": true,
+      "requires_graph_db": false,
+      "requires_llm": true,
+      "requires_vector_db": false,
+      "truth_source": false,
+      "type": "letta_like"
+    },
+    "mem0_memory_intelligence": {
+      "external_service_required": true,
+      "removable": true,
+      "requires_graph_db": false,
+      "requires_llm": true,
+      "requires_vector_db": true,
+      "truth_source": false,
+      "type": "mem0_like"
+    }
+  },
+  "provider_types": [
+    "mem0_like",
+    "graphiti_like",
+    "letta_like",
+    "deterministic_mock",
+    "generic"
+  ],
+  "request_modes": [
+    "inspect_only",
+    "dry_run",
+    "external_service"
+  ],
+  "schemas": {
+    "MemoryIntelligenceProvider": [
+      "provider_id",
+      "name",
+      "provider_type",
+      "capability_type",
+      "execution_mode",
+      "requires_llm",
+      "requires_vector_db",
+      "requires_graph_db",
+      "external_service_required",
+      "truth_source",
+      "removable",
+      "description",
+      "provider_hash"
+    ],
+    "MemoryIntelligenceReport": [
+      "provider",
+      "request",
+      "result",
+      "evidence_bundle_id",
+      "policy_status",
+      "report_hash"
+    ],
+    "MemoryIntelligenceRequest": [
+      "request_id",
+      "provider_id",
+      "input_record_refs",
+      "input_evidence_refs",
+      "mode",
+      "max_signals",
+      "request_hash"
+    ],
+    "MemoryIntelligenceResult": [
+      "request_id",
+      "provider_id",
+      "signals",
+      "warnings",
+      "blocked",
+      "reason",
+      "truth_source",
+      "result_hash"
+    ],
+    "MemorySignal": [
+      "signal_id",
+      "signal_type",
+      "source_record_ids",
+      "source_hashes",
+      "content",
+      "confidence",
+      "risk_flags",
+      "provenance",
+      "truth_source",
+      "signal_hash"
+    ]
+  },
+  "signal_types": [
+    "add",
+    "update",
+    "delete",
+    "noop",
+    "temporal_fact",
+    "entity_link",
+    "retrieval_hint"
+  ],
+  "suggestion_only_signal_types": [
+    "delete",
+    "update"
+  ],
+  "version": "4.0.0-alpha"
+}

@@ -1,0 +1,24 @@
+{
+  "_description": "Deterministic fixture for Orchestration Policy Layer tests (Phase 9)",
+  "objective": "Plan a dry-run review of context, skill, and memory capabilities",
+  "requested_capability_types": ["context", "skill", "memory"],
+  "input_refs": [
+    "v3/exports/context_engineering_report.json",
+    "v3/exports/skill_evolution_plane_report.md",
+    "v3/exports/memory_intelligence_report.json"
+  ],
+  "constraints": [
+    "no_execution",
+    "no_network",
+    "no_file_modification",
+    "no_registry_update"
+  ],
+  "expected_policies": [
+    "safe_context_only",
+    "skill_evolution_review",
+    "memory_intelligence_review",
+    "agent_worker_review",
+    "full_external_review",
+    "ecc_harness_review"
+  ]
+}

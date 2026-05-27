@@ -1,0 +1,132 @@
+{
+  "phase": 6,
+  "name": "Agent Worker Plane",
+  "version": "4.0.0-alpha",
+  "date": "2026-05-27",
+  "provider_types": [
+    "openhands_like",
+    "swe_agent_like",
+    "autogen_like",
+    "continue_like",
+    "deterministic_mock",
+    "generic"
+  ],
+  "result_statuses": [
+    "planned",
+    "blocked",
+    "proposed",
+    "failed"
+  ],
+  "dataclasses": {
+    "AgentWorkerProvider": {
+      "fields": [
+        "provider_id", "name", "provider_type", "capability_type",
+        "execution_mode", "requires_llm", "requires_sandbox",
+        "requires_network", "can_modify_files", "can_execute_commands",
+        "external_service_required", "truth_source", "removable",
+        "description", "provider_hash"
+      ],
+      "frozen": true,
+      "description": "Description of an external agent worker provider"
+    },
+    "AgentWorkerTask": {
+      "fields": [
+        "task_id", "provider_id", "task_summary", "input_refs",
+        "allowed_paths", "forbidden_paths", "max_runtime_seconds",
+        "dry_run", "task_hash"
+      ],
+      "frozen": true,
+      "description": "A task submitted to an external agent worker"
+    },
+    "AgentWorkerProposal": {
+      "fields": [
+        "proposal_id", "provider_id", "task_id", "proposed_plan",
+        "proposed_files", "proposed_commands", "risk_flags",
+        "confidence", "provenance", "truth_source", "proposal_hash"
+      ],
+      "frozen": true,
+      "description": "One proposal from an agent worker"
+    },
+    "AgentWorkerResult": {
+      "fields": [
+        "task_id", "provider_id", "status", "proposals",
+        "artifacts", "warnings", "errors", "truth_source", "result_hash"
+      ],
+      "frozen": true,
+      "description": "The result of an agent worker task"
+    },
+    "AgentWorkerReport": {
+      "fields": [
+        "provider", "task", "result", "evidence_bundle_id",
+        "policy_status", "report_hash"
+      ],
+      "frozen": true,
+      "description": "Full report combining provider, task, result, and evidence"
+    },
+    "AgentWorkerValidationResult": {
+      "fields": ["valid", "target_id", "violations"],
+      "frozen": true,
+      "description": "Result of validating an agent worker object"
+    }
+  },
+  "policy": {
+    "AgentWorkerPolicy": {
+      "fields": [
+        "allow_llm_providers", "allow_network", "allow_file_modification",
+        "allow_command_execution", "allow_external_services",
+        "require_sandbox", "require_human_approval",
+        "max_runtime_seconds", "max_proposals",
+        "allowed_paths", "forbidden_paths", "policy_hash"
+      ],
+      "frozen": true,
+      "defaults": {
+        "allow_llm_providers": false,
+        "allow_network": false,
+        "allow_file_modification": false,
+        "allow_command_execution": false,
+        "allow_external_services": false,
+        "require_sandbox": true,
+        "require_human_approval": true,
+        "max_runtime_seconds": 300,
+        "max_proposals": 10
+      }
+    }
+  },
+  "profiles": {
+    "openhands_agent": {
+      "provider_type": "openhands_like",
+      "blocked_by_default": true,
+      "blocked_reasons": ["LLM", "network", "file modification", "command execution", "external service"]
+    },
+    "swe_agent_worker": {
+      "provider_type": "swe_agent_like",
+      "blocked_by_default": true,
+      "blocked_reasons": ["LLM", "file modification", "command execution", "external service"]
+    },
+    "autogen_agent": {
+      "provider_type": "autogen_like",
+      "blocked_by_default": true,
+      "blocked_reasons": ["LLM", "file modification", "command execution", "external service"]
+    },
+    "continue_agent": {
+      "provider_type": "continue_like",
+      "blocked_by_default": true,
+      "blocked_reasons": ["LLM", "file modification", "external service"]
+    },
+    "deterministic_mock_agent": {
+      "provider_type": "deterministic_mock",
+      "blocked_by_default": false,
+      "blocked_reasons": []
+    }
+  },
+  "contract_invariants": {
+    "truth_source": "Always False on all objects",
+    "removable": "Always True on all providers",
+    "dry_run": "True by default on all tasks",
+    "require_human_approval": "True by default on policy",
+    "kernel_modified": "No",
+    "external_services_called": "No",
+    "llm_imports": "None",
+    "agent_frameworks_imported": "None"
+  }
+}

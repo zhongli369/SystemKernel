@@ -1,0 +1,192 @@
+{
+  "version": "4.0",
+  "sections": [
+    {
+      "section_id": "b27f01c5a666f8a2",
+      "title": "Daily Status Check",
+      "purpose": "Quick health check of all v4 subsystems. Run this daily or after any change.",
+      "commands": [
+        "python v3/cli/systemkernel.py status",
+        "python v3/cli/systemkernel.py quality",
+        "python v3/cli/systemkernel.py v4 status"
+      ],
+      "safety_notes": [
+        "All commands are read-only — no side effects.",
+        "If any check fails, investigate before running further commands."
+      ],
+      "section_hash": "000eab42aad45b31"
+    },
+    {
+      "section_id": "a2513f467d0f8bc2",
+      "title": "Capability Registry Review",
+      "purpose": "Review registered external capability adapters and their status.",
+      "commands": [
+        "python v3/cli/systemkernel.py capability summary",
+        "python v3/cli/systemkernel.py capability list",
+        "python v3/cli/systemkernel.py capability show <adapter_id>"
+      ],
+      "safety_notes": [
+        "Registry is the single source of truth for external capability existence.",
+        "Never enable a disabled adapter without passing the trial gate first.",
+        "Do not add registry entries without Phase 2 compliance checks."
+      ],
+      "section_hash": "519642295973c97c"
+    },
+    {
+      "section_id": "635e4a3aaa93553d",
+      "title": "Evidence Inspection",
+      "purpose": "Inspect evidence bundles to verify external adapter outputs are recorded correctly.",
+      "commands": [
+        "python v3/cli/systemkernel.py context-plane evidence <path>",
+        "python v3/cli/systemkernel.py memory-intel evidence",
+        "python v3/cli/systemkernel.py agent-worker evidence",
+        "python v3/cli/systemkernel.py workspace evidence",
+        "python v3/cli/systemkernel.py skill-evolution evidence"
+      ],
+      "safety_notes": [
+        "All evidence records have truth_source=False — evidence is NOT truth.",
+        "Evidence is always TRUST_LOW by default.",
+        "Never base kernel decisions on evidence alone."
+      ],
+      "section_hash": "4bdbed9c1dce1c6d"
+    },
+    {
+      "section_id": "21e3f896cf096151",
+      "title": "Context Pack Planning",
+      "purpose": "Plan context packs for codebase analysis without executing external tools.",
+      "commands": [
+        "python v3/cli/systemkernel.py context-plane plan <target> --output ctx.md",
+        "python v3/cli/systemkernel.py context-plane inspect <path>"
+      ],
+      "safety_notes": [
+        "Context pack planning is dry-run by default — no files are read outside budget.",
+        "Use --allow-execute only when you fully trust the target directory."
+      ],
+      "section_hash": "1fdeb05c6db60e79"
+    },
+    {
+      "section_id": "66054c035d15e872",
+      "title": "Usage Report Inspection",
+      "purpose": "Inspect Claude Code usage reports for operational insights.",
+      "commands": [
+        "python v3/cli/systemkernel.py usage inspect <ccusage.json>",
+        "python v3/cli/systemkernel.py usage summarize <ccusage.json> --output report.json"
+      ],
+      "safety_notes": [
+        "Usage reports are external evidence, not kernel truth.",
+        "Do not use usage data for automated decision-making."
+      ],
+      "section_hash": "debbc953cf8b7a88"
+    },
+    {
+      "section_id": "30d9ad20095bfc43",
+      "title": "Orchestration Dry-Run",
+      "purpose": "Plan capability adapter orchestration without executing anything.",
+      "commands": [
+        "python v3/cli/systemkernel.py orchestrate policies",
+        "python v3/cli/systemkernel.py orchestrate plan --profile safe_context_only",
+        "python v3/cli/systemkernel.py orchestrate plan --profile full_external_review",
+        "python v3/cli/systemkernel.py orchestrate evidence --profile safe_context_only"
+      ],
+      "safety_notes": [
+        "All orchestration is dry-run only — nothing is executed.",
+        "Orchestration plans are PLANS, not truth sources.",
+        "ECC profile (ecc_harness_review) is disabled and must stay disabled."
+      ],
+      "section_hash": "da517979426b7f81"
+    },
+    {
+      "section_id": "4c419c5e2789a558",
+      "title": "Eval / Regression Check",
+      "purpose": "Run deterministic eval suite and regression matrix to verify v4 integrity.",
+      "commands": [
+        "python v3/cli/systemkernel.py eval suite",
+        "python v3/cli/systemkernel.py eval run",
+        "python v3/cli/systemkernel.py eval regression",
+        "python v3/cli/systemkernel.py eval benefit"
+      ],
+      "safety_notes": [
+        "All evals are deterministic and local — no network, no LLM.",
+        "Regression failures that are 'release blocking' must be fixed before merging.",
+        "Benefit-complexity REJECT means the change adds too much complexity for too little benefit."
+      ],
+      "section_hash": "2ae260f1efaa8fc1"
+    },
+    {
+      "section_id": "90169601f97f5c79",
+      "title": "Complexity Gate Check",
+      "purpose": "Verify complexity budget is not exceeded by recent changes.",
+      "commands": [
+        "python v3/cli/systemkernel.py quality"
+      ],
+      "safety_notes": [
+        "Complexity gate REJECT blocks all further changes.",
+        "REVIEW means the change needs justification before proceeding.",
+        "ACCEPT means complexity is within budget for the benefit provided."
+      ],
+      "section_hash": "2467a9f03e78e5cf"
+    },
+    {
+      "section_id": "88ed0d9e3297a161",
+      "title": "What NOT to Do",
+      "purpose": "Operational boundaries that must not be crossed.",
+      "commands": [],
+      "safety_notes": [
+        "DO NOT execute external tools through the kernel boundary.",
+        "DO NOT enable blocked providers (OpenHands, AutoGen, Mem0, Graphiti, etc.) without a formal trial.",
+        "DO NOT modify v3/kernel/ files — kernel is sealed.",
+        "DO NOT modify v3/memory/ runtime behavior.",
+        "DO NOT add new truth sources — truth_source must always be False for external data.",
+        "DO NOT add LLM/AI imports to kernel modules.",
+        "DO NOT install or clone ECC — it is a future external provider, not a dependency.",
+        "DO NOT modify registry.json or skill files through automation — use proposal-only skill evolution."
+      ],
+      "section_hash": "8309c9faab62cc5c"
+    },
+    {
+      "section_id": "85d5ca20850d7cc8",
+      "title": "How ECC is Treated",
+      "purpose": "ECC (everything-claude-code) is a FUTURE external harness enhancement provider.",
+      "commands": [
+        "python v3/cli/systemkernel.py orchestrate plan --profile ecc_harness_review",
+        "# ECC repo: https://github.com/affaan-m/everything-claude-code",
+        "# Status: NOT integrated, NOT cloned, NOT installed"
+      ],
+      "safety_notes": [
+        "ECC is listed as ecc_harness_review profile — disabled, dry-run only.",
+        "ECC capability types: skill, tool, eval, context (4 of 8).",
+        "ECC must never be auto-installed, auto-cloned, or auto-executed.",
+        "ECC integration requires a formal Phase 12+ trial gate.",
+        "SystemKernel must not become an ECC clone or dependency."
+      ],
+      "section_hash": "033e72b0d5a57f19"
+    },
+    {
+      "section_id": "c77effffc50be92f",
+      "title": "How to Propose a Real Provider Trial Safely",
+      "purpose": "Procedure for graduating a blocked provider to trial status.",
+      "commands": [
+        "# 1. Write a trial proposal documenting:",
+        "#    - Provider name and capability type",
+        "#    - Why the provider is needed",
+        "#    - What safety boundaries apply",
+        "#    - What evidence will be collected",
+        "# 2. Create a skill evolution proposal (dry-run only):",
+        "python v3/cli/systemkernel.py skill-evolution mock",
+        "# 3. Run eval suite to verify no regressions:",
+        "python v3/cli/systemkernel.py eval run",
+        "# 4. Run benefit-complexity check:",
+        "python v3/cli/systemkernel.py eval benefit",
+        "# 5. If all gates pass, submit proposal for human review"
+      ],
+      "safety_notes": [
+        "Never enable a provider without explicit human approval.",
+        "All trial proposals are dry-run by default.",
+        "Provider enablement requires registry update — do NOT do this automatically.",
+        "ECC requires its own formal trial gate before any integration."
+      ],
+      "section_hash": "d1a0080ccafd213b"
+    }
+  ],
+  "runbook_hash": "0326046aa79da2f9"
+}

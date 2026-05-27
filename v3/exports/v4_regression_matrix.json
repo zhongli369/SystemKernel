@@ -1,0 +1,329 @@
+{
+  "matrix": {
+    "checks": [
+      {
+        "check_id": "5c35d420c343a095",
+        "name": "Kernel: single loop invariant",
+        "command_or_reference": "test_kernel_invariants.py::test_single_loop_invariant",
+        "expected_status": "pass",
+        "category": "kernel",
+        "required": true,
+        "check_hash": "e47b81fa28ae1303"
+      },
+      {
+        "check_id": "79658b6e916676cb",
+        "name": "Kernel: LLM boundary enforcement",
+        "command_or_reference": "test_kernel_invariants.py::test_llm_boundary_enforcement",
+        "expected_status": "pass",
+        "category": "kernel",
+        "required": true,
+        "check_hash": "0608571a90bd8696"
+      },
+      {
+        "check_id": "faa356d06cafba15",
+        "name": "Kernel: memory removability",
+        "command_or_reference": "test_kernel_invariants.py::test_memory_removability",
+        "expected_status": "pass",
+        "category": "kernel",
+        "required": true,
+        "check_hash": "d3a7afa132512d25"
+      },
+      {
+        "check_id": "5cf80f0288f9a7bf",
+        "name": "Kernel: execution determinism (10 runs)",
+        "command_or_reference": "test_kernel_invariants.py::test_execution_determinism",
+        "expected_status": "pass",
+        "category": "kernel",
+        "required": true,
+        "check_hash": "c2d99a80d3259506"
+      },
+      {
+        "check_id": "d7de8ab9698aaacd",
+        "name": "Kernel: truth model singularity",
+        "command_or_reference": "test_kernel_invariants.py::test_truth_model_singularity",
+        "expected_status": "pass",
+        "category": "kernel",
+        "required": true,
+        "check_hash": "a47f14bf637137e1"
+      },
+      {
+        "check_id": "919e13c2278555b8",
+        "name": "Kernel: independence (memory folder removal)",
+        "command_or_reference": "test_kernel_invariants.py::test_kernel_independence",
+        "expected_status": "pass",
+        "category": "kernel",
+        "required": true,
+        "check_hash": "993e1361ff6d169e"
+      },
+      {
+        "check_id": "ae606460ad4986e5",
+        "name": "Kernel: purity score = 100",
+        "command_or_reference": "test_kernel_invariants.py::purity_score=100",
+        "expected_status": "pass",
+        "category": "kernel",
+        "required": true,
+        "check_hash": "369b412f9a611897"
+      },
+      {
+        "check_id": "3860ea28c9f56ece",
+        "name": "V4 Baseline: kernel files unchanged",
+        "command_or_reference": "test_v4_baseline_guard.py",
+        "expected_status": "pass",
+        "category": "baseline",
+        "required": true,
+        "check_hash": "6477d19ea074080b"
+      },
+      {
+        "check_id": "57962658f9cd4caa",
+        "name": "Contract: adapter spec validation",
+        "command_or_reference": "test_capability_contract.py",
+        "expected_status": "pass",
+        "category": "contract",
+        "required": true,
+        "check_hash": "5e297462e6a8d9a8"
+      },
+      {
+        "check_id": "f1d44294ccf3859c",
+        "name": "Contract: run result validation",
+        "command_or_reference": "test_capability_contract.py",
+        "expected_status": "pass",
+        "category": "contract",
+        "required": true,
+        "check_hash": "dccbd3d395b8dc10"
+      },
+      {
+        "check_id": "f8f39348bdb23bee",
+        "name": "Registry: build_default_registry succeeds",
+        "command_or_reference": "test_capability_registry.py",
+        "expected_status": "pass",
+        "category": "registry",
+        "required": true,
+        "check_hash": "725f840a1393afb0"
+      },
+      {
+        "check_id": "6b316e173550e6d8",
+        "name": "Registry: validate_registry passes",
+        "command_or_reference": "test_capability_registry.py",
+        "expected_status": "pass",
+        "category": "registry",
+        "required": true,
+        "check_hash": "6c566186e1786461"
+      },
+      {
+        "check_id": "5a54f2b319d920bf",
+        "name": "Registry: 8 capability types covered",
+        "command_or_reference": "test_capability_registry.py",
+        "expected_status": "pass",
+        "category": "registry",
+        "required": true,
+        "check_hash": "b39cc4f24621a7d4"
+      },
+      {
+        "check_id": "2344465574f01319",
+        "name": "Evidence: record creation and validation",
+        "command_or_reference": "test_external_evidence.py",
+        "expected_status": "pass",
+        "category": "evidence",
+        "required": true,
+        "check_hash": "7b03ee2ba81ef14b"
+      },
+      {
+        "check_id": "3858874c0a6b9d06",
+        "name": "Evidence: bundle creation and validation",
+        "command_or_reference": "test_external_evidence.py",
+        "expected_status": "pass",
+        "category": "evidence",
+        "required": true,
+        "check_hash": "a0212b6efdf78d6a"
+      },
+      {
+        "check_id": "0444b7cf6cfb12e0",
+        "name": "Evidence: truth_source always False",
+        "command_or_reference": "test_external_evidence.py",
+        "expected_status": "pass",
+        "category": "evidence",
+        "required": true,
+        "check_hash": "bcb79e92eb790c8a"
+      },
+      {
+        "check_id": "fd8a70a7a4dd0f39",
+        "name": "Context: budget policy exists",
+        "command_or_reference": "v3/external/context_plane.py",
+        "expected_status": "pass",
+        "category": "context",
+        "required": false,
+        "check_hash": "302804267dc93c0e"
+      },
+      {
+        "check_id": "caa3468fbe360933",
+        "name": "Context: plan_context_pack deterministic",
+        "command_or_reference": "v3/external/context_plane.py",
+        "expected_status": "pass",
+        "category": "context",
+        "required": false,
+        "check_hash": "b080b571edd7e420"
+      },
+      {
+        "check_id": "60c3e1cd5855e4f3",
+        "name": "Memory: profiles listable",
+        "command_or_reference": "test_memory_intelligence_plane.py",
+        "expected_status": "pass",
+        "category": "memory",
+        "required": true,
+        "check_hash": "63edefa72b036e20"
+      },
+      {
+        "check_id": "3cca3c4ff42f39ba",
+        "name": "Memory: mock result deterministic",
+        "command_or_reference": "test_memory_intelligence_plane.py",
+        "expected_status": "pass",
+        "category": "memory",
+        "required": true,
+        "check_hash": "bc80a2d6a2f80bb4"
+      },
+      {
+        "check_id": "ac376326cea1d16c",
+        "name": "Memory: providers blocked by default",
+        "command_or_reference": "test_memory_intelligence_plane.py",
+        "expected_status": "pass",
+        "category": "memory",
+        "required": true,
+        "check_hash": "bee1404e2a9697e2"
+      },
+      {
+        "check_id": "c9b53479a2905734",
+        "name": "Agent: profiles listable",
+        "command_or_reference": "test_agent_worker_plane.py",
+        "expected_status": "pass",
+        "category": "agent",
+        "required": true,
+        "check_hash": "c0b27d7c60cf8a94"
+      },
+      {
+        "check_id": "45007ebe3b8039fd",
+        "name": "Agent: mock result deterministic",
+        "command_or_reference": "test_agent_worker_plane.py",
+        "expected_status": "pass",
+        "category": "agent",
+        "required": true,
+        "check_hash": "99e3467067b4fbc7"
+      },
+      {
+        "check_id": "5862238b96cee43c",
+        "name": "Agent: blocked providers blocked",
+        "command_or_reference": "test_agent_worker_plane.py",
+        "expected_status": "pass",
+        "category": "agent",
+        "required": true,
+        "check_hash": "f51ba63a9950d00d"
+      },
+      {
+        "check_id": "553fbd943bc1885f",
+        "name": "Workspace: profiles listable",
+        "command_or_reference": "test_workspace_context_plane.py",
+        "expected_status": "pass",
+        "category": "workspace",
+        "required": true,
+        "check_hash": "38a0583268bdea8d"
+      },
+      {
+        "check_id": "634ff0665bd86382",
+        "name": "Workspace: mock snapshot deterministic",
+        "command_or_reference": "test_workspace_context_plane.py",
+        "expected_status": "pass",
+        "category": "workspace",
+        "required": true,
+        "check_hash": "980fc237b8a20500"
+      },
+      {
+        "check_id": "c0dda1c428b05577",
+        "name": "Skill: profiles listable",
+        "command_or_reference": "test_skill_evolution_plane.py",
+        "expected_status": "pass",
+        "category": "skill",
+        "required": true,
+        "check_hash": "bffaea309d20d946"
+      },
+      {
+        "check_id": "8592520e7b88be04",
+        "name": "Skill: mock result deterministic",
+        "command_or_reference": "test_skill_evolution_plane.py",
+        "expected_status": "pass",
+        "category": "skill",
+        "required": true,
+        "check_hash": "73d9a2c6e8939653"
+      },
+      {
+        "check_id": "7a0bff37c89ef760",
+        "name": "Skill: proposals proposal-only",
+        "command_or_reference": "test_skill_evolution_plane.py",
+        "expected_status": "pass",
+        "category": "skill",
+        "required": true,
+        "check_hash": "6f30f9b0b153a43f"
+      },
+      {
+        "check_id": "304c7964c45d5ad3",
+        "name": "Orchestration: policies listable",
+        "command_or_reference": "test_orchestration_policy.py",
+        "expected_status": "pass",
+        "category": "orchestration",
+        "required": true,
+        "check_hash": "9b091435d3a08efe"
+      },
+      {
+        "check_id": "bed620e5e361d182",
+        "name": "Orchestration: plan deterministic",
+        "command_or_reference": "test_orchestration_policy.py",
+        "expected_status": "pass",
+        "category": "orchestration",
+        "required": true,
+        "check_hash": "0b0114e8a79d7c9f"
+      },
+      {
+        "check_id": "3d850d39957cd836",
+        "name": "Orchestration: ECC profile exists",
+        "command_or_reference": "test_orchestration_policy.py",
+        "expected_status": "pass",
+        "category": "orchestration",
+        "required": true,
+        "check_hash": "2db9327b1e049191"
+      },
+      {
+        "check_id": "f13c4aaac91bd2a9",
+        "name": "Complexity: budget tests pass",
+        "command_or_reference": "test_complexity_budget.py",
+        "expected_status": "pass",
+        "category": "complexity",
+        "required": true,
+        "check_hash": "88d538927aead621"
+      },
+      {
+        "check_id": "a58266e4a7fe1852",
+        "name": "Complexity: gate not REJECT",
+        "command_or_reference": "test_complexity_budget.py",
+        "expected_status": "pass",
+        "category": "complexity",
+        "required": true,
+        "check_hash": "83ce8f5185d953e4"
+      },
+      {
+        "check_id": "39fb69b72ca8b636",
+        "name": "Eval: harness tests pass",
+        "command_or_reference": "test_evaluation_harness.py",
+        "expected_status": "pass",
+        "category": "eval",
+        "required": true,
+        "check_hash": "7d0b80d11fb231ae"
+      }
+    ],
+    "total": 35,
+    "required_count": 33,
+    "matrix_hash": "cbeb88d282c020aa"
+  },
+  "passed": 35,
+  "failed": 0,
+  "skipped": 0,
+  "release_blocking_failures": [],
+  "result_hash": "2cf59db2a5e81a4b"
+}

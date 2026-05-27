@@ -1,0 +1,181 @@
+{
+  "_description": "Phase 9.5 Complexity Sanity Check — Phase 9 audit",
+  "phase": "9.5",
+  "date": "2026-05-27",
+  "status": "COMPLETE",
+  "verdict": "ACCEPT",
+  "risk_level": "LOW",
+  "principle": "Analytical only — no code changes",
+  "metrics": {
+    "total_loc": 954,
+    "total_dataclasses": 7,
+    "total_public_functions": 16,
+    "total_private_helpers": 4,
+    "total_module_constants": 6,
+    "cross_plane_imports": 2,
+    "external_dependencies": 0,
+    "files": {
+      "orchestration_policy.py": {
+        "loc": 645,
+        "dataclasses": 6,
+        "public_functions": 7,
+        "private_helpers": 2,
+        "module_constants": 6,
+        "cross_plane_imports": 1,
+        "dataclass_names": [
+          "OrchestrationPolicy",
+          "OrchestrationRequest",
+          "OrchestrationStep",
+          "OrchestrationPlan",
+          "OrchestrationPolicyReport",
+          "OrchestrationValidationResult"
+        ],
+        "function_names": [
+          "default_orchestration_policy",
+          "build_orchestration_request",
+          "plan_orchestration",
+          "validate_orchestration_step",
+          "validate_orchestration_plan",
+          "build_orchestration_policy_report",
+          "orchestration_plan_to_evidence"
+        ],
+        "private_helpers": [
+          "_compute_hash",
+          "_make_step"
+        ]
+      },
+      "orchestration_profiles.py": {
+        "loc": 309,
+        "dataclasses": 1,
+        "public_functions": 9,
+        "private_helpers": 2,
+        "module_constants": 0,
+        "cross_plane_imports": 1,
+        "dataclass_names": [
+          "OrchestrationProfileStatus"
+        ],
+        "function_names": [
+          "safe_context_only",
+          "skill_evolution_review",
+          "memory_intelligence_review",
+          "agent_worker_review",
+          "full_external_review",
+          "ecc_harness_review",
+          "get_all_profiles",
+          "get_profile",
+          "get_all_profile_statuses"
+        ],
+        "private_helpers": [
+          "_compute_policy_hash",
+          "_build"
+        ]
+      }
+    }
+  },
+  "duplication_analysis": {
+    "hash_functions": "DISTINCT — _compute_hash strips all hash fields generically, _compute_policy_hash strips only policy_hash",
+    "build_pattern": "CONSISTENT — follows established architecture from other profile modules",
+    "to_dict_pattern": "CONSISTENT — project-wide frozen dataclass pattern",
+    "profile_factories": "NECESSARY — each gates distinct capability type sets",
+    "validators": "DISTINCT — step-level vs plan-level validation"
+  },
+  "simplification_opportunities": {
+    "unify_hash_functions": {
+      "action": "REJECTED",
+      "reason": "Different hash-key stripping logic; unification adds indirection"
+    },
+    "to_dict_mixin": {
+      "action": "REJECTED",
+      "reason": "Adds abstraction for 1-line methods; not worth the indirection"
+    },
+    "merge_validators": {
+      "action": "REJECTED",
+      "reason": "Step and plan validation serve different callers with different rules"
+    },
+    "reduce_profile_count": {
+      "action": "REJECTED",
+      "reason": "Each profile gates a distinct capability set; removing any loses functionality"
+    },
+    "ecc_profile_minimality": {
+      "action": "ALREADY_MINIMAL",
+      "reason": "4 types, disabled placeholder, dry-run only, no execution"
+    }
+  },
+  "dead_code_check": {
+    "unused_functions": 0,
+    "unused_dataclasses": 0,
+    "unused_constants": 0,
+    "dead_code_paths": 0,
+    "unreachable_code": 0
+  },
+  "invariant_verification": {
+    "truth_source_always_false": true,
+    "dry_run_only": true,
+    "no_execution": true,
+    "no_file_modification": true,
+    "no_network": true,
+    "no_registry_mutation": true,
+    "no_memory_mutation": true,
+    "no_llm_imports": true,
+    "no_new_runtime_loop": true,
+    "kernel_purity_score": 100,
+    "memory_removable": true,
+    "deterministic_hashing": true
+  },
+  "cross_plane_dependencies": [
+    {
+      "from": "orchestration_policy.py",
+      "to": "v3.external.evidence",
+      "type": "lazy_import",
+      "location": "orchestration_plan_to_evidence()",
+      "risk": "LOW"
+    },
+    {
+      "from": "orchestration_profiles.py",
+      "to": "v3.external.orchestration_policy",
+      "type": "lazy_import",
+      "location": "_build()",
+      "risk": "LOW"
+    }
+  ],
+  "complexity_budget": {
+    "ability_gain_estimate": 30,
+    "ability_gain_breakdown": {
+      "multi_adapter_planning": 10,
+      "policy_enforcement": 8,
+      "evidence_mapping": 5,
+      "profile_system": 4,
+      "cli_integration": 3
+    },
+    "complexity_growth_estimate": 15,
+    "complexity_growth_breakdown": {
+      "loc_overhead": 7,
+      "dataclass_overhead": 3,
+      "function_overhead": 3,
+      "import_overhead": 2
+    },
+    "net_value": 15,
+    "risk_ratio": 0.5,
+    "risk_level": "LOW"
+  },
+  "test_results": {
+    "test_orchestration_policy.py": "71/71 (1 skipped)",
+    "test_complexity_budget.py": "41/41",
+    "test_kernel_invariants.py": "6/6 (100/100 purity)"
+  },
+  "hard_constraints": {
+    "do_not_modify_code": true,
+    "do_not_add_capabilities": true,
+    "do_not_refactor": true,
+    "prefer_reporting_over_changing": true,
+    "do_not_modify_v3_kernel": true,
+    "do_not_modify_v3_memory": true,
+    "do_not_modify_registry_json": true,
+    "do_not_execute_external_tools": true,
+    "do_not_execute_agents": true,
+    "do_not_access_ide_apis": true
+  },
+  "recommended_action": "PROCEED to Phase 10 (Evaluation + Regression Harness)",
+  "kernel_protected": true,
+  "memory_removable": true
+}
