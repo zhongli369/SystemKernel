@@ -5,139 +5,149 @@
 SystemKernel is not a framework, not a library. It is a kernel: a minimal,
 deterministic core that routes capabilities, orchestrates tasks, enforces
 verified execution, and records every decision as an immutable event. Above
-that core sits a pluggable intelligence plane — memory, context, evaluation,
+that core sits a pluggable intelligence plane — context, memory, evaluation,
 and agent workers — that can be attached, removed, or replaced without
 affecting kernel behavior.
 
 ---
 
-## Versions
+## Architecture
 
-### v3.0 — Deterministic Runtime Kernel
-
-The frozen deterministic core. Five subsystems, zero LLM:
-
-| Subsystem | Responsibility |
-|-----------|---------------|
-| Adapter | Route intent → skill. Deterministic. Does NOT execute. |
-| TaskSystem | Task lifecycle (backlog → active → done). Does NOT route or execute. |
-| EventBus | Ingest external events. 13 deterministic rules. No classification. |
-| ExecutionLoop | Execute + verify (max 2 attempts). Does NOT route or create tasks. |
-| Observability | Record traces + metrics. Does NOT decide, predict, or alert. |
-
-Tag: `systemkernel-v3.0.0-baseline`
-
-### v4.0 — Pluggable Intelligence Plane
-
-Adds intelligence capabilities as removable, external planes. The kernel
-remains pure — intelligence is attached, not embedded:
-
-- **Memory Intelligence Plane** — episodic, semantic, and procedural memory
-  with compaction, recall, and indexing. Fully removable.
-- **Agent Worker Plane** — subagent dispatch, parallel execution, worktree
-  isolation, skill-driven worker lifecycle.
-- **Workspace Plane** — checkpoint/replay, snapshot management, trace
-  replay, evidence model.
-- **Context Plane** — usage adapter, complexity budget, context packing,
-  token optimization.
-- **Skill Evolution Plane** — registry, capability contracts, skill
-  metadata, package management.
-- **Orchestration Policy** — evaluation harness, routing policy,
-  verification gates, complexity gate.
-- **Evidence Model** — external outputs are evidence, never truth.
-  EventStore is the sole source of truth.
-
-Tag: `systemkernel-v4.0.0-pluggable-intelligence`
+```
+SystemKernel
+├── v3/kernel/          ● Frozen deterministic core
+│   ├── event_store          Immutable event log (source of truth)
+│   ├── execution_engine     Execute + verify, max 2 attempts
+│   ├── invariants           Kernel purity enforcement (100/100)
+│   ├── checkpoint           Save/restore execution state
+│   ├── replay               Trace replay engine
+│   ├── observability        Deterministic tracing + metrics
+│   ├── truth_model          Evidence vs truth classification
+│   └── complexity_budget    Ability+10% vs complexity+300% gate
+│
+├── v3/cli/             ● Developer operations surface
+│   ├── systemkernel         Entrypoint (541 LOC, 82% reduction from v3)
+│   ├── core_commands        Status, doctor, capability summary
+│   ├── external_commands    Context-pack, usage-report, repomix
+│   ├── intelligence_commands  Memory, agent-worker, workspace
+│   └── eval_ops_commands    Evaluation harness, orchestration
+│
+├── v3/external/        ● Pluggable intelligence plane (removable)
+│   ├── context_pack         Context generation via external providers
+│   ├── context_plane        Context engineering policy
+│   ├── agent_worker         Subagent dispatch, parallel, worktree isolation
+│   ├── memory_intelligence  Episodic/semantic/procedural memory
+│   ├── skill_evolution      Registry, contracts, package management
+│   ├── capability_registry  JSON-driven capability contracts
+│   ├── evidence             Evidence model (truth_source always false)
+│   ├── orchestration_policy Evaluation harness, routing, verification gates
+│   ├── workspace_context    Checkpoint/replay, snapshot management
+│   └── usage_report         Token usage, complexity budget tracking
+│
+├── v3/evals/           ● Evaluation & selection (stdlib only)
+│   ├── evaluation_harness   Automated invariant verification
+│   ├── provider_trial_selection  Deterministic 10-dimension scoring
+│   ├── benefit_complexity   Complexity gate enforcement
+│   └── regression_matrix    Cross-subsystem regression detection
+│
+├── v3/intake/          ● External repository intake
+│   ├── repo_intake         Clone + analyze external repos
+│   ├── clone_plan          Intake planning and safety checks
+│   └── tool_registry       External tool capability mapping
+│
+├── v3/integrations/    ● External provider adapters (stubs)
+│   ├── repomix/            Context pack generation
+│   ├── ccusage/            Claude Code usage reports
+│   ├── mem0/               External memory service
+│   └── graphiti/           Knowledge graph service
+│
+├── v3/tests/           ● Test suites
+├── v3/quality/         ● Phase gate enforcement
+├── v3/exports/         ● Phase reports and evidence bundles
+├── scripts/            ● verify_v3_baseline.py, verify_v4_baseline.py
+├── api.py              ● Single entry point for external callers
+├── architecture_guard.py ● Architecture drift detection
+└── external_trials/    ● Controlled external provider trial outputs
+```
 
 ---
 
 ## Core Principles
 
-- **Pure Kernel** — The v3 deterministic core has no LLM calls, no
-  probabilistic routing, no shadow logic. Stability: 96/100.
-- **EventStore as Source of Truth** — Every decision, route, execution,
-  and validation is recorded as an immutable event. The event log is truth;
-  everything else is derived.
-- **External Outputs are Evidence, Not Truth** — Agent outputs, LLM
-  responses, external tool results are evidence recorded in the event log.
-  They never directly mutate kernel state.
-- **Memory is Removable** — Delete the memory plane and the kernel
-  continues to function. Memory enhances; it does not depend.
-- **Zero LLM in Kernel** — No LLM import, call, or API exists in Adapter,
-  TaskSystem, EventBus, ExecutionLoop, or Observability.
-- **Complexity Gate** — Every capability addition is measured against a
-  complexity budget. The rule: ability +10% must not cost complexity +300%.
+- **Pure Kernel** — Zero LLM in `v3/kernel/`. Adapter, TaskSystem, EventBus,
+  ExecutionLoop, Observability are LLM-free. Stability: 96/100.
+- **EventStore as Source of Truth** — Every decision, route, execution, and
+  validation is an immutable event. Everything else is derived.
+- **External Outputs are Evidence, Not Truth** — Agent outputs, LLM responses,
+  and external tool results are recorded as evidence. `truth_source` is always
+  `false` for external data. They never directly mutate kernel state.
+- **Memory is Removable** — Delete the memory plane; the kernel continues to
+  function. Memory enhances; it does not depend.
+- **Complexity Gate** — ability +10% must not cost complexity +300%.
+  Enforced by `benefit_complexity.py` and phase gates.
+- **External Providers are Trials, Not Dependencies** — Repomix, ccusage, ECC,
+  mem0, Graphiti, OpenHands, Continue are external capability providers scored
+  and trialed through the intelligence plane. They are never embedded in the
+  kernel.
 
 ---
 
-## Major Capabilities
+## Quick Start
 
-| Capability | Description |
-|-----------|-------------|
-| Event Sourcing | Immutable event log as system source of truth |
-| Checkpoint / Replay | Save and replay execution traces |
-| Observability Graph | Trace chains, metric points, span lineage |
-| External Memory Runtime | Episodic, semantic, procedural memory planes |
-| Context Plane | Usage adapter, complexity budget, token optimization |
-| Capability Contract | Typed, frozen dataclasses for every subsystem boundary |
-| Registry | JSON-driven skill registry with manifest + SKILL.md authority |
-| Evidence Model | External outputs treated as evidence, not kernel state |
-| Agent Worker Plane | Subagent dispatch, parallel workers, worktree isolation |
-| Workspace Plane | Snapshots, trace replay, checkpoint management |
-| Skill Evolution Plane | Registry, contracts, package management |
-| Orchestration Policy | Evaluation harness, verification gates, routing policy |
-| Evaluation Harness | Automated verification of kernel invariants and baselines |
+```python
+from api import resolve_skill, run_skill, create_task_safe
 
----
-
-## Quick Commands
+# Route intent to skill
+binding = resolve_skill(intent="refactor", context="decouple utils/helpers.py")
+if binding.skill_id:
+    task = create_task_safe(title=f"[{binding.skill_id}] Refactor")
+    result = run_skill(skill_id=binding.skill_id, target="./src")
+    print(f"Success: {result.success}, Verified: {result.verification_passed}")
+```
 
 ```bash
-# Verify v3 deterministic baseline
-python scripts/verify_v3_baseline.py
+# Kernel status & health
+python v3/cli/systemkernel.py status
+python v3/cli/systemkernel.py doctor
 
-# Verify v4 pluggable intelligence baseline
+# Verification
+python scripts/verify_v3_baseline.py
 python scripts/verify_v4_baseline.py
 
-# Kernel status
-python v3/cli/systemkernel.py v4 status
+# Architecture drift check
+python architecture_guard.py
+python architecture_guard.py --json
 
-# Kernel summary
-python v3/cli/systemkernel.py v4 summary
-
-# Run evaluation harness
-python v3/cli/systemkernel.py eval run
+# Context pack generation (external provider trial)
+python v3/cli/systemkernel.py context-pack plan ./src --output ctx.md
 ```
 
 ---
 
-## Release Tags
+## Versions
 
 | Tag | Description |
 |-----|-------------|
-| `systemkernel-v3.0.0-baseline` | Deterministic Runtime Kernel (frozen core) |
-| `systemkernel-v4.0.0-pluggable-intelligence` | Pluggable Intelligence Plane |
+| `systemkernel-v3.0.0-baseline` | Deterministic Runtime Kernel (frozen core, 5 subsystems) |
+| `systemkernel-v4.0.0-pluggable-intelligence` | Pluggable Intelligence Plane + Provider Trial Selection |
 
 ---
 
 ## What Is Intentionally Not Included
 
 - **No real mem0 / Graphiti / OpenHands / AutoGen / Continue / ECC
-  integration** — These are referenced as external capability providers.
-  The kernel models their interfaces but does not bundle or call them.
-- **No external provider execution by default** — External tool adapters
-  exist as stubs. Actual execution requires explicit configuration.
-- **No kernel LLM dependency** — The kernel has zero LLM imports. The
-  intelligence plane may use LLMs, but it is external and removable.
-
----
-
-## ECC Positioning
-
-ECC (everything-claude-code) is treated as a future external harness
-enhancement provider. SystemKernel should use and evaluate ECC, not become
-an ECC clone. ECC capabilities — when integrated — arrive through the
-pluggable intelligence plane, never through kernel modification.
+  integration** — These are scored as external capability providers through
+  deterministic trial selection. Adapters exist as stubs; actual execution
+  requires explicit `--allow-execute`.
+- **No external provider execution by default** — The Repomix controlled
+  trial (Phase 14B) is the sole external execution performed, and it was
+  confined to `external_trials/repomix/` with `truth_source=false`.
+- **No kernel LLM dependency** — Zero LLM imports in `v3/kernel/`, CLI,
+  evals, or intake. The intelligence plane may use LLMs externally, but
+  it is removable.
+- **ECC is an external provider, not an internal component** — SystemKernel
+  models ECC interfaces in the intelligence plane. ECC capabilities arrive
+  through the pluggable plane, never through kernel modification.
 
 ---
 
