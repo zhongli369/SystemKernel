@@ -1,0 +1,43 @@
+{
+  "adapter_id": "repomix_context_pack",
+  "budget_status": "pass",
+  "evidence_bundle_id": "adc62ff7dd494d16",
+  "inspection": {
+    "detected_sections": [
+      "Purpose",
+      "File Format",
+      "Usage Guidelines",
+      "Notes"
+    ],
+    "included_files": [
+      "__init__.py",
+      "clone_plan.py",
+      "repo_intake.py",
+      "repo_profiles.py",
+      "rules.py",
+      "tool_registry.py"
+    ],
+    "inspection_hash": "cc3171e91b9bd726",
+    "line_count": 2547,
+    "output_path": "external_trials/repomix/phase_14b_intake_context.md",
+    "pack_hash": "eb79c7eeace47123",
+    "sensitive_pattern_hits": [],
+    "size_bytes": 99500,
+    "token_estimate": 22966
+  },
+  "plan": {
+    "adapter_id": "repomix_context_pack",
+    "budget_status": "pass",
+    "command": "npx repomix@latest external_trials/repomix/phase_14b_intake_context.md --output external_trials/repomix/phase_14b_intake_context.md --style markdown",
+    "estimated_bytes": 99500,
+    "estimated_files": 1,
+    "estimated_tokens": 24875,
+    "output_path": "external_trials/repomix/phase_14b_intake_context.md",
+    "plan_hash": "a7750eecf5cf7086",
+    "style": "markdown",
+    "target_path": "external_trials/repomix/phase_14b_intake_context.md",
+    "warnings": []
+  },
+  "report_hash": "68dba8f409f271eb",
+  "truth_source": false
+}

@@ -1,0 +1,32 @@
+{
+  "phase": "14B",
+  "title": "Repomix Controlled Trial",
+  "status": "COMPLETE",
+  "target": "v3/intake",
+  "output_path": "external_trials/repomix/phase_14b_intake_context.md",
+  "budget_status": "pass",
+  "size_bytes": 99500,
+  "line_count": 2547,
+  "token_estimate": 22966,
+  "included_files": 6,
+  "evidence_bundle_hash": "adc62ff7dd494d16",
+  "evidence_records": 2,
+  "truth_source": false,
+  "execution": {
+    "adapter": "repomix_context_pack",
+    "allow_execute": true,
+    "npx_used": true,
+    "network_used": true,
+    "install_performed": false
+  },
+  "safety": {
+    "kernel_modified": false,
+    "memory_modified": false,
+    "repomix_repo_modified": false,
+    "tags_moved": false,
+    "sensitive_hits": 0
+  },
+  "complexity_risk": "low",
+  "usefulness_verdict": "USEFUL",
+  "proceed_recommendation": "stop_after_this_phase"
+}
