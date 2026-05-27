@@ -1,0 +1,485 @@
+{
+  "phase": "13C",
+  "title": "v4 Simplification / API Surface Reduction Audit",
+  "modules_analyzed": 90,
+  "total_loc": 45365,
+  "total_public_api": 428,
+  "total_exports": 475,
+  "safe_now_count": 0,
+  "defer_count": 46,
+  "do_not_touch_count": 0,
+  "ability_plus_10_complexity_plus_300_risk": "medium",
+  "report_hash": "3f9fb09287eb7c12",
+  "opportunities": [
+    {
+      "id": "SIMPLIFY-001",
+      "category": "oversized_module",
+      "target_path": "v3/cli/systemkernel.py",
+      "description": "Module exceeds 600 lines (3076 LOC). Consider extracting helper modules.",
+      "expected_complexity_reduction": 57.37,
+      "behavior_risk": "medium",
+      "recommended_action": "simplify_later",
+      "reason": "Large modules increase cognitive load. Safe to split if public API preserved."
+    },
+    {
+      "id": "SIMPLIFY-002",
+      "category": "oversized_module",
+      "target_path": "v3/external/__init__.py",
+      "description": "Module exceeds 600 lines (851 LOC). Consider extracting helper modules.",
+      "expected_complexity_reduction": 54.2,
+      "behavior_risk": "medium",
+      "recommended_action": "simplify_later",
+      "reason": "Large modules increase cognitive load. Safe to split if public API preserved."
+    },
+    {
+      "id": "SIMPLIFY-033",
+      "category": "excessive_exports",
+      "target_path": "v3/external/__init__.py",
+      "description": "Module exports 347 public symbols. Reduce to core API surface.",
+      "expected_complexity_reduction": 52.05,
+      "behavior_risk": "medium",
+      "recommended_action": "simplify_later",
+      "reason": "Large __all__ inflates API surface. Audit which exports are actually consumed."
+    },
+    {
+      "id": "SIMPLIFY-037",
+      "category": "cli_surface_sprawl",
+      "target_path": "v3/cli/systemkernel.py",
+      "description": "CLI module has 57 subcommands. Consider grouping or removing rarely used commands.",
+      "expected_complexity_reduction": 14.25,
+      "behavior_risk": "medium",
+      "recommended_action": "simplify_later",
+      "reason": "57 CLI subcommands is a large surface. Audit which are used and which are scaffolding."
+    },
+    {
+      "id": "SIMPLIFY-038",
+      "category": "duplicated_policy_logic",
+      "target_path": "v3/external/",
+      "description": "Multiple policy modules detected (7 files). Consider consolidating shared policy logic.",
+      "expected_complexity_reduction": 8.4,
+      "behavior_risk": "medium",
+      "recommended_action": "simplify_later",
+      "reason": "Policy files (v3/external/agent_worker_policy.py, v3/external/evidence_policy.py, v3/external/memory_intelligence_policy.py, v3/external/orchestration_policy.py, v3/external/skill_evolution_policy.py) may share validation patterns. Consolidate into shared base."
+    },
+    {
+      "id": "SIMPLIFY-003",
+      "category": "oversized_module",
+      "target_path": "v3/external/skill_evolution.py",
+      "description": "Module exceeds 600 lines (735 LOC). Consider extracting helper modules.",
+      "expected_complexity_reduction": 7.8,
+      "behavior_risk": "medium",
+      "recommended_action": "simplify_later",
+      "reason": "Large modules increase cognitive load. Safe to split if public API preserved."
+    },
+    {
+      "id": "SIMPLIFY-034",
+      "category": "excessive_exports",
+      "target_path": "v3/release/__init__.py",
+      "description": "Module exports 52 public symbols. Reduce to core API surface.",
+      "expected_complexity_reduction": 7.8,
+      "behavior_risk": "medium",
+      "recommended_action": "simplify_later",
+      "reason": "Large __all__ inflates API surface. Audit which exports are actually consumed."
+    },
+    {
+      "id": "SIMPLIFY-004",
+      "category": "oversized_module",
+      "target_path": "v3/external/workspace_context.py",
+      "description": "Module exceeds 600 lines (686 LOC). Consider extracting helper modules.",
+      "expected_complexity_reduction": 7.46,
+      "behavior_risk": "medium",
+      "recommended_action": "simplify_later",
+      "reason": "Large modules increase cognitive load. Safe to split if public API preserved."
+    },
+    {
+      "id": "SIMPLIFY-005",
+      "category": "oversized_module",
+      "target_path": "v3/external/context_plane.py",
+      "description": "Module exceeds 600 lines (680 LOC). Consider extracting helper modules.",
+      "expected_complexity_reduction": 6.31,
+      "behavior_risk": "medium",
+      "recommended_action": "simplify_later",
+      "reason": "Large modules increase cognitive load. Safe to split if public API preserved."
+    },
+    {
+      "id": "SIMPLIFY-006",
+      "category": "oversized_module",
+      "target_path": "v3/external/orchestration_policy.py",
+      "description": "Module exceeds 600 lines (644 LOC). Consider extracting helper modules.",
+      "expected_complexity_reduction": 6.28,
+      "behavior_risk": "medium",
+      "recommended_action": "simplify_later",
+      "reason": "Large modules increase cognitive load. Safe to split if public API preserved."
+    },
+    {
+      "id": "SIMPLIFY-007",
+      "category": "oversized_module",
+      "target_path": "v3/tests/test_v4_release_freeze.py",
+      "description": "Module exceeds 600 lines (832 LOC). Consider extracting helper modules.",
+      "expected_complexity_reduction": 5.97,
+      "behavior_risk": "medium",
+      "recommended_action": "simplify_later",
+      "reason": "Large modules increase cognitive load. Safe to split if public API preserved."
+    },
+    {
+      "id": "SIMPLIFY-035",
+      "category": "excessive_exports",
+      "target_path": "v3/evals/__init__.py",
+      "description": "Module exports 37 public symbols. Reduce to core API surface.",
+      "expected_complexity_reduction": 5.55,
+      "behavior_risk": "medium",
+      "recommended_action": "simplify_later",
+      "reason": "Large __all__ inflates API surface. Audit which exports are actually consumed."
+    },
+    {
+      "id": "SIMPLIFY-008",
+      "category": "oversized_module",
+      "target_path": "v3/evals/evaluation_harness.py",
+      "description": "Module exceeds 600 lines (634 LOC). Consider extracting helper modules.",
+      "expected_complexity_reduction": 4.77,
+      "behavior_risk": "medium",
+      "recommended_action": "simplify_later",
+      "reason": "Large modules increase cognitive load. Safe to split if public API preserved."
+    },
+    {
+      "id": "SIMPLIFY-009",
+      "category": "oversized_module",
+      "target_path": "v3/tests/test_release_freeze.py",
+      "description": "Module exceeds 600 lines (653 LOC). Consider extracting helper modules.",
+      "expected_complexity_reduction": 4.01,
+      "behavior_risk": "medium",
+      "recommended_action": "simplify_later",
+      "reason": "Large modules increase cognitive load. Safe to split if public API preserved."
+    },
+    {
+      "id": "SIMPLIFY-039",
+      "category": "duplicate_helper",
+      "target_path": "v3/external/",
+      "description": "Multiple profiles modules (5 files). Consider unifying profile loading.",
+      "expected_complexity_reduction": 4.0,
+      "behavior_risk": "low",
+      "recommended_action": "simplify_later",
+      "reason": "Profile modules (v3/external/agent_worker_profiles.py, v3/external/memory_intelligence_profiles.py, v3/external/orchestration_profiles.py, v3/external/skill_evolution_profiles.py, v3/external/workspace_context_profiles.py) follow similar patterns. A shared loader reduces duplication."
+    },
+    {
+      "id": "SIMPLIFY-010",
+      "category": "oversized_module",
+      "target_path": "v3/tests/test_external_tool_registry.py",
+      "description": "Module exceeds 600 lines (844 LOC). Consider extracting helper modules.",
+      "expected_complexity_reduction": 3.94,
+      "behavior_risk": "medium",
+      "recommended_action": "simplify_later",
+      "reason": "Large modules increase cognitive load. Safe to split if public API preserved."
+    },
+    {
+      "id": "SIMPLIFY-011",
+      "category": "oversized_module",
+      "target_path": "v3/release/v4_baseline_guard.py",
+      "description": "Module exceeds 600 lines (797 LOC). Consider extracting helper modules.",
+      "expected_complexity_reduction": 3.9,
+      "behavior_risk": "medium",
+      "recommended_action": "simplify_later",
+      "reason": "Large modules increase cognitive load. Safe to split if public API preserved."
+    },
+    {
+      "id": "SIMPLIFY-012",
+      "category": "oversized_module",
+      "target_path": "v3/quality/v4_simplification_audit.py",
+      "description": "Module exceeds 600 lines (705 LOC). Consider extracting helper modules.",
+      "expected_complexity_reduction": 3.4,
+      "behavior_risk": "medium",
+      "recommended_action": "simplify_later",
+      "reason": "Large modules increase cognitive load. Safe to split if public API preserved."
+    },
+    {
+      "id": "SIMPLIFY-036",
+      "category": "excessive_exports",
+      "target_path": "v3/quality/__init__.py",
+      "description": "Module exports 19 public symbols. Reduce to core API surface.",
+      "expected_complexity_reduction": 2.85,
+      "behavior_risk": "medium",
+      "recommended_action": "simplify_later",
+      "reason": "Large __all__ inflates API surface. Audit which exports are actually consumed."
+    },
+    {
+      "id": "SIMPLIFY-013",
+      "category": "oversized_module",
+      "target_path": "v3/tests/test_kernel_invariants.py",
+      "description": "Module exceeds 600 lines (713 LOC). Consider extracting helper modules.",
+      "expected_complexity_reduction": 2.8,
+      "behavior_risk": "medium",
+      "recommended_action": "simplify_later",
+      "reason": "Large modules increase cognitive load. Safe to split if public API preserved."
+    },
+    {
+      "id": "SIMPLIFY-014",
+      "category": "oversized_module",
+      "target_path": "v3/tests/test_orchestration_policy.py",
+      "description": "Module exceeds 600 lines (665 LOC). Consider extracting helper modules.",
+      "expected_complexity_reduction": 2.7,
+      "behavior_risk": "medium",
+      "recommended_action": "simplify_later",
+      "reason": "Large modules increase cognitive load. Safe to split if public API preserved."
+    },
+    {
+      "id": "SIMPLIFY-015",
+      "category": "oversized_module",
+      "target_path": "v3/tests/test_memory_runtime_finalization.py",
+      "description": "Module exceeds 600 lines (1016 LOC). Consider extracting helper modules.",
+      "expected_complexity_reduction": 2.65,
+      "behavior_risk": "medium",
+      "recommended_action": "simplify_later",
+      "reason": "Large modules increase cognitive load. Safe to split if public API preserved."
+    },
+    {
+      "id": "SIMPLIFY-016",
+      "category": "oversized_module",
+      "target_path": "v3/tests/test_repo_intake.py",
+      "description": "Module exceeds 600 lines (748 LOC). Consider extracting helper modules.",
+      "expected_complexity_reduction": 2.65,
+      "behavior_risk": "medium",
+      "recommended_action": "simplify_later",
+      "reason": "Large modules increase cognitive load. Safe to split if public API preserved."
+    },
+    {
+      "id": "SIMPLIFY-017",
+      "category": "oversized_module",
+      "target_path": "v3/tests/test_evaluation_harness.py",
+      "description": "Module exceeds 600 lines (877 LOC). Consider extracting helper modules.",
+      "expected_complexity_reduction": 2.65,
+      "behavior_risk": "medium",
+      "recommended_action": "simplify_later",
+      "reason": "Large modules increase cognitive load. Safe to split if public API preserved."
+    },
+    {
+      "id": "SIMPLIFY-018",
+      "category": "oversized_module",
+      "target_path": "v3/tests/test_semantic_memory_index.py",
+      "description": "Module exceeds 600 lines (695 LOC). Consider extracting helper modules.",
+      "expected_complexity_reduction": 2.54,
+      "behavior_risk": "medium",
+      "recommended_action": "simplify_later",
+      "reason": "Large modules increase cognitive load. Safe to split if public API preserved."
+    },
+    {
+      "id": "SIMPLIFY-019",
+      "category": "oversized_module",
+      "target_path": "v3/tests/test_memory_compaction.py",
+      "description": "Module exceeds 600 lines (1074 LOC). Consider extracting helper modules.",
+      "expected_complexity_reduction": 2.53,
+      "behavior_risk": "medium",
+      "recommended_action": "simplify_later",
+      "reason": "Large modules increase cognitive load. Safe to split if public API preserved."
+    },
+    {
+      "id": "SIMPLIFY-020",
+      "category": "oversized_module",
+      "target_path": "v3/tests/test_skill_evolution_plane.py",
+      "description": "Module exceeds 600 lines (806 LOC). Consider extracting helper modules.",
+      "expected_complexity_reduction": 2.47,
+      "behavior_risk": "medium",
+      "recommended_action": "simplify_later",
+      "reason": "Large modules increase cognitive load. Safe to split if public API preserved."
+    },
+    {
+      "id": "SIMPLIFY-021",
+      "category": "oversized_module",
+      "target_path": "v3/tests/test_truth_linked_recall.py",
+      "description": "Module exceeds 600 lines (684 LOC). Consider extracting helper modules.",
+      "expected_complexity_reduction": 2.42,
+      "behavior_risk": "medium",
+      "recommended_action": "simplify_later",
+      "reason": "Large modules increase cognitive load. Safe to split if public API preserved."
+    },
+    {
+      "id": "SIMPLIFY-040",
+      "category": "redundant_report",
+      "target_path": "v3/cli/systemkernel.py",
+      "description": "Module generates 6 report functions. Audit for overlap in generated reports.",
+      "expected_complexity_reduction": 2.4,
+      "behavior_risk": "low",
+      "recommended_action": "simplify_later",
+      "reason": "Multiple report generators may produce overlapping output. Consolidate where safe."
+    },
+    {
+      "id": "SIMPLIFY-042",
+      "category": "redundant_report",
+      "target_path": "v3/tests/test_developer_cli.py",
+      "description": "Module generates 6 report functions. Audit for overlap in generated reports.",
+      "expected_complexity_reduction": 2.4,
+      "behavior_risk": "low",
+      "recommended_action": "simplify_later",
+      "reason": "Multiple report generators may produce overlapping output. Consolidate where safe."
+    },
+    {
+      "id": "SIMPLIFY-043",
+      "category": "redundant_report",
+      "target_path": "v3/tests/test_golden_path.py",
+      "description": "Module generates 6 report functions. Audit for overlap in generated reports.",
+      "expected_complexity_reduction": 2.4,
+      "behavior_risk": "low",
+      "recommended_action": "simplify_later",
+      "reason": "Multiple report generators may produce overlapping output. Consolidate where safe."
+    },
+    {
+      "id": "SIMPLIFY-044",
+      "category": "redundant_report",
+      "target_path": "v3/tests/test_v4_simplification_audit.py",
+      "description": "Module generates 6 report functions. Audit for overlap in generated reports.",
+      "expected_complexity_reduction": 2.4,
+      "behavior_risk": "low",
+      "recommended_action": "simplify_later",
+      "reason": "Multiple report generators may produce overlapping output. Consolidate where safe."
+    },
+    {
+      "id": "SIMPLIFY-022",
+      "category": "oversized_module",
+      "target_path": "v3/tests/test_v4_productization_ops.py",
+      "description": "Module exceeds 600 lines (665 LOC). Consider extracting helper modules.",
+      "expected_complexity_reduction": 2.28,
+      "behavior_risk": "medium",
+      "recommended_action": "simplify_later",
+      "reason": "Large modules increase cognitive load. Safe to split if public API preserved."
+    },
+    {
+      "id": "SIMPLIFY-023",
+      "category": "oversized_module",
+      "target_path": "v3/tests/test_episodic_memory_store.py",
+      "description": "Module exceeds 600 lines (826 LOC). Consider extracting helper modules.",
+      "expected_complexity_reduction": 2.24,
+      "behavior_risk": "medium",
+      "recommended_action": "simplify_later",
+      "reason": "Large modules increase cognitive load. Safe to split if public API preserved."
+    },
+    {
+      "id": "SIMPLIFY-041",
+      "category": "redundant_report",
+      "target_path": "v3/tests/test_context_engineering_plane.py",
+      "description": "Module generates 5 report functions. Audit for overlap in generated reports.",
+      "expected_complexity_reduction": 2.0,
+      "behavior_risk": "low",
+      "recommended_action": "simplify_later",
+      "reason": "Multiple report generators may produce overlapping output. Consolidate where safe."
+    },
+    {
+      "id": "SIMPLIFY-045",
+      "category": "docs_overlap",
+      "target_path": "Docs/ + v3/exports/*.md",
+      "description": "Documentation exists in both Docs/ (26) and v3/exports/ (59 .md files). Consider consolidating.",
+      "expected_complexity_reduction": 2.0,
+      "behavior_risk": "low",
+      "recommended_action": "simplify_later",
+      "reason": "Two documentation directories create maintenance burden. Consolidate into one location."
+    },
+    {
+      "id": "SIMPLIFY-024",
+      "category": "oversized_module",
+      "target_path": "v3/tests/test_observability_graph.py",
+      "description": "Module exceeds 600 lines (683 LOC). Consider extracting helper modules.",
+      "expected_complexity_reduction": 1.94,
+      "behavior_risk": "medium",
+      "recommended_action": "simplify_later",
+      "reason": "Large modules increase cognitive load. Safe to split if public API preserved."
+    },
+    {
+      "id": "SIMPLIFY-025",
+      "category": "oversized_module",
+      "target_path": "v3/tests/test_complexity_budget.py",
+      "description": "Module exceeds 600 lines (932 LOC). Consider extracting helper modules.",
+      "expected_complexity_reduction": 1.86,
+      "behavior_risk": "medium",
+      "recommended_action": "simplify_later",
+      "reason": "Large modules increase cognitive load. Safe to split if public API preserved."
+    },
+    {
+      "id": "SIMPLIFY-026",
+      "category": "oversized_module",
+      "target_path": "v3/tests/test_agent_worker_plane.py",
+      "description": "Module exceeds 600 lines (985 LOC). Consider extracting helper modules.",
+      "expected_complexity_reduction": 1.79,
+      "behavior_risk": "medium",
+      "recommended_action": "simplify_later",
+      "reason": "Large modules increase cognitive load. Safe to split if public API preserved."
+    },
+    {
+      "id": "SIMPLIFY-027",
+      "category": "oversized_module",
+      "target_path": "v3/tests/test_memory_boundary.py",
+      "description": "Module exceeds 600 lines (707 LOC). Consider extracting helper modules.",
+      "expected_complexity_reduction": 1.78,
+      "behavior_risk": "medium",
+      "recommended_action": "simplify_later",
+      "reason": "Large modules increase cognitive load. Safe to split if public API preserved."
+    },
+    {
+      "id": "SIMPLIFY-028",
+      "category": "oversized_module",
+      "target_path": "v3/tests/test_workspace_context_plane.py",
+      "description": "Module exceeds 600 lines (810 LOC). Consider extracting helper modules.",
+      "expected_complexity_reduction": 1.57,
+      "behavior_risk": "medium",
+      "recommended_action": "simplify_later",
+      "reason": "Large modules increase cognitive load. Safe to split if public API preserved."
+    },
+    {
+      "id": "SIMPLIFY-029",
+      "category": "oversized_module",
+      "target_path": "v3/tests/test_developer_cli.py",
+      "description": "Module exceeds 600 lines (616 LOC). Consider extracting helper modules.",
+      "expected_complexity_reduction": 1.4,
+      "behavior_risk": "medium",
+      "recommended_action": "simplify_later",
+      "reason": "Large modules increase cognitive load. Safe to split if public API preserved."
+    },
+    {
+      "id": "SIMPLIFY-030",
+      "category": "oversized_module",
+      "target_path": "v3/tests/test_context_engineering_plane.py",
+      "description": "Module exceeds 600 lines (687 LOC). Consider extracting helper modules.",
+      "expected_complexity_reduction": 1.16,
+      "behavior_risk": "medium",
+      "recommended_action": "simplify_later",
+      "reason": "Large modules increase cognitive load. Safe to split if public API preserved."
+    },
+    {
+      "id": "SIMPLIFY-031",
+      "category": "oversized_module",
+      "target_path": "v3/tests/test_external_evidence.py",
+      "description": "Module exceeds 600 lines (684 LOC). Consider extracting helper modules.",
+      "expected_complexity_reduction": 1.16,
+      "behavior_risk": "medium",
+      "recommended_action": "simplify_later",
+      "reason": "Large modules increase cognitive load. Safe to split if public API preserved."
+    },
+    {
+      "id": "SIMPLIFY-032",
+      "category": "oversized_module",
+      "target_path": "v3/tests/test_memory_intelligence_plane.py",
+      "description": "Module exceeds 600 lines (609 LOC). Consider extracting helper modules.",
+      "expected_complexity_reduction": 1.03,
+      "behavior_risk": "medium",
+      "recommended_action": "simplify_later",
+      "reason": "Large modules increase cognitive load. Safe to split if public API preserved."
+    },
+    {
+      "id": "SIMPLIFY-046",
+      "category": "fixture_overlap",
+      "target_path": "v3/tests/fixtures/",
+      "description": "6 JSON test fixtures. Audit for unused or overlapping fixture data.",
+      "expected_complexity_reduction": 1.0,
+      "behavior_risk": "low",
+      "recommended_action": "simplify_later",
+      "reason": "Test fixtures may accumulate cruft. Safe to audit and prune unused ones."
+    },
+    {
+      "id": "SIMPLIFY-047",
+      "category": "no_action",
+      "target_path": "v3/tests/__init__.py",
+      "description": "Module v3/tests/__init__.py is already lean (3 LOC, complexity 0.01). No simplification needed.",
+      "expected_complexity_reduction": 0.0,
+      "behavior_risk": "low",
+      "recommended_action": "keep",
+      "reason": "Module is already minimal. No action recommended."
+    }
+  ]
+}

@@ -1,0 +1,133 @@
+{
+  "phase": "13A",
+  "title": "ECC Intake + Positioning Analysis",
+  "repo_name": "ECC / everything-claude-code",
+  "repo_url": "https://github.com/affaan-m/everything-claude-code",
+  "recommended_role": "external_harness_reference_only",
+  "complexity_risk": "medium",
+  "clone_now": "MAYBE",
+  "integrate_now": "NO",
+  "report_hash": "c4774b2773e77ece",
+  "mappings": [
+    {
+      "ecc_area": "ECC CLAUDE.md / project initialization",
+      "systemkernel_plane": "Context Plane",
+      "use_mode": "reference",
+      "reuse_strategy": "reference CLAUDE.md generation patterns",
+      "risk_level": "low",
+      "notes": "SystemKernel CLAUDE.md is manually governed. ECC init patterns may inspire tooling.",
+      "mapping_hash": "f3e7136f864fc611"
+    },
+    {
+      "ecc_area": "ECC agent / subagent system",
+      "systemkernel_plane": "Agent Worker Plane",
+      "use_mode": "reject",
+      "reuse_strategy": "do not adopt; SystemKernel agent worker design is skill-driven, not task-driven",
+      "risk_level": "high",
+      "notes": "Architecture conflict. SystemKernel agents are skill-dispatched via deterministic routing; ECC agents are LLM-driven.",
+      "mapping_hash": "0b1dbe913b3e8afa"
+    },
+    {
+      "ecc_area": "ECC cross-harness abstraction (Codex/Cursor/etc.)",
+      "systemkernel_plane": "Capability Registry",
+      "use_mode": "reference",
+      "reuse_strategy": "architecture reference for multi-harness patterns",
+      "risk_level": "low",
+      "notes": "SystemKernel is a single kernel, not a multi-harness adapter. Reference for future multi-IDE support.",
+      "mapping_hash": "82139fc47b1f4d0d"
+    },
+    {
+      "ecc_area": "ECC doctor / repair",
+      "systemkernel_plane": "Productization + Ops",
+      "use_mode": "learn",
+      "reuse_strategy": "learn UX patterns, do not copy implementation",
+      "risk_level": "low",
+      "notes": "ECC self-healing UX is well-designed. SystemKernel has its own doctor/ops via v4_ops.py and runbook.py.",
+      "mapping_hash": "97cdef9e2f0cd984"
+    },
+    {
+      "ecc_area": "ECC memory optimization",
+      "systemkernel_plane": "Memory Intelligence Plane",
+      "use_mode": "learn",
+      "reuse_strategy": "compare compaction/recall patterns, do not copy",
+      "risk_level": "low",
+      "notes": "ECC memory patterns (compression, indexing) may inform SystemKernel Memory Intelligence evolution.",
+      "mapping_hash": "ff397c4b67c23868"
+    },
+    {
+      "ecc_area": "ECC plugin / install system",
+      "systemkernel_plane": "External Registry + Skill Management",
+      "use_mode": "reference",
+      "reuse_strategy": "source reference for package management patterns",
+      "risk_level": "low",
+      "notes": "SystemKernel has its own skill package system. ECC's plugin design can inform future improvements.",
+      "mapping_hash": "af0389dc135d413a"
+    },
+    {
+      "ecc_area": "ECC security scanning",
+      "systemkernel_plane": "Evaluation Harness",
+      "use_mode": "external_provider",
+      "reuse_strategy": "possible future evidence provider for security eval",
+      "risk_level": "medium",
+      "notes": "Security scanning is a natural fit for eval harness. Could provide evidence in future, not now.",
+      "mapping_hash": "55fa6ee44554ca9f"
+    },
+    {
+      "ecc_area": "ECC skills / skill system",
+      "systemkernel_plane": "Skill Evolution Plane",
+      "use_mode": "reference",
+      "reuse_strategy": "learn taxonomy, compare metadata, do not copy",
+      "risk_level": "low",
+      "notes": "ECC skill taxonomy is a useful reference for registry structure. No skill code is reused.",
+      "mapping_hash": "16f670bd8c0fd316"
+    },
+    {
+      "ecc_area": "ECC tool system",
+      "systemkernel_plane": "External Adapters (disabled)",
+      "use_mode": "reject",
+      "reuse_strategy": "do not adopt; SystemKernel has its own external adapter model",
+      "risk_level": "high",
+      "notes": "SystemKernel external tool model is contract-based with evidence bundling. ECC tool system is different architecture.",
+      "mapping_hash": "6fd1979c1dc33816"
+    },
+    {
+      "ecc_area": "ECC workflows / instincts",
+      "systemkernel_plane": "Orchestration Policy",
+      "use_mode": "reference",
+      "reuse_strategy": "reference for policy pattern design",
+      "risk_level": "low",
+      "notes": "ECC workflow/instinct system is a reference for orchestration policy UX. Not copied.",
+      "mapping_hash": "0c231937fd6357df"
+    }
+  ],
+  "reusable_patterns": [
+    "skill taxonomy structure as registry reference",
+    "doctor/self-repair UX patterns for ops improvements",
+    "cross-harness abstraction patterns for future multi-IDE support",
+    "memory compaction/indexing patterns as design reference",
+    "workflow/instinct model as orchestration policy UX reference",
+    "plugin/install system as package management reference"
+  ],
+  "forbidden_patterns": [
+    "install ECC \u2014 no install, no execution, no dependency",
+    "run ECC \u2014 no execution of ECC commands or workflows",
+    "import ECC \u2014 no Python import of ECC modules",
+    "modify kernel \u2014 no kernel changes based on ECC",
+    "overwrite CLAUDE.md \u2014 SystemKernel CLAUDE.md is manually governed",
+    "copy ECC wholesale \u2014 reference patterns, never copy code",
+    "turn SystemKernel into ECC clone \u2014 must remain deterministic kernel",
+    "add ECC to kernel imports \u2014 ECC is external, never in kernel boundary",
+    "expand CLI for ECC \u2014 no new CLI surface for ECC operations",
+    "ECC-driven agent dispatch \u2014 agent routing remains deterministic"
+  ],
+  "overlap_with_systemkernel": [
+    "skill management and taxonomy",
+    "project initialization / CLAUDE.md generation",
+    "memory optimization and compaction",
+    "workflow / instinct / policy patterns",
+    "external tool wrapping",
+    "security / quality scanning",
+    "cross-harness / multi-IDE abstraction"
+  ],
+  "differentiation_strategy": "ECC = harness enhancement kit (skills, tools, UX, workflows). SystemKernel = deterministic governance/runtime/evidence kernel. ECC enhances HOW developers use AI tools. SystemKernel governs WHAT gets executed and verifies it happened. ECC is a toolbelt; SystemKernel is a kernel. They are complementary, not competing. SystemKernel may use ECC as an external capability provider in future, but must never embed ECC logic in the kernel boundary."
+}
