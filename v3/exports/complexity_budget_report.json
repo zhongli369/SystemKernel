@@ -346,7 +346,7 @@
         "projection_only": true,
         "public_api_count": 4,
         "removable": false,
-        "report_count": 1,
+        "report_count": 2,
         "test_count": 0,
         "truth_source_count": 0
       },
@@ -578,467 +578,19 @@
     },
     {
       "benefit": {
-        "benefit_score": 1.5,
-        "improves_debuggability": false,
-        "improves_determinism": false,
-        "improves_recoverability": false,
-        "path": "adapter_stub.py",
+        "benefit_score": 6.5,
+        "improves_debuggability": true,
+        "improves_determinism": true,
+        "improves_recoverability": true,
+        "path": "memory/system_report.py",
         "preserves_kernel_purity": true,
         "preserves_memory_removability": true,
         "preserves_truth_source": true,
-        "reduces_manual_steps": false,
-        "simplifies_public_api": false
+        "reduces_manual_steps": true,
+        "simplifies_public_api": true
       },
       "complexity": {
-        "complexity_score": 1.78,
-        "dataclass_count": 0,
-        "external_dependency_count": 1,
-        "function_count": 9,
-        "has_side_effects": false,
-        "import_count": 3,
-        "internal_dependency_count": 1,
-        "loc": 31,
-        "path": "adapter_stub.py",
-        "projection_only": true,
-        "public_api_count": 9,
-        "removable": false,
-        "report_count": 0,
-        "test_count": 0,
-        "truth_source_count": 0
-      },
-      "path": "adapter_stub.py"
-    },
-    {
-      "benefit": {
-        "benefit_score": 1.5,
-        "improves_debuggability": false,
-        "improves_determinism": false,
-        "improves_recoverability": false,
-        "path": "compaction.py",
-        "preserves_kernel_purity": true,
-        "preserves_memory_removability": true,
-        "preserves_truth_source": true,
-        "reduces_manual_steps": false,
-        "simplifies_public_api": false
-      },
-      "complexity": {
-        "complexity_score": 4.66,
-        "dataclass_count": 3,
-        "external_dependency_count": 1,
-        "function_count": 19,
-        "has_side_effects": true,
-        "import_count": 7,
-        "internal_dependency_count": 1,
-        "loc": 402,
-        "path": "compaction.py",
-        "projection_only": true,
-        "public_api_count": 16,
-        "removable": false,
-        "report_count": 3,
-        "test_count": 33,
-        "truth_source_count": 0
-      },
-      "path": "compaction.py"
-    },
-    {
-      "benefit": {
-        "benefit_score": 1.5,
-        "improves_debuggability": false,
-        "improves_determinism": false,
-        "improves_recoverability": false,
-        "path": "compaction_integrity.py",
-        "preserves_kernel_purity": true,
-        "preserves_memory_removability": true,
-        "preserves_truth_source": true,
-        "reduces_manual_steps": false,
-        "simplifies_public_api": false
-      },
-      "complexity": {
-        "complexity_score": 2.9,
-        "dataclass_count": 1,
-        "external_dependency_count": 1,
-        "function_count": 6,
-        "has_side_effects": true,
-        "import_count": 10,
-        "internal_dependency_count": 2,
-        "loc": 179,
-        "path": "compaction_integrity.py",
-        "projection_only": true,
-        "public_api_count": 5,
-        "removable": false,
-        "report_count": 1,
-        "test_count": 0,
-        "truth_source_count": 0
-      },
-      "path": "compaction_integrity.py"
-    },
-    {
-      "benefit": {
-        "benefit_score": 1.5,
-        "improves_debuggability": false,
-        "improves_determinism": false,
-        "improves_recoverability": false,
-        "path": "episodic_adapter.py",
-        "preserves_kernel_purity": true,
-        "preserves_memory_removability": true,
-        "preserves_truth_source": true,
-        "reduces_manual_steps": false,
-        "simplifies_public_api": false
-      },
-      "complexity": {
-        "complexity_score": 5.1,
-        "dataclass_count": 0,
-        "external_dependency_count": 1,
-        "function_count": 21,
-        "has_side_effects": false,
-        "import_count": 9,
-        "internal_dependency_count": 6,
-        "loc": 99,
-        "path": "episodic_adapter.py",
-        "projection_only": true,
-        "public_api_count": 21,
-        "removable": false,
-        "report_count": 0,
-        "test_count": 0,
-        "truth_source_count": 0
-      },
-      "path": "episodic_adapter.py"
-    },
-    {
-      "benefit": {
-        "benefit_score": 1.5,
-        "improves_debuggability": false,
-        "improves_determinism": false,
-        "improves_recoverability": false,
-        "path": "episodic_store.py",
-        "preserves_kernel_purity": true,
-        "preserves_memory_removability": true,
-        "preserves_truth_source": true,
-        "reduces_manual_steps": false,
-        "simplifies_public_api": false
-      },
-      "complexity": {
-        "complexity_score": 4.36,
-        "dataclass_count": 1,
-        "external_dependency_count": 1,
-        "function_count": 18,
-        "has_side_effects": true,
-        "import_count": 8,
-        "internal_dependency_count": 1,
-        "loc": 184,
-        "path": "episodic_store.py",
-        "projection_only": true,
-        "public_api_count": 17,
-        "removable": false,
-        "report_count": 0,
-        "test_count": 0,
-        "truth_source_count": 0
-      },
-      "path": "episodic_store.py"
-    },
-    {
-      "benefit": {
-        "benefit_score": 1.5,
-        "improves_debuggability": false,
-        "improves_determinism": false,
-        "improves_recoverability": false,
-        "path": "index_integrity.py",
-        "preserves_kernel_purity": true,
-        "preserves_memory_removability": true,
-        "preserves_truth_source": true,
-        "reduces_manual_steps": false,
-        "simplifies_public_api": false
-      },
-      "complexity": {
-        "complexity_score": 2.3,
-        "dataclass_count": 1,
-        "external_dependency_count": 1,
-        "function_count": 6,
-        "has_side_effects": true,
-        "import_count": 8,
-        "internal_dependency_count": 2,
-        "loc": 18,
-        "path": "index_integrity.py",
-        "projection_only": true,
-        "public_api_count": 5,
-        "removable": false,
-        "report_count": 1,
-        "test_count": 0,
-        "truth_source_count": 0
-      },
-      "path": "index_integrity.py"
-    },
-    {
-      "benefit": {
-        "benefit_score": 1.5,
-        "improves_debuggability": false,
-        "improves_determinism": false,
-        "improves_recoverability": false,
-        "path": "integrity.py",
-        "preserves_kernel_purity": true,
-        "preserves_memory_removability": true,
-        "preserves_truth_source": true,
-        "reduces_manual_steps": false,
-        "simplifies_public_api": false
-      },
-      "complexity": {
-        "complexity_score": 2.42,
-        "dataclass_count": 1,
-        "external_dependency_count": 1,
-        "function_count": 6,
-        "has_side_effects": true,
-        "import_count": 8,
-        "internal_dependency_count": 1,
-        "loc": 128,
-        "path": "integrity.py",
-        "projection_only": true,
-        "public_api_count": 5,
-        "removable": false,
-        "report_count": 5,
-        "test_count": 0,
-        "truth_source_count": 0
-      },
-      "path": "integrity.py"
-    },
-    {
-      "benefit": {
-        "benefit_score": 1.5,
-        "improves_debuggability": false,
-        "improves_determinism": false,
-        "improves_recoverability": false,
-        "path": "memory_adapter_base.py",
-        "preserves_kernel_purity": true,
-        "preserves_memory_removability": true,
-        "preserves_truth_source": true,
-        "reduces_manual_steps": false,
-        "simplifies_public_api": false
-      },
-      "complexity": {
-        "complexity_score": 2.74,
-        "dataclass_count": 0,
-        "external_dependency_count": 1,
-        "function_count": 12,
-        "has_side_effects": false,
-        "import_count": 7,
-        "internal_dependency_count": 1,
-        "loc": 75,
-        "path": "memory_adapter_base.py",
-        "projection_only": true,
-        "public_api_count": 12,
-        "removable": false,
-        "report_count": 0,
-        "test_count": 0,
-        "truth_source_count": 0
-      },
-      "path": "memory_adapter_base.py"
-    },
-    {
-      "benefit": {
-        "benefit_score": 1.5,
-        "improves_debuggability": false,
-        "improves_determinism": false,
-        "improves_recoverability": false,
-        "path": "memory_service.py",
-        "preserves_kernel_purity": true,
-        "preserves_memory_removability": true,
-        "preserves_truth_source": true,
-        "reduces_manual_steps": false,
-        "simplifies_public_api": false
-      },
-      "complexity": {
-        "complexity_score": 1.91,
-        "dataclass_count": 3,
-        "external_dependency_count": 1,
-        "function_count": 9,
-        "has_side_effects": false,
-        "import_count": 5,
-        "internal_dependency_count": 0,
-        "loc": 62,
-        "path": "memory_service.py",
-        "projection_only": true,
-        "public_api_count": 9,
-        "removable": false,
-        "report_count": 0,
-        "test_count": 0,
-        "truth_source_count": 0
-      },
-      "path": "memory_service.py"
-    },
-    {
-      "benefit": {
-        "benefit_score": 1.5,
-        "improves_debuggability": false,
-        "improves_determinism": false,
-        "improves_recoverability": false,
-        "path": "provenance.py",
-        "preserves_kernel_purity": true,
-        "preserves_memory_removability": true,
-        "preserves_truth_source": true,
-        "reduces_manual_steps": false,
-        "simplifies_public_api": false
-      },
-      "complexity": {
-        "complexity_score": 2.05,
-        "dataclass_count": 1,
-        "external_dependency_count": 1,
-        "function_count": 6,
-        "has_side_effects": false,
-        "import_count": 7,
-        "internal_dependency_count": 1,
-        "loc": 159,
-        "path": "provenance.py",
-        "projection_only": true,
-        "public_api_count": 6,
-        "removable": false,
-        "report_count": 1,
-        "test_count": 0,
-        "truth_source_count": 0
-      },
-      "path": "provenance.py"
-    },
-    {
-      "benefit": {
-        "benefit_score": 1.5,
-        "improves_debuggability": false,
-        "improves_determinism": false,
-        "improves_recoverability": false,
-        "path": "recall.py",
-        "preserves_kernel_purity": true,
-        "preserves_memory_removability": true,
-        "preserves_truth_source": true,
-        "reduces_manual_steps": false,
-        "simplifies_public_api": false
-      },
-      "complexity": {
-        "complexity_score": 5.2,
-        "dataclass_count": 2,
-        "external_dependency_count": 1,
-        "function_count": 20,
-        "has_side_effects": false,
-        "import_count": 12,
-        "internal_dependency_count": 5,
-        "loc": 201,
-        "path": "recall.py",
-        "projection_only": true,
-        "public_api_count": 19,
-        "removable": false,
-        "report_count": 3,
-        "test_count": 18,
-        "truth_source_count": 0
-      },
-      "path": "recall.py"
-    },
-    {
-      "benefit": {
-        "benefit_score": 1.5,
-        "improves_debuggability": false,
-        "improves_determinism": false,
-        "improves_recoverability": false,
-        "path": "retrieval.py",
-        "preserves_kernel_purity": true,
-        "preserves_memory_removability": true,
-        "preserves_truth_source": true,
-        "reduces_manual_steps": false,
-        "simplifies_public_api": false
-      },
-      "complexity": {
-        "complexity_score": 4.64,
-        "dataclass_count": 0,
-        "external_dependency_count": 1,
-        "function_count": 17,
-        "has_side_effects": true,
-        "import_count": 12,
-        "internal_dependency_count": 4,
-        "loc": 136,
-        "path": "retrieval.py",
-        "projection_only": true,
-        "public_api_count": 14,
-        "removable": false,
-        "report_count": 1,
-        "test_count": 0,
-        "truth_source_count": 0
-      },
-      "path": "retrieval.py"
-    },
-    {
-      "benefit": {
-        "benefit_score": 1.5,
-        "improves_debuggability": false,
-        "improves_determinism": false,
-        "improves_recoverability": false,
-        "path": "runtime.py",
-        "preserves_kernel_purity": true,
-        "preserves_memory_removability": true,
-        "preserves_truth_source": true,
-        "reduces_manual_steps": false,
-        "simplifies_public_api": false
-      },
-      "complexity": {
-        "complexity_score": 7.98,
-        "dataclass_count": 2,
-        "external_dependency_count": 1,
-        "function_count": 25,
-        "has_side_effects": true,
-        "import_count": 22,
-        "internal_dependency_count": 11,
-        "loc": 233,
-        "path": "runtime.py",
-        "projection_only": true,
-        "public_api_count": 21,
-        "removable": false,
-        "report_count": 6,
-        "test_count": 50,
-        "truth_source_count": 0
-      },
-      "path": "runtime.py"
-    },
-    {
-      "benefit": {
-        "benefit_score": 1.5,
-        "improves_debuggability": false,
-        "improves_determinism": false,
-        "improves_recoverability": false,
-        "path": "semantic_index.py",
-        "preserves_kernel_purity": true,
-        "preserves_memory_removability": true,
-        "preserves_truth_source": true,
-        "reduces_manual_steps": false,
-        "simplifies_public_api": false
-      },
-      "complexity": {
-        "complexity_score": 4.0,
-        "dataclass_count": 2,
-        "external_dependency_count": 1,
-        "function_count": 18,
-        "has_side_effects": false,
-        "import_count": 7,
-        "internal_dependency_count": 1,
-        "loc": 281,
-        "path": "semantic_index.py",
-        "projection_only": true,
-        "public_api_count": 17,
-        "removable": false,
-        "report_count": 1,
-        "test_count": 0,
-        "truth_source_count": 0
-      },
-      "path": "semantic_index.py"
-    },
-    {
-      "benefit": {
-        "benefit_score": 1.5,
-        "improves_debuggability": false,
-        "improves_determinism": false,
-        "improves_recoverability": false,
-        "path": "system_report.py",
-        "preserves_kernel_purity": true,
-        "preserves_memory_removability": true,
-        "preserves_truth_source": true,
-        "reduces_manual_steps": false,
-        "simplifies_public_api": false
-      },
-      "complexity": {
-        "complexity_score": 2.95,
+        "complexity_score": 2.55,
         "dataclass_count": 1,
         "external_dependency_count": 1,
         "function_count": 4,
@@ -1046,15 +598,15 @@
         "import_count": 10,
         "internal_dependency_count": 4,
         "loc": 140,
-        "path": "system_report.py",
+        "path": "memory/system_report.py",
         "projection_only": true,
         "public_api_count": 4,
-        "removable": false,
+        "removable": true,
         "report_count": 1,
         "test_count": 0,
         "truth_source_count": 0
       },
-      "path": "system_report.py"
+      "path": "memory/system_report.py"
     },
     {
       "benefit": {
@@ -1151,22 +703,86 @@
         "truth_source_count": 0
       },
       "path": "phase_gate.py"
+    },
+    {
+      "benefit": {
+        "benefit_score": 1.5,
+        "improves_debuggability": false,
+        "improves_determinism": false,
+        "improves_recoverability": false,
+        "path": "v4_simplification_audit.py",
+        "preserves_kernel_purity": true,
+        "preserves_memory_removability": true,
+        "preserves_truth_source": true,
+        "reduces_manual_steps": false,
+        "simplifies_public_api": false
+      },
+      "complexity": {
+        "complexity_score": 2.47,
+        "dataclass_count": 3,
+        "external_dependency_count": 1,
+        "function_count": 10,
+        "has_side_effects": true,
+        "import_count": 9,
+        "internal_dependency_count": 0,
+        "loc": 168,
+        "path": "v4_simplification_audit.py",
+        "projection_only": true,
+        "public_api_count": 5,
+        "removable": false,
+        "report_count": 2,
+        "test_count": 41,
+        "truth_source_count": 0
+      },
+      "path": "v4_simplification_audit.py"
+    },
+    {
+      "benefit": {
+        "benefit_score": 1.5,
+        "improves_debuggability": false,
+        "improves_determinism": false,
+        "improves_recoverability": false,
+        "path": "zombie_cleanup_audit.py",
+        "preserves_kernel_purity": true,
+        "preserves_memory_removability": true,
+        "preserves_truth_source": true,
+        "reduces_manual_steps": false,
+        "simplifies_public_api": false
+      },
+      "complexity": {
+        "complexity_score": 4.96,
+        "dataclass_count": 2,
+        "external_dependency_count": 2,
+        "function_count": 21,
+        "has_side_effects": true,
+        "import_count": 12,
+        "internal_dependency_count": 0,
+        "loc": 542,
+        "path": "zombie_cleanup_audit.py",
+        "projection_only": true,
+        "public_api_count": 12,
+        "removable": false,
+        "report_count": 2,
+        "test_count": 0,
+        "truth_source_count": 0
+      },
+      "path": "zombie_cleanup_audit.py"
     }
   ],
   "phase": "5A",
   "summary": {
     "passed": false,
-    "total_modules": 36
+    "total_modules": 24
   },
   "verdict": {
-    "net_value_score": -59.95,
+    "net_value_score": -27.94,
     "reasons": [
-      "COMPLEXITY_EXCEEDS_BENEFIT_2X: complexity=114.0 > benefit*2=108.0"
+      "NET_VALUE_NEGATIVE: net_value=-27.9"
     ],
-    "risk_ratio": 2.11,
-    "total_benefit_score": 54.0,
-    "total_complexity_score": 113.95,
+    "risk_ratio": 1.68,
+    "total_benefit_score": 41.0,
+    "total_complexity_score": 68.94,
     "verdict": "REVIEW",
-    "verdict_hash": "724a769bdc2104c2"
+    "verdict_hash": "175272b188633d02"
   }
 }
