@@ -14,6 +14,56 @@
         "root": "v2.0",
         "kernel": "v1.1"
       }
+    },
+    {
+      "id": "snap-002",
+      "timestamp": "2026-05-23T09:54:44Z",
+      "trigger": "pre-commit",
+      "files_hash": "f7e2dcd360165174",
+      "version_labels": {
+        "root": "v3.0",
+        "kernel": "v2.0"
+      }
+    },
+    {
+      "id": "snap-003",
+      "timestamp": "2026-05-26T08:37:43Z",
+      "trigger": "pre-commit",
+      "files_hash": "57b074eb18d962dd",
+      "version_labels": {
+        "root": "v4.0",
+        "kernel": "v2.0"
+      }
+    },
+    {
+      "id": "snap-004",
+      "timestamp": "2026-05-27T06:08:28Z",
+      "trigger": "pre-commit",
+      "files_hash": "765dd72d8c5e889e",
+      "version_labels": {
+        "root": "v4.0",
+        "kernel": "v2.0"
+      }
+    },
+    {
+      "id": "snap-005",
+      "timestamp": "2026-05-27T08:44:42Z",
+      "trigger": "pre-commit",
+      "files_hash": "3b70142769ae276a",
+      "version_labels": {
+        "root": "v4.0",
+        "kernel": "unknown"
+      }
+    },
+    {
+      "id": "snap-006",
+      "timestamp": "2026-06-02T08:01:52Z",
+      "trigger": "pre-commit",
+      "files_hash": "f1fba16dfcf71fc3",
+      "version_labels": {
+        "root": "v4.1",
+        "kernel": "unknown"
+      }
     }
   ]
 }

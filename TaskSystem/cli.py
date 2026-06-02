@@ -33,7 +33,7 @@ _sys_root = Path(__file__).resolve().parent
 if str(_sys_root) not in sys.path:
     sys.path.insert(0, str(_sys_root))
 
-from core.task_manager import (
+from TaskSystem.core.task_manager import (
     create_task, start_task, complete_task, list_tasks_by_status,
     add_context_log, set_current_focus, task_show,
     suggest_skills_for_step, bind_skill, load_task,

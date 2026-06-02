@@ -1,0 +1,72 @@
+{
+  "sf_01_api_surface": {
+    "extra_functions": [],
+    "functions_expected": 8,
+    "functions_found": 8,
+    "missing_functions": [],
+    "pass": true,
+    "signature_violations": []
+  },
+  "sf_02_capability_freeze": {
+    "detail": "all checks passed",
+    "enabled_only": true,
+    "no_internal_leak": true,
+    "pass": true,
+    "read_only": true
+  },
+  "sf_03_signal_contract": {
+    "pass": true,
+    "planes_expected": [
+      "direction",
+      "quality"
+    ],
+    "planes_found": [
+      "direction",
+      "quality"
+    ],
+    "weight_violations": []
+  },
+  "sf_04_injection_pipeline": {
+    "complexity_gate_intact": true,
+    "pass": true,
+    "stages_expected": [
+      "query_external_signals",
+      "direction_weight",
+      "quality_weight",
+      "complexity gate",
+      "external contribution",
+      "final_score",
+      "verdict"
+    ],
+    "stages_found": [
+      "Step 1: Query external signals",
+      "Step 2: Direction weight 0.4",
+      "Step 3: Quality weight 0.6",
+      "Step 4: Complexity gate",
+      "Step 5: Fusion formula"
+    ]
+  },
+  "sf_05_internal_protection": {
+    "internal_imports_in_api": [],
+    "internal_subsystems_exposed": [],
+    "pass": true
+  },
+  "sf_06_ecc_rule": {
+    "detail": "ECC properly isolated",
+    "ecc_in_api": false,
+    "ecc_in_registry": false,
+    "pass": true
+  },
+  "sf_07_complexity_guard": {
+    "circular_deps_detected": false,
+    "new_entry_points": [],
+    "pass": true
+  },
+  "summary": {
+    "invariants_failed": 0,
+    "invariants_passed": 7,
+    "overall_pass": true
+  },
+  "timestamp": "2026-06-02T07:55:46.134065+00:00",
+  "version": "4.1"
+}

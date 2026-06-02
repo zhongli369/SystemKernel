@@ -66,8 +66,12 @@ These paths must not be modified without explicit instruction:
 - **Do not run `git reset`, `git clean`, or `git add -A`.** Stage specific
   files only.
 
-## 6. ECC
+## 6. ECC Rule (v4.1)
 
+- **ECC is execution-only infrastructure.** ECC CANNOT influence kernel decisions.
+  ECC outputs are execution traces only, never decision inputs.
+- **ECC must NOT be exposed via SystemKernel API.** Not in `list_capabilities`,
+  not in `query_external_signals`, not in any public export.
 - **ECC (everything-claude-code) is an external capability provider, not
   an internal dependency.** SystemKernel may model ECC interfaces in the
   intelligence plane, but ECC is never required for kernel operation.
@@ -80,9 +84,17 @@ These paths must not be modified without explicit instruction:
 # Run before any commit touching kernel or intelligence plane
 python architecture_guard.py
 python architecture_guard.py --json
+
+# Stability freeze verification (v4.1)
+python v3/release/stability_freeze.py --verify
+python v3/cli/systemkernel.py v4 freeze verify
 ```
 
-A passing guard means zero CRITICAL violations and stability score ≥ 96/100.
+A passing architecture guard means zero CRITICAL violations and stability score ≥ 96/100.
+A passing stability freeze means all 7 SF invariants pass:
+  SF-01 API Surface Freeze, SF-02 Capability Freeze, SF-03 Signal Contract Freeze,
+  SF-04 Injection Pipeline Freeze, SF-05 Internal Protection, SF-06 ECC Rule,
+  SF-07 Complexity Guard.
 
 ## 8. Git
 
@@ -94,4 +106,4 @@ A passing guard means zero CRITICAL violations and stability score ≥ 96/100.
 
 ---
 
-*Kernel Constitution v2. Governance v4.0.*
+*Kernel Constitution v2. Governance v4.1 Stable. Stability Freeze active.*

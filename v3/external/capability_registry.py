@@ -255,6 +255,428 @@ def list_high_risk(
 
 
 # ═══════════════════════════════════════════════════════════════════════
+# Phase 16c: CapabilitySelector — Context-aware selection
+# ═══════════════════════════════════════════════════════════════════════
+
+TASK_TYPES = (
+    "code_generation",
+    "context_gathering",
+    "security_scan",
+    "memory_query",
+    "cost_analysis",
+    "execution_orchestration",
+    # L2 Tool Interface task types (Phase 16c)
+    "code",
+    "review",
+    "research",
+    "build",
+    "security",
+)
+
+# Task → relevant capability types (deterministic mapping)
+TASK_CAPABILITY_MAP = {
+    "code_generation":          ("context", "agent", "tool"),
+    "context_gathering":        ("context", "tool", "usage"),
+    "security_scan":            ("tool", "eval", "quality"),
+    "memory_query":             ("memory", "agent"),
+    "cost_analysis":            ("usage", "tool"),
+    "execution_orchestration":  ("agent", "tool", "eval"),
+    # L2 Tool Interface: high-level task categories (cline-inspired)
+    "code":                     ("context", "skill", "tool"),
+    "review":                   ("context", "quality", "tool"),
+    "research":                 ("context", "direction", "tool"),
+    "build":                    ("context", "tool", "agent", "sandbox"),
+    "security":                 ("tool", "eval", "quality"),
+}
+
+# Safety baseline per capability type (0-1, deterministic)
+SAFETY_BASELINE = {
+    "context": 0.8,
+    "memory": 0.6,
+    "agent": 0.4,
+    "ide": 0.5,
+    "eval": 0.7,
+    "skill": 0.9,
+    "usage": 0.9,
+    "tool": 0.5,
+    "direction": 0.8,
+    "quality": 0.8,
+    "sandbox": 0.6,
+    "lifecycle": 0.9,
+    "observability": 0.9,
+}
+
+# Estimated cost per capability type (USD baseline)
+COST_ESTIMATE = {
+    "context": 0.01,
+    "memory": 0.05,
+    "agent": 0.10,
+    "ide": 0.02,
+    "eval": 0.01,
+    "skill": 0.005,
+    "usage": 0.005,
+    "tool": 0.02,
+    "direction": 0.01,
+    "quality": 0.01,
+    "sandbox": 0.03,
+    "lifecycle": 0.005,
+    "observability": 0.005,
+}
+
+
+@dataclass(frozen=True)
+class TaskContext:
+    """Immutable task description for capability selection."""
+    task_type: str = "code_generation"
+    risk_level: str = "low"
+    network_allowed: bool = False
+    file_write_allowed: bool = False
+    estimated_duration_s: int = 60
+
+    def __post_init__(self):
+        if self.task_type not in TASK_TYPES:
+            raise ValueError(f"Unknown task_type: {self.task_type}. Must be one of {TASK_TYPES}")
+
+    def to_dict(self) -> dict:
+        return {
+            "task_type": self.task_type,
+            "risk_level": self.risk_level,
+            "network_allowed": self.network_allowed,
+            "file_write_allowed": self.file_write_allowed,
+            "estimated_duration_s": self.estimated_duration_s,
+        }
+
+
+@dataclass(frozen=True)
+class CapabilityScore:
+    """Scored capability result from selection."""
+    capability_id: str = ""
+    capability_type: str = ""
+    relevance: float = 0.0
+    safety: float = 0.0
+    cost_estimate: float = 0.0
+    composite_score: float = 0.0
+
+    def to_dict(self) -> dict:
+        return {
+            "capability_id": self.capability_id,
+            "capability_type": self.capability_type,
+            "relevance": round(self.relevance, 4),
+            "safety": round(self.safety, 4),
+            "cost_estimate": round(self.cost_estimate, 6),
+            "composite_score": round(self.composite_score, 4),
+        }
+
+
+class CapabilitySelector:
+    """Deterministic capability selector.
+
+    Filters by task type, scores by relevance+safety+cost, ranks top-N.
+    No LLM. No probabilistic selection. Same input → same output.
+    """
+
+    @staticmethod
+    def select(
+        registry: CapabilityRegistry,
+        task: TaskContext,
+        top_n: int = 5,
+    ) -> Tuple[CapabilityScore, ...]:
+        """Select top-N capabilities for a given task context.
+
+        Pipeline:
+          1. Filter: enabled + task_type match
+          2. Score: relevance*0.5 + safety*0.3 + (1-cost/max_cost)*0.2
+          3. Sort: composite_score descending
+          4. Take top-N
+        """
+        relevant_types = TASK_CAPABILITY_MAP.get(task.task_type, ("tool",))
+        candidates = []
+
+        for entry in registry.entries:
+            if not entry.enabled:
+                continue
+            if not entry.spec:
+                continue
+            ctype = entry.spec.capability_type
+            if ctype not in relevant_types:
+                continue
+            # Network/filter constraints
+            if task.network_allowed is False and getattr(entry.spec, "requires_network", False):
+                continue
+
+            candidates.append(entry)
+
+        if not candidates:
+            return ()
+
+        return CapabilitySelector._score_and_rank(candidates, top_n)
+
+    @staticmethod
+    def _score_and_rank(
+        candidates: list[CapabilityRegistryEntry],
+        top_n: int,
+    ) -> Tuple[CapabilityScore, ...]:
+        scores = []
+        max_cost = max(
+            (COST_ESTIMATE.get(e.spec.capability_type if e.spec else "tool", 0.02)
+             for e in candidates),
+            default=0.01,
+        )
+
+        for entry in candidates:
+            ctype = entry.spec.capability_type if entry.spec else "tool"
+            relevance = 0.8 if ctype in TASK_CAPABILITY_MAP.get("code_generation", ()) else 0.5
+            safety = SAFETY_BASELINE.get(ctype, 0.5)
+
+            # Adjust safety for risk level
+            if entry.spec and entry.spec.risk_level == "high":
+                safety *= 0.7
+            elif entry.spec and entry.spec.risk_level == "critical":
+                safety *= 0.3
+            if entry.maturity == "stable":
+                safety *= 1.1
+            elif entry.maturity == "experimental":
+                safety *= 0.9
+
+            cost = COST_ESTIMATE.get(ctype, 0.02)
+            cost_factor = 1.0 - (cost / max(max_cost, 0.001))
+            cost_factor = max(0.0, min(1.0, cost_factor))
+
+            composite = relevance * 0.5 + safety * 0.3 + cost_factor * 0.2
+            composite = max(0.0, min(1.0, composite))
+
+            scores.append(CapabilityScore(
+                capability_id=entry.adapter_id,
+                capability_type=ctype,
+                relevance=relevance,
+                safety=round(safety, 4),
+                cost_estimate=cost,
+                composite_score=round(composite, 4),
+            ))
+
+        scores.sort(key=lambda s: s.composite_score, reverse=True)
+        return tuple(scores[:top_n])
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Phase 16c: CapabilityDedup — Duplicate detection
+# ═══════════════════════════════════════════════════════════════════════
+
+@dataclass(frozen=True)
+class DuplicateGroup:
+    """A group of capabilities that appear to be duplicates."""
+    reason: str = ""               # "same_command", "type_overlap", "same_provider"
+    entries: Tuple[str, ...] = ()  # adapter_ids
+    recommended_action: str = ""   # "review", "keep_higher_safety", "keep_newer"
+
+    def to_dict(self) -> dict:
+        return {
+            "reason": self.reason,
+            "entries": list(self.entries),
+            "recommended_action": self.recommended_action,
+        }
+
+
+class CapabilityDedup:
+    """Detect duplicate or overlapping capabilities.
+
+    Rules:
+      1. Same command → definite duplicate
+      2. Same capability_type + provider_id → same provider, different entries
+      3. Same capability_type + overlapping functions → suspicious
+    """
+
+    @staticmethod
+    def find_duplicates(
+        registry: CapabilityRegistry,
+    ) -> Tuple[DuplicateGroup, ...]:
+        groups = []
+
+        # Rule 1: Same capability_type + overlapping adapter_id prefix
+        prefix_map: dict[str, list[str]] = {}
+        for entry in registry.entries:
+            if entry.spec:
+                # Extract provider prefix from adapter_id (e.g. "repomix_context_pack" → "repomix")
+                parts = entry.adapter_id.split("_")
+                prefix = parts[0] if parts else entry.adapter_id
+                key = f"{entry.spec.capability_type}:{prefix}"
+                if key not in prefix_map:
+                    prefix_map[key] = []
+                prefix_map[key].append(entry.adapter_id)
+        for key, ids in prefix_map.items():
+            if len(ids) > 1:
+                groups.append(DuplicateGroup(
+                    reason="type_overlap",
+                    entries=tuple(sorted(ids)),
+                    recommended_action="review",
+                ))
+
+        # Rule 2: Same name prefix (different entries from same provider)
+        name_map: dict[str, list[str]] = {}
+        for entry in registry.entries:
+            prefix = entry.adapter_id.split("_")[0] if "_" in entry.adapter_id else entry.adapter_id
+            if prefix not in name_map:
+                name_map[prefix] = []
+            name_map[prefix].append(entry.adapter_id)
+        for prefix, ids in name_map.items():
+            if len(ids) > 1:
+                groups.append(DuplicateGroup(
+                    reason="same_provider",
+                    entries=tuple(sorted(ids)),
+                    recommended_action="keep_higher_safety",
+                ))
+
+        return tuple(groups)
+
+    @staticmethod
+    def dedup_strategy(group: DuplicateGroup, registry: CapabilityRegistry) -> str:
+        """Determine which entry to keep from a duplicate group.
+
+        Returns the recommended adapter_id to keep.
+        """
+        entries = [get_entry(registry, aid) for aid in group.entries]
+        entries = [e for e in entries if e is not None]
+        if not entries:
+            return ""
+
+        if group.recommended_action == "keep_higher_safety":
+            best = max(entries, key=lambda e: (
+                e.enabled,
+                e.maturity == "stable",
+                SAFETY_BASELINE.get(e.spec.capability_type if e.spec else "tool", 0.5),
+            ))
+            return best.adapter_id
+
+        if group.recommended_action == "keep_newer":
+            best = max(entries, key=lambda e: (
+                e.enabled,
+                e.maturity == "stable",
+            ))
+            return best.adapter_id
+
+        # Default: keep first enabled, then first stable
+        for e in entries:
+            if e.enabled:
+                return e.adapter_id
+        return entries[0].adapter_id
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Phase 16c: CapabilityConflict — Conflict detection
+# ═══════════════════════════════════════════════════════════════════════
+
+# Priority ordering for conflict resolution
+CONFLICT_PRIORITY = {
+    "governance": 0,
+    "context": 1,
+    "memory": 2,
+    "agent": 3,
+    "voice": 4,
+    "tool": 5,
+    "sandbox": 6,
+    "lifecycle": 7,
+    "observability": 8,
+    "eval": 9,
+    "skill": 10,
+    "usage": 11,
+    "quality": 12,
+    "direction": 13,
+    "ide": 14,
+}
+
+
+@dataclass(frozen=True)
+class Conflict:
+    """A detected conflict between two capabilities."""
+    capability_a: str = ""
+    capability_b: str = ""
+    conflict_type: str = ""        # "resource", "permission", "output_slot"
+    description: str = ""
+    resolution: str = ""           # recommended resolution
+
+    def to_dict(self) -> dict:
+        return {
+            "capability_a": self.capability_a,
+            "capability_b": self.capability_b,
+            "conflict_type": self.conflict_type,
+            "description": self.description,
+            "resolution": self.resolution,
+        }
+
+
+class CapabilityConflict:
+    """Detect conflicts between enabled capabilities.
+
+    Rules:
+      1. Resource conflict: both need same port/temp dir/file lock
+      2. Permission conflict: contradictory network/file requirements
+      3. Output slot conflict: same capability_type, different providers
+    """
+
+    @staticmethod
+    def detect(registry: CapabilityRegistry) -> Tuple[Conflict, ...]:
+        conflicts = []
+        enabled = [e for e in registry.entries if e.enabled and e.spec]
+
+        for i, a in enumerate(enabled):
+            for b in enabled[i + 1:]:
+                # Permission conflict: contradictory network requirements
+                if (getattr(a.spec, "requires_network", False) !=
+                        getattr(b.spec, "requires_network", False)):
+                    if a.spec.capability_type == b.spec.capability_type:
+                        conflicts.append(Conflict(
+                            capability_a=a.adapter_id,
+                            capability_b=b.adapter_id,
+                            conflict_type="permission",
+                            description=f"Network requirements differ for same type "
+                                        f"({a.spec.capability_type})",
+                            resolution=CapabilityConflict._resolve(a, b),
+                        ))
+
+                # Output slot conflict: same type + different adapter sources
+                if a.spec.capability_type == b.spec.capability_type:
+                    a_provider = a.adapter_id.split("_")[0] if "_" in a.adapter_id else a.adapter_id
+                    b_provider = b.adapter_id.split("_")[0] if "_" in b.adapter_id else b.adapter_id
+                    if a_provider != b_provider:
+                        conflicts.append(Conflict(
+                            capability_a=a.adapter_id,
+                            capability_b=b.adapter_id,
+                            conflict_type="output_slot",
+                            description=f"Same capability type ({a.spec.capability_type}) "
+                                        f"with different providers",
+                            resolution=CapabilityConflict._resolve(a, b),
+                        ))
+
+        return tuple(conflicts)
+
+    @staticmethod
+    def _resolve(
+        a: CapabilityRegistryEntry,
+        b: CapabilityRegistryEntry,
+    ) -> str:
+        """Resolve a conflict by priority + safety.
+
+        Lower priority number wins. Tiebreak: higher safety score.
+        """
+        type_a = a.spec.capability_type if a.spec else "tool"
+        type_b = b.spec.capability_type if b.spec else "tool"
+        pri_a = CONFLICT_PRIORITY.get(type_a, 99)
+        pri_b = CONFLICT_PRIORITY.get(type_b, 99)
+
+        if pri_a < pri_b:
+            return f"Prefer {a.adapter_id} (higher priority: {type_a} < {type_b})"
+        elif pri_b < pri_a:
+            return f"Prefer {b.adapter_id} (higher priority: {type_b} < {type_a})"
+        else:
+            safety_a = SAFETY_BASELINE.get(type_a, 0.5)
+            safety_b = SAFETY_BASELINE.get(type_b, 0.5)
+            if safety_a >= safety_b:
+                return f"Prefer {a.adapter_id} (same priority, higher safety)"
+            else:
+                return f"Prefer {b.adapter_id} (same priority, higher safety)"
+
+
+# ═══════════════════════════════════════════════════════════════════════
 # Mutations (return NEW registry)
 # ═══════════════════════════════════════════════════════════════════════
 

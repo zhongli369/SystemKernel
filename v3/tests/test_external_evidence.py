@@ -554,8 +554,8 @@ class TestEvidenceModel(unittest.TestCase):
     # ═══════════════════════════════════════════════════════════════════
 
     def test_38_all_evidence_types_valid(self):
-        """All 8 evidence types are defined."""
-        self.assertEqual(len(ALL_EVIDENCE_TYPES), 8)
+        """All 10 evidence types are defined (includes v4.1 additions)."""
+        self.assertEqual(len(ALL_EVIDENCE_TYPES), 10)  # +direction_signal, +quality_signal in v4.1
         self.assertIn(EVIDENCE_TYPE_CONTEXT_PACK, ALL_EVIDENCE_TYPES)
         self.assertIn(EVIDENCE_TYPE_USAGE_REPORT, ALL_EVIDENCE_TYPES)
         self.assertIn(EVIDENCE_TYPE_MEMORY_SIGNAL, ALL_EVIDENCE_TYPES)

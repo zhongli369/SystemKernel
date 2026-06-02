@@ -1,0 +1,37 @@
+﻿{
+    "unchanged_count":  0,
+    "actions":  [
+                    {
+                        "reason":  "Section appended to existing CLAUDE.md",
+                        "project":  "AIMC",
+                        "claude_file":  "F:\\Claude\\ClaudeCodeProject\\AIMC\\CLAUDE.md",
+                        "action":  "update"
+                    },
+                    {
+                        "reason":  "CLAUDE.md created with governance section",
+                        "project":  "GithubKnowledgeHub",
+                        "claude_file":  "F:\\Claude\\ClaudeCodeProject\\GithubKnowledgeHub\\CLAUDE.md",
+                        "action":  "create"
+                    },
+                    {
+                        "reason":  "CLAUDE.md created with governance section",
+                        "project":  "数学建模2026",
+                        "claude_file":  "F:\\Claude\\ClaudeCodeProject\\数学建模2026\\CLAUDE.md",
+                        "action":  "create"
+                    },
+                    {
+                        "reason":  "CLAUDE.md created with governance section",
+                        "project":  "数据结构与算法",
+                        "claude_file":  "F:\\Claude\\ClaudeCodeProject\\数据结构与算法\\CLAUDE.md",
+                        "action":  "create"
+                    }
+                ],
+    "apply":  true,
+    "root":  "F:\\Claude\\ClaudeCodeProject",
+    "skipped_count":  0,
+    "update_count":  1,
+    "dry_run":  false,
+    "create_count":  3,
+    "systemkernel_path":  "F:\\Claude\\SystemKernel",
+    "scanned_count":  4
+}

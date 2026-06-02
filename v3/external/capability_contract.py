@@ -27,14 +27,16 @@ from typing import Optional, Tuple
 
 class CapabilityType(Enum):
     """Closed set of capability types. Extend by addition only."""
-    context = "context"    # Context pack generators (repomix, etc.)
-    memory = "memory"      # Memory/vector stores (mem0, graphiti, etc.)
-    agent = "agent"        # Agent/worker executors (OpenHands, AutoGen, etc.)
-    ide = "ide"            # IDE/workspace providers (Continue, etc.)
-    eval = "eval"          # Evaluation/test tools
-    skill = "skill"        # Skill evolution/management tools
-    usage = "usage"        # Usage/cost tracking tools (ccusage, etc.)
-    tool = "tool"          # Generic external tool
+    context = "context"        # Context pack generators (repomix, etc.)
+    memory = "memory"          # Memory/vector stores (mem0, graphiti, etc.)
+    agent = "agent"            # Agent/worker executors (OpenHands, AutoGen, etc.)
+    ide = "ide"                # IDE/workspace providers (Continue, etc.)
+    eval = "eval"              # Evaluation/test tools
+    skill = "skill"            # Skill evolution/management tools
+    usage = "usage"            # Usage/cost tracking tools (ccusage, etc.)
+    tool = "tool"              # Generic external tool
+    direction = "direction"    # Strategic direction/intent signals (gstack, etc.)
+    quality = "quality"        # Quality evaluation/critique signals (superpowers, etc.)
 
 
 class CapabilityExecutionMode(Enum):

@@ -15,7 +15,7 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-from core.task_store import save_task, load_task, move_task, list_tasks, next_task_id
+from TaskSystem.core.task_store import save_task, load_task, move_task, list_tasks, next_task_id
 
 # Ensure SkillsManagementSystem is importable from sibling workspace
 _WORKSPACE_ROOT = str(Path(__file__).resolve().parent.parent.parent)

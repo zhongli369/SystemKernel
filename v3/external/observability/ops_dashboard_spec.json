@@ -1,0 +1,219 @@
+{
+  "dashboard": {
+    "title": "SystemKernel Operations",
+    "uid": "systemkernel-ops",
+    "schemaVersion": 36,
+    "tags": ["systemkernel", "v4", "phase-17b"],
+    "time": {"from": "now-24h", "to": "now"},
+    "refresh": "30s",
+    "timezone": "browser",
+    "templating": {
+      "list": [
+        {
+          "name": "datasource",
+          "type": "datasource",
+          "query": "prometheus",
+          "current": {"text": "Prometheus", "value": "${DS_PROMETHEUS}"}
+        }
+      ]
+    },
+    "panels": [
+      {
+        "id": 1,
+        "title": "Execution Rate",
+        "type": "graph",
+        "gridPos": {"x": 0, "y": 0, "w": 12, "h": 8},
+        "datasource": {"type": "prometheus", "uid": "${DS_PROMETHEUS}"},
+        "targets": [
+          {"expr": "systemkernel_executions_total", "legendFormat": "executions"}
+        ],
+        "yaxis": {"label": "count"},
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "steps": [
+                {"value": 0, "color": "green"}
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": 2,
+        "title": "Cost (USD)",
+        "type": "stat",
+        "gridPos": {"x": 12, "y": 0, "w": 4, "h": 4},
+        "datasource": {"type": "prometheus", "uid": "${DS_PROMETHEUS}"},
+        "targets": [
+          {"expr": "systemkernel_cost_usd_total", "legendFormat": "USD"}
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "currencyUSD",
+            "decimals": 4,
+            "thresholds": {
+              "steps": [
+                {"value": 0, "color": "green"},
+                {"value": 10, "color": "orange"},
+                {"value": 50, "color": "red"}
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": 3,
+        "title": "Error Rate",
+        "type": "graph",
+        "gridPos": {"x": 0, "y": 8, "w": 8, "h": 8},
+        "datasource": {"type": "prometheus", "uid": "${DS_PROMETHEUS}"},
+        "targets": [
+          {"expr": "systemkernel_errors_total", "legendFormat": "{{error_type}}"}
+        ],
+        "yaxis": {"label": "errors"},
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "steps": [
+                {"value": 0, "color": "green"},
+                {"value": 5, "color": "orange"},
+                {"value": 20, "color": "red"}
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": 4,
+        "title": "Latency p50/p99",
+        "type": "graph",
+        "gridPos": {"x": 8, "y": 8, "w": 8, "h": 8},
+        "datasource": {"type": "prometheus", "uid": "${DS_PROMETHEUS}"},
+        "targets": [
+          {"expr": "systemkernel_execution_latency_seconds", "legendFormat": "{{quantile}}"}
+        ],
+        "yaxis": {"label": "seconds"},
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "steps": [
+                {"value": 0, "color": "green"},
+                {"value": 5, "color": "orange"},
+                {"value": 30, "color": "red"}
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": 5,
+        "title": "Evidence Records by Type",
+        "type": "bargauge",
+        "gridPos": {"x": 16, "y": 0, "w": 8, "h": 8},
+        "datasource": {"type": "prometheus", "uid": "${DS_PROMETHEUS}"},
+        "targets": [
+          {"expr": "systemkernel_evidence_records_total", "legendFormat": "{{evidence_type}}"}
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "steps": [
+                {"value": 0, "color": "green"}
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": 6,
+        "title": "Complexity Budget",
+        "type": "gauge",
+        "gridPos": {"x": 12, "y": 4, "w": 4, "h": 4},
+        "datasource": {"type": "prometheus", "uid": "${DS_PROMETHEUS}"},
+        "targets": [
+          {"expr": "systemkernel_complexity_score", "legendFormat": "complexity"}
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "steps": [
+                {"value": 0, "color": "green"},
+                {"value": 8.0, "color": "orange"},
+                {"value": 10.0, "color": "red"}
+              ]
+            }
+          }
+        },
+        "max": 10.0,
+        "min": 0
+      },
+      {
+        "id": 7,
+        "title": "Stability Freeze Score",
+        "type": "gauge",
+        "gridPos": {"x": 16, "y": 8, "w": 8, "h": 4},
+        "datasource": {"type": "prometheus", "uid": "${DS_PROMETHEUS}"},
+        "targets": [
+          {"expr": "systemkernel_stability_freeze_score", "legendFormat": "stability"}
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "steps": [
+                {"value": 0, "color": "red"},
+                {"value": 90, "color": "orange"},
+                {"value": 96, "color": "green"}
+              ]
+            }
+          }
+        },
+        "max": 100,
+        "min": 0
+      },
+      {
+        "id": 8,
+        "title": "Provider Health",
+        "type": "stat",
+        "gridPos": {"x": 0, "y": 16, "w": 12, "h": 6},
+        "datasource": {"type": "prometheus", "uid": "${DS_PROMETHEUS}"},
+        "description": "Health status of all registered capability providers. 1=healthy, 0=degraded/offline.",
+        "targets": [
+          {"expr": "systemkernel_provider_health", "legendFormat": "{{provider}}"}
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "steps": [
+                {"value": 0, "color": "red"},
+                {"value": 1, "color": "green"}
+              ]
+            },
+            "mappings": [
+              {"type": "value", "value": "1", "text": "HEALTHY"},
+              {"type": "value", "value": "0", "text": "DEGRADED"}
+            ]
+          }
+        },
+        "options": {"colorMode": "background", "graphMode": "none", "textMode": "auto"}
+      },
+      {
+        "id": 9,
+        "title": "Capability Usage by Type",
+        "type": "piechart",
+        "gridPos": {"x": 12, "y": 16, "w": 12, "h": 6},
+        "datasource": {"type": "prometheus", "uid": "${DS_PROMETHEUS}"},
+        "description": "Distribution of capability calls by type (context, memory, tool, agent, etc.).",
+        "targets": [
+          {"expr": "systemkernel_routes_total", "legendFormat": "{{skill_id}}"}
+        ],
+        "fieldConfig": {
+          "defaults": {}
+        },
+        "options": {
+          "displayLabels": ["name", "percent"],
+          "legend": {"displayMode": "table", "placement": "right"}
+        }
+      }
+    ]
+  }
+}

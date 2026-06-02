@@ -215,6 +215,28 @@ def build_v4_runbook() -> V4Runbook:
     )
 
     _add(
+        "Ops Dashboard — Grafana Monitoring",
+        "Export and import the SystemKernel operations dashboard into Grafana "
+        "for real-time monitoring of execution, cost, errors, latency, provider "
+        "health, and capability usage (9 panels, Prometheus datasource).",
+        [
+            "python v3/cli/systemkernel.py v4 dashboard",
+            "python v3/cli/systemkernel.py v4 dashboard --export systemkernel-dashboard.json",
+            "python v3/cli/systemkernel.py v4 metrics",
+            "python v3/cli/systemkernel.py v4 metrics --json",
+            "python v3/cli/systemkernel.py v4 alerts",
+        ],
+        (
+            "Dashboard import: Grafana → Dashboards → New → Import → Upload systemkernel-dashboard.json.",
+            "Set the DS_PROMETHEUS variable to your Prometheus datasource after import.",
+            "All metrics are exported in Prometheus text format — no prometheus_client dependency.",
+            "Alerts evaluate against current metric values — FIRING alerts require investigation.",
+            "Critical alerts (error_rate_high, freeze_violation) require immediate response.",
+            "Complexity_approaching_review (INFO) means architecture review recommended.",
+        ),
+    )
+
+    _add(
         "What NOT to Do",
         "Operational boundaries that must not be crossed.",
         [],

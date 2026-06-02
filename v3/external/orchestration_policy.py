@@ -326,6 +326,8 @@ _EVIDENCE_TYPE_MAP = {
     "skill": "skill_reference",
     "eval": "eval_result",
     "usage": "usage_report",
+    "direction": "direction_signal",
+    "quality": "quality_signal",
     "tool": "generic",
 }
 

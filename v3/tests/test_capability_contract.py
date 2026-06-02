@@ -425,7 +425,7 @@ class TestCapabilityContract(unittest.TestCase):
     # ── Test 30: all enums have expected values ─────────────────────────
 
     def test_30_enum_values(self):
-        self.assertEqual(len(CapabilityType), 8)
+        self.assertEqual(len(CapabilityType), 10)  # +direction, +quality in v4.1
         self.assertEqual(len(CapabilityExecutionMode), 5)
         self.assertEqual(len(CapabilityRiskLevel), 4)
         self.assertEqual(len(ALL_STATES), 9)

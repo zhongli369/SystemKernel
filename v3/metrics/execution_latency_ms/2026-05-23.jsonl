@@ -1,0 +1,10 @@
+{"timestamp": "2026-05-23T17:38:46.400100+00:00", "metric_type": "execution_latency_ms", "value": 47.0, "tags": {"task": "task-0e097278"}, "trace_id": "b1c015d1-9c22-4679-830f-f27028d8d5de"}
+{"timestamp": "2026-05-23T17:39:07.960966+00:00", "metric_type": "execution_latency_ms", "value": 47.0, "tags": {"task": "task-4cff99f6"}, "trace_id": "9b675789-dd25-4b2f-95e8-bbb7e2e35b27"}
+{"timestamp": "2026-05-23T17:44:29.134887+00:00", "metric_type": "execution_latency_ms", "value": 47.0, "tags": {"task": "task-849e2d80"}, "trace_id": "cf521419-a18b-4abb-85e9-fd46a9951ddb"}
+{"timestamp": "2026-05-23T17:45:11.315219+00:00", "metric_type": "execution_latency_ms", "value": 62.0, "tags": {"task": "task-b82d5a3c"}, "trace_id": "898a6450-54ce-4843-82ae-40e291ca159c"}
+{"timestamp": "2026-05-23T17:46:25.691056+00:00", "metric_type": "execution_latency_ms", "value": 62.0, "tags": {"task": "task-a7c05ab9"}, "trace_id": "c3a2beef-30ad-4ac6-aa25-869360c06c17"}
+{"timestamp": "2026-05-23T17:46:48.606712+00:00", "metric_type": "execution_latency_ms", "value": 47.0, "tags": {"task": "task-9fb1efc0"}, "trace_id": "553a87d0-0e52-4364-afe5-e05c7591d30c"}
+{"timestamp": "2026-05-23T17:58:01.813182+00:00", "metric_type": "execution_latency_ms", "value": 94.0, "tags": {"task": "task-7e05ec57"}, "trace_id": "797ad7e3-cfed-447d-8ecb-5a95bbd3a48e"}
+{"timestamp": "2026-05-23T18:00:19.533905+00:00", "metric_type": "execution_latency_ms", "value": 62.0, "tags": {"task": "task-a31ce4ee"}, "trace_id": "855722e9-2836-4f8a-8a67-6ead860b79ee"}
+{"timestamp": "2026-05-23T18:07:12.939649+00:00", "metric_type": "execution_latency_ms", "value": 62.0, "tags": {"task": "task-7cebaeb5"}, "trace_id": "4b401d96-d4ab-41b4-8d3e-4e2e07340ad0"}
+{"timestamp": "2026-05-23T18:10:18.168016+00:00", "metric_type": "execution_latency_ms", "value": 62.0, "tags": {"task": "task-2b56e2a4"}, "trace_id": "01e4073f-660f-4d22-a1c1-38b93e4f6016"}

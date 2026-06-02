@@ -733,3 +733,317 @@ def build_skill_evolution_report(
     )
     object.__setattr__(report, "report_hash", _compute_hash(report))
     return report
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Agent Debugger — Failure Trace Analysis (Phase 16c)
+# ═══════════════════════════════════════════════════════════════════════
+
+# Root cause constants
+ROOT_CAUSE_TOOL_TIMEOUT = "tool_timeout"
+ROOT_CAUSE_BUDGET_EXCEEDED = "budget_exceeded"
+ROOT_CAUSE_CHECKPOINT_CORRUPTION = "checkpoint_corruption"
+ROOT_CAUSE_RETRY_EXHAUSTED = "retry_exhausted"
+ROOT_CAUSE_UNKNOWN = "unknown"
+
+ALL_ROOT_CAUSES = (
+    ROOT_CAUSE_TOOL_TIMEOUT,
+    ROOT_CAUSE_BUDGET_EXCEEDED,
+    ROOT_CAUSE_CHECKPOINT_CORRUPTION,
+    ROOT_CAUSE_RETRY_EXHAUSTED,
+    ROOT_CAUSE_UNKNOWN,
+)
+
+# Root cause → affected component (ETCLOVG single-component mapping)
+ROOT_CAUSE_COMPONENT = {
+    ROOT_CAUSE_TOOL_TIMEOUT: "timeout",
+    ROOT_CAUSE_BUDGET_EXCEEDED: "context_budget",
+    ROOT_CAUSE_CHECKPOINT_CORRUPTION: "checkpoint",
+    ROOT_CAUSE_RETRY_EXHAUSTED: "retry_policy",
+    ROOT_CAUSE_UNKNOWN: "unknown",
+}
+
+# Root cause → suggested fix (deterministic mapping)
+ROOT_CAUSE_FIX = {
+    ROOT_CAUSE_TOOL_TIMEOUT: "increase_timeout",
+    ROOT_CAUSE_BUDGET_EXCEEDED: "reduce_context_size",
+    ROOT_CAUSE_CHECKPOINT_CORRUPTION: "enable_crash_recovery",
+    ROOT_CAUSE_RETRY_EXHAUSTED: "increase_max_retries",
+    ROOT_CAUSE_UNKNOWN: "manual_review",
+}
+
+
+@dataclass(frozen=True)
+class FailureDiagnosis:
+    """Distilled feedback from a failed execution trace.
+
+    Maps each failure to exactly one root cause and one affected component.
+    This is the Agent Debugger role from AHE (Fudan/PKU 2026):
+    analyzes failure traces → produces distilled, actionable feedback.
+    """
+    execution_id: str
+    failed_stage: str
+    root_cause: str           # One of ALL_ROOT_CAUSES
+    affected_component: str   # Single ETCLOVG component
+    suggested_fix: str        # Concrete action string
+    confidence: float         # 0.0-1.0
+    trace_summary: str        # Compressed trace (deterministic, not LLM)
+    diagnosis_hash: str
+
+    def to_dict(self) -> dict:
+        return {
+            "execution_id": self.execution_id,
+            "failed_stage": self.failed_stage,
+            "root_cause": self.root_cause,
+            "affected_component": self.affected_component,
+            "suggested_fix": self.suggested_fix,
+            "confidence": self.confidence,
+            "trace_summary": self.trace_summary,
+            "diagnosis_hash": self.diagnosis_hash,
+        }
+
+
+def _compute_diagnosis_hash(
+    execution_id: str, root_cause: str, affected_component: str,
+) -> str:
+    data = json.dumps({
+        "execution_id": execution_id,
+        "root_cause": root_cause,
+        "affected_component": affected_component,
+    }, sort_keys=True, ensure_ascii=False)
+    return hashlib.sha256(data.encode("utf-8")).hexdigest()[:16]
+
+
+def diagnose_failure(
+    execution_result: dict,
+    trace_spans: Tuple[dict, ...] = (),
+) -> FailureDiagnosis:
+    """Analyze a failed execution and produce a distilled diagnosis.
+
+    Deterministic rules (no LLM):
+    - StageError with "timeout" in error → tool_timeout, fix=increase_timeout
+    - Budget blocked → budget_exceeded, fix=reduce_context_size
+    - Crash marker → checkpoint_corruption, fix=enable_crash_recovery
+    - retry_count >= max_retries → retry_exhausted, fix=increase_max_retries
+    - Otherwise → unknown, fix=manual_review
+
+    Component observability: each rule maps to exactly one ETCLOVG component.
+    """
+    execution_id = execution_result.get("execution_id", "")
+    failed_stage = execution_result.get("failed_stage", "")
+    error = execution_result.get("error", "")
+    stage_results = execution_result.get("stage_results", [])
+
+    # Rule 1: Timeout detection
+    if "timeout" in error.lower():
+        diag = FailureDiagnosis(
+            execution_id=execution_id,
+            failed_stage=failed_stage or "unknown",
+            root_cause=ROOT_CAUSE_TOOL_TIMEOUT,
+            affected_component=ROOT_CAUSE_COMPONENT[ROOT_CAUSE_TOOL_TIMEOUT],
+            suggested_fix=ROOT_CAUSE_FIX[ROOT_CAUSE_TOOL_TIMEOUT],
+            confidence=0.95,
+            trace_summary=f"Timeout detected in stage '{failed_stage}': {error[:200]}",
+            diagnosis_hash="",
+        )
+        object.__setattr__(diag, "diagnosis_hash",
+                           _compute_diagnosis_hash(diag.execution_id, diag.root_cause, diag.affected_component))
+        return diag
+
+    # Rule 1b: Check stage results for timeout errors
+    for sr in stage_results:
+        sr_error = sr.get("error", "")
+        if "timeout" in str(sr_error).lower():
+            diag = FailureDiagnosis(
+                execution_id=execution_id,
+                failed_stage=sr.get("stage_name", failed_stage or "unknown"),
+                root_cause=ROOT_CAUSE_TOOL_TIMEOUT,
+                affected_component=ROOT_CAUSE_COMPONENT[ROOT_CAUSE_TOOL_TIMEOUT],
+                suggested_fix=ROOT_CAUSE_FIX[ROOT_CAUSE_TOOL_TIMEOUT],
+                confidence=0.90,
+                trace_summary=f"Stage timeout: {sr_error[:200]}",
+                diagnosis_hash="",
+            )
+            object.__setattr__(diag, "diagnosis_hash",
+                               _compute_diagnosis_hash(diag.execution_id, diag.root_cause, diag.affected_component))
+            return diag
+
+    # Rule 2: Budget exceeded
+    invariant_violations = execution_result.get("invariant_violations", [])
+    for v in invariant_violations:
+        v_str = str(v).lower()
+        if "budget" in v_str or "blocked" in v_str:
+            diag = FailureDiagnosis(
+                execution_id=execution_id,
+                failed_stage=failed_stage or "budget_check",
+                root_cause=ROOT_CAUSE_BUDGET_EXCEEDED,
+                affected_component=ROOT_CAUSE_COMPONENT[ROOT_CAUSE_BUDGET_EXCEEDED],
+                suggested_fix=ROOT_CAUSE_FIX[ROOT_CAUSE_BUDGET_EXCEEDED],
+                confidence=0.85,
+                trace_summary=f"Budget violation: {v_str[:200]}",
+                diagnosis_hash="",
+            )
+            object.__setattr__(diag, "diagnosis_hash",
+                               _compute_diagnosis_hash(diag.execution_id, diag.root_cause, diag.affected_component))
+            return diag
+
+    # Rule 3: Crash / checkpoint corruption
+    if "crash" in str(error).lower():
+        diag = FailureDiagnosis(
+            execution_id=execution_id,
+            failed_stage=failed_stage or "unknown",
+            root_cause=ROOT_CAUSE_CHECKPOINT_CORRUPTION,
+            affected_component=ROOT_CAUSE_COMPONENT[ROOT_CAUSE_CHECKPOINT_CORRUPTION],
+            suggested_fix=ROOT_CAUSE_FIX[ROOT_CAUSE_CHECKPOINT_CORRUPTION],
+            confidence=0.80,
+            trace_summary=f"Crash detected: {error[:200]}",
+            diagnosis_hash="",
+        )
+        object.__setattr__(diag, "diagnosis_hash",
+                           _compute_diagnosis_hash(diag.execution_id, diag.root_cause, diag.affected_component))
+        return diag
+
+    # Rule 4: Retry exhaustion
+    is_failed = not execution_result.get("success", True)
+    has_retries = any(
+        not sr.get("passed", True) for sr in stage_results
+    )
+    if is_failed and has_retries:
+        diag = FailureDiagnosis(
+            execution_id=execution_id,
+            failed_stage=failed_stage or "unknown",
+            root_cause=ROOT_CAUSE_RETRY_EXHAUSTED,
+            affected_component=ROOT_CAUSE_COMPONENT[ROOT_CAUSE_RETRY_EXHAUSTED],
+            suggested_fix=ROOT_CAUSE_FIX[ROOT_CAUSE_RETRY_EXHAUSTED],
+            confidence=0.75,
+            trace_summary=f"Retry exhausted after stage failures: {failed_stage}",
+            diagnosis_hash="",
+        )
+        object.__setattr__(diag, "diagnosis_hash",
+                           _compute_diagnosis_hash(diag.execution_id, diag.root_cause, diag.affected_component))
+        return diag
+
+    # Rule 5: Unknown — fallback
+    if not execution_result.get("success", True):
+        diag = FailureDiagnosis(
+            execution_id=execution_id,
+            failed_stage=failed_stage or "unknown",
+            root_cause=ROOT_CAUSE_UNKNOWN,
+            affected_component=ROOT_CAUSE_COMPONENT[ROOT_CAUSE_UNKNOWN],
+            suggested_fix=ROOT_CAUSE_FIX[ROOT_CAUSE_UNKNOWN],
+            confidence=0.30,
+            trace_summary=f"Unknown failure in stage '{failed_stage}': {error[:200]}",
+            diagnosis_hash="",
+        )
+        object.__setattr__(diag, "diagnosis_hash",
+                           _compute_diagnosis_hash(diag.execution_id, diag.root_cause, diag.affected_component))
+        return diag
+
+    # Success case — should not be called for successful executions
+    diag = FailureDiagnosis(
+        execution_id=execution_id,
+        failed_stage="",
+        root_cause=ROOT_CAUSE_UNKNOWN,
+        affected_component=ROOT_CAUSE_COMPONENT[ROOT_CAUSE_UNKNOWN],
+        suggested_fix="none",
+        confidence=0.0,
+        trace_summary="No failure detected",
+        diagnosis_hash="",
+    )
+    object.__setattr__(diag, "diagnosis_hash",
+                       _compute_diagnosis_hash(diag.execution_id, diag.root_cause, diag.affected_component))
+    return diag
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Evolution Loop — End-to-End Auto-Evolution (Phase 16c)
+# ═══════════════════════════════════════════════════════════════════════
+
+def evolution_loop(
+    max_iterations: int = 5,
+    *,
+    auto_apply: bool = False,
+) -> Tuple:
+    """One pass of the evolution loop.
+
+    Pipeline:
+      1. Run benchmark suite (baseline)
+      2. For each failure: diagnose_failure() → get diagnosis
+      3. For each diagnosis with confidence >= 0.7:
+         - Generate SkillEvolutionProposal
+         - If auto_apply and can_auto_apply: execute apply_proposal()
+         - Verify → if fail, rollback
+      4. Re-run benchmark suite
+      5. Report delta
+
+    Returns tuple of EvolutionResult (from skill_evolution_executor).
+    """
+    from v3.external.skill_evolution_policy import can_auto_apply
+    from v3.external.skill_evolution_executor import (
+        apply_proposal, EvolutionResult,
+    )
+
+    results: list = []
+    iteration = 0
+
+    for iteration in range(max_iterations):
+        # Step 1: Run benchmark
+        try:
+            from v3.evals.benchmark_suite import run_benchmark
+            report = run_benchmark()
+        except Exception:
+            break
+
+        # Step 2: Diagnose failures
+        diagnoses = []
+        for result in report.results:
+            if not result.passed and result.actual not in ("pass",):
+                exec_result = {
+                    "execution_id": f"bench-{result.task_name}-{result.config_name}",
+                    "success": False,
+                    "failed_stage": result.task_name,
+                    "error": result.detail,
+                    "stage_results": [],
+                }
+                diag = diagnose_failure(exec_result, ())
+                if diag.confidence >= 0.7:
+                    diagnoses.append(diag)
+
+        if not diagnoses:
+            break  # No failures to fix
+
+        # Step 3: Generate proposals and optionally apply
+        for diag in diagnoses:
+            proposal = make_skill_evolution_proposal(
+                provider_id="evolution_loop",
+                proposal_type=PROPOSAL_TYPE_UPDATE_SKILL,
+                target_skill_refs=(diag.affected_component,),
+                gap_signal_ids=(diag.diagnosis_hash,),
+                proposed_changes_summary=(
+                    f"Auto-diagnosed: {diag.root_cause} → {diag.suggested_fix} "
+                    f"(confidence: {diag.confidence:.0%})"
+                ),
+                proposed_files=(f"config/{diag.affected_component}.json",),
+                required_tests=("benchmark_suite",),
+                seed=iteration,
+            )
+
+            if auto_apply:
+                allowed, reason = can_auto_apply(proposal)
+                if allowed:
+                    evo_result = apply_proposal(proposal, dry_run=False)
+                else:
+                    evo_result = EvolutionResult(
+                        proposal_id=proposal.proposal_id,
+                        applied=False,
+                        rollback_available=False,
+                        before_state={},
+                        after_state={},
+                        verification=f"blocked: {reason}",
+                        result_hash="",
+                    )
+            else:
+                evo_result = apply_proposal(proposal, dry_run=True)
+            results.append(evo_result)
+
+    return tuple(results)

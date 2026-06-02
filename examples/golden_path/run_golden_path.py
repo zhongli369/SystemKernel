@@ -195,7 +195,12 @@ def step4_memory_write(events, graph, metrics, telemetry):
       - Memory compaction (deterministic dedup)
       - System report (unified integrity)
     """
-    from v3.memory.runtime import MemoryRuntime
+    try:
+        from v3.memory.runtime import MemoryRuntime
+    except ImportError:
+        print("\n  STEP 4: Memory Runtime Pipeline — SKIPPED (v3/memory/ removed per v4.1)")
+        return {"written_count": 0, "indexed_count": 0, "compacted_count": 0,
+                "recall_count": 0, "integrity": "skipped", "compact_ok": False}
 
     print()
     print("─" * 64)
@@ -254,7 +259,11 @@ def step4_memory_write(events, graph, metrics, telemetry):
     # Compact
     print()
     print("  ── Compaction ──")
-    from v3.memory.compaction import CompactionPolicy
+    try:
+        from v3.memory.compaction import CompactionPolicy
+    except ImportError:
+        print("  Compaction skipped (v3/memory/ removed)")
+        return
     policy = CompactionPolicy(
         duplicate_strategy="merge_sources",
         group_by="candidate_type",
@@ -282,8 +291,11 @@ def step4_memory_write(events, graph, metrics, telemetry):
 
     # Write memory report to output
     mem_report_path = os.path.join(OUTPUT_DIR, "memory_system_report.json")
-    from v3.memory.system_report import write_system_report_json
-    write_system_report_json(runtime.store, mem_report_path)
+    try:
+        from v3.memory.system_report import write_system_report_json
+        write_system_report_json(runtime.store, mem_report_path)
+    except ImportError:
+        print("  System report skipped (v3/memory/ removed)")
 
     # Gather return data
     memory_data = {

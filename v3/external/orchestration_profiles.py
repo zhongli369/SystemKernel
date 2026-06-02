@@ -224,6 +224,35 @@ def full_external_review() -> "OrchestrationPolicy":
 
 
 # ═══════════════════════════════════════════════════════════════════════
+# Direction + Quality Intelligence Review Profile
+# ═══════════════════════════════════════════════════════════════════════
+
+def direction_quality_intelligence_review() -> "OrchestrationPolicy":
+    """Allows direction and quality intelligence analysis.
+
+    Enables gstack (direction) and superpowers (quality) methodology-based
+    analysis. Both are inspect_only, analysis-only, no external execution.
+    Used for strategic planning + quality evaluation of plans/code.
+
+    This is the primary profile for v4.1 external intelligence planes.
+    """
+    return _build(
+        policy_id="direction_quality_intelligence_review",
+        allowed_capability_types=("direction", "quality"),
+        forbidden_capability_types=(),
+        require_human_approval=False,
+        dry_run_only=True,
+        max_adapters_per_plan=4,
+        max_risk_level="low",
+        allow_external_execution=False,
+        allow_file_modification=False,
+        allow_network=False,
+        allow_registry_updates=False,
+        allow_memory_mutation=False,
+    )
+
+
+# ═══════════════════════════════════════════════════════════════════════
 # ECC Harness Review Profile (FUTURE — DISABLED)
 # ═══════════════════════════════════════════════════════════════════════
 
@@ -255,6 +284,88 @@ def ecc_harness_review() -> "OrchestrationPolicy":
 
 
 # ═══════════════════════════════════════════════════════════════════════
+# Sandbox Execution Profile (Phase 14c-2)
+# ═══════════════════════════════════════════════════════════════════════
+
+def sandbox_execution() -> "OrchestrationPolicy":
+    """L1 sandbox execution profile.
+
+    Allows sandbox capability types for isolated code execution.
+    Network OFF by default (per-policy override), file modification
+    limited to /tmp/. Requires human approval for all sandbox operations.
+    External execution allowed (sandbox IS execution).
+    """
+    return _build(
+        policy_id="sandbox_execution",
+        allowed_capability_types=("sandbox",),
+        forbidden_capability_types=(),
+        require_human_approval=True,
+        dry_run_only=False,
+        max_adapters_per_plan=3,
+        max_risk_level="high",
+        allow_external_execution=True,
+        allow_file_modification=False,
+        allow_network=False,
+        allow_registry_updates=False,
+        allow_memory_mutation=False,
+    )
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Observability Export Profile (Phase 15b)
+# ═══════════════════════════════════════════════════════════════════════
+
+def observability_export() -> "OrchestrationPolicy":
+    """L5 observability profile — metrics read-only export.
+
+    Allows observability capability types for metrics export, cost
+    summaries, and alert evaluation. No human approval needed (read-only).
+    No external execution. No file modification. No network.
+    """
+    return _build(
+        policy_id="observability_export",
+        allowed_capability_types=("observability",),
+        forbidden_capability_types=(),
+        require_human_approval=False,
+        dry_run_only=True,
+        max_adapters_per_plan=3,
+        max_risk_level="low",
+        allow_external_execution=False,
+        allow_file_modification=False,
+        allow_network=False,
+        allow_registry_updates=False,
+        allow_memory_mutation=False,
+    )
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Lifecycle Management Profile (Phase 15c)
+# ═══════════════════════════════════════════════════════════════════════
+
+def lifecycle_management() -> "OrchestrationPolicy":
+    """L4 lifecycle management profile.
+
+    Allows lifecycle capability types for retry, heartbeat, and degradation
+    management. Automatic (no human approval). Allows file modification for
+    checkpoint writes. No network. No external execution.
+    """
+    return _build(
+        policy_id="lifecycle_management",
+        allowed_capability_types=("lifecycle",),
+        forbidden_capability_types=(),
+        require_human_approval=False,
+        dry_run_only=False,
+        max_adapters_per_plan=3,
+        max_risk_level="low",
+        allow_external_execution=False,
+        allow_file_modification=True,
+        allow_network=False,
+        allow_registry_updates=False,
+        allow_memory_mutation=False,
+    )
+
+
+# ═══════════════════════════════════════════════════════════════════════
 # Profile Registry
 # ═══════════════════════════════════════════════════════════════════════
 
@@ -268,6 +379,10 @@ def get_all_profiles() -> Tuple["OrchestrationPolicy", ...]:
         skill_evolution_review(),
         memory_intelligence_review(),
         agent_worker_review(),
+        sandbox_execution(),
+        observability_export(),
+        lifecycle_management(),
+        direction_quality_intelligence_review(),
         full_external_review(),
         ecc_harness_review(),
     )
@@ -290,6 +405,10 @@ def get_all_profile_statuses() -> Tuple[OrchestrationProfileStatus, ...]:
         "skill_evolution_review": "Skill proposals only, no registry writes",
         "memory_intelligence_review": "Mock memory intelligence only",
         "agent_worker_review": "Mock agent worker only",
+        "sandbox_execution": "L1 sandbox — isolated code execution, human-approved",
+        "observability_export": "L5 observability — metrics/cost/alerts read-only export",
+        "lifecycle_management": "L4 lifecycle — retry/heartbeat/degradation management",
+        "direction_quality_intelligence_review": "gstack direction + superpowers quality analysis",
         "full_external_review": "All capability types, dry-run only",
         "ecc_harness_review": "ECC future harness — disabled placeholder",
     }
