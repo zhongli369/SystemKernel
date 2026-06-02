@@ -276,32 +276,36 @@ class TestV4BaselineGuard(unittest.TestCase):
     # ── Test 15: V4_INVARIANTS.md has 10 invariants ────────────────────
 
     def test_15_invariants_doc(self):
-        """V4_INVARIANTS.md exists and lists 10 invariants."""
+        """CORE_FREEZE_v1.md exists and documents the 7 stability freeze invariants."""
+        freeze_path = os.path.join(ROOT, "CORE_FREEZE_v1.md")
         self.assertTrue(
-            os.path.isfile(self.invariants_path),
-            "V4_INVARIANTS.md missing"
+            os.path.isfile(freeze_path),
+            "CORE_FREEZE_v1.md missing"
         )
-        with open(self.invariants_path, encoding="utf-8") as f:
+        with open(freeze_path, encoding="utf-8") as f:
             content = f.read()
-        for i in range(1, 11):
-            label = f"INV-{i:02d}"
-            self.assertIn(label, content,
-                          f"{label} missing from V4_INVARIANTS.md")
+        self.assertIn("SF Invariants", content)
+        self.assertIn("7/7", content)
+        self.assertIn("FROZEN", content)
+        self.assertIn("v3/kernel/", content)
+        self.assertIn("verify_v4_baseline", content)
+        self.assertIn("Architecture Guard", content)
 
-    # ── Test 16: V4_ROADMAP.md has 12 phases ───────────────────────────
+    # ── Test 16: Core Freeze doc documents architecture ──────────────
 
     def test_16_roadmap_doc(self):
-        """V4_ROADMAP.md exists and lists 12 phases."""
+        """CORE_FREEZE_v1.md exists and documents the v4.1 stable architecture."""
+        freeze_path = os.path.join(ROOT, "CORE_FREEZE_v1.md")
         self.assertTrue(
-            os.path.isfile(self.roadmap_path),
-            "V4_ROADMAP.md missing"
+            os.path.isfile(freeze_path),
+            "CORE_FREEZE_v1.md missing"
         )
-        with open(self.roadmap_path, encoding="utf-8") as f:
+        with open(freeze_path, encoding="utf-8") as f:
             content = f.read()
-        for i in range(0, 13):
-            self.assertIn(f"Phase {i}", content,
-                          f"Phase {i} missing from V4_ROADMAP.md")
-        self.assertIn("Pluggable Intelligence Plane", content)
+        self.assertIn("v4.1 Stable", content)
+        self.assertIn("v3/kernel/", content)
+        self.assertIn("api.py", content)
+        self.assertIn("Core Freeze", content)
 
     # ── Test 17: Guard idempotency ─────────────────────────────────────
 

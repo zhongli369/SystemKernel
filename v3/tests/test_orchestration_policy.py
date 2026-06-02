@@ -291,13 +291,17 @@ class TestProfiles(unittest.TestCase):
 
     def test_33_all_six_profiles_exist(self):
         profiles = get_all_profiles()
-        self.assertEqual(len(profiles), 7)  # +direction_quality_intelligence_review in v4.1
+        self.assertEqual(len(profiles), 10)
         ids = [p.policy_id for p in profiles]
         self.assertIn("agent_worker_review", ids)
+        self.assertIn("direction_quality_intelligence_review", ids)
         self.assertIn("ecc_harness_review", ids)
         self.assertIn("full_external_review", ids)
+        self.assertIn("lifecycle_management", ids)
         self.assertIn("memory_intelligence_review", ids)
+        self.assertIn("observability_export", ids)
         self.assertIn("safe_context_only", ids)
+        self.assertIn("sandbox_execution", ids)
         self.assertIn("skill_evolution_review", ids)
 
     def test_34_get_profile_unknown_returns_none(self):
@@ -542,12 +546,9 @@ class TestV4Baseline(unittest.TestCase):
     """Tests for V4 baseline."""
 
     def test_60_v4_baseline_guard_still_passes(self):
-        try:
-            from v3.release.v4_baseline_guard import check_v4_baseline
-            result = check_v4_baseline()
-            self.assertTrue(result.get("success", True))
-        except (ImportError, FileNotFoundError):
-            self.skipTest("V4 baseline guard not available")
+        from v3.release.v4_baseline_guard import build_v4_baseline_guard
+        result = build_v4_baseline_guard()
+        self.assertTrue(result.overall_pass)
 
 
 class TestKernelInvariants(unittest.TestCase):

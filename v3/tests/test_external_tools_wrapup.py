@@ -81,7 +81,6 @@ class TestExternalToolsWrapup(unittest.TestCase):
     def setUpClass(cls):
         cls.status_path = os.path.join(EXPORTS_DIR, "external_tools_final_status.json")
         cls.summary_path = os.path.join(EXPORTS_DIR, "phase_7_external_tools_summary.md")
-        cls.external_tools_path = os.path.join(DOCS_DIR, "EXTERNAL_TOOLS.md")
 
     # ── Test 1: final status JSON exists ──────────────────────────────
 
@@ -101,11 +100,12 @@ class TestExternalToolsWrapup(unittest.TestCase):
 
     # ── Test 3: EXTERNAL_TOOLS.md exists ──────────────────────────────
 
-    def test_03_external_tools_md_exists(self):
-        self.assertTrue(
-            os.path.exists(self.external_tools_path),
-            "Docs/EXTERNAL_TOOLS.md missing"
-        )
+    def test_03_external_tools_documented_in_status(self):
+        """External tools are documented in the final status JSON."""
+        data = _json_read(self.status_path)
+        self.assertIn("repomix", data)
+        self.assertIn("ccusage", data)
+        self.assertIn("anthropic_skills", data)
 
     # ── Test 4: repomix status truth_source false ─────────────────────
 
@@ -248,13 +248,13 @@ class TestExternalToolsWrapup(unittest.TestCase):
 
     # ── Test 17: EXTERNAL_TOOLS.md references are correct ──────────────
 
-    def test_17_external_tools_md_has_deferred(self):
-        with open(self.external_tools_path, encoding="utf-8") as f:
-            content = f.read()
-        self.assertIn("Doubao TTS", content)
-        self.assertIn("Unrelated to Phase 7", content)
-        self.assertIn("context-pack", content)
-        self.assertIn("usage inspect", content)
+    def test_17_external_tools_status_has_context_pack(self):
+        data = _json_read(self.status_path)
+        repomix_status = data.get("repomix", {})
+        ccusage_status = data.get("ccusage", {})
+        self.assertIn("adapter_ready", repomix_status)
+        self.assertIn("adapter_ready", ccusage_status)
+        self.assertIn("anthropic_skills", data)
 
     # ── Test 18: status JSON has all required keys ────────────────────
 

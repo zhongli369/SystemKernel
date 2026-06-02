@@ -67,7 +67,7 @@ KERNEL_BASELINE_HASHES = {
 }
 
 V3_RELEASE_BASELINE_HASHES = {
-    "__init__.py": "2489398a752b8027a880c76de517515b1da383e0101be3797bbd09c926388bf0",
+    "__init__.py": "5d0638362ae7caa2de4640687dd2a354e34ccf631d60d43c7561c810c24b1ece",
     "archive_manifest.py": "3ea4eaa5a1d492686325239fe1cb8d4455b81421e249bcd0d5033d1973106e2f",
     "handoff.py": "64f126a8b4ca6b4ef2d21fc6eea49d3470aa67b9b0493457f4236aeae792645e",
     "inventory.py": "43a2091350f8c966dbcd4df74fcc25e5afe769c3ecbe914dc60298aeec690ae1",

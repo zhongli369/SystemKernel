@@ -428,8 +428,8 @@ class TestCapabilityRegistry(unittest.TestCase):
         registry = build_default_registry()
         self.assertEqual(registry.enabled_count + registry.disabled_count,
                          len(registry.entries))
-        self.assertEqual(registry.enabled_count, 2)  # repomix + ccusage
-        self.assertEqual(registry.disabled_count, 8)  # anthropic + 7 placeholders
+        self.assertEqual(registry.enabled_count, 10)
+        self.assertEqual(registry.disabled_count, 8)
 
 
 class TestPhase2Regression(unittest.TestCase):
