@@ -725,41 +725,66 @@ def scan_for_docs_drift(root: Path) -> List[ZombieFinding]:
     findings = []
     fid = 300
 
-    # 4a. docs/ vs Docs/ — complete duplicate directories
+    # 4a. docs/ vs Docs/ — case-sensitivity aware duplicate check
     docs_dir = root / "docs"
     docs_cap_dir = root / "Docs"
     if docs_dir.exists() and docs_cap_dir.exists():
-        duplicate_count = 0
-        duplicate_files = []
-        for f in docs_dir.glob("*.md"):
-            counterpart = docs_cap_dir / f.name
-            if counterpart.exists():
-                c1 = _read_file(f)
-                c2 = _read_file(counterpart)
-                if c1 is not None and c2 is not None and c1 == c2:
-                    duplicate_count += 1
-                    duplicate_files.append(f.name)
+        # Check if they resolve to the same physical directory (case-insensitive FS)
+        try:
+            same_physical_dir = docs_dir.resolve() == docs_cap_dir.resolve()
+        except Exception:
+            same_physical_dir = False
 
-        if duplicate_count > 0:
-            # Check which directory the v4_inventory.py references
-            inv_content = _read_file(root / "v3" / "release" / "v4_inventory.py")
-            inventory_refs_docs_cap = inv_content and '"Docs"' in inv_content
-
+        if same_physical_dir:
+            # Windows/macOS: docs/ and Docs/ are the same directory.
+            # Not a real duplicate — flag as path inconsistency instead.
             fid += 1
             findings.append(ZombieFinding(
                 finding_id=f"ZC-{fid:03d}",
                 category=CATEGORY_DOCS_DRIFT,
-                path="docs/ (vs Docs/)",
-                symbol="Duplicate docs directories",
-                evidence=f"{duplicate_count} byte-identical .md files in both docs/ and Docs/. "
-                         f"v4_inventory.py references 'Docs/' (capital D), "
-                         f"making docs/ (lowercase) a stale duplicate. "
-                         f"Duplicates: {', '.join(duplicate_files[:5])}...",
+                path="docs/",
+                symbol="Case-insensitive filesystem detected",
+                evidence="docs/ and Docs/ resolve to the same physical directory on this "
+                         "case-insensitive filesystem. Git tracks them as docs/ but "
+                         "v4_inventory.py references Docs/. On Linux CI this would be "
+                         "a real path mismatch. Consider normalizing to one case.",
                 confidence=CONFIDENCE_HIGH,
-                risk=RISK_LOW,
-                recommended_action=ACTION_REMOVE,
-                safe_to_auto_fix=False,  # Needs confirmation which to keep
+                risk=RISK_MEDIUM,
+                recommended_action=ACTION_HUMAN_REVIEW,
+                safe_to_auto_fix=False,
             ))
+        else:
+            # Case-sensitive FS: real duplicates
+            duplicate_count = 0
+            duplicate_files = []
+            for f in docs_dir.glob("*.md"):
+                counterpart = docs_cap_dir / f.name
+                if counterpart.exists():
+                    c1 = _read_file(f)
+                    c2 = _read_file(counterpart)
+                    if c1 is not None and c2 is not None and c1 == c2:
+                        duplicate_count += 1
+                        duplicate_files.append(f.name)
+
+            if duplicate_count > 0:
+                inv_content = _read_file(root / "v3" / "release" / "v4_inventory.py")
+                inventory_refs_docs_cap = inv_content and '"Docs"' in inv_content
+
+                fid += 1
+                findings.append(ZombieFinding(
+                    finding_id=f"ZC-{fid:03d}",
+                    category=CATEGORY_DOCS_DRIFT,
+                    path="docs/ (vs Docs/)",
+                    symbol="Duplicate docs directories",
+                    evidence=f"{duplicate_count} byte-identical .md files in both docs/ and Docs/. "
+                             f"v4_inventory.py references 'Docs/' (capital D), "
+                             f"making docs/ (lowercase) a stale duplicate. "
+                             f"Duplicates: {', '.join(duplicate_files[:5])}...",
+                    confidence=CONFIDENCE_HIGH,
+                    risk=RISK_LOW,
+                    recommended_action=ACTION_REMOVE,
+                    safe_to_auto_fix=False,
+                ))
 
     # 4b. Check CLAUDE.md for commands that reference stale paths
     claude_md = root / "CLAUDE.md"

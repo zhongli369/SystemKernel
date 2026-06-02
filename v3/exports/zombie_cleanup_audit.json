@@ -1,5 +1,5 @@
 {
-  "scanned_files": 162,
+  "scanned_files": 160,
   "findings": [
     {
       "finding_id": "ZC-001",
@@ -18,36 +18,12 @@
       "category": "zombie_code",
       "path": "v3/**/__pycache__/",
       "symbol": "__pycache__",
-      "evidence": "18 __pycache__ directories found in v3/ source tree. These are build artifacts that should be gitignored, not committed.",
+      "evidence": "19 __pycache__ directories found in v3/ source tree. These are build artifacts that should be gitignored, not committed.",
       "confidence": "high",
       "risk": "low",
       "recommended_action": "remove",
       "safe_to_auto_fix": false,
-      "finding_hash": "f18d998384a22b3d"
-    },
-    {
-      "finding_id": "ZC-003",
-      "category": "zombie_code",
-      "path": "v3/exports/generate_4d6_reports.py",
-      "symbol": "generate_4d6_reports",
-      "evidence": "Report generator script stored inside v3/exports/ instead of tools/ or scripts/. These are one-shot generators, not runtime data exports.",
-      "confidence": "high",
-      "risk": "low",
-      "recommended_action": "remove",
-      "safe_to_auto_fix": false,
-      "finding_hash": "ac93ddd4a454dad8"
-    },
-    {
-      "finding_id": "ZC-004",
-      "category": "zombie_code",
-      "path": "v3/exports/generate_compaction_reports.py",
-      "symbol": "generate_compaction_reports",
-      "evidence": "Report generator script stored inside v3/exports/ instead of tools/ or scripts/. These are one-shot generators, not runtime data exports.",
-      "confidence": "high",
-      "risk": "low",
-      "recommended_action": "remove",
-      "safe_to_auto_fix": false,
-      "finding_hash": "a94cdc9dc48b89a4"
+      "finding_hash": "23f9b36f62f5e44d"
     },
     {
       "finding_id": "ZC-101",
@@ -78,12 +54,12 @@
       "category": "stale_version",
       "path": "v3/release/__pycache__/",
       "symbol": "*.pyc",
-      "evidence": "14 compiled .pyc files committed in v3/release/__pycache__/. These are build artifacts that should be cleaned and gitignored.",
+      "evidence": "15 compiled .pyc files committed in v3/release/__pycache__/. These are build artifacts that should be cleaned and gitignored.",
       "confidence": "high",
       "risk": "low",
       "recommended_action": "remove",
       "safe_to_auto_fix": false,
-      "finding_hash": "970e5c59c1b14af8"
+      "finding_hash": "3fa1e9293a22b56e"
     },
     {
       "finding_id": "ZC-104",
@@ -100,30 +76,6 @@
     {
       "finding_id": "ZC-201",
       "category": "stale_test",
-      "path": "v3/tests/test_orchestration_policy.py",
-      "symbol": "v3.quality.v4_baseline_guard",
-      "evidence": "Imports non-existent module: v3.quality.v4_baseline_guard (neither v3/quality/v4_baseline_guard.py nor v3/quality/v4_baseline_guard/__init__.py found)",
-      "confidence": "high",
-      "risk": "medium",
-      "recommended_action": "human_review",
-      "safe_to_auto_fix": false,
-      "finding_hash": "fc099ac03399407c"
-    },
-    {
-      "finding_id": "ZC-202",
-      "category": "stale_test",
-      "path": "v3/tests/test_skill_evolution_plane.py",
-      "symbol": "v3.quality.v4_baseline_guard",
-      "evidence": "Imports non-existent module: v3.quality.v4_baseline_guard (neither v3/quality/v4_baseline_guard.py nor v3/quality/v4_baseline_guard/__init__.py found)",
-      "confidence": "high",
-      "risk": "medium",
-      "recommended_action": "human_review",
-      "safe_to_auto_fix": false,
-      "finding_hash": "c4ed9ff42165f64d"
-    },
-    {
-      "finding_id": "ZC-203",
-      "category": "stale_test",
       "path": "v3/tests/test_baseline_packaging.py",
       "symbol": "v3_release_* reference",
       "evidence": "References v3.0-era release module names that are blacklisted in v4_inventory.py.",
@@ -136,14 +88,14 @@
     {
       "finding_id": "ZC-301",
       "category": "docs_drift",
-      "path": "docs/ (vs Docs/)",
-      "symbol": "Duplicate docs directories",
-      "evidence": "24 byte-identical .md files in both docs/ and Docs/. v4_inventory.py references 'Docs/' (capital D), making docs/ (lowercase) a stale duplicate. Duplicates: AGENT_WORKER_PLANE.md, ARCHITECTURE_OVERVIEW.md, CAPABILITY_ADAPTER_CONTRACT.md, CHANGELOG.md, complexity-risk-report.md...",
+      "path": "docs/",
+      "symbol": "Case-insensitive filesystem detected",
+      "evidence": "docs/ and Docs/ resolve to the same physical directory on this case-insensitive filesystem. Git tracks them as docs/ but v4_inventory.py references Docs/. On Linux CI this would be a real path mismatch. Consider normalizing to one case.",
       "confidence": "high",
-      "risk": "low",
-      "recommended_action": "remove",
+      "risk": "medium",
+      "recommended_action": "human_review",
       "safe_to_auto_fix": false,
-      "finding_hash": "4d7708f5b66274dc"
+      "finding_hash": "bf2dad812ebcabe2"
     },
     {
       "finding_id": "ZC-302",
@@ -210,17 +162,17 @@
       "category": "stale_report",
       "path": "v3/checkpoints/*.crash",
       "symbol": "*.crash",
-      "evidence": "10 .crash checkpoint files found. These are crash artifacts from testing/debugging, not needed for release.",
+      "evidence": "1 .crash checkpoint files found. These are crash artifacts from testing/debugging, not needed for release.",
       "confidence": "high",
       "risk": "low",
       "recommended_action": "remove",
       "safe_to_auto_fix": false,
-      "finding_hash": "a82f20aa3af12c87"
+      "finding_hash": "10c270fc89a303b2"
     }
   ],
   "safe_remove_count": 0,
   "safe_update_count": 0,
-  "human_review_count": 9,
+  "human_review_count": 8,
   "protected_count": 0,
-  "audit_hash": "482ca871190850f1"
+  "audit_hash": "870a0ed8bebd17e7"
 }

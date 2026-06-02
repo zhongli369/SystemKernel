@@ -1,24 +1,24 @@
 # Zombie Code & Stale Version Cleanup — Audit Report
 
-**Generated**: 2026-06-02T07:52:49.710835+00:00
-**Audit Hash**: `482ca871190850f1`
-**Scanned Files**: 162
-**Total Findings**: 18
+**Generated**: 2026-06-02T08:30:14.315689+00:00
+**Audit Hash**: `870a0ed8bebd17e7`
+**Scanned Files**: 160
+**Total Findings**: 14
 
 ## Summary
 
 | Category | Count |
 |----------|------:|
-| zombie_code | 3 |
+| zombie_code | 1 |
 | stale_version | 5 |
-| stale_test | 3 |
+| stale_test | 1 |
 | docs_drift | 3 |
 | stale_report | 4 |
 | duplicate_helper | 0 |
 | human_review | 0 |
 
 - **Safe Auto-Fix Candidates**: 0 remove + 0 update
-- **Human Review Needed**: 9
+- **Human Review Needed**: 8
 
 ## Safe to Remove
 
@@ -28,23 +28,7 @@
 - **Path**: `v3/**/__pycache__/`
 - **Confidence**: high
 - **Risk**: low
-- **Evidence**: 18 __pycache__ directories found in v3/ source tree. These are build artifacts that should be gitignored, not committed.
-
-### ZC-003: generate_4d6_reports
-
-- **Category**: `zombie_code`
-- **Path**: `v3/exports/generate_4d6_reports.py`
-- **Confidence**: high
-- **Risk**: low
-- **Evidence**: Report generator script stored inside v3/exports/ instead of tools/ or scripts/. These are one-shot generators, not runtime data exports.
-
-### ZC-004: generate_compaction_reports
-
-- **Category**: `zombie_code`
-- **Path**: `v3/exports/generate_compaction_reports.py`
-- **Confidence**: high
-- **Risk**: low
-- **Evidence**: Report generator script stored inside v3/exports/ instead of tools/ or scripts/. These are one-shot generators, not runtime data exports.
+- **Evidence**: 19 __pycache__ directories found in v3/ source tree. These are build artifacts that should be gitignored, not committed.
 
 ### ZC-103: *.pyc
 
@@ -52,15 +36,7 @@
 - **Path**: `v3/release/__pycache__/`
 - **Confidence**: high
 - **Risk**: low
-- **Evidence**: 14 compiled .pyc files committed in v3/release/__pycache__/. These are build artifacts that should be cleaned and gitignored.
-
-### ZC-301: Duplicate docs directories
-
-- **Category**: `docs_drift`
-- **Path**: `docs/ (vs Docs/)`
-- **Confidence**: high
-- **Risk**: low
-- **Evidence**: 24 byte-identical .md files in both docs/ and Docs/. v4_inventory.py references 'Docs/' (capital D), making docs/ (lowercase) a stale duplicate. Duplicates: AGENT_WORKER_PLANE.md, ARCHITECTURE_OVERVIEW.md, CAPABILITY_ADAPTER_CONTRACT.md, CHANGELOG.md, complexity-risk-report.md...
+- **Evidence**: 15 compiled .pyc files committed in v3/release/__pycache__/. These are build artifacts that should be cleaned and gitignored.
 
 ### ZC-404: *.crash
 
@@ -68,7 +44,7 @@
 - **Path**: `v3/checkpoints/*.crash`
 - **Confidence**: high
 - **Risk**: low
-- **Evidence**: 10 .crash checkpoint files found. These are crash artifacts from testing/debugging, not needed for release.
+- **Evidence**: 1 .crash checkpoint files found. These are crash artifacts from testing/debugging, not needed for release.
 
 ## Needs Update
 
@@ -106,29 +82,21 @@
 - **Risk**: low
 - **Evidence**: v3/main.py still references 'Phase 2' and 'Next: Phase 3' but codebase is v4.1. This is a demo entry point from v3.0 early development.
 
-### ZC-201: v3.quality.v4_baseline_guard
-
-- **Category**: `stale_test`
-- **Path**: `v3/tests/test_orchestration_policy.py`
-- **Confidence**: high
-- **Risk**: medium
-- **Evidence**: Imports non-existent module: v3.quality.v4_baseline_guard (neither v3/quality/v4_baseline_guard.py nor v3/quality/v4_baseline_guard/__init__.py found)
-
-### ZC-202: v3.quality.v4_baseline_guard
-
-- **Category**: `stale_test`
-- **Path**: `v3/tests/test_skill_evolution_plane.py`
-- **Confidence**: high
-- **Risk**: medium
-- **Evidence**: Imports non-existent module: v3.quality.v4_baseline_guard (neither v3/quality/v4_baseline_guard.py nor v3/quality/v4_baseline_guard/__init__.py found)
-
-### ZC-203: v3_release_* reference
+### ZC-201: v3_release_* reference
 
 - **Category**: `stale_test`
 - **Path**: `v3/tests/test_baseline_packaging.py`
 - **Confidence**: medium
 - **Risk**: low
 - **Evidence**: References v3.0-era release module names that are blacklisted in v4_inventory.py.
+
+### ZC-301: Case-insensitive filesystem detected
+
+- **Category**: `docs_drift`
+- **Path**: `docs/`
+- **Confidence**: high
+- **Risk**: medium
+- **Evidence**: docs/ and Docs/ resolve to the same physical directory on this case-insensitive filesystem. Git tracks them as docs/ but v4_inventory.py references Docs/. On Linux CI this would be a real path mismatch. Consider normalizing to one case.
 
 ### ZC-302: Version info
 
