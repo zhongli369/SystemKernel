@@ -1,8 +1,8 @@
 {
   "$schema": "claude-code-skill-registry/v1",
-  "version": "2.2.0",
-  "last_updated": "2026-05-23T16:00:00Z",
-  "description": "Central registry. Three categories: packages (installable), sources (discovery-only), indexes (search-only). 19 packages, 74+ skills.",
+  "version": "2.5.0",
+  "last_updated": "2026-06-01T18:30:00Z",
+  "description": "Central registry. Three categories: packages (installable), sources (discovery-only), indexes (search-only). 9 packages, 50 skills.",
   "shared": {
     "office-scripts": {
       "version": "1.0.0",
@@ -42,17 +42,6 @@
         "complexity-analyzer"
       ]
     },
-    "algo-sensei": {
-      "display_name": "算法导师包",
-      "display_name_en": "Algo Sensei",
-      "description": "AI驱动的DSA导师：苏格拉底式教学、渐进提示、代码审查、模拟面试、模式识别训练",
-      "version": "1.0.0",
-      "installable": true,
-      "install_command": "install algo-sensei",
-      "skills": [
-        "algo-sensei"
-      ]
-    },
     "office": {
       "display_name": "办公软件包",
       "display_name_en": "Office Skills Pack",
@@ -69,15 +58,6 @@
       "shared_dependencies": [
         "shared/office-scripts"
       ]
-    },
-    "finance": {
-      "display_name": "金融炒股包",
-      "display_name_en": "Finance Skills Pack",
-      "description": "金融分析与股票交易工具（待开发）",
-      "version": "0.1.0",
-      "installable": true,
-      "install_command": "install finance",
-      "skills": []
     },
     "dev": {
       "display_name": "项目开发包",
@@ -139,33 +119,6 @@
         "template"
       ]
     },
-    "vercel-agent-skills": {
-      "display_name": "Vercel Agent Skills",
-      "display_name_en": "Vercel Agent Skills",
-      "description": "Vercel 官方 skill 包。通过 npx skills CLI 安装",
-      "version": "1.5.5",
-      "installable": true,
-      "install_command": "npx skills add vercel-labs/agent-skills",
-      "external": true,
-      "skills": [
-        "next-best-practices",
-        "next-cache-components",
-        "next-upgrade"
-      ],
-      "note": "React/Vercel skills 已集成到本地 react 和 vercel 包中，无需通过 npx 安装"
-    },
-    "find-skill": {
-      "display_name": "技能发现工具",
-      "display_name_en": "Find Skill",
-      "description": "通过 npx skills CLI 搜索 skills.sh 生态系统中的 agent skills",
-      "version": "1.0.0",
-      "installable": true,
-      "install_command": "install find-skill",
-      "external": true,
-      "skills": [
-        "find-skills"
-      ]
-    },
     "humanizer-zh": {
       "display_name": "AI写作去痕工具",
       "display_name_en": "Humanizer-zh",
@@ -178,102 +131,6 @@
       "skills": [
         "humanizer-zh"
       ]
-    },
-    "karpathy": {
-      "display_name": "Karpathy编程规范包",
-      "display_name_en": "Karpathy Guidelines Pack",
-      "description": "基于Andrej Karpathy对LLM编程坑点的观察提炼：先思考再编码、简洁优先、外科手术式修改、目标驱动执行",
-      "version": "1.0.0",
-      "installable": true,
-      "install_command": "install karpathy",
-      "skills": [
-        "karpathy-guidelines"
-      ]
-    },
-    "minecraft": {
-      "display_name": "Minecraft开发包",
-      "display_name_en": "Minecraft Skills Pack",
-      "description": "Minecraft/Mineflayer机器人开发：机器人架构、导航寻路、方块交互、战斗系统、建造自动化",
-      "version": "1.0.0",
-      "installable": true,
-      "install_command": "install minecraft",
-      "skills": [
-        "minecraft-bot",
-        "minecraft-pathfinding",
-        "minecraft-actions"
-      ]
-    },
-    "voice": {
-      "display_name": "语音流水线包",
-      "display_name_en": "Voice Pipeline Pack",
-      "description": "实时语音流水线：STT语音识别(Whisper.cpp)、TTS语音合成(Edge-TTS)、流式音频架构",
-      "version": "1.0.0",
-      "installable": true,
-      "install_command": "install voice",
-      "skills": [
-        "voice-pipeline",
-        "stt-integration",
-        "tts-integration"
-      ]
-    },
-    "agent-core": {
-      "display_name": "AI代理核心包",
-      "display_name_en": "Agent Core Pack",
-      "description": "AI代理系统架构：代理设计模式、LLM编排与工具调用、Prompt工程与模块化",
-      "version": "1.0.0",
-      "installable": true,
-      "install_command": "install agent-core",
-      "skills": [
-        "agent-architecture",
-        "llm-orchestration",
-        "prompt-engineering"
-      ]
-    },
-    "memory": {
-      "display_name": "记忆系统包",
-      "display_name_en": "Memory Systems Pack",
-      "description": "长期记忆系统：记忆架构设计、向量数据库(Chroma/Qdrant)、事件存储与检索",
-      "version": "1.0.0",
-      "installable": true,
-      "install_command": "install memory",
-      "skills": [
-        "memory-architecture",
-        "vector-store",
-        "event-storage"
-      ]
-    },
-    "cumcm": {
-      "display_name": "全国大学生数学建模竞赛包",
-      "display_name_en": "CUMCM Skills Pack",
-      "description": "CUMCM国赛建模全流程：建模分析、Python数科编程、中文科技论文写作、LaTeX排版、国赛策略与项目管理",
-      "version": "1.0.0",
-      "installable": true,
-      "install_command": "install cumcm",
-      "skills": [
-        "cumcm-modeling",
-        "cumcm-python",
-        "cumcm-paper",
-        "cumcm-latex",
-        "cumcm-strategy"
-      ]
-    },
-    "cumcm-external": {
-      "display_name": "CUMCM外部技能包",
-      "display_name_en": "CUMCM External Skills",
-      "description": "来自GitHub的国赛专用技能：mathmodel-skill(v5.0, 91篇获奖论文实证) + math-modeling-skill(三角色+60算法)",
-      "version": "1.0.0",
-      "installable": true,
-      "install_command": "install cumcm-external",
-      "external": true,
-      "skills": [
-        "cumcm-mathmodel",
-        "cumcm-toolkit",
-        "cumcm-paper-search",
-        "cumcm-tool-docx",
-        "cumcm-tool-pdf",
-        "cumcm-tool-xlsx"
-      ],
-      "note": "从 github.com/handsomeZR-netizen/mathmodel-skill 和 github.com/XiaoMaColtAI/math-modeling-skill 安装"
     },
     "superpowers": {
       "display_name": "Superpowers开发工作流包",
@@ -318,8 +175,8 @@
       "category": "source",
       "type": "git-repo",
       "installable": false,
-      "description": "Vercel 官方 skill 源仓库。通过 vercel-agent-skills 包安装",
-      "note": "使用 'install vercel-agent-skills' 通过 npx skills 安装"
+      "description": "Vercel 官方 skill 源仓库。通过 npx skills 安装",
+      "note": "运行 'npx skills add vercel-labs/agent-skills' 安装"
     },
     "vercel-labs-skills-cli": {
       "name": "Vercel Skills CLI",
@@ -328,7 +185,7 @@
       "type": "npm-package",
       "installable": false,
       "description": "npx skills CLI 工具源码。npm 包名: skills",
-      "note": "运行 'npx skills' 使用 CLI，或 'install vercel-agent-skills' 安装其技能包"
+      "note": "运行 'npx skills' 使用 CLI"
     },
     "mathmodel-skill-repo": {
       "name": "MathModel-Skill (v5.0)",
@@ -377,19 +234,6 @@
     }
   },
   "skills": {
-    "agent-architecture": {
-      "version": "1.0.0",
-      "description": "Design AI agent system architecture with planning-execution separation, event-driven runtime, and multi-agent extension points",
-      "package": "agent-core",
-      "shared_dependencies": []
-    },
-    "algo-sensei": {
-      "version": "1.0.0",
-      "description": "AI-powered DSA mentor with 5 modes: tutor, progressive hints, code review, mock interview, and pattern recognition. Multi-language support",
-      "package": "algo-sensei",
-      "shared_dependencies": [],
-      "note": "From github.com/karanb192/algo-sensei, installed via SSH"
-    },
     "algorithm-explainer": {
       "version": "1.0.0",
       "description": "Design and explain algorithms with pseudocode, UML, and Mermaid diagrams",
@@ -451,78 +295,6 @@
       "package": "react",
       "shared_dependencies": []
     },
-    "cumcm-latex": {
-      "version": "1.0.0",
-      "description": "CUMCM LaTeX排版：ctexart/cumcmthesis、XeLaTeX编译、三线表、公式排版、图表交叉引用",
-      "package": "cumcm",
-      "shared_dependencies": []
-    },
-    "cumcm-mathmodel": {
-      "version": "5.0.0",
-      "description": "数学建模竞赛端到端工作流，三竞赛通用(CUMCM/MCM/电工杯)，10阶段+4反馈层，91篇获奖论文实证，全程问答式",
-      "package": "cumcm-external",
-      "external": true,
-      "shared_dependencies": []
-    },
-    "cumcm-modeling": {
-      "version": "1.0.0",
-      "description": "CUMCM数学建模分析：题型分类、模型选择决策树、数学推导、敏感性分析、模型评价",
-      "package": "cumcm",
-      "shared_dependencies": []
-    },
-    "cumcm-paper": {
-      "version": "1.0.0",
-      "description": "CUMCM国赛科技论文写作：摘要、问题重述、模型假设、符号说明、模型建立与求解、结果分析、模型评价",
-      "package": "cumcm",
-      "shared_dependencies": []
-    },
-    "cumcm-paper-search": {
-      "version": "1.0.0",
-      "description": "数学建模文献搜索与论文检索工具(来自XiaoMaColtAI)",
-      "package": "cumcm-external",
-      "external": true,
-      "shared_dependencies": []
-    },
-    "cumcm-python": {
-      "version": "1.0.0",
-      "description": "CUMCM Python数据科学：NumPy/Pandas/Matplotlib/SciPy/scikit-learn/statsmodels/networkx/pulp/xgboost/lightgbm",
-      "package": "cumcm",
-      "shared_dependencies": []
-    },
-    "cumcm-strategy": {
-      "version": "1.0.0",
-      "description": "CUMCM国赛策略：三天时间规划、选题决策、角色分工、得分策略、风险控制、质量控制",
-      "package": "cumcm",
-      "shared_dependencies": []
-    },
-    "cumcm-tool-docx": {
-      "version": "1.0.0",
-      "description": "数学建模专用Word文档生成工具(来自XiaoMaColtAI)",
-      "package": "cumcm-external",
-      "external": true,
-      "shared_dependencies": []
-    },
-    "cumcm-tool-pdf": {
-      "version": "1.0.0",
-      "description": "数学建模专用PDF处理工具(来自XiaoMaColtAI)",
-      "package": "cumcm-external",
-      "external": true,
-      "shared_dependencies": []
-    },
-    "cumcm-tool-xlsx": {
-      "version": "1.0.0",
-      "description": "数学建模专用Excel数据处理工具(来自XiaoMaColtAI)",
-      "package": "cumcm-external",
-      "external": true,
-      "shared_dependencies": []
-    },
-    "cumcm-toolkit": {
-      "version": "1.0.0",
-      "description": "数学建模三阶段协作工作流(建模手/编程手/论文手)，60+算法资源库，LaTeX/Word双输出，论文≥15000字",
-      "package": "cumcm-external",
-      "external": true,
-      "shared_dependencies": []
-    },
     "debugger": {
       "version": "1.0.0",
       "description": "Debug code with structured error analysis, targeted fixes, and retry logic",
@@ -562,23 +334,10 @@
       "package": "dsa",
       "shared_dependencies": []
     },
-    "event-storage": {
-      "version": "1.0.0",
-      "description": "Design event logging, storage, and retrieval systems with structured event schemas for agent state tracking",
-      "package": "memory",
-      "shared_dependencies": []
-    },
     "executing-plans": {
       "version": "5.1.0",
       "description": "按步骤执行已批准的计划，跟踪进度，确保不跳过任何步骤",
       "package": "superpowers",
-      "external": true,
-      "shared_dependencies": []
-    },
-    "find-skills": {
-      "version": "1.0.0",
-      "description": "Helps users discover and install agent skills from the open agent skills ecosystem",
-      "package": "find-skill",
       "external": true,
       "shared_dependencies": []
     },
@@ -608,18 +367,6 @@
       "package": "dev",
       "shared_dependencies": []
     },
-    "karpathy-guidelines": {
-      "version": "1.0.0",
-      "description": "Behavioral guidelines to reduce common LLM coding mistakes — think before coding, simplicity first, surgical changes, goal-driven execution. Based on Andrej Karpathy's observations.",
-      "package": "karpathy",
-      "shared_dependencies": []
-    },
-    "llm-orchestration": {
-      "version": "1.0.0",
-      "description": "Design structured LLM orchestration with tool calling, JSON schema enforcement, streaming, DeepSeek V4 and Claude optimization",
-      "package": "agent-core",
-      "shared_dependencies": []
-    },
     "markdown-analyzer": {
       "version": "1.0.0",
       "description": "Parse markdown structure, analyze via RepoAnalyzer, and record actionable items into TaskSystem",
@@ -630,51 +377,6 @@
       "version": "1.0.0",
       "description": "Guide for creating MCP (Model Context Protocol) servers",
       "package": "dev",
-      "shared_dependencies": []
-    },
-    "memory-architecture": {
-      "version": "1.0.0",
-      "description": "Design long-term memory systems with importance scoring, retrieval, summarization, and decay for AI agents",
-      "package": "memory",
-      "shared_dependencies": []
-    },
-    "minecraft-actions": {
-      "version": "1.0.0",
-      "description": "Implement Minecraft bot actions — block interaction, inventory, combat, crafting, building, with safety guards",
-      "package": "minecraft",
-      "shared_dependencies": []
-    },
-    "minecraft-bot": {
-      "version": "1.0.0",
-      "description": "Design, build, and debug Mineflayer-based Minecraft bots with robust lifecycle, connection, and event architecture",
-      "package": "minecraft",
-      "shared_dependencies": []
-    },
-    "minecraft-pathfinding": {
-      "version": "1.0.0",
-      "description": "Implement Minecraft pathfinding, navigation, and movement systems using mineflayer-pathfinder with A* and Moves",
-      "package": "minecraft",
-      "shared_dependencies": []
-    },
-    "next-best-practices": {
-      "version": "1.5.5",
-      "description": "Next.js recommended patterns and best practices",
-      "package": "vercel-agent-skills",
-      "external": true,
-      "shared_dependencies": []
-    },
-    "next-cache-components": {
-      "version": "1.5.5",
-      "description": "Caching strategies for Next.js applications",
-      "package": "vercel-agent-skills",
-      "external": true,
-      "shared_dependencies": []
-    },
-    "next-upgrade": {
-      "version": "1.5.5",
-      "description": "Upgrade Next.js projects to latest version",
-      "package": "vercel-agent-skills",
-      "external": true,
       "shared_dependencies": []
     },
     "pdf": {
@@ -690,12 +392,6 @@
       "shared_dependencies": [
         "shared/office-scripts"
       ]
-    },
-    "prompt-engineering": {
-      "version": "1.0.0",
-      "description": "Design modular, maintainable AI prompts separated from runtime logic with version-controlled prompt templates",
-      "package": "agent-core",
-      "shared_dependencies": []
     },
     "react-best-practices": {
       "version": "1.5.5",
@@ -759,12 +455,6 @@
       "package": "dev",
       "shared_dependencies": []
     },
-    "stt-integration": {
-      "version": "1.0.0",
-      "description": "Integrate Speech-to-Text (Whisper.cpp) for real-time voice input with streaming speech recognition",
-      "package": "voice",
-      "shared_dependencies": []
-    },
     "subagent-driven-development": {
       "version": "5.1.0",
       "description": "子Agent驱动的开发流程：spec-reviewer→implementer→code-quality-reviewer循环",
@@ -798,12 +488,6 @@
       "package": "dev",
       "shared_dependencies": []
     },
-    "tts-integration": {
-      "version": "1.0.0",
-      "description": "Integrate Text-to-Speech (Edge-TTS) for real-time voice output with streaming synthesis and voice personality",
-      "package": "voice",
-      "shared_dependencies": []
-    },
     "using-git-worktrees": {
       "version": "5.1.0",
       "description": "使用Git Worktree实现多任务并行开发：创建隔离工作区、分支管理、冲突避免",
@@ -818,12 +502,6 @@
       "external": true,
       "shared_dependencies": []
     },
-    "vector-store": {
-      "version": "1.0.0",
-      "description": "Integrate vector databases (Chroma, Qdrant) for semantic memory retrieval with hybrid search and embeddings",
-      "package": "memory",
-      "shared_dependencies": []
-    },
     "vercel-cli-with-tokens": {
       "version": "1.5.5",
       "description": "Manage Vercel CLI authentication tokens and team/project context",
@@ -835,12 +513,6 @@
       "description": "完成任务前的强制验证清单：确保代码质量、测试通过、文档齐备后再标记完成",
       "package": "superpowers",
       "external": true,
-      "shared_dependencies": []
-    },
-    "voice-pipeline": {
-      "version": "1.0.0",
-      "description": "Design and implement low-latency streaming voice pipelines for AI agents with sub-2-second response target",
-      "package": "voice",
       "shared_dependencies": []
     },
     "web-artifacts-builder": {

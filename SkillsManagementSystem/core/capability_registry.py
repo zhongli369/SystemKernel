@@ -334,7 +334,7 @@ def build_capability_registry(registry_data: Optional[dict] = None) -> list[Capa
                 break
 
         if not pkg_name:
-            pkg_name = "vercel-agent-skills"
+            pkg_name = "base"
 
         entry = _merge_capability_data(
             skill_name=skill_name,
