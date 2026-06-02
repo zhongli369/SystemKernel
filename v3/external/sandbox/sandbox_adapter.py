@@ -276,7 +276,17 @@ class WorktreeSandboxAdapter(SandboxProvider):
         command: str,
         timeout: int = 300,
         cwd: Optional[str] = None,
+        policy: Optional[SandboxPolicy] = None,
     ) -> SandboxResult:
+        # Pre-flight policy check
+        if policy is not None:
+            ok, reason = policy.validate_command(command)
+            if not ok:
+                return SandboxResult.failed(
+                    handle_id=handle.handle_id,
+                    reason=f"Policy '{policy.policy_id}' rejected: {reason}",
+                )
+
         start = time.time()
 
         try:

@@ -81,10 +81,44 @@ class SandboxPolicy:
         }
 
     def validate_command(self, command: str) -> Tuple[bool, str]:
-        """Quick pre-flight: does this policy allow the command? Always True
-        at this level — enforcement happens in the adapter layer."""
-        if not command.strip():
+        """Pre-flight check: does this policy allow the command?
+
+        Checks:
+          - Empty command → reject
+          - Network keywords (curl, wget, http://, https://) → check allow_network
+          - File write keywords (>, >>, tee, dd) → check allow_file_write
+          - Path whitelist: if allow_file_write and allowed_paths non-empty,
+            command must reference an allowed path
+        """
+        cmd = command.strip()
+        if not cmd:
             return False, "Empty command"
+
+        # Network detection
+        _NETWORK_KEYWORDS = ("curl ", "wget ", "http://", "https://", "fetch ", "nc ")
+        for kw in _NETWORK_KEYWORDS:
+            if kw in cmd:
+                if not self.allow_network:
+                    return False, f"Network access denied by policy '{self.policy_id}': command contains '{kw}'"
+                break
+
+        # File write detection
+        _WRITE_KEYWORDS = (" > ", ">> ", "tee ", "dd ")
+        has_write = any(kw in cmd for kw in _WRITE_KEYWORDS)
+        if has_write:
+            if not self.allow_file_write:
+                return False, f"File write denied by policy '{self.policy_id}'"
+            # Check path whitelist
+            if self.allowed_paths:
+                path_ok = any(
+                    p in cmd for p in self.allowed_paths
+                )
+                if not path_ok:
+                    return False, (
+                        f"Write path not in allowed_paths for policy "
+                        f"'{self.policy_id}': {self.allowed_paths}"
+                    )
+
         return True, "OK"
 
     def allows_path(self, path: str) -> bool:
