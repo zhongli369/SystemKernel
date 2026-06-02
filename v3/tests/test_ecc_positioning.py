@@ -305,8 +305,8 @@ class TestRegression(unittest.TestCase):
             self.skipTest(f"orchestration_profiles not available: {e}")
 
     def test_36_positioning_doc_exists(self):
-        """Docs/ECC_POSITIONING.md exists."""
-        doc_path = ECC_ROOT / "Docs" / "ECC_POSITIONING.md"
+        """docs/ECC_POSITIONING.md exists."""
+        doc_path = ECC_ROOT / "docs" / "ECC_POSITIONING.md"
         self.assertTrue(doc_path.exists(), "ECC positioning doc should exist")
         content = doc_path.read_text(encoding="utf-8")
         self.assertIn("Positioning Analysis", content)

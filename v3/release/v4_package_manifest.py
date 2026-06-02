@@ -50,7 +50,7 @@ def _compute_hash(obj) -> str:
 
 _INCLUDED_PATHS = (
     "v3/",                    # All v3 source
-    "Docs/",                  # Documentation
+    "docs/",                  # Documentation
     "scripts/",               # Verification scripts
     "CLAUDE.md",              # Project instructions
     "README.md",              # Readme

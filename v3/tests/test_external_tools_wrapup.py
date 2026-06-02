@@ -35,7 +35,7 @@ EXPORTS_DIR = os.path.join(V3_ROOT, "exports")
 EXTERNAL_DIR = os.path.join(V3_ROOT, "external")
 TESTS_DIR = os.path.join(V3_ROOT, "tests")
 KERNEL_DIR = os.path.join(V3_ROOT, "kernel")
-DOCS_DIR = os.path.join(ROOT, "Docs")
+DOCS_DIR = os.path.join(ROOT, "docs")
 
 if ROOT not in sys.path:
     sys.path.insert(0, ROOT)

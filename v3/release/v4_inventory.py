@@ -182,8 +182,8 @@ def build_v4_release_inventory() -> V4ReleaseInventory:
             object.__setattr__(entry, "hash", _compute_hash(entry)[:12])
             entries.append(entry)
 
-    # Also include Docs/
-    docs_dir = os.path.join(os.path.dirname(V3), "Docs")
+    # Also include docs/
+    docs_dir = os.path.join(os.path.dirname(V3), "docs")
     if os.path.isdir(docs_dir):
         for dirpath, dirnames, filenames in os.walk(docs_dir):
             dirnames[:] = [d for d in dirnames if d != "__pycache__"]

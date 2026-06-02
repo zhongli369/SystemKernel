@@ -368,14 +368,14 @@ def find_simplification_opportunities(
         ))
 
     # ── docs_overlap ──
-    docs_dir = ROOT / "Docs"
+    docs_dir = ROOT / "docs"
     exports_docs = list((ROOT / "v3" / "exports").glob("*.md"))
     if docs_dir.exists() and exports_docs:
         oid += 1
         opportunities.append(SimplificationOpportunity(
             opportunity_id=f"SIMPLIFY-{oid:03d}",
             category="docs_overlap",
-            target_path="Docs/ + v3/exports/*.md",
+            target_path="docs/ + v3/exports/*.md",
             description=f"Documentation exists in both Docs/ ({len(list(docs_dir.glob('*.md')))}) and v3/exports/ ({len(exports_docs)} .md files). Consider consolidating.",
             expected_complexity_reduction=2.0,
             behavior_risk="low",
