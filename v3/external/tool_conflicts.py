@@ -159,3 +159,66 @@ def detect_conflicts(
         safe_pairs=safe,
         conflict_hash=report_hash,
     )
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Dynamic conflict rule registration (G4)
+# ═══════════════════════════════════════════════════════════════════════
+
+def register_conflict(tool_a: str, tool_b: str, reason: str) -> None:
+    """Register a new conflict rule at runtime.
+
+    Adds to the global _CONFLICT_INDEX. Symmetric — (a, b) and (b, a)
+    both resolve to the same entry.
+    """
+    key = tuple(sorted([tool_a, tool_b]))
+    _CONFLICT_INDEX[key] = reason  # type: ignore[index]
+
+
+def unregister_conflict(tool_a: str, tool_b: str) -> None:
+    """Remove a previously registered conflict rule."""
+    key = tuple(sorted([tool_a, tool_b]))
+    _CONFLICT_INDEX.pop(key, None)  # type: ignore[arg-type]
+
+
+def list_conflict_rules() -> Tuple[Tuple[str, str, str], ...]:
+    """Return all currently registered conflict rules.
+
+    Includes both built-in KNOWN_CONFLICTS and any dynamically registered rules.
+    """
+    seen: set[tuple] = set()
+    rules: list[Tuple[str, str, str]] = []
+
+    # Built-in rules first
+    for a, b, r in KNOWN_CONFLICTS:
+        seen.add(tuple(sorted([a, b])))
+        rules.append((a, b, r))
+
+    # Dynamic rules (not in built-in)
+    for (a, b), reason in _CONFLICT_INDEX.items():
+        if (a, b) not in seen:
+            rules.append((a, b, reason))
+
+    return tuple(rules)
+
+
+def load_conflict_rules_from_json(path: str) -> int:
+    """Load additional conflict rules from a JSON file.
+
+    Expected format:
+        [{"tool_a": "...", "tool_b": "...", "reason": "..."}, ...]
+
+    Returns number of rules loaded.
+    """
+    import json as _json
+    with open(path, "r", encoding="utf-8") as f:
+        data = _json.load(f)
+    count = 0
+    for item in data:
+        tool_a = item.get("tool_a", "")
+        tool_b = item.get("tool_b", "")
+        reason = item.get("reason", "")
+        if tool_a and tool_b and reason:
+            register_conflict(tool_a, tool_b, reason)
+            count += 1
+    return count
