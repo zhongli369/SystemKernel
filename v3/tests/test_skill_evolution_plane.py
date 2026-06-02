@@ -632,7 +632,7 @@ class TestV4BaselineGuard(unittest.TestCase):
 
     def test_54_v4_baseline_guard_still_passes(self):
         try:
-            from v3.quality.v4_baseline_guard import check_v4_baseline
+            from v3.release.v4_baseline_guard import check_v4_baseline
             result = check_v4_baseline()
             self.assertTrue(result.get("success", True),
                           f"V4 baseline guard failed: {result}")

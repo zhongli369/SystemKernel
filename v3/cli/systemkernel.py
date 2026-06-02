@@ -73,6 +73,16 @@ from v3.cli.eval_ops_commands import (
     cmd_v4_ops_check,
     cmd_v4_runbook,
     cmd_v4_summary,
+    cmd_v4_freeze_verify,
+    cmd_v4_metrics,
+    cmd_v4_cost,
+    cmd_v4_dashboard,
+    cmd_v4_alerts,
+    cmd_capability_select,
+    cmd_capability_dedup,
+    cmd_capability_conflicts,
+    cmd_security_scan,
+    cmd_eval_benchmark,
 )
 
 
@@ -80,7 +90,7 @@ def build_parser() -> argparse.ArgumentParser:
     """Build the argument parser with subcommands."""
     parser = argparse.ArgumentParser(
         prog="systemkernel",
-        description="SystemKernel v3.0 Developer CLI",
+        description="SystemKernel v4.1 Developer CLI",
     )
     sub = parser.add_subparsers(dest="command", help="Available commands")
 
@@ -284,6 +294,12 @@ def build_parser() -> argparse.ArgumentParser:
     eval_ben_parser = eval_sub.add_parser("benefit", help="Generate benefit-vs-complexity report")
     eval_ben_parser.add_argument("--output", default="", help="Output JSON path")
 
+    eval_bench_parser = eval_sub.add_parser("benchmark", help="Run SystemKernel benchmark suite")
+    eval_bench_parser.add_argument("--config", default="", choices=["", "minimal", "full"],
+                                   help="Harness config filter (default: all)")
+    eval_bench_parser.add_argument("--output", default="",
+                                   help="Output JSON path (e.g., --output benchmark_report.json)")
+
     # v4
     v4_parser = sub.add_parser("v4", help="V4 productization and ops commands")
     v4_sub = v4_parser.add_subparsers(dest="v4_action", help="V4 actions")
@@ -300,6 +316,21 @@ def build_parser() -> argparse.ArgumentParser:
 
     v4_sub.add_parser("summary", help="Combined registry/evidence/orchestration/eval summary")
 
+    v4_sub.add_parser("metrics", help="Export metrics in Prometheus text format")
+    v4_metrics_json = v4_sub.add_parser("metrics-json", help="Export metrics in JSON format")
+    v4_sub.add_parser("cost", help="Print cost summary")
+    v4_dashboard_parser = v4_sub.add_parser("dashboard", help="Output Grafana dashboard JSON")
+    v4_dashboard_parser.add_argument("--export", default="",
+                                     help="Export to file (e.g., --export systemkernel-dashboard.json)")
+    v4_sub.add_parser("alerts", help="Evaluate alert rules against current metrics")
+
+    # freeze
+    v4_freeze_parser = v4_sub.add_parser("freeze", help="Stability freeze operations")
+    v4_freeze_sub = v4_freeze_parser.add_subparsers(dest="freeze_action", help="Freeze actions")
+
+    v4_freeze_verify_parser = v4_freeze_sub.add_parser("verify", help="Verify stability freeze invariants")
+    v4_freeze_verify_parser.add_argument("--output", default="", help="Output JSON path for report")
+
     # capability
     cap_parser = sub.add_parser("capability", help="Capability registry operations")
     cap_sub = cap_parser.add_subparsers(dest="cap_action", help="Capability actions")
@@ -310,6 +341,33 @@ def build_parser() -> argparse.ArgumentParser:
 
     cap_show_parser = cap_sub.add_parser("show", help="Show one capability registry entry")
     cap_show_parser.add_argument("adapter_id", help="Adapter ID to show")
+
+    cap_select_parser = cap_sub.add_parser("select", help="Select top-N capabilities for a task")
+    cap_select_parser.add_argument("--task-type", default="code_generation", choices=[
+        "code_generation", "context_gathering", "security_scan", "memory_query",
+        "cost_analysis", "execution_orchestration",
+        "code", "review", "research", "build", "security",
+    ], help="Task type (default: code_generation)")
+    cap_select_parser.add_argument("--risk", default="low",
+                                   choices=["low", "medium", "high"],
+                                   help="Risk level (default: low)")
+    cap_select_parser.add_argument("--top-n", type=int, default=5,
+                                   help="Number of results (default: 5)")
+
+    cap_sub.add_parser("dedup", help="Find duplicate capabilities")
+    cap_sub.add_parser("conflicts", help="Detect capability conflicts")
+
+    # security
+    sec_parser = sub.add_parser("security", help="Security scanning operations")
+    sec_sub = sec_parser.add_subparsers(dest="sec_action", help="Security actions")
+
+    sec_scan_parser = sec_sub.add_parser("scan", help="Run trivy security scan")
+    sec_scan_parser.add_argument("target", help="Target path to scan")
+    sec_scan_parser.add_argument("--severity", default="HIGH",
+                                 choices=["CRITICAL", "HIGH", "MEDIUM", "LOW"],
+                                 help="Minimum severity (default: HIGH)")
+    sec_scan_parser.add_argument("--json", action="store_true",
+                                 help="Output as JSON")
 
     return parser
 
@@ -496,8 +554,28 @@ def main(argv: Optional[list] = None) -> int:
             return cmd_capability_summary()
         elif args.cap_action == "show":
             return cmd_capability_show(args.adapter_id)
+        elif args.cap_action == "select":
+            return cmd_capability_select(
+                task_type=getattr(args, "task_type", "code_generation"),
+                risk=getattr(args, "risk", "low"),
+                top_n=getattr(args, "top_n", 5),
+            )
+        elif args.cap_action == "dedup":
+            return cmd_capability_dedup()
+        elif args.cap_action == "conflicts":
+            return cmd_capability_conflicts()
         else:
             print(f"Unknown capability action: {args.cap_action}")
+            return 1
+    elif args.command == "security":
+        if args.sec_action == "scan":
+            return cmd_security_scan(
+                target_path=args.target,
+                severity=getattr(args, "severity", "HIGH"),
+                output_json=getattr(args, "json", False),
+            )
+        else:
+            print(f"Unknown security action: {getattr(args, 'sec_action', 'none')}")
             return 1
     elif args.command == "eval":
         if args.eval_action == "suite":
@@ -510,6 +588,11 @@ def main(argv: Optional[list] = None) -> int:
             )
         elif args.eval_action == "benefit":
             return cmd_eval_benefit(
+                output=getattr(args, "output", ""),
+            )
+        elif args.eval_action == "benchmark":
+            return cmd_eval_benchmark(
+                config=getattr(args, "config", ""),
                 output=getattr(args, "output", ""),
             )
         else:
@@ -529,6 +612,26 @@ def main(argv: Optional[list] = None) -> int:
             )
         elif args.v4_action == "summary":
             return cmd_v4_summary()
+        elif args.v4_action == "metrics":
+            return cmd_v4_metrics(output_json=False)
+        elif args.v4_action == "metrics-json":
+            return cmd_v4_metrics(output_json=True)
+        elif args.v4_action == "cost":
+            return cmd_v4_cost()
+        elif args.v4_action == "dashboard":
+            return cmd_v4_dashboard(
+                output=getattr(args, "export", ""),
+            )
+        elif args.v4_action == "alerts":
+            return cmd_v4_alerts()
+        elif args.v4_action == "freeze":
+            if args.freeze_action == "verify":
+                return cmd_v4_freeze_verify(
+                    output=getattr(args, "output", ""),
+                )
+            else:
+                print(f"Unknown freeze action: {args.freeze_action}")
+                return 1
         else:
             print(f"Unknown v4 action: {args.v4_action}")
             return 1

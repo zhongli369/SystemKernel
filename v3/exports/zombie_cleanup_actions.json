@@ -1,0 +1,94 @@
+{
+  "operation": "zombie_cleanup_phase2",
+  "timestamp": "2026-06-02T07:55:00Z",
+  "audit_hash": "482ca871190850f1",
+  "actions": [
+    {
+      "action": "remove",
+      "path": "docs/",
+      "reason": "24 byte-identical duplicates of Docs/. v4_inventory.py references Docs/. No code references docs/.",
+      "status": "completed",
+      "files_removed": 24
+    },
+    {
+      "action": "remove",
+      "path": "v3/exports/generate_4d6_reports.py",
+      "reason": "One-shot Phase 4D-6 report generator. Not referenced. Wrong location (exports/ instead of tools/).",
+      "status": "completed"
+    },
+    {
+      "action": "remove",
+      "path": "v3/exports/generate_compaction_reports.py",
+      "reason": "One-shot compaction report generator. Not referenced. Wrong location.",
+      "status": "completed"
+    },
+    {
+      "action": "remove",
+      "path": "v3/release/__pycache__/",
+      "reason": "14 .pyc build artifacts committed to source control.",
+      "status": "completed",
+      "files_removed": 14
+    },
+    {
+      "action": "remove",
+      "path": "v3/checkpoints/*.crash",
+      "reason": "10 crash artifact files from testing/debugging. Not needed for release.",
+      "status": "completed",
+      "files_removed": 10
+    },
+    {
+      "action": "update",
+      "path": "v3/cli/systemkernel.py",
+      "reason": "Docstring said 'v3.0' but current version is v4.1.",
+      "status": "completed",
+      "change": "description=\"SystemKernel v3.0 Developer CLI\" → \"SystemKernel v4.1 Developer CLI\""
+    },
+    {
+      "action": "update",
+      "path": "v3/tests/test_orchestration_policy.py",
+      "reason": "Import path v3.quality.v4_baseline_guard was wrong (module at v3.release.v4_baseline_guard). Test always skipped.",
+      "status": "completed",
+      "change": "v3.quality.v4_baseline_guard → v3.release.v4_baseline_guard"
+    },
+    {
+      "action": "update",
+      "path": "v3/tests/test_skill_evolution_plane.py",
+      "reason": "Import path v3.quality.v4_baseline_guard was wrong (module at v3.release.v4_baseline_guard). Test always skipped.",
+      "status": "completed",
+      "change": "v3.quality.v4_baseline_guard → v3.release.v4_baseline_guard"
+    }
+  ],
+  "not_touched": [
+    "v3/main.py",
+    "v3/release/archive_manifest.py",
+    "v3/release/v4_inventory.py",
+    "v3/exports/phase_* (22 files)",
+    "v3/exports/usage_sample.jsonl",
+    "v3/exports/*.json + *.md report pairs",
+    "tools/bootstrap_claude_projects.ps1",
+    "tools/generate_phase_6b_reports.py",
+    "v3/kernel/",
+    "v3/memory/",
+    "release/tag metadata",
+    "package manifests",
+    "validation matrices"
+  ],
+  "verification": {
+    "test_kernel_invariants": "6/6 passed",
+    "test_complexity_budget": "41/41 passed",
+    "test_v4_release_freeze": "64/64 passed",
+    "test_developer_cli": "26/26 passed",
+    "test_orchestration_policy": "70/71 passed (1 pre-existing failure: profile count mismatch)",
+    "test_skill_evolution_plane": "77/77 passed"
+  },
+  "safety": {
+    "kernel_modified": false,
+    "memory_runtime_modified": false,
+    "public_api_removed": false,
+    "release_artifacts_removed": false,
+    "phase_reports_removed": false,
+    "tags_moved": false,
+    "network_used": false,
+    "dependencies_installed": false
+  }
+}

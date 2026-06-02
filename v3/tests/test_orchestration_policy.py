@@ -291,7 +291,7 @@ class TestProfiles(unittest.TestCase):
 
     def test_33_all_six_profiles_exist(self):
         profiles = get_all_profiles()
-        self.assertEqual(len(profiles), 6)
+        self.assertEqual(len(profiles), 7)  # +direction_quality_intelligence_review in v4.1
         ids = [p.policy_id for p in profiles]
         self.assertIn("agent_worker_review", ids)
         self.assertIn("ecc_harness_review", ids)
@@ -543,7 +543,7 @@ class TestV4Baseline(unittest.TestCase):
 
     def test_60_v4_baseline_guard_still_passes(self):
         try:
-            from v3.quality.v4_baseline_guard import check_v4_baseline
+            from v3.release.v4_baseline_guard import check_v4_baseline
             result = check_v4_baseline()
             self.assertTrue(result.get("success", True))
         except (ImportError, FileNotFoundError):
