@@ -427,6 +427,10 @@ def run_stress(
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(report.to_dict(), f, indent=2, ensure_ascii=False)
 
+    # Dump metrics to disk for CLI consumption
+    metrics_dump_path = os.path.join(_ROOT, "v3", "metrics", "metrics_snapshot.json")
+    exporter.dump_to_disk(metrics_dump_path)
+
     # Cleanup temp directory
     import shutil
     try:

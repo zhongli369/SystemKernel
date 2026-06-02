@@ -151,6 +151,68 @@ class MetricsExporter:
     def set_stability(self, score: float) -> None:
         self._stability_freeze_score = score
 
+    # ── Persistence ─────────────────────────────────────────────────
+
+    def dump_to_disk(self, path: str) -> str:
+        """Serialize current metrics to a JSON file.
+
+        Returns the absolute path written.
+        """
+        data = {
+            "executions_total": self._executions_total,
+            "routes_total": dict(self._routes_total),
+            "errors_total": dict(self._errors_total),
+            "cost_tokens_total": dict(self._cost_tokens_total),
+            "cost_usd_total": self._cost_usd_total,
+            "execution_latency_buckets": self._execution_latency_buckets,
+            "sandbox_lifetime_buckets": self._sandbox_lifetime_buckets,
+            "evidence_records_total": dict(self._evidence_records_total),
+            "complexity_score": self._complexity_score,
+            "stability_freeze_score": self._stability_freeze_score,
+            "dumped_at": datetime.now(timezone.utc).isoformat(),
+        }
+        os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        return os.path.abspath(path)
+
+    def load_from_disk(self, path: str) -> bool:
+        """Restore metrics from a JSON file previously written by dump_to_disk.
+
+        Returns True if load succeeded, False if file missing or corrupt.
+        """
+        if not os.path.isfile(path):
+            return False
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+        except (json.JSONDecodeError, OSError):
+            return False
+        self._executions_total = data.get("executions_total", 0.0)
+        self._routes_total = data.get("routes_total", {})
+        self._errors_total = data.get("errors_total", {})
+        self._cost_tokens_total = data.get("cost_tokens_total", {})
+        self._cost_usd_total = data.get("cost_usd_total", 0.0)
+        self._execution_latency_buckets = data.get("execution_latency_buckets", [])
+        self._sandbox_lifetime_buckets = data.get("sandbox_lifetime_buckets", [])
+        self._evidence_records_total = data.get("evidence_records_total", {})
+        self._complexity_score = data.get("complexity_score", 1.0)
+        self._stability_freeze_score = data.get("stability_freeze_score", 100.0)
+        return True
+
+    def reset(self) -> None:
+        """Reset all metrics to zero. For testing only."""
+        self._executions_total = 0.0
+        self._routes_total.clear()
+        self._errors_total.clear()
+        self._cost_tokens_total.clear()
+        self._cost_usd_total = 0.0
+        self._execution_latency_buckets.clear()
+        self._sandbox_lifetime_buckets.clear()
+        self._evidence_records_total.clear()
+        self._complexity_score = 1.0
+        self._stability_freeze_score = 100.0
+
     # ── Bucket helpers ─────────────────────────────────────────────────
 
     @staticmethod

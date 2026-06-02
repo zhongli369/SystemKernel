@@ -1,0 +1,35 @@
+{
+  "runs": 100,
+  "pipeline": [
+    "lint",
+    "process",
+    "validate",
+    "transform",
+    "finalize"
+  ],
+  "latency": {
+    "p50_ms": 32.0,
+    "p90_ms": 47.0,
+    "p95_ms": 47.0,
+    "p99_ms": 47.15,
+    "max_ms": 62.0,
+    "mean_ms": 37.84,
+    "stddev_ms": 8.05
+  },
+  "reliability": {
+    "passes": 100,
+    "failures": 0,
+    "success_rate": 1.0
+  },
+  "cost": {
+    "total_usd": 0.042,
+    "avg_per_run_usd": 0.00042
+  },
+  "observability": {
+    "trace_spans": 600,
+    "metric_types_nonzero": 9,
+    "cost_records": 100
+  },
+  "timestamp": "2026-06-02T09:28:53.761756+00:00",
+  "verdict": "SystemKernel is STABLE under 100-run stress. p99 latency = 47.2ms. Zero failures. Cost linear with runs."
+}

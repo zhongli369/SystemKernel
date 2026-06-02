@@ -488,16 +488,30 @@ def cmd_v4_freeze_verify(output: str = "") -> int:
 # ═══════════════════════════════════════════════════════════════════════
 
 def cmd_v4_metrics(output_json: bool = False) -> int:
-    """Export metrics in Prometheus text format (or JSON)."""
+    """Export metrics in Prometheus text format (or JSON).
+
+    Loads from the last stress run snapshot if available.
+    """
     if ROOT not in sys.path:
         sys.path.insert(0, ROOT)
-    from v3.external.observability.metrics_exporter import export_metrics, export_metrics_json
+    from v3.external.observability.metrics_exporter import get_exporter
+
+    exporter = get_exporter()
+    # Load from last stress run if available
+    snapshot_path = os.path.join(ROOT, "v3", "metrics", "metrics_snapshot.json")
+    loaded = exporter.load_from_disk(snapshot_path)
 
     if output_json:
         import json
-        print(json.dumps(export_metrics_json(), indent=2, ensure_ascii=False))
+        data = exporter.export_json()
+        if loaded:
+            data["source"] = snapshot_path
+        print(json.dumps(data, indent=2, ensure_ascii=False))
     else:
-        print(export_metrics())
+        output = exporter.export_metrics()
+        if loaded:
+            output = f"# Loaded from: {snapshot_path}\n{output}"
+        print(output)
     return 0
 
 
