@@ -78,12 +78,25 @@ class FileTierStore(TierStore):
     L3: ./v3/context_tiers/semantic/entities.jsonl (append-only)
     """
 
-    def __init__(self, storage_root: Optional[Path] = None):
+    def __init__(self, storage_root: Optional[Path] = None,
+                 auto_compact: bool = False, compact_threshold: int = 5):
         root = storage_root or _default_storage_root()
         self._root = Path(root)
         self._episodic_dir = self._root / "episodic"
         self._semantic_dir = self._root / "semantic"
         self._l1_store: dict[str, TierEntry] = {}
+        self.auto_compact = auto_compact
+        self.compact_threshold = compact_threshold
+        # Simple metrics counters (stdlib, no external deps)
+        self.metrics: dict[str, int] = {
+            "writes_working": 0,
+            "writes_episodic": 0,
+            "writes_semantic": 0,
+            "compaction_runs": 0,
+            "compaction_promoted": 0,
+            "expire_runs": 0,
+            "expire_removed": 0,
+        }
 
     # ── Path helpers ─────────────────────────────────────────────────
 
@@ -148,13 +161,35 @@ class FileTierStore(TierStore):
         L1 (WORKING): stored in-memory only, never written to disk.
         L2 (EPISODIC): appended to execution-scoped JSONL file.
         L3 (SEMANTIC): appended to entities JSONL file.
+
+        When auto_compact is enabled and an EPISODIC entry is saved,
+        checks if the entity_key has accumulated enough entries in the
+        current window to trigger compaction.
         """
         if entry.tier == MemoryTier.WORKING:
             self._l1_store[entry.entry_id] = entry
+            self.metrics["writes_working"] += 1
         elif entry.tier == MemoryTier.EPISODIC:
             self._append_jsonl(self._l2_path(entry.execution_id), entry.to_dict())
+            self.metrics["writes_episodic"] += 1
+            # Auto-compact: check if entity_key has enough entries
+            if self.auto_compact and entry.entity_key:
+                self._maybe_auto_compact(entry.entity_key)
         elif entry.tier == MemoryTier.SEMANTIC:
             self._append_jsonl(self._l3_path(), entry.to_dict())
+            self.metrics["writes_semantic"] += 1
+
+    def _maybe_auto_compact(self, entity_key: str) -> None:
+        """Check if entity_key meets threshold and trigger inline compaction."""
+        if self.compact_threshold < 2:
+            return
+        # Count L2 entries for this entity_key in current window
+        all_l2 = self.load_by_tier(MemoryTier.EPISODIC)
+        count = sum(1 for e in all_l2 if e.entity_key == entity_key)
+        if count >= self.compact_threshold:
+            promoted = self.compact(window_days=7, threshold=self.compact_threshold)
+            if promoted > 0:
+                self.metrics["compaction_promoted"] += promoted
 
     # ── Load ─────────────────────────────────────────────────────────
 
@@ -253,6 +288,8 @@ class FileTierStore(TierStore):
         except OSError:
             pass
 
+        self.metrics["expire_runs"] += 1
+        self.metrics["expire_removed"] += removed
         return removed
 
     # ── Compact ──────────────────────────────────────────────────────
@@ -292,6 +329,8 @@ class FileTierStore(TierStore):
         for entry in promoted:
             self.save(entry)
 
+        self.metrics["compaction_runs"] += 1
+        self.metrics["compaction_promoted"] += len(promoted)
         return len(promoted)
 
     def _remove_compacted_sources(self, promoted_keys: set[str]) -> None:

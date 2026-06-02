@@ -14,6 +14,7 @@ Stdlib only. No external dependencies.
 
 from __future__ import annotations
 
+import json
 import math
 import time
 from dataclasses import dataclass
@@ -43,6 +44,7 @@ class RetrievalResult:
     tiers_consulted — which tiers were actually searched (e.g. ("L1", "L2"))
     duration_ms     — wall-clock duration of the retrieval (integer ms)
     query           — the original query string
+    total_tokens    — estimated token count of all returned entries
     """
 
     entries: Tuple[TierEntry, ...] = ()
@@ -50,6 +52,7 @@ class RetrievalResult:
     tiers_consulted: Tuple[str, ...] = ()
     duration_ms: int = 0
     query: str = ""
+    total_tokens: int = 0
 
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -155,6 +158,30 @@ def rank_by_relevance(
 
 
 # ═══════════════════════════════════════════════════════════════════════
+# Token Estimation
+# ═══════════════════════════════════════════════════════════════════════
+
+def _estimate_tokens(entry: TierEntry) -> int:
+    """Estimate token count for a TierEntry.
+
+    Simple heuristic: serialize content dict to JSON, divide by 4
+    (rough approximation: 1 token ≈ 4 characters). Add overhead for
+    metadata fields (entry_id, entity_key, entity_type).
+
+    Stdlib only. No tokenizer dependency.
+    """
+    try:
+        content_str = json.dumps(entry.content, ensure_ascii=False)
+    except (TypeError, ValueError):
+        content_str = str(entry.content)
+    # ~4 chars per token for English text
+    content_tokens = max(1, len(content_str) // 4)
+    # Metadata overhead: entry_id, entity_key, entity_type
+    meta_tokens = len(entry.entry_id) // 4 + len(entry.entity_key) // 4 + len(entry.entity_type) // 4
+    return max(1, content_tokens + meta_tokens)
+
+
+# ═══════════════════════════════════════════════════════════════════════
 # Progressive Load
 # ═══════════════════════════════════════════════════════════════════════
 
@@ -164,6 +191,7 @@ def progressive_load(
     *,
     max_results: int = 20,
     min_score: float = 0.1,
+    max_tokens: int = 8192,
 ) -> RetrievalResult:
     """Progressive tier loading — cheapest tier first, short-circuit.
 
@@ -172,12 +200,30 @@ def progressive_load(
       2. Check L2 (EPISODIC). Rank results.
       3. Check L3 (SEMANTIC). Rank results.
       4. Merge L2 + L3, deduplicate by entry_id, filter by min_score,
-         truncate to max_results.
+         truncate to max_results, then apply token budget.
 
+    max_tokens limits total estimated tokens in returned entries.
+    Entries are included in score order until the budget is exceeded.
     All ranking is deterministic. No LLM, no random.
     """
     t0 = time.time()
     tiers_consulted: list[str] = []
+
+    def _token_truncate(entries, scores, max_tok):
+        """Truncate entries to fit within token budget."""
+        if not entries:
+            return entries, scores, 0
+        kept_e = []
+        kept_s = []
+        total = 0
+        for e, s in zip(entries, scores):
+            tok = _estimate_tokens(e)
+            if total + tok > max_tok:
+                break
+            total += tok
+            kept_e.append(e)
+            kept_s.append(s)
+        return tuple(kept_e), tuple(kept_s), total
 
     # Phase 1: L1 — working memory (fastest, short-circuit)
     l1_entries = store.load_by_tier(MemoryTier.WORKING)
@@ -186,13 +232,19 @@ def progressive_load(
         l1_filtered = _filter_by_score(l1_ranked, l1_scores, min_score)
         if l1_filtered[0]:
             tiers_consulted.append("L1")
+            truncated_e, truncated_s, total_tok = _token_truncate(
+                l1_filtered[0], l1_filtered[1], max_tokens,
+            )
+            final_e = _truncate(truncated_e, max_results)
+            final_s = _truncate(truncated_s, max_results)
             duration = int((time.time() - t0) * 1000)
             return RetrievalResult(
-                entries=_truncate(l1_filtered[0], max_results),
-                scores=_truncate(l1_filtered[1], max_results),
+                entries=final_e,
+                scores=final_s,
                 tiers_consulted=tuple(tiers_consulted),
                 duration_ms=duration,
                 query=query,
+                total_tokens=total_tok,
             )
 
     # Phase 2: L2 — episodic memory
@@ -216,9 +268,17 @@ def progressive_load(
         l2_ranked, l2_scores, l3_ranked, l3_scores,
     )
 
-    # Filter by min_score and truncate
+    # Filter by min_score
     filtered_entries, filtered_scores = _filter_by_score(
         merged_entries, merged_scores, min_score,
+    )
+
+    # Apply result count limit first, then token budget
+    capped_entries = _truncate(filtered_entries, max_results)
+    capped_scores = _truncate(filtered_scores, max_results)
+
+    truncated_e, truncated_s, total_tok = _token_truncate(
+        capped_entries, capped_scores, max_tokens,
     )
 
     duration = int((time.time() - t0) * 1000)
@@ -227,11 +287,12 @@ def progressive_load(
         tiers_consulted.append("none")
 
     return RetrievalResult(
-        entries=_truncate(filtered_entries, max_results),
-        scores=_truncate(filtered_scores, max_results),
+        entries=truncated_e,
+        scores=truncated_s,
         tiers_consulted=tuple(tiers_consulted),
         duration_ms=duration,
         query=query,
+        total_tokens=total_tok,
     )
 
 
@@ -244,6 +305,7 @@ def retrieve_context(
     store: Optional[FileTierStore] = None,
     *,
     max_results: int = 20,
+    max_tokens: int = 8192,
 ) -> RetrievalResult:
     """Convenience wrapper for progressive_load.
 
@@ -252,7 +314,9 @@ def retrieve_context(
     """
     if store is None:
         store = create_tier_store()
-    return progressive_load(query=query, store=store, max_results=max_results)
+    return progressive_load(
+        query=query, store=store, max_results=max_results, max_tokens=max_tokens,
+    )
 
 
 # ═══════════════════════════════════════════════════════════════════════
