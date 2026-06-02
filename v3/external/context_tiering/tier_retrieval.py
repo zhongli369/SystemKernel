@@ -89,6 +89,17 @@ def _tokenize(text: str) -> set[str]:
     return {t for t in tokens if len(t) >= 2}
 
 
+def _jaccard(a: set[str], b: set[str]) -> float:
+    """Jaccard similarity between two token sets."""
+    if not a and not b:
+        return 0.0
+    intersection = len(a & b)
+    union = len(a | b)
+    if union == 0:
+        return 0.0
+    return intersection / union
+
+
 def _jaccard_similarity(entry: TierEntry, query_tokens: set[str]) -> float:
     """Jaccard similarity between query tokens and entry content tokens.
 
@@ -294,6 +305,148 @@ def progressive_load(
         query=query,
         total_tokens=total_tok,
     )
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Cross-entity fuzzy association
+# ═══════════════════════════════════════════════════════════════════════
+
+def find_related_entries(
+    entry: TierEntry,
+    store: FileTierStore,
+    threshold: float = 0.4,
+    max_results: int = 5,
+) -> Tuple[TierEntry, ...]:
+    """Find entries from OTHER executions that relate to this entry.
+
+    Uses Jaccard similarity on content text representation.
+    Cross-entity_key matching — does NOT require entity_key to match.
+    Searches L2 (EPISODIC) and L3 (SEMANTIC) only.
+
+    Returns entries sorted by similarity descending.
+    """
+    query_text = _content_to_text(entry.content)
+    query_text += f" {entry.entity_key} {entry.entity_type}"
+    query_tokens = _tokenize(query_text)
+
+    if not query_tokens:
+        return ()
+
+    # Gather candidates from L2 + L3 (exclude same entry_id)
+    candidates: list[TierEntry] = []
+    for tier in (MemoryTier.EPISODIC, MemoryTier.SEMANTIC):
+        for cand in store.load_by_tier(tier):
+            if cand.entry_id != entry.entry_id:
+                candidates.append(cand)
+
+    if not candidates:
+        return ()
+
+    # Score by Jaccard similarity
+    scored = []
+    for cand in candidates:
+        cand_text = _content_to_text(cand.content)
+        cand_text += f" {cand.entity_key} {cand.entity_type}"
+        cand_tokens = _tokenize(cand_text)
+        sim = _jaccard(query_tokens, cand_tokens)
+        if sim >= threshold:
+            scored.append((cand, sim))
+
+    scored.sort(key=lambda p: p[1], reverse=True)
+    return tuple(c for c, _ in scored[:max_results])
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Fuzzy-enhanced compaction
+# ═══════════════════════════════════════════════════════════════════════
+
+def compact_with_fuzzy(
+    store: FileTierStore,
+    window_days: int = 7,
+    threshold: int = 3,
+    fuzzy_threshold: float = 0.4,
+) -> int:
+    """Compact L2→L3 with cross-entity fuzzy matching.
+
+    Extends compact_episodic_to_semantic by:
+    1. Running standard exact entity_key compaction first
+    2. For entity_keys below threshold, checking if related entries exist
+    3. Merging related entries' frequencies to reach threshold
+
+    Returns total entries promoted (exact + fuzzy).
+    """
+    from v3.external.context_tiering.tier_policy import (
+        compact_episodic_to_semantic, TierEntry,
+    )
+
+    # Phase 1: Standard exact compaction
+    standard_promoted = store.compact(window_days=window_days,
+                                      threshold=threshold)
+    total = standard_promoted
+
+    # Phase 2: Fuzzy — find low-frequency entities and check for related
+    all_l2 = list(store.load_by_tier(MemoryTier.EPISODIC))
+    if len(all_l2) < threshold:
+        return total
+
+    # Count by entity_key
+    from collections import Counter
+    key_counts = Counter(e.entity_key for e in all_l2 if e.entity_key)
+    below_threshold = {k for k, c in key_counts.items() if c < threshold}
+
+    if not below_threshold:
+        return total
+
+    # For each below-threshold entity, try to find related entries
+    fuzzy_promoted = 0
+    seen_keys: set[str] = set()
+
+    for key in sorted(below_threshold):
+        if key in seen_keys:
+            continue
+        entries_for_key = [e for e in all_l2 if e.entity_key == key]
+        if not entries_for_key:
+            continue
+        template = entries_for_key[0]
+
+        related = find_related_entries(
+            template, store, threshold=fuzzy_threshold, max_results=10,
+        )
+        # Group related by entity_key and count
+        related_keys = set(e.entity_key for e in related
+                          if e.entity_key in below_threshold
+                          and e.entity_key != key)
+        related_keys.add(key)
+
+        total_count = sum(key_counts[k] for k in related_keys)
+        if total_count >= threshold:
+            # Promote one entry for the group
+            from v3.external.context_tiering.tier_policy import (
+                compute_importance, TIER_SEMANTIC, TTL_SEMANTIC,
+            )
+            now = time.time()
+            recency_hours = (now - template.timestamp) / 3600.0
+            importance = compute_importance(
+                recency_hours=recency_hours,
+                frequency_count=total_count,
+                success=True,
+            )
+            promoted_entry = TierEntry(
+                entry_id=template.entry_id,
+                tier=TIER_SEMANTIC,
+                execution_id=template.execution_id,
+                content=template.content,
+                entity_key=f"fuzzy:{key}",
+                entity_type=template.entity_type,
+                importance=importance,
+                timestamp=template.timestamp,
+                ttl_expires_at=TTL_SEMANTIC,
+            )
+            store.save(promoted_entry)
+            fuzzy_promoted += 1
+            seen_keys.update(related_keys)
+
+    return total + fuzzy_promoted
 
 
 # ═══════════════════════════════════════════════════════════════════════

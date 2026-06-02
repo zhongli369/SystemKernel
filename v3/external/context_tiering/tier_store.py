@@ -79,7 +79,8 @@ class FileTierStore(TierStore):
     """
 
     def __init__(self, storage_root: Optional[Path] = None,
-                 auto_compact: bool = False, compact_threshold: int = 5):
+                 auto_compact: bool = False, compact_threshold: int = 5,
+                 ttl_episodic: int = 604800):
         root = storage_root or _default_storage_root()
         self._root = Path(root)
         self._episodic_dir = self._root / "episodic"
@@ -87,6 +88,7 @@ class FileTierStore(TierStore):
         self._l1_store: dict[str, TierEntry] = {}
         self.auto_compact = auto_compact
         self.compact_threshold = compact_threshold
+        self.ttl_episodic = ttl_episodic
         # Simple metrics counters (stdlib, no external deps)
         self.metrics: dict[str, int] = {
             "writes_working": 0,

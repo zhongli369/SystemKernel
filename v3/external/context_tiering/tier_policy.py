@@ -50,8 +50,26 @@ TIER_SEMANTIC = MemoryTier.SEMANTIC
 # ═══════════════════════════════════════════════════════════════════════
 
 TTL_WORKING = 0            # Session lifetime — never persisted
-TTL_EPISODIC = 604800      # 7 days
+_DEFAULT_TTL_EPISODIC = 604800  # 7 days (default, configurable)
 TTL_SEMANTIC = -1          # Permanent — never expires
+
+# Module-level TTL for episodic tier (configurable)
+TTL_EPISODIC = _DEFAULT_TTL_EPISODIC
+
+
+def set_episodic_ttl(seconds: int) -> None:
+    """Override the default episodic TTL.
+
+    Affects all subsequent tier_policy() calls that don't specify
+    a custom TTL. Does NOT affect already-created entries.
+    """
+    global TTL_EPISODIC
+    TTL_EPISODIC = seconds
+
+
+def get_episodic_ttl() -> int:
+    """Return the current episodic TTL in seconds."""
+    return TTL_EPISODIC
 
 
 def get_tier_ttl_seconds(tier: MemoryTier) -> int:
@@ -82,7 +100,7 @@ def compute_ttl_expiry(tier: MemoryTier, timestamp: Optional[float] = None) -> f
     if tier == MemoryTier.SEMANTIC:
         return -1.0
     ts = timestamp if timestamp is not None else time.time()
-    return ts + TTL_EPISODIC
+    return ts + get_episodic_ttl()
 
 
 # ═══════════════════════════════════════════════════════════════════════

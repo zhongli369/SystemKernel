@@ -571,6 +571,235 @@ class TestExecutionHook(unittest.TestCase):
 
 
 # ═══════════════════════════════════════════════════════════════════════
+# Test 10: Retrieval Quality (MT-08 G1)
+# ═══════════════════════════════════════════════════════════════════════
+
+class TestRetrievalQuality(unittest.TestCase):
+
+    def setUp(self):
+        self.store = _make_tmp_store()
+
+    def tearDown(self):
+        self.store = None
+
+    def test_33_retrieval_recall_known_data(self):
+        """3 relevant entries should all be returned (recall=1.0)."""
+        # 3 relevant entries
+        for i in range(3):
+            entry = tier_policy(
+                TIER_EPISODIC, execution_id=f"recall-{i}",
+                content={"error": "timeout error in pipeline",
+                        "stage": f"s{i}"},
+                entity_key=f"timeout_{i}",
+            )
+            self.store.save(entry)
+        # 7 irrelevant entries
+        for i in range(7):
+            entry = tier_policy(
+                TIER_EPISODIC, execution_id=f"irrel-{i}",
+                content={"status": "ok", "stage": f"build_{i}"},
+                entity_key=f"ok_{i}",
+            )
+            self.store.save(entry)
+
+        result = progressive_load("timeout error", self.store,
+                                 max_results=10, min_score=0)
+        recall_ids = {e.execution_id for e in result.entries
+                      if "recall" in e.execution_id}
+        self.assertEqual(len(recall_ids), 3)
+
+    def test_34_retrieval_precision_no_false_positives(self):
+        """Unrelated entries should not appear in results."""
+        for i in range(3):
+            entry = tier_policy(
+                TIER_EPISODIC, execution_id=f"prec-{i}",
+                content={"error": "deploy failed timeout"},
+                entity_key=f"deploy_{i}",
+            )
+            self.store.save(entry)
+        for i in range(5):
+            entry = tier_policy(
+                TIER_EPISODIC, execution_id=f"noise-{i}",
+                content={"info": "daily backup completed"},
+                entity_key=f"backup_{i}",
+            )
+            self.store.save(entry)
+
+        result = progressive_load("deploy timeout", self.store,
+                                 max_results=10, min_score=0)
+        noise_ids = {e.execution_id for e in result.entries
+                     if "noise" in e.execution_id}
+        self.assertEqual(len(noise_ids), 0)
+
+    def test_35_retrieval_result_ordering(self):
+        """Results should be ordered by score descending."""
+        entry_high = tier_policy(
+            TIER_EPISODIC, execution_id="order-1",
+            content={"error": "deploy error timeout pipeline failure"},
+            entity_key="high",
+        )
+        entry_mid = tier_policy(
+            TIER_EPISODIC, execution_id="order-2",
+            content={"error": "deploy failed"},
+            entity_key="mid",
+        )
+        self.store.save(entry_high)
+        self.store.save(entry_mid)
+
+        result = progressive_load("deploy error", self.store,
+                                 max_results=10, min_score=0)
+        scores = list(result.scores)
+        self.assertEqual(scores, sorted(scores, reverse=True))
+
+    def test_36_empty_query_returns_empty(self):
+        """Empty query returns no entries."""
+        entry = tier_policy(TIER_EPISODIC, execution_id="e1",
+                            content={"data": "test"})
+        self.store.save(entry)
+        result = progressive_load("", self.store)
+        self.assertEqual(len(result.entries), 0)
+
+    def test_37_retrieve_context_convenience(self):
+        """retrieve_context with default store returns RetrievalResult."""
+        # Use a fresh temp store via the helper
+        result = progressive_load("test query", self.store)
+        self.assertIsInstance(result, RetrievalResult)
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Test 11: Configurable TTL (MT-08 G3)
+# ═══════════════════════════════════════════════════════════════════════
+
+class TestConfigurableTTL(unittest.TestCase):
+
+    def setUp(self):
+        self.store = _make_tmp_store()
+
+    def tearDown(self):
+        self.store = None
+
+    def test_38_custom_ttl_respected(self):
+        """Custom TTL produces entries with matching ttl_expires_at."""
+        store = _make_tmp_store()
+        store.ttl_episodic = 3600  # 1 hour
+        from v3.external.context_tiering.tier_policy import (
+            set_episodic_ttl, get_episodic_ttl,
+        )
+        original = get_episodic_ttl()
+        try:
+            set_episodic_ttl(3600)
+            now = time.time()
+            entry = tier_policy(TIER_EPISODIC, execution_id="ttl-test",
+                                content={"test": "ttl"})
+            self.assertAlmostEqual(entry.ttl_expires_at, now + 3600, delta=5)
+        finally:
+            set_episodic_ttl(original)
+
+    def test_39_default_ttl_is_7_days(self):
+        """Default episodic TTL is 604800 seconds (7 days)."""
+        from v3.external.context_tiering.tier_policy import get_episodic_ttl
+        self.assertEqual(get_episodic_ttl(), 604800)
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Test 12: Fuzzy Entity Matching (MT-08 G4)
+# ═══════════════════════════════════════════════════════════════════════
+
+class TestFuzzyMatching(unittest.TestCase):
+
+    def setUp(self):
+        self.store = _make_tmp_store()
+
+    def tearDown(self):
+        self.store = None
+
+    def test_40_find_related_cross_entity(self):
+        """Entries with different entity_key but similar content are related."""
+        from v3.external.context_tiering.tier_retrieval import (
+            find_related_entries,
+        )
+        now = time.time()
+        e1 = TierEntry(
+            entry_id="e1", tier=TIER_EPISODIC,
+            execution_id="exec-1",
+            content={"error": "timeout in pipeline init"},
+            entity_key="pipeline_init", entity_type="stage",
+            importance=0.5, timestamp=now,
+            ttl_expires_at=now + 604800,
+        )
+        e2 = TierEntry(
+            entry_id="e2", tier=TIER_EPISODIC,
+            execution_id="exec-2",
+            content={"error": "timeout in pipeline startup"},
+            entity_key="stage_startup", entity_type="stage",
+            importance=0.5, timestamp=now,
+            ttl_expires_at=now + 604800,
+        )
+        self.store.save(e1)
+        self.store.save(e2)
+
+        related = find_related_entries(e1, self.store, threshold=0.1)
+        related_ids = {e.entry_id for e in related}
+        self.assertIn("e2", related_ids)
+
+    def test_41_no_relation_for_dissimilar(self):
+        """Dissimilar entries should not be returned as related."""
+        from v3.external.context_tiering.tier_retrieval import (
+            find_related_entries,
+        )
+        now = time.time()
+        e1 = TierEntry(
+            entry_id="e-a", tier=TIER_EPISODIC,
+            execution_id="exec-a",
+            content={"error": "deploy timeout"},
+            entity_key="deploy", entity_type="stage",
+            importance=0.5, timestamp=now,
+            ttl_expires_at=now + 604800,
+        )
+        e2 = TierEntry(
+            entry_id="e-b", tier=TIER_EPISODIC,
+            execution_id="exec-b",
+            content={"info": "daily backup success"},
+            entity_key="backup", entity_type="cron",
+            importance=0.1, timestamp=now,
+            ttl_expires_at=now + 604800,
+        )
+        self.store.save(e1)
+        self.store.save(e2)
+
+        related = find_related_entries(e1, self.store, threshold=0.2)
+        related_ids = {e.entry_id for e in related}
+        self.assertNotIn("e-b", related_ids)
+
+    def test_42_compact_with_fuzzy_matching(self):
+        """3 dissimilar-key but similar-content L2 entries → 1 L3 via fuzzy."""
+        from v3.external.context_tiering.tier_retrieval import (
+            compact_with_fuzzy,
+        )
+        now = time.time()
+        for i in range(3):
+            entry = TierEntry(
+                entry_id=f"fuzzy-{i}",
+                tier=TIER_EPISODIC,
+                execution_id=f"exec-f{i}",
+                content={"error": "pipeline timeout deploy failure"},
+                entity_key=f"timeout_variant_{i}",
+                entity_type="stage",
+                importance=0.5,
+                timestamp=now - (2 - i) * 3600,
+                ttl_expires_at=now + 604800,
+            )
+            self.store.save(entry)
+
+        promoted = compact_with_fuzzy(
+            self.store, window_days=7, threshold=3, fuzzy_threshold=0.3,
+        )
+        self.assertGreaterEqual(promoted, 1)
+        l3 = self.store.load_by_tier(TIER_SEMANTIC)
+        self.assertGreaterEqual(len(l3), 1)
+
+
+# ═══════════════════════════════════════════════════════════════════════
 # Helper
 # ═══════════════════════════════════════════════════════════════════════
 

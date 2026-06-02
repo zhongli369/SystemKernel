@@ -14,12 +14,15 @@ from v3.external.context_tiering.tier_store import (
 )
 from v3.external.context_tiering.tier_retrieval import (
     RetrievalResult, progressive_load, rank_by_relevance, retrieve_context,
+    find_related_entries, compact_with_fuzzy,
 )
 
 __all__ = [
     "MemoryTier", "TIER_WORKING", "TIER_EPISODIC", "TIER_SEMANTIC",
     "TierEntry", "tier_policy", "compact_episodic_to_semantic",
     "compute_importance", "get_tier_ttl_seconds",
+    "set_episodic_ttl", "get_episodic_ttl",
     "TierStore", "FileTierStore", "create_tier_store",
     "RetrievalResult", "progressive_load", "rank_by_relevance", "retrieve_context",
+    "find_related_entries", "compact_with_fuzzy",
 ]
